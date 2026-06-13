@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/yext/main/json-schema/yext-address-schema.json",
+  "title": "Yext Address",
+  "description": "The structured physical address for a Yext location entity.",
+  "type": "object",
+  "required": ["address", "city", "state", "postalCode", "countryCode"],
+  "properties": {
+    "address": {
+      "type": "string",
+      "description": "The building number and street address of the location.",
+      "example": "61 9th Ave"
+    },
+    "address2": {
+      "type": "string",
+      "description": "Second line of address (e.g., suite number).",
+      "example": "Suite 400"
+    },
+    "displayAddress": {
+      "type": "string",
+      "description": "Additional information to help consumers find the location. Presented alongside the main address."
+    },
+    "city": {
+      "type": "string",
+      "description": "The city of the location.",
+      "example": "New York"
+    },
+    "state": {
+      "type": "string",
+      "description": "The state, province, or region of the location.",
+      "example": "NY"
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "The postal or ZIP code of the location.",
+      "example": "10011"
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.",
+      "example": "US"
+    },
+    "extraDescription": {
+      "type": "string",
+      "description": "Any additional description that is not part of the formatted address."
+    }
+  }
+}

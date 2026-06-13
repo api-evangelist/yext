@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "uuid": "0186a0f1-6a44-7888-91e1-e75e39581456",
+    "appSpecificAccountId": "12345",
+    "timestamp": "2026-06-13T10:15:30Z",
+    "eventType": "ENTITY_UPDATED"
+  },
+  "entityId": "location-001",
+  "accountId": "12345",
+  "changedFields": [
+    "hours",
+    "mainPhone"
+  ],
+  "entity": {
+    "id": "location-001",
+    "name": "Yext HQ",
+    "type": "location",
+    "address": {
+      "line1": "61 9th Ave",
+      "city": "New York",
+      "region": "NY",
+      "postalCode": "10011",
+      "countryCode": "US"
+    },
+    "mainPhone": "+12125559999",
+    "hours": {
+      "monday": {
+        "openIntervals": [{ "start": "08:00", "end": "19:00" }]
+      },
+      "tuesday": {
+        "openIntervals": [{ "start": "08:00", "end": "19:00" }]
+      },
+      "wednesday": {
+        "openIntervals": [{ "start": "08:00", "end": "19:00" }]
+      },
+      "thursday": {
+        "openIntervals": [{ "start": "08:00", "end": "19:00" }]
+      },
+      "friday": {
+        "openIntervals": [{ "start": "08:00", "end": "18:00" }]
+      },
+      "saturday": {
+        "isClosed": true
+      },
+      "sunday": {
+        "isClosed": true
+      }
+    }
+  }
+}

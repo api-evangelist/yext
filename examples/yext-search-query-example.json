@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "uuid": "0186a0f1-6a44-7888-91e1-b42e39577890",
+    "errors": []
+  },
+  "response": {
+    "businessId": 3287462,
+    "queryId": "q-abc123def456",
+    "modules": [
+      {
+        "verticalConfigId": "locations",
+        "resultsCount": 3,
+        "results": [
+          {
+            "data": {
+              "id": "location-001",
+              "name": "Yext HQ",
+              "address": {
+                "line1": "61 9th Ave",
+                "city": "New York",
+                "region": "NY",
+                "postalCode": "10011",
+                "countryCode": "US"
+              },
+              "geocodedCoordinate": {
+                "latitude": 40.742124,
+                "longitude": -74.000465
+              },
+              "mainPhone": "+12125551234"
+            },
+            "highlightedFields": {
+              "name": {
+                "value": "Yext HQ",
+                "matchedSubstrings": [{ "offset": 0, "length": 4 }]
+              }
+            },
+            "distance": 1200
+          }
+        ],
+        "appliedQueryFilters": []
+      }
+    ],
+    "directAnswer": {
+      "type": "FIELD_VALUE",
+      "answer": {
+        "entityName": "Yext HQ",
+        "fieldApiName": "mainPhone",
+        "value": "+12125551234",
+        "fieldType": "phone"
+      },
+      "relatedItem": {
+        "verticalConfigId": "locations",
+        "data": {
+          "id": "location-001",
+          "name": "Yext HQ"
+        }
+      }
+    },
+    "locationBias": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "locationDisplayName": "New York, NY",
+      "accuracy": "REGION"
+    },
+    "spellCheck": null
+  }
+}

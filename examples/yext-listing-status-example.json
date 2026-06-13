@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "uuid": "0186a0f1-6a44-7888-91e1-d64e39580234",
+    "errors": []
+  },
+  "response": {
+    "listings": [
+      {
+        "publisherId": "GOOGLEMYBUSINESS",
+        "publisherName": "Google Business Profile",
+        "status": "ACTIVE",
+        "listingUrl": "https://business.google.com/b/1234567890",
+        "screenshotUrl": "https://www.yext.com/screenshots/gmb/location-001.png",
+        "alternateBrands": [],
+        "powerListingsBundle": null
+      },
+      {
+        "publisherId": "FACEBOOK",
+        "publisherName": "Facebook",
+        "status": "ACTIVE",
+        "listingUrl": "https://www.facebook.com/yext",
+        "screenshotUrl": null,
+        "alternateBrands": []
+      },
+      {
+        "publisherId": "YELP",
+        "publisherName": "Yelp",
+        "status": "CLAIMED",
+        "listingUrl": "https://www.yelp.com/biz/yext-new-york",
+        "screenshotUrl": null,
+        "alternateBrands": []
+      },
+      {
+        "publisherId": "BINGPLACES",
+        "publisherName": "Bing Places",
+        "status": "AVAILABLE",
+        "listingUrl": null,
+        "screenshotUrl": null,
+        "alternateBrands": []
+      }
+    ]
+  }
+}

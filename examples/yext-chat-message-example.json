@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "uuid": "0186a0f1-6a44-7888-91e1-c53e39579012",
+    "errors": []
+  },
+  "response": {
+    "conversationId": "conv-f8a3b2c1d0e9",
+    "message": {
+      "source": "BOT",
+      "text": "Hello! I can help you find store hours, locations, and answer questions about our products. What would you like to know?",
+      "timestamp": "2026-06-13T10:00:00Z"
+    },
+    "notes": {
+      "currentGoal": "GREETING",
+      "queryResult": null,
+      "searchQuery": null,
+      "collectedData": {}
+    }
+  }
+}

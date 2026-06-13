@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "uuid": "0186a0f1-6a44-7888-91e1-a31e39571234",
+    "errors": []
+  },
+  "response": {
+    "entity": {
+      "id": "location-001",
+      "name": "Yext HQ",
+      "type": "location",
+      "address": {
+        "line1": "61 9th Ave",
+        "city": "New York",
+        "region": "NY",
+        "postalCode": "10011",
+        "countryCode": "US"
+      },
+      "geocodedCoordinate": {
+        "latitude": 40.742124,
+        "longitude": -74.000465
+      },
+      "mainPhone": "+12125551234",
+      "websiteUrl": {
+        "url": "https://www.yext.com"
+      },
+      "hours": {
+        "monday": {
+          "openIntervals": [{ "start": "09:00", "end": "18:00" }]
+        },
+        "tuesday": {
+          "openIntervals": [{ "start": "09:00", "end": "18:00" }]
+        },
+        "wednesday": {
+          "openIntervals": [{ "start": "09:00", "end": "18:00" }]
+        },
+        "thursday": {
+          "openIntervals": [{ "start": "09:00", "end": "18:00" }]
+        },
+        "friday": {
+          "openIntervals": [{ "start": "09:00", "end": "17:00" }]
+        },
+        "saturday": {
+          "isClosed": true
+        },
+        "sunday": {
+          "isClosed": true
+        }
+      },
+      "emails": ["info@yext.com"],
+      "description": "Yext is a digital presence platform that powers the official facts about businesses across the digital ecosystem.",
+      "keywords": ["digital presence", "listings", "SEO", "knowledge graph"],
+      "categoryIds": ["1299", "1297"],
+      "landingPageUrl": "https://www.yext.com",
+      "logo": {
+        "image": {
+          "url": "https://www.yext.com/favicon.ico",
+          "width": 192,
+          "height": 192
+        }
+      }
+    }
+  }
+}

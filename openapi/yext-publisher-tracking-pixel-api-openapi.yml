@@ -1,0 +1,209 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Pixel Documentation
+  description: |
+    # Overview
+    It’s important that we track listing impressions and clicks so that we can demonstrate the value of the Yext Listings product to our customers. To collect these statistics, you should embed a tracking pixel on any pages in your site that include Yext-powered listings.
+
+    **Notes**
+    * Performance statistics are not used to audit for billing purposes; they are simply for the customer’s benefit.
+    * If the listing is being shown in a location where the pixel cannot be embedded (e.g., on a mobile device), then you can make a server-side call to the pixel and pass additional parameters that would usually be obtained from the pixel request.
+
+    **Requirements**
+    * The crucial tracking requisites are impressions (search results pages and business profile pages) and website clicks (search results pages and business profile pages).
+    * Publishers must separate statistics across their different properties (e.g., mobile app stats vs web stats)
+
+    ## Examples
+    You can implement the click-tracking pixel by using JavaScript to add an img tag to the page's HTML:
+    <pre><code>
+    img src="https://pixel.yext-pub.com/plpixel?source=detailspage&action=click&target=website&pid=*yourPID*&ids=113159" width=1 height=1
+    </code></pre>
+
+    Another example of how to implement website click-tracking appears below.
+
+    <pre><code>
+    function yext_track(target){
+        var track = new Image(); 
+        track.src="https://pixel.yext-pub.com/plpixel?source=detailspage&action=click&pid=*yourPID*&ids=113159" + "&target=" + target;
+    }
+    </code></pre>
+
+    Keeping Page Loads Fast
+    * The simplest way to add a tracking pixel to your site is to use an img tag, as shown above.
+    * If you are concerned about any small latency this tag will add to your page load time, you can use JavaScript to add it to the DOM after the page is loaded.
+
+    For example:
+
+    <pre><code>
+    (function() {
+      var img = document.createElement('img');
+      img.setAttribute('src', 'https://pixel.yext-pub.com/plpixel?pid=yourPID&ids=80748,72094&source=serp&action=impression&query=therapy');
+      img.setAttribute('width', '1');
+      img.setAttribute('height', '1');
+      document.getElementsByTagName('body')[0].appendChild(img);
+    })();
+    </code></pre>
+servers:
+  - url: https://pixel.yext-pub.com
+paths:
+  /plpixel:
+    parameters:
+      - $ref: '#/components/parameters/pid'
+      - $ref: '#/components/parameters/ids'
+      - $ref: '#/components/parameters/source'
+      - $ref: '#/components/parameters/action'
+      - $ref: '#/components/parameters/query'
+      - $ref: '#/components/parameters/querylocation'
+      - $ref: '#/components/parameters/rank'
+      - $ref: '#/components/parameters/target'
+      - $ref: '#/components/parameters/property'
+      - $ref: '#/components/parameters/useragent'
+      - $ref: '#/components/parameters/userid'
+      - $ref: '#/components/parameters/pageurl'
+      - $ref: '#/components/parameters/additional'
+    get:
+      operationId: Pixel
+      summary: Pixel
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request (Incorrect Format)
+components:
+  parameters:
+    pid:
+      name: pid
+      in: query
+      schema:
+        type: string
+      required: true
+      description: |
+        Publisher secure ID. This value will be provided to you.
+    ids:
+      name: ids
+      in: query
+      schema:
+        type: string
+      required: true
+      description: |
+        Comma-separated list of Yext location Ids
+    source:
+      name: source
+      in: query
+      schema:
+        type: string
+        enum:
+          - serp
+          - mapbubble
+          - detailspage
+          - drivingdirections
+      required: true
+      description: |
+        Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
+    action:
+      name: action
+      in: query
+      schema:
+        type: string
+        enum:
+          - impression
+          - click
+      required: true
+      description: |
+        Type of event that took place
+    query:
+      name: query
+      in: query
+      schema:
+        type: string
+      description: |
+        The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.
+        * Required if **source** is **serp**
+        * The value of this field must be URL encoded
+    querylocation:
+      name: querylocation
+      in: query
+      schema:
+        type: string
+      description: |
+        Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in "Find X near Y", "X" should be provided as "query" and "Y" should be provided as **querylocation**.
+        * Required if **source** is **serp**
+        * The value of this field must be URL encoded
+    rank:
+      name: rank
+      in: query
+      schema:
+        type: string
+      description: |
+        The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).
+        * Comma-separated list of integers, 1-indexed, parallel to ids.
+        * A rank of '5' in the first index would indicate that the first listing in the list appeared fifth in the organic results
+    target:
+      name: target
+      in: query
+      schema:
+        type: string
+        enum:
+          - bios
+          - directions
+          - email
+          - events
+          - hours
+          - map
+          - mappin
+          - menus
+          - moreinfo
+          - name
+          - phone
+          - products
+          - reviews
+          - searchnearby
+          - share
+          - website
+      description: |
+        Indicates which part of the page the user clicked on. For clicks on the SERP that send the user to the details page, you may optionally report a target of moreinfo rather than specifying a particular field.
+        If no appropriate value is available, please contact us.
+        * Required if **action** is **click**
+    property:
+      name: property
+      in: query
+      schema:
+        type: string
+      description: |
+        Indicates the Internet property where the event took place.
+        You should always provide this value if your listings are available on multiple platforms or properties (e.g., website, iPhone app, and Android app or publisher.example.com and local.publisher.com).
+        * This value does not have to be a domain name, but please choose something that’s likely to be unique.
+    useragent:
+      name: useragent
+      in: query
+      schema:
+        type: string
+      description: |
+        The user agent from the original web request.
+        * Required  if and only if making a server-side call to report a web page view
+    userid:
+      name: userid
+      in: query
+      schema:
+        type: string
+      description: |
+        A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. 
+        The IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.
+        * Required if and only if making a server-side call
+    pageurl:
+      name: pageurl
+      in: query
+      schema:
+        type: string
+      description: |
+        The URL of the original web request
+        * Required  if and only if making a server-side call to report a web page view
+    additional:
+      name: additional
+      in: query
+      schema:
+        type: string
+      description: |
+        Any additional data you wish to include
+        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions

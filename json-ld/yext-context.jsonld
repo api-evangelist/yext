@@ -1,0 +1,326 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "yext": "https://hitchhikers.yext.com/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "image": "schema:image",
+    "telephone": "schema:telephone",
+    "email": "schema:email",
+    "address": "schema:address",
+    "geo": "schema:geo",
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+    "openingHours": "schema:openingHours",
+    "priceRange": "schema:priceRange",
+    "servesCuisine": "schema:servesCuisine",
+    "hasMenu": "schema:hasMenu",
+
+    "KnowledgeGraph": {
+      "@id": "yext:KnowledgeGraph",
+      "@type": "@id"
+    },
+    "Entity": {
+      "@id": "yext:Entity",
+      "@type": "@id"
+    },
+    "EntityProfile": {
+      "@id": "yext:EntityProfile",
+      "@type": "@id"
+    },
+    "EntityWrite": {
+      "@id": "yext:EntityWrite",
+      "@type": "@id"
+    },
+    "Location": {
+      "@id": "yext:Location",
+      "@type": "@id"
+    },
+    "AtmWrite": {
+      "@id": "yext:AtmWrite",
+      "@type": "@id"
+    },
+    "EventWrite": {
+      "@id": "yext:EventWrite",
+      "@type": "@id"
+    },
+    "FaqWrite": {
+      "@id": "yext:FaqWrite",
+      "@type": "@id"
+    },
+    "FinancialProfessionalWrite": {
+      "@id": "yext:FinancialProfessionalWrite",
+      "@type": "@id"
+    },
+    "HealthcareFacilityWrite": {
+      "@id": "yext:HealthcareFacilityWrite",
+      "@type": "@id"
+    },
+    "HealthcareProfessionalWrite": {
+      "@id": "yext:HealthcareProfessionalWrite",
+      "@type": "@id"
+    },
+    "HelpArticleWrite": {
+      "@id": "yext:HelpArticleWrite",
+      "@type": "@id"
+    },
+    "HotelWrite": {
+      "@id": "yext:HotelWrite",
+      "@type": "@id"
+    },
+    "HotelRoomTypeWrite": {
+      "@id": "yext:HotelRoomTypeWrite",
+      "@type": "@id"
+    },
+    "JobWrite": {
+      "@id": "yext:JobWrite",
+      "@type": "@id"
+    },
+    "LocationWrite": {
+      "@id": "yext:LocationWrite",
+      "@type": "@id"
+    },
+    "OrganizationWrite": {
+      "@id": "yext:OrganizationWrite",
+      "@type": "@id"
+    },
+    "ProductWrite": {
+      "@id": "yext:ProductWrite",
+      "@type": "@id"
+    },
+    "RestaurantWrite": {
+      "@id": "yext:RestaurantWrite",
+      "@type": "@id"
+    },
+    "Listing": {
+      "@id": "yext:Listing",
+      "@type": "@id"
+    },
+    "ListingStatus": {
+      "@id": "yext:ListingStatus",
+      "@type": "@id"
+    },
+    "Publisher": {
+      "@id": "yext:Publisher",
+      "@type": "@id"
+    },
+    "Review": {
+      "@id": "yext:Review",
+      "@type": "@id"
+    },
+    "ReviewComment": {
+      "@id": "yext:ReviewComment",
+      "@type": "@id"
+    },
+    "Address": {
+      "@id": "yext:Address",
+      "@type": "@id"
+    },
+    "Hours": {
+      "@id": "yext:Hours",
+      "@type": "@id"
+    },
+    "HolidayHour": {
+      "@id": "yext:HolidayHour",
+      "@type": "@id"
+    },
+    "GeoData": {
+      "@id": "yext:GeoData",
+      "@type": "@id"
+    },
+    "Photo": {
+      "@id": "yext:Photo",
+      "@type": "@id"
+    },
+    "Menu": {
+      "@id": "yext:Menu",
+      "@type": "@id"
+    },
+    "MenuItem": {
+      "@id": "yext:MenuItem",
+      "@type": "@id"
+    },
+    "Bio": {
+      "@id": "yext:Bio",
+      "@type": "@id"
+    },
+    "BioItem": {
+      "@id": "yext:BioItem",
+      "@type": "@id"
+    },
+    "Product": {
+      "@id": "yext:Product",
+      "@type": "@id"
+    },
+    "ProductItem": {
+      "@id": "yext:ProductItem",
+      "@type": "@id"
+    },
+    "ECL": {
+      "@id": "yext:ECL",
+      "@type": "@id"
+    },
+    "SearchQuery": {
+      "@id": "yext:SearchQuery",
+      "@type": "@id"
+    },
+    "DirectAnswer": {
+      "@id": "yext:DirectAnswer",
+      "@type": "@id"
+    },
+    "Facets": {
+      "@id": "yext:Facets",
+      "@type": "@id"
+    },
+    "VerticalQuery": {
+      "@id": "yext:VerticalQuery",
+      "@type": "@id"
+    },
+    "Autocomplete": {
+      "@id": "yext:Autocomplete",
+      "@type": "@id"
+    },
+    "FilterSearch": {
+      "@id": "yext:FilterSearch",
+      "@type": "@id"
+    },
+    "ChatBot": {
+      "@id": "yext:ChatBot",
+      "@type": "@id"
+    },
+    "ChatMessage": {
+      "@id": "yext:ChatMessage",
+      "@type": "@id"
+    },
+    "ConversationId": {
+      "@id": "yext:ConversationId",
+      "@type": "@id"
+    },
+    "AnalyticsEvent": {
+      "@id": "yext:AnalyticsEvent",
+      "@type": "@id"
+    },
+    "TrackingPixel": {
+      "@id": "yext:TrackingPixel",
+      "@type": "@id"
+    },
+    "Webhook": {
+      "@id": "yext:Webhook",
+      "@type": "@id"
+    },
+    "ChangedFields": {
+      "@id": "yext:ChangedFields",
+      "@type": "@id"
+    },
+    "Account": {
+      "@id": "yext:Account",
+      "@type": "@id"
+    },
+    "ApiKey": {
+      "@id": "yext:ApiKey",
+      "@type": "@id"
+    },
+    "Folder": {
+      "@id": "yext:Folder",
+      "@type": "@id"
+    },
+    "ResponseMeta": {
+      "@id": "yext:ResponseMeta",
+      "@type": "@id"
+    },
+    "ResponseError": {
+      "@id": "yext:ResponseError",
+      "@type": "@id"
+    },
+
+    "entityId": {
+      "@id": "yext:entityId",
+      "@type": "xsd:string"
+    },
+    "accountId": {
+      "@id": "yext:accountId",
+      "@type": "xsd:string"
+    },
+    "locationId": {
+      "@id": "yext:locationId",
+      "@type": "xsd:string"
+    },
+    "botId": {
+      "@id": "yext:botId",
+      "@type": "xsd:string"
+    },
+    "conversationId": {
+      "@id": "yext:conversationId",
+      "@type": "xsd:string"
+    },
+    "listingId": {
+      "@id": "yext:listingId",
+      "@type": "xsd:string"
+    },
+    "reviewId": {
+      "@id": "yext:reviewId",
+      "@type": "xsd:string"
+    },
+    "publisherId": {
+      "@id": "yext:publisherId",
+      "@type": "xsd:string"
+    },
+    "verticalConfigId": {
+      "@id": "yext:verticalConfigId",
+      "@type": "xsd:string"
+    },
+    "queryId": {
+      "@id": "yext:queryId",
+      "@type": "xsd:string"
+    },
+    "locationBias": {
+      "@id": "yext:locationBias",
+      "@type": "@id"
+    },
+    "spellCheck": {
+      "@id": "yext:spellCheck",
+      "@type": "@id"
+    },
+    "appliedQueryFilters": {
+      "@id": "yext:appliedQueryFilters",
+      "@type": "@id"
+    },
+    "entities": {
+      "@id": "yext:entities",
+      "@container": "@list"
+    },
+    "listings": {
+      "@id": "yext:listings",
+      "@container": "@list"
+    },
+    "reviews": {
+      "@id": "yext:reviews",
+      "@container": "@list"
+    },
+    "modules": {
+      "@id": "yext:modules",
+      "@container": "@list"
+    },
+    "results": {
+      "@id": "yext:results",
+      "@container": "@list"
+    },
+    "facets": {
+      "@id": "yext:facets",
+      "@container": "@list"
+    },
+    "messages": {
+      "@id": "yext:messages",
+      "@container": "@list"
+    },
+    "changedFields": {
+      "@id": "yext:changedFields",
+      "@container": "@list"
+    }
+  }
+}

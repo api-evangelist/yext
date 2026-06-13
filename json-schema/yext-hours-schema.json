@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/yext/main/json-schema/yext-hours-schema.json",
+  "title": "Yext Hours",
+  "description": "Structured business hours information for a Yext location entity. Days that are unspecified have no available hours data. Days that are specified but contain no intervals are closed.",
+  "type": "object",
+  "properties": {
+    "day": {
+      "type": "string",
+      "description": "The day of the week.",
+      "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+    },
+    "intervals": {
+      "type": "array",
+      "description": "A set of opening and closing time intervals for the specified day.",
+      "items": {
+        "type": "object",
+        "description": "A single open/close interval expressed as minutes from midnight.",
+        "properties": {
+          "start": {
+            "type": "integer",
+            "description": "The start time in minutes from midnight (e.g., 540 = 9:00 AM).",
+            "example": 540
+          },
+          "end": {
+            "type": "integer",
+            "description": "The end time in minutes from midnight (e.g., 1080 = 6:00 PM).",
+            "example": 1080
+          }
+        }
+      }
+    },
+    "reopenDate": {
+      "type": "string",
+      "format": "date",
+      "description": "If the location is temporarily closed, the date it will reopen (YYYY-MM-DD)."
+    },
+    "holidayHours": {
+      "type": "array",
+      "description": "Special hours overrides for specific dates such as holidays.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the holiday hours override (YYYY-MM-DD)."
+          },
+          "intervals": {
+            "type": "array",
+            "description": "Open/close intervals for this date. Empty means closed.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "start": { "type": "integer" },
+                "end": { "type": "integer" }
+              }
+            }
+          },
+          "isClosed": {
+            "type": "boolean",
+            "description": "If true, the location is closed for the entire day."
+          }
+        }
+      }
+    }
+  }
+}

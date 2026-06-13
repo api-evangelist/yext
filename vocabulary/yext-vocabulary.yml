@@ -1,0 +1,324 @@
+vocabulary:
+  name: Yext Vocabulary
+  description: Domain terms and concepts for the Yext digital presence platform APIs covering Knowledge Graph entities, listings management, search, reviews, analytics, and publisher integrations.
+  url: https://hitchhikers.yext.com/docs/
+  version: '2.0'
+  created: '2026-06-13'
+  modified: '2026-06-13'
+
+terms:
+
+  # Core Platform Concepts
+  - term: KnowledgeGraph
+    label: Knowledge Graph
+    description: Yext's central data store for structured business information, including entities like locations, events, healthcare facilities, restaurants, hotels, and custom entity types.
+    related:
+      - Entity
+      - Location
+      - EntityProfile
+
+  - term: Entity
+    label: Entity
+    description: A discrete record in the Yext Knowledge Graph representing a business object such as a location, event, FAQ, product, or custom type. Entities have structured fields and can be published to listings.
+    related:
+      - KnowledgeGraph
+      - EntityWrite
+      - EntityProfile
+      - Location
+
+  - term: EntityProfile
+    label: Entity Profile
+    description: A versioned, language-specific representation of an entity's fields, used for managing multilingual content within the Knowledge Graph.
+    related:
+      - Entity
+
+  - term: Location
+    label: Location
+    description: A physical place entity in the Knowledge Graph representing a business location with address, hours, contact information, and listing data.
+    related:
+      - Entity
+      - Address
+      - Hours
+      - Listing
+
+  - term: Listing
+    label: Listing
+    description: A business profile as it appears on a third-party publisher directory (e.g., Google, Facebook, Yelp). Yext syndicates entity data to listings across 200+ publishers.
+    related:
+      - ListingStatus
+      - Publisher
+      - Entity
+
+  - term: ListingStatus
+    label: Listing Status
+    description: The current syndication state of a business listing on a specific publisher, including sync status, error details, and live URL.
+    related:
+      - Listing
+      - Publisher
+
+  - term: Publisher
+    label: Publisher
+    description: A third-party directory or platform (e.g., Google, Apple Maps, Bing, Yelp) that receives and displays business listing data syndicated from Yext.
+    related:
+      - Listing
+      - ListingStatus
+
+  - term: Review
+    label: Review
+    description: Customer feedback submitted on a publisher platform about a business location. Yext aggregates reviews and provides APIs for monitoring, responding, and analyzing review content.
+    related:
+      - ReviewComment
+      - Entity
+      - Publisher
+
+  - term: ReviewComment
+    label: Review Comment
+    description: A business response or follow-up comment attached to a customer review.
+    related:
+      - Review
+
+  # Search / Answers
+  - term: SearchQuery
+    label: Search Query
+    description: A natural language or structured query submitted to the Yext Search (Answers) API to retrieve relevant entity results from the Knowledge Graph.
+    related:
+      - VerticalQuery
+      - DirectAnswer
+      - Facets
+      - Autocomplete
+
+  - term: DirectAnswer
+    label: Direct Answer
+    description: A concise answer extracted by the Yext AI from a specific entity field and returned at the top of search results for high-confidence queries.
+    related:
+      - SearchQuery
+
+  - term: Facets
+    label: Facets
+    description: Filterable categories returned alongside search results, allowing users to narrow results by attributes such as location, category, or availability.
+    related:
+      - SearchQuery
+
+  - term: VerticalQuery
+    label: Vertical Query
+    description: A search query scoped to a specific content vertical (e.g., locations, FAQs, products) within the Yext Search API.
+    related:
+      - SearchQuery
+
+  - term: Autocomplete
+    label: Autocomplete
+    description: A search suggestion feature returning query completions as the user types, powered by the Yext Search API.
+    related:
+      - SearchQuery
+
+  - term: FilterSearch
+    label: Filter Search
+    description: A Yext Search API feature for retrieving filtered field values, used to power autocomplete-style filters in search UIs.
+    related:
+      - SearchQuery
+      - Facets
+
+  # Chat / Conversational AI
+  - term: ChatBot
+    label: Chat Bot
+    description: A conversational AI assistant configured in the Yext platform, powered by the Knowledge Graph, that handles natural language customer interactions via the Chat API.
+    related:
+      - ChatMessage
+      - ConversationId
+
+  - term: ChatMessage
+    label: Chat Message
+    description: A single turn in a conversation with a Yext Chat bot, containing user input and bot response.
+    related:
+      - ChatBot
+      - ConversationId
+
+  - term: ConversationId
+    label: Conversation ID
+    description: A unique identifier for a stateful chat session with a Yext Chat bot, used to maintain context across multiple message turns.
+    related:
+      - ChatMessage
+
+  # Analytics / Events
+  - term: AnalyticsEvent
+    label: Analytics Event
+    description: A tracked interaction or impression submitted to the Yext Analytics Events API, used to measure search performance, click-through rates, and user engagement.
+    related:
+      - SearchQuery
+      - Entity
+
+  # Publisher Partner APIs
+  - term: ECL
+    label: Extended Content Library (ECL)
+    description: A publisher feature enabling enhanced business content such as menus, bios, products, and events to be associated with a listing beyond standard listing fields.
+    related:
+      - Publisher
+      - Listing
+      - Menu
+      - Bio
+      - Product
+
+  - term: TrackingPixel
+    label: Tracking Pixel
+    description: An impression or click tracking event reported by publisher partners back to Yext to power analytics on listing views and engagement.
+    related:
+      - Publisher
+      - AnalyticsEvent
+
+  # Entity Types
+  - term: AtmWrite
+    label: ATM
+    description: An entity type in the Knowledge Graph representing an ATM location.
+    related:
+      - Entity
+
+  - term: HealthcareFacility
+    label: Healthcare Facility
+    description: An entity type representing a hospital, clinic, or other healthcare location.
+    related:
+      - Entity
+      - HealthcareProfessional
+
+  - term: HealthcareProfessional
+    label: Healthcare Professional
+    description: An entity type representing a doctor, dentist, or other healthcare provider.
+    related:
+      - Entity
+      - HealthcareFacility
+
+  - term: Restaurant
+    label: Restaurant
+    description: An entity type representing a dining establishment with menu, hours, and cuisine attributes.
+    related:
+      - Entity
+      - Menu
+
+  - term: Hotel
+    label: Hotel
+    description: An entity type representing a lodging property with room types, amenities, and check-in information.
+    related:
+      - Entity
+      - HotelRoomType
+
+  - term: HotelRoomType
+    label: Hotel Room Type
+    description: A sub-entity representing a specific category of room at a hotel.
+    related:
+      - Hotel
+
+  - term: Job
+    label: Job
+    description: An entity type representing a job posting with title, description, and application information.
+    related:
+      - Entity
+
+  - term: Faq
+    label: FAQ
+    description: An entity type representing a frequently asked question and its answer, used to power Direct Answers in search.
+    related:
+      - Entity
+      - DirectAnswer
+
+  # Data Structures
+  - term: Address
+    label: Address
+    description: A structured physical address component of an entity, including street, city, region, postal code, and country fields.
+    related:
+      - Location
+      - Entity
+
+  - term: Hours
+    label: Hours
+    description: Structured business hours data for a location entity, supporting regular hours as well as special hours for holidays and seasonal variations.
+    related:
+      - Location
+      - HolidayHour
+
+  - term: HolidayHour
+    label: Holiday Hour
+    description: An override to standard business hours for a specific date, such as a holiday closure or special schedule.
+    related:
+      - Hours
+
+  - term: GeoData
+    label: Geo Data
+    description: Geographic coordinates (latitude and longitude) for a location entity, used for distance-based search and map display.
+    related:
+      - Location
+
+  - term: Photo
+    label: Photo
+    description: An image asset associated with an entity, including URL, dimensions, and optional description.
+    related:
+      - Entity
+
+  - term: Menu
+    label: Menu
+    description: A structured content list representing a restaurant's menu, organized into sections with items, descriptions, and pricing.
+    related:
+      - Restaurant
+      - ECL
+
+  - term: Bio
+    label: Bio
+    description: A structured professional biography content list for a healthcare professional or staff member.
+    related:
+      - HealthcareProfessional
+      - ECL
+
+  - term: Product
+    label: Product
+    description: A structured product content list associated with an entity, supporting items with names, descriptions, images, and pricing.
+    related:
+      - Entity
+      - ECL
+
+  # Webhooks
+  - term: Webhook
+    label: Webhook
+    description: A real-time HTTP notification sent by Yext to a configured endpoint when changes occur to entities, listings, or reviews.
+    related:
+      - Entity
+      - Listing
+      - Review
+
+  - term: ChangedFields
+    label: Changed Fields
+    description: The set of entity fields that were modified in an update, included in webhook payloads to indicate what data changed.
+    related:
+      - Webhook
+      - Entity
+
+  # Authentication / Account
+  - term: Account
+    label: Account
+    description: A Yext platform account that owns entities, listings, and API credentials. API requests are scoped to an account via the accountId path parameter.
+    related:
+      - Entity
+      - Listing
+
+  - term: ApiKey
+    label: API Key
+    description: A credential used to authenticate requests to the Yext API, passed as the api_key query parameter.
+    related:
+      - Account
+
+  - term: Folder
+    label: Folder
+    description: An organizational unit within a Yext account for grouping and managing entities.
+    related:
+      - Account
+      - Entity
+
+  # Response Structures
+  - term: ResponseMeta
+    label: Response Meta
+    description: Standard metadata returned in every Yext API response, including UUID, errors, and pagination tokens.
+    related:
+      - ResponseError
+
+  - term: ResponseError
+    label: Response Error
+    description: A structured error object returned in Yext API responses when a request fails, containing an error code and message.
+    related:
+      - ResponseMeta

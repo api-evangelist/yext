@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/yext/main/json-schema/yext-search-query-schema.json",
+  "title": "Yext Search Query Response",
+  "description": "The response body from a Yext Search (Answers) API universal query, containing entity results, direct answers, facets, and search metadata.",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the API response.",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "Unique identifier for this API response."
+        },
+        "errors": {
+          "type": "array",
+          "description": "Any non-fatal errors encountered while processing the request.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "integer" },
+              "type": { "type": "string" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "businessId": {
+          "type": "integer",
+          "description": "The business ID associated with the account."
+        },
+        "queryId": {
+          "type": "string",
+          "description": "Unique identifier for the search query, used for analytics reporting."
+        },
+        "modules": {
+          "type": "array",
+          "description": "The result modules, one per content vertical returned.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "verticalConfigId": {
+                "type": "string",
+                "description": "The identifier of the content vertical."
+              },
+              "resultsCount": {
+                "type": "integer",
+                "description": "Total number of results available for this vertical."
+              },
+              "results": {
+                "type": "array",
+                "description": "The paginated entity results for this vertical.",
+                "items": {
+                  "$ref": "#/definitions/EntityResult"
+                }
+              },
+              "appliedQueryFilters": {
+                "type": "array",
+                "description": "Filters that were automatically applied to the query.",
+                "items": { "type": "object" }
+              }
+            }
+          }
+        },
+        "directAnswer": {
+          "type": "object",
+          "description": "A concise answer estimated to directly address the query.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "The direct answer type (e.g., FIELD_VALUE, FEATURED_SNIPPET)."
+            },
+            "answer": {
+              "type": "object",
+              "description": "The answer content, format depends on the direct answer type."
+            },
+            "relatedItem": {
+              "type": "object",
+              "description": "The entity or item that the direct answer was derived from."
+            }
+          }
+        },
+        "spellCheck": {
+          "type": "object",
+          "description": "Spell check information that may suggest corrections to the query.",
+          "properties": {
+            "originalQuery": { "type": "string" },
+            "correctedQuery": { "type": "object" },
+            "type": {
+              "type": "string",
+              "description": "The spell check suggestion type (SUGGEST, AUTOCORRECT, or COMBINE)."
+            }
+          }
+        },
+        "locationBias": {
+          "type": "object",
+          "description": "Geographic location information used to bias search results.",
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "description": "Latitude coordinate used to bias the search.",
+              "example": 40.7128
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Longitude coordinate used to bias the search.",
+              "example": -74.006
+            },
+            "locationDisplayName": {
+              "type": "string",
+              "description": "Human-readable display name of the bias location.",
+              "example": "New York, NY"
+            },
+            "accuracy": {
+              "type": "string",
+              "description": "The accuracy level of the location bias (e.g., DEVICE, REGION, PLACE)."
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EntityResult": {
+      "type": "object",
+      "description": "A single entity result from a search query.",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "The entity's field data, structure varies by entity type."
+        },
+        "highlightedFields": {
+          "type": "object",
+          "description": "Map of field IDs to highlighted snippets showing query match context."
+        },
+        "distance": {
+          "type": "integer",
+          "description": "Distance in meters from the query location bias."
+        }
+      }
+    }
+  }
+}
