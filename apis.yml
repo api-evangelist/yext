@@ -1,0 +1,197 @@
+aid: yext
+name: Yext
+description: Yext is a digital presence platform that enables businesses to manage their listings across 200+ publishers, update location data, manage reviews, and power AI search experiences. Its REST APIs provide programmatic access to the Knowledge Graph, Listings, Reviews, Analytics, and Content Delivery capabilities.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/yext/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - Digital Presence
+  - Business Listings
+  - Location Data
+  - Reviews
+  - AI Search
+  - Knowledge Graph
+apis:
+  - name: Yext Knowledge API
+    description: Core Management API for creating, updating, and querying entities in the Yext Knowledge Graph including locations, events, healthcare facilities, restaurants, hotels, and custom entity types.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/managementapis/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Knowledge Graph
+      - Entities
+      - Locations
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/managementapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/knowledgeapi.yaml
+  - name: Yext Answers API
+    description: Search API that powers AI-powered search experiences, enabling natural language queries against the Yext Knowledge Graph.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+    baseURL: https://cdn.yextapis.com/v2
+    tags:
+      - Search
+      - AI Search
+      - Content Delivery
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/answersapi.yaml
+  - name: Yext Chat API
+    description: API for building conversational AI chat experiences powered by Yext's Knowledge Graph and AI platform.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/chat/
+    baseURL: https://cdn.yextapis.com/v2
+    tags:
+      - Chat
+      - Conversational AI
+      - Content Delivery
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/chat/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/chatapi.yaml
+  - name: Yext Events API
+    description: API for managing events and event-driven workflows within the Yext platform.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/managementapis/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Events
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/managementapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/eventsapi.yaml
+  - name: Yext Live API
+    description: Content Delivery API optimized for performance and uptime, surfacing entity information for consumer-facing experiences.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+    baseURL: https://cdn.yextapis.com/v2
+    tags:
+      - Content Delivery
+      - Live Data
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/liveapi.yaml
+  - name: Yext Admin API
+    description: Administrative API for managing Yext accounts, users, and platform configuration.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/managementapis/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Administration
+      - Account Management
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/managementapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/adminapi.yaml
+  - name: Yext Publisher Listings API
+    description: API for publisher partners to receive and manage business listing data from Yext for syndication across directories.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Listings
+      - Publishers
+      - Directories
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publisherlistingsapi.yaml
+  - name: Yext Publisher ECL API
+    description: Publisher Extended Content Library API enabling publisher partners to manage enhanced content for business listings.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/publisherapis/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Publishers
+      - Enhanced Content
+      - Listings
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/publisherapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publishereclapi.yaml
+  - name: Yext Publisher Notify Review API
+    description: API for publisher partners to notify Yext of new reviews received on their platforms.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/publisherapis/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Publishers
+      - Reviews
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/publisherapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publishernotifyreviewapi.yaml
+  - name: Yext Publisher Tracking Pixel API
+    description: API enabling publisher partners to report impression and click tracking data back to Yext for analytics.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/publisherapis/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Publishers
+      - Analytics
+      - Tracking
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/publisherapis/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publishertrackingpixelapi.yaml
+  - name: Yext Webhooks
+    description: Webhook specifications for receiving real-time notifications about changes to entities, reviews, listings, and other Yext platform events.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+    baseURL: https://api.yextapis.com/v2
+    tags:
+      - Webhooks
+      - Events
+      - Real-time
+    properties:
+      - type: Documentation
+        url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/webhooks.yaml
+common:
+  - type: Website
+    url: https://www.yext.com
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/
+  - type: Documentation
+    url: https://developer.yext.com/docs/
+  - type: GitHubOrg
+    url: https://github.com/yext
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/yext
+  - type: Blog
+    url: https://www.yext.com/blog
+  - type: Blog
+    url: https://developer.yext.com/blog/
+  - type: Pricing
+    url: https://www.yext.com/pricing/
+  - type: StatusPage
+    url: https://www.yexttrust.com/
+  - type: X
+    url: https://x.com/yext
+  - type: Plans
+    url: plans/yext-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/yext-rate-limits.yml
+  - type: FinOps
+    url: finops/yext-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

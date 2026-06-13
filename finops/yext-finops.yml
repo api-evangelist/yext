@@ -1,0 +1,40 @@
+name: Yext FinOps
+description: Financial operations guidance for managing Yext API and platform costs.
+url: https://www.yext.com/pricing/
+costModel:
+  type: subscription
+  billing: annual
+  unit: per location
+  currency: USD
+  notes:
+    - Yext charges per location on an annual subscription basis.
+    - API access is included at standard allowances with all subscription tiers.
+    - No per-API-call or overage fees; rate limits are enforced technically (HTTP 429).
+    - No developer fees to access the API or publish to the App Directory.
+costOptimization:
+  - strategy: Volume discounts
+    description: Enterprise accounts managing 50+ locations can negotiate 10-30% volume discounts.
+  - strategy: Multi-year commitment
+    description: 3-year term commitments can unlock an additional 15-20% discount off list price.
+  - strategy: Tier right-sizing
+    description: Select the appropriate tier based on required directory count and features; avoid overpaying for Premium if AI Search is not needed.
+  - strategy: Sandbox environment
+    description: Use the sandbox environment (sbx-api.yextapis.com, sbx-cdn.yextapis.com) for development and testing to avoid consuming production API quotas.
+  - strategy: Rate limit management
+    description: Design integrations to stay within Management API (5,000/hr) and Analytics API (1,000/hr) limits to avoid request failures with no additional cost.
+additionalCosts:
+  - item: Implementation services
+    estimatedRange: $25,000 - $150,000 (Year 1)
+    notes: Varies by deployment complexity and number of locations.
+  - item: Enterprise support
+    estimatedRange: $10,000 - $20,000 annually
+    notes: Optional; dedicated support SLAs for enterprise accounts.
+budgetEstimates:
+  - tier: Small Business (1-10 locations)
+    annualRange: $199 - $9,990 per location
+  - tier: Mid-Market (10-50 locations)
+    annualRange: $20,000 - $50,000 total
+  - tier: Enterprise (100-250 locations)
+    annualRange: $20,000 - $125,000 total
+  - tier: Large Enterprise (500+ locations)
+    annualRange: $100,000 - $400,000+ total

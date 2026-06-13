@@ -1,0 +1,58 @@
+name: Yext Plans and Pricing
+description: Pricing plans for the Yext digital presence platform including API access allowances by tier.
+url: https://www.yext.com/pricing/
+plans:
+  - name: Emerging
+    description: Entry-level plan for small businesses managing a single location with limited directory access.
+    price: 199.00
+    unit: per location/year
+    currency: USD
+    features:
+      - Limited directory syndication
+      - Basic listing management
+      - API access (standard allowances)
+  - name: Essential
+    description: Mid-tier plan with access to 50+ directories and review monitoring capabilities.
+    price: 449.00
+    unit: per location/year
+    currency: USD
+    features:
+      - 50+ directory syndication
+      - Review monitoring
+      - API access (standard allowances)
+  - name: Complete
+    description: Full-featured plan with 100+ directories, Pages, and advanced review management. Minimum recommended for enterprise.
+    price: 499.00
+    unit: per location/year
+    currency: USD
+    features:
+      - 100+ directory syndication
+      - Yext Pages
+      - Advanced reviews
+      - API access (standard allowances)
+  - name: Premium
+    description: Top-tier plan with 150+ directories, AI Search, and competitive intelligence features.
+    price: 999.00
+    unit: per location/year
+    currency: USD
+    features:
+      - 150+ directory syndication
+      - AI Search
+      - Competitive intelligence
+      - API access (standard allowances)
+  - name: Enterprise
+    description: Custom-quoted plan for organizations managing 50+ locations with volume discounts and multi-year terms.
+    price: custom
+    unit: per location/year
+    currency: USD
+    features:
+      - Custom directory syndication
+      - Dedicated support
+      - Volume discounts (10-30%)
+      - Multi-year discount (15-20% for 3-year terms)
+      - Implementation services
+      - Enterprise API SLAs
+notes:
+  - No developer fees to use Yext APIs or integrate with the Yext platform.
+  - API access is included with all subscription plans at standard allowances.
+  - When API rate limits are exceeded, HTTP 429 is returned; no overage fees are charged.

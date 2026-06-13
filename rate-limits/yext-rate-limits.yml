@@ -1,0 +1,34 @@
+name: Yext API Rate Limits
+description: Rate limits for Yext Management API, Content Delivery API, and Analytics API endpoints.
+url: https://hitchhikers.yext.com/docs/managementapis/introduction/overview-policies-and-conventions/
+limits:
+  - api: Management API
+    description: Central control plane for managing Yext accounts, pushing/pulling data for Content, Reviews, Listings, and Analytics.
+    baseUrl: https://api.yextapis.com/v2
+    sandboxUrl: https://sbx-api.yextapis.com/v2
+    limit: 5000
+    unit: requests per hour
+    exceptions:
+      - endpoint: Analytics API
+        limit: 1000
+        unit: requests per hour
+      - endpoint: Agreements API
+        limit: 1000
+        unit: requests per hour
+  - api: Content Delivery API
+    description: Consumer-facing API optimized for performance and uptime that surfaces entity information.
+    baseUrl: https://cdn.yextapis.com/v2
+    sandboxUrl: https://sbx-cdn.yextapis.com/v2
+    limit: 100000
+    unit: requests per hour
+enforcement:
+  type: GCRA (Generic Cell Rate Algorithm)
+  errorCode: 429
+  description: Burst limiting via GCRA rejects excessive requests within short timeframes. HTTP 429 is returned when limits are exceeded. No financial overage charges are applied.
+partitions:
+  - name: US
+    managementUrl: https://api.us.yextapis.com/v2
+    cdnUrl: https://cdn.us.yextapis.com/v2
+  - name: EU
+    managementUrl: https://api.eu.yextapis.com/v2
+    cdnUrl: https://cdn.eu.yextapis.com/v2
