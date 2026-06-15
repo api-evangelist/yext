@@ -1,0 +1,18 @@
+{
+  "repo": "yext",
+  "feeds": [
+    {
+      "source": "https://www.linkedin.com/company/yext",
+      "error": "HTTPError"
+    },
+    {
+      "source": "https://www.yext.com/blog",
+      "feed_url": "https://www.yext.com/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
+}
