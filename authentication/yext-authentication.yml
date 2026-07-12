@@ -1,0 +1,44 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/yext-admin-api-openapi.yml, openapi/yext-answers-api-openapi.yml, openapi/yext-chat-api-openapi.yml,
+  openapi/yext-events-api-openapi.yml, openapi/yext-knowledge-api-openapi.yml, openapi/yext-live-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: api_key
+  type: apiKey
+  in: query
+  parameter: api_key
+  sources:
+  - openapi/yext-admin-api-openapi.yml
+  - openapi/yext-answers-api-openapi.yml
+  - openapi/yext-chat-api-openapi.yml
+  - openapi/yext-knowledge-api-openapi.yml
+  - openapi/yext-live-api-openapi.yml
+- name: api-key
+  type: apiKey
+  in: header
+  parameter: api-key
+  sources:
+  - openapi/yext-admin-api-openapi.yml
+  - openapi/yext-answers-api-openapi.yml
+  - openapi/yext-chat-api-openapi.yml
+  - openapi/yext-knowledge-api-openapi.yml
+  - openapi/yext-live-api-openapi.yml
+- name: api-key
+  type: http
+  scheme: KEY
+  bearerFormat: api-key
+  sources:
+  - openapi/yext-events-api-openapi.yml
+- name: jwt
+  type: http
+  scheme: Bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/yext-events-api-openapi.yml
