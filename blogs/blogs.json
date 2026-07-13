@@ -2,18 +2,21 @@
   "repo": "yext",
   "feeds": [
     {
-      "source": "https://www.yext.com/blog",
-      "feed_url": "",
+      "source": "https://www.linkedin.com/company/yext",
+      "feed_url": "https://www.linkedin.com/company/yext",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
     },
     {
-      "source": "https://developer.yext.com/blog/",
+      "source": "https://www.yext.com/blog",
+      "feed_url": "https://www.yext.com/blog",
+      "title": "",
       "saved": 0,
-      "error": "HTTP 503"
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-27T13:22:41Z",
-  "agent_pulled": "2026-06-27"
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
