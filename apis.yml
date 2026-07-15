@@ -166,6 +166,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/yext/openapi/main/yaml/webhooks.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/yext-agentic-access.yml
   - type: DomainSecurity
     url: security/yext-domain-security.yml
   - type: Authentication
