@@ -1,0 +1,3253 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Domains API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Domains
+paths:
+  /accounts/{accountId}/domains:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    post:
+      operationId: createDomain
+      tags:
+      - Domains
+      summary: 'Domain: Create
+
+        '
+      requestBody:
+        description: Configuration for the domain to be created.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Identifier for the resource.
+                  type: string
+                  readOnly: true
+                  example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                hostname:
+                  description: Fully qualified domain name that will be delegated to Yext.
+                  type: string
+                  example: www.example.com
+                wildcard:
+                  description: 'If set to true, [Domain Associations](#tag/Domains/operation/createDomainAssociation) can be created for single-level subdomains of the given hostname.
+
+                    '
+                  type: boolean
+                  default: false
+                destination:
+                  description: 'The Yext product the domain will be used for. Currently, only `PAGES` is supported.
+
+                    '
+                  type: string
+                  enum:
+                  - PAGES
+                  example: PAGES
+                integration_type:
+                  description: 'How the domain will be integrated with Yext. Only `USER_OWNED` is supported for domains created via the API.
+
+                    '
+                  type: string
+                  enum:
+                  - USER_OWNED
+                  - CUSTOM
+                  - LEGACY_YEXT_MANAGED
+                  example: USER_OWNED
+                state:
+                  type: string
+                  readOnly: true
+                  enum:
+                  - PENDING_VERIFICATION
+                  - VERIFICATION_FAILED
+                  - PENDING_CREATION
+                  - CREATING
+                  - CREATION_FAILED
+                  - ACTIVE
+                  - PENDING_DELETION
+                  - DELETED
+                  - BLOCKED
+                  - DELETION_FAILED
+                  - MOVE_REQUIRED
+                  example: ACTIVE
+                ownership_verification:
+                  description: 'One of CNAME, TXT, or HTTP verification must be used to complete Yext ownership verification for the domain.
+
+                    The tokens to use for each of these methods are provided in this object.
+
+                    '
+                  type: object
+                  readOnly: true
+                  properties:
+                    cname_target:
+                      type: string
+                      example: idzm5s34j5.yext.pgscdncf.com.
+                    txt_domain:
+                      type: string
+                      example: _yext-domain.www.example.com
+                    txt_value:
+                      type: string
+                      format: uuid
+                    http_uri:
+                      type: string
+                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                    http_body:
+                      type: string
+                      format: uuid
+                managed_ssl:
+                  description: 'SSL certificate will be automatically managed by Yext.
+
+                    Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                    '
+                  type: object
+                  required:
+                  - certificate_authority
+                  - validation_method
+                  properties:
+                    certificate_authority:
+                      type: string
+                      enum:
+                      - GOOGLE_TRUST
+                      - LETS_ENCRYPT
+                      default: GOOGLE_TRUST
+                    validation_method:
+                      type: string
+                      enum:
+                      - HTTP
+                      - TXT
+                      example: HTTP
+                    hostname_validation:
+                      description: 'Proof of ownership for the SSL provider.
+
+                        '
+                      type: object
+                      readOnly: true
+                      properties:
+                        cname_target:
+                          type: string
+                          example: idzm5s34j5.yext.pgscdncf.com.
+                        txt_domain:
+                          type: string
+                          example: _yext-domain.www.example.com
+                        txt_value:
+                          type: string
+                          format: uuid
+                        http_uri:
+                          type: string
+                          example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                        http_body:
+                          type: string
+                          format: uuid
+                    http_validation:
+                      description: 'This will only be set if `HTTP` is selected via the `validation_method` field.
+
+                        '
+                      type: object
+                      readOnly: true
+                      properties:
+                        uri:
+                          type: string
+                          example: http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr
+                        body:
+                          type: string
+                          example: 0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI
+                    txt_validation:
+                      description: 'This will only be set if `TXT` is selected via the `validation_method` field.
+
+                        The delegated DCV CNAME is recommended over the individual TXT records,since delegated DCV would only need to be
+
+                        done one time, whereas the individual TXT records would have to be set everytime the certificate is renewed.
+
+                        '
+                      type: object
+                      readOnly: true
+                      properties:
+                        delegated_dcv_domain:
+                          type: string
+                        delegated_dcv_cname_target:
+                          type: string
+                        txt_records:
+                          description: 'Will have multiple required tokens if the domain is a wildcard domain.
+
+                            '
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              domain:
+                                type: string
+                                example: _acme-challenge.www.example.com
+                              value:
+                                type: string
+                                example: -sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos
+                managed_csr:
+                  description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+                    Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                    '
+                  type: object
+                  properties:
+                    managed_csr_id:
+                      description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+                        '
+                      type: string
+                      example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                    custom_public_certificate:
+                      description: 'Public CA signed certificate.
+
+                        '
+                      type: string
+                      format: pem
+                      writeOnly: true
+                      example: '-----BEGIN CERTIFICATE-----
+
+                        MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                        ...
+
+                        -----END CERTIFICATE-----
+
+                        '
+                    hostname_validation:
+                      description: 'Proof of ownership for the SSL provider.
+
+                        '
+                      type: object
+                      readOnly: true
+                      properties:
+                        cname_target:
+                          type: string
+                          example: idzm5s34j5.yext.pgscdncf.com.
+                        txt_domain:
+                          type: string
+                          example: _yext-domain.www.example.com
+                        txt_value:
+                          type: string
+                          format: uuid
+                        http_uri:
+                          type: string
+                          example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                        http_body:
+                          type: string
+                          format: uuid
+                custom_ssl_certificate:
+                  description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+                    Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                    '
+                  type: object
+                  required:
+                  - public_certificate
+                  - private_key
+                  properties:
+                    public_certificate:
+                      type: string
+                      format: pem
+                      writeOnly: true
+                      example: '-----BEGIN CERTIFICATE-----
+
+                        MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                        ...
+
+                        -----END CERTIFICATE-----
+
+                        '
+                    private_key:
+                      type: string
+                      format: pem
+                      writeOnly: true
+                      example: '-----BEGIN PRIVATE KEY-----
+
+                        MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+                        ...
+
+                        -----END PRIVATE KEY-----
+
+                        '
+                    hostname_validation:
+                      description: 'Proof of ownership for the SSL provider.
+
+                        '
+                      type: object
+                      readOnly: true
+                      properties:
+                        cname_target:
+                          type: string
+                          example: idzm5s34j5.yext.pgscdncf.com.
+                        txt_domain:
+                          type: string
+                          example: _yext-domain.www.example.com
+                        txt_value:
+                          type: string
+                          format: uuid
+                        http_uri:
+                          type: string
+                          example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                        http_body:
+                          type: string
+                          format: uuid
+                serving_dns_targets:
+                  description: 'DNS targets used to serve traffic through Yext. For apex domains, `a_records` is returned. For subdomains, `cname` is returned.
+
+                    Only one of `a_records` or `cname` will be set.
+
+                    '
+                  type: object
+                  readOnly: true
+                  properties:
+                    a_records:
+                      description: 'Expected A record targets to serve traffic. Returned for apex domains.
+
+                        '
+                      type: array
+                      items:
+                        type: string
+                      example:
+                      - 104.17.134.18
+                    cname:
+                      description: 'Expected CNAME target to serve traffic. Returned for subdomains.
+
+                        '
+                      type: string
+                      example: 93bpo083jheeb.yext.pagescdn.com
+                errors:
+                  description: Errors and/or warnings regarding the Domain setup.
+                  type: array
+                  readOnly: true
+                  items:
+                    $ref: '#/components/schemas/ResponseError'
+                create_time:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                update_time:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                delete_time:
+                  type: string
+                  format: date-time
+                  readOnly: true
+              required:
+              - hostname
+              - destination
+              - integration_type
+      responses:
+        '201':
+          description: Domain created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Domain
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      hostname:
+                        description: Fully qualified domain name that will be delegated to Yext.
+                        type: string
+                        example: www.example.com
+                      wildcard:
+                        description: 'If set to true, [Domain Associations](#tag/Domains/operation/createDomainAssociation) can be created for single-level subdomains of the given hostname.
+
+                          '
+                        type: boolean
+                        default: false
+                      destination:
+                        description: 'The Yext product the domain will be used for. Currently, only `PAGES` is supported.
+
+                          '
+                        type: string
+                        enum:
+                        - PAGES
+                        example: PAGES
+                      integration_type:
+                        description: 'How the domain will be integrated with Yext. Only `USER_OWNED` is supported for domains created via the API.
+
+                          '
+                        type: string
+                        enum:
+                        - USER_OWNED
+                        - CUSTOM
+                        - LEGACY_YEXT_MANAGED
+                        example: USER_OWNED
+                      state:
+                        type: string
+                        readOnly: true
+                        enum:
+                        - PENDING_VERIFICATION
+                        - VERIFICATION_FAILED
+                        - PENDING_CREATION
+                        - CREATING
+                        - CREATION_FAILED
+                        - ACTIVE
+                        - PENDING_DELETION
+                        - DELETED
+                        - BLOCKED
+                        - DELETION_FAILED
+                        - MOVE_REQUIRED
+                        example: ACTIVE
+                      ownership_verification:
+                        description: 'One of CNAME, TXT, or HTTP verification must be used to complete Yext ownership verification for the domain.
+
+                          The tokens to use for each of these methods are provided in this object.
+
+                          '
+                        type: object
+                        readOnly: true
+                        properties:
+                          cname_target:
+                            type: string
+                            example: idzm5s34j5.yext.pgscdncf.com.
+                          txt_domain:
+                            type: string
+                            example: _yext-domain.www.example.com
+                          txt_value:
+                            type: string
+                            format: uuid
+                          http_uri:
+                            type: string
+                            example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                          http_body:
+                            type: string
+                            format: uuid
+                      managed_ssl:
+                        description: 'SSL certificate will be automatically managed by Yext.
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        required:
+                        - certificate_authority
+                        - validation_method
+                        properties:
+                          certificate_authority:
+                            type: string
+                            enum:
+                            - GOOGLE_TRUST
+                            - LETS_ENCRYPT
+                            default: GOOGLE_TRUST
+                          validation_method:
+                            type: string
+                            enum:
+                            - HTTP
+                            - TXT
+                            example: HTTP
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                          http_validation:
+                            description: 'This will only be set if `HTTP` is selected via the `validation_method` field.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              uri:
+                                type: string
+                                example: http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr
+                              body:
+                                type: string
+                                example: 0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI
+                          txt_validation:
+                            description: 'This will only be set if `TXT` is selected via the `validation_method` field.
+
+                              The delegated DCV CNAME is recommended over the individual TXT records,since delegated DCV would only need to be
+
+                              done one time, whereas the individual TXT records would have to be set everytime the certificate is renewed.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              delegated_dcv_domain:
+                                type: string
+                              delegated_dcv_cname_target:
+                                type: string
+                              txt_records:
+                                description: 'Will have multiple required tokens if the domain is a wildcard domain.
+
+                                  '
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    domain:
+                                      type: string
+                                      example: _acme-challenge.www.example.com
+                                    value:
+                                      type: string
+                                      example: -sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos
+                      managed_csr:
+                        description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        properties:
+                          managed_csr_id:
+                            description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+                              '
+                            type: string
+                            example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                          custom_public_certificate:
+                            description: 'Public CA signed certificate.
+
+                              '
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN CERTIFICATE-----
+
+                              MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                              ...
+
+                              -----END CERTIFICATE-----
+
+                              '
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                      custom_ssl_certificate:
+                        description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        required:
+                        - public_certificate
+                        - private_key
+                        properties:
+                          public_certificate:
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN CERTIFICATE-----
+
+                              MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                              ...
+
+                              -----END CERTIFICATE-----
+
+                              '
+                          private_key:
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN PRIVATE KEY-----
+
+                              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+                              ...
+
+                              -----END PRIVATE KEY-----
+
+                              '
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                      serving_dns_targets:
+                        description: 'DNS targets used to serve traffic through Yext. For apex domains, `a_records` is returned. For subdomains, `cname` is returned.
+
+                          Only one of `a_records` or `cname` will be set.
+
+                          '
+                        type: object
+                        readOnly: true
+                        properties:
+                          a_records:
+                            description: 'Expected A record targets to serve traffic. Returned for apex domains.
+
+                              '
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - 104.17.134.18
+                          cname:
+                            description: 'Expected CNAME target to serve traffic. Returned for subdomains.
+
+                              '
+                            type: string
+                            example: 93bpo083jheeb.yext.pagescdn.com
+                      errors:
+                        description: Errors and/or warnings regarding the Domain setup.
+                        type: array
+                        readOnly: true
+                        items:
+                          $ref: '#/components/schemas/ResponseError'
+                      create_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      update_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      delete_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      operationId: listDomains
+      tags:
+      - Domains
+      summary: 'Domain: List
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/hostnameFilters'
+      - $ref: '#/components/parameters/hostnameSearchFilter'
+      - $ref: '#/components/parameters/showDeleted'
+      - $ref: '#/components/parameters/index_pageSize'
+      - $ref: '#/components/parameters/index_pageToken'
+      - $ref: '#/components/parameters/viewDefaultBasic'
+      responses:
+        '200':
+          description: Paginated list of Domains matching request filters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      domains:
+                        type: array
+                        items:
+                          title: Domain
+                          type: object
+                          properties:
+                            name:
+                              description: Identifier for the resource.
+                              type: string
+                              readOnly: true
+                              example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                            hostname:
+                              description: Fully qualified domain name that will be delegated to Yext.
+                              type: string
+                              example: www.example.com
+                            wildcard:
+                              description: 'If set to true, [Domain Associations](#tag/Domains/operation/createDomainAssociation) can be created for single-level subdomains of the given hostname.
+
+                                '
+                              type: boolean
+                              default: false
+                            destination:
+                              description: 'The Yext product the domain will be used for. Currently, only `PAGES` is supported.
+
+                                '
+                              type: string
+                              enum:
+                              - PAGES
+                              example: PAGES
+                            integration_type:
+                              description: 'How the domain will be integrated with Yext. Only `USER_OWNED` is supported for domains created via the API.
+
+                                '
+                              type: string
+                              enum:
+                              - USER_OWNED
+                              - CUSTOM
+                              - LEGACY_YEXT_MANAGED
+                              example: USER_OWNED
+                            state:
+                              type: string
+                              readOnly: true
+                              enum:
+                              - PENDING_VERIFICATION
+                              - VERIFICATION_FAILED
+                              - PENDING_CREATION
+                              - CREATING
+                              - CREATION_FAILED
+                              - ACTIVE
+                              - PENDING_DELETION
+                              - DELETED
+                              - BLOCKED
+                              - DELETION_FAILED
+                              - MOVE_REQUIRED
+                              example: ACTIVE
+                            ownership_verification:
+                              description: 'One of CNAME, TXT, or HTTP verification must be used to complete Yext ownership verification for the domain.
+
+                                The tokens to use for each of these methods are provided in this object.
+
+                                '
+                              type: object
+                              readOnly: true
+                              properties:
+                                cname_target:
+                                  type: string
+                                  example: idzm5s34j5.yext.pgscdncf.com.
+                                txt_domain:
+                                  type: string
+                                  example: _yext-domain.www.example.com
+                                txt_value:
+                                  type: string
+                                  format: uuid
+                                http_uri:
+                                  type: string
+                                  example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                http_body:
+                                  type: string
+                                  format: uuid
+                            managed_ssl:
+                              description: 'SSL certificate will be automatically managed by Yext.
+
+                                Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                                '
+                              type: object
+                              required:
+                              - certificate_authority
+                              - validation_method
+                              properties:
+                                certificate_authority:
+                                  type: string
+                                  enum:
+                                  - GOOGLE_TRUST
+                                  - LETS_ENCRYPT
+                                  default: GOOGLE_TRUST
+                                validation_method:
+                                  type: string
+                                  enum:
+                                  - HTTP
+                                  - TXT
+                                  example: HTTP
+                                hostname_validation:
+                                  description: 'Proof of ownership for the SSL provider.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    cname_target:
+                                      type: string
+                                      example: idzm5s34j5.yext.pgscdncf.com.
+                                    txt_domain:
+                                      type: string
+                                      example: _yext-domain.www.example.com
+                                    txt_value:
+                                      type: string
+                                      format: uuid
+                                    http_uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                    http_body:
+                                      type: string
+                                      format: uuid
+                                http_validation:
+                                  description: 'This will only be set if `HTTP` is selected via the `validation_method` field.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr
+                                    body:
+                                      type: string
+                                      example: 0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI
+                                txt_validation:
+                                  description: 'This will only be set if `TXT` is selected via the `validation_method` field.
+
+                                    The delegated DCV CNAME is recommended over the individual TXT records,since delegated DCV would only need to be
+
+                                    done one time, whereas the individual TXT records would have to be set everytime the certificate is renewed.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    delegated_dcv_domain:
+                                      type: string
+                                    delegated_dcv_cname_target:
+                                      type: string
+                                    txt_records:
+                                      description: 'Will have multiple required tokens if the domain is a wildcard domain.
+
+                                        '
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          domain:
+                                            type: string
+                                            example: _acme-challenge.www.example.com
+                                          value:
+                                            type: string
+                                            example: -sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos
+                            managed_csr:
+                              description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+                                Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                                '
+                              type: object
+                              properties:
+                                managed_csr_id:
+                                  description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+                                    '
+                                  type: string
+                                  example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                                custom_public_certificate:
+                                  description: 'Public CA signed certificate.
+
+                                    '
+                                  type: string
+                                  format: pem
+                                  writeOnly: true
+                                  example: '-----BEGIN CERTIFICATE-----
+
+                                    MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                                    ...
+
+                                    -----END CERTIFICATE-----
+
+                                    '
+                                hostname_validation:
+                                  description: 'Proof of ownership for the SSL provider.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    cname_target:
+                                      type: string
+                                      example: idzm5s34j5.yext.pgscdncf.com.
+                                    txt_domain:
+                                      type: string
+                                      example: _yext-domain.www.example.com
+                                    txt_value:
+                                      type: string
+                                      format: uuid
+                                    http_uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                    http_body:
+                                      type: string
+                                      format: uuid
+                            custom_ssl_certificate:
+                              description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+                                Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                                '
+                              type: object
+                              required:
+                              - public_certificate
+                              - private_key
+                              properties:
+                                public_certificate:
+                                  type: string
+                                  format: pem
+                                  writeOnly: true
+                                  example: '-----BEGIN CERTIFICATE-----
+
+                                    MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                                    ...
+
+                                    -----END CERTIFICATE-----
+
+                                    '
+                                private_key:
+                                  type: string
+                                  format: pem
+                                  writeOnly: true
+                                  example: '-----BEGIN PRIVATE KEY-----
+
+                                    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+                                    ...
+
+                                    -----END PRIVATE KEY-----
+
+                                    '
+                                hostname_validation:
+                                  description: 'Proof of ownership for the SSL provider.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    cname_target:
+                                      type: string
+                                      example: idzm5s34j5.yext.pgscdncf.com.
+                                    txt_domain:
+                                      type: string
+                                      example: _yext-domain.www.example.com
+                                    txt_value:
+                                      type: string
+                                      format: uuid
+                                    http_uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                    http_body:
+                                      type: string
+                                      format: uuid
+                            serving_dns_targets:
+                              description: 'DNS targets used to serve traffic through Yext. For apex domains, `a_records` is returned. For subdomains, `cname` is returned.
+
+                                Only one of `a_records` or `cname` will be set.
+
+                                '
+                              type: object
+                              readOnly: true
+                              properties:
+                                a_records:
+                                  description: 'Expected A record targets to serve traffic. Returned for apex domains.
+
+                                    '
+                                  type: array
+                                  items:
+                                    type: string
+                                  example:
+                                  - 104.17.134.18
+                                cname:
+                                  description: 'Expected CNAME target to serve traffic. Returned for subdomains.
+
+                                    '
+                                  type: string
+                                  example: 93bpo083jheeb.yext.pagescdn.com
+                            errors:
+                              description: Errors and/or warnings regarding the Domain setup.
+                              type: array
+                              readOnly: true
+                              items:
+                                $ref: '#/components/schemas/ResponseError'
+                            create_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            update_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            delete_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                      next_page_token:
+                        $ref: '#/components/schemas/nextPageToken'
+                      previous_page_token:
+                        $ref: '#/components/schemas/previousPageToken'
+                      total_size:
+                        $ref: '#/components/schemas/totalSize'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/domains/{domainId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/domainId'
+    get:
+      operationId: getDomain
+      tags:
+      - Domains
+      summary: 'Domain: Get
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/viewDefaultFull'
+      responses:
+        '200':
+          description: Domain found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Domain
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      hostname:
+                        description: Fully qualified domain name that will be delegated to Yext.
+                        type: string
+                        example: www.example.com
+                      wildcard:
+                        description: 'If set to true, [Domain Associations](#tag/Domains/operation/createDomainAssociation) can be created for single-level subdomains of the given hostname.
+
+                          '
+                        type: boolean
+                        default: false
+                      destination:
+                        description: 'The Yext product the domain will be used for. Currently, only `PAGES` is supported.
+
+                          '
+                        type: string
+                        enum:
+                        - PAGES
+                        example: PAGES
+                      integration_type:
+                        description: 'How the domain will be integrated with Yext. Only `USER_OWNED` is supported for domains created via the API.
+
+                          '
+                        type: string
+                        enum:
+                        - USER_OWNED
+                        - CUSTOM
+                        - LEGACY_YEXT_MANAGED
+                        example: USER_OWNED
+                      state:
+                        type: string
+                        readOnly: true
+                        enum:
+                        - PENDING_VERIFICATION
+                        - VERIFICATION_FAILED
+                        - PENDING_CREATION
+                        - CREATING
+                        - CREATION_FAILED
+                        - ACTIVE
+                        - PENDING_DELETION
+                        - DELETED
+                        - BLOCKED
+                        - DELETION_FAILED
+                        - MOVE_REQUIRED
+                        example: ACTIVE
+                      ownership_verification:
+                        description: 'One of CNAME, TXT, or HTTP verification must be used to complete Yext ownership verification for the domain.
+
+                          The tokens to use for each of these methods are provided in this object.
+
+                          '
+                        type: object
+                        readOnly: true
+                        properties:
+                          cname_target:
+                            type: string
+                            example: idzm5s34j5.yext.pgscdncf.com.
+                          txt_domain:
+                            type: string
+                            example: _yext-domain.www.example.com
+                          txt_value:
+                            type: string
+                            format: uuid
+                          http_uri:
+                            type: string
+                            example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                          http_body:
+                            type: string
+                            format: uuid
+                      managed_ssl:
+                        description: 'SSL certificate will be automatically managed by Yext.
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        required:
+                        - certificate_authority
+                        - validation_method
+                        properties:
+                          certificate_authority:
+                            type: string
+                            enum:
+                            - GOOGLE_TRUST
+                            - LETS_ENCRYPT
+                            default: GOOGLE_TRUST
+                          validation_method:
+                            type: string
+                            enum:
+                            - HTTP
+                            - TXT
+                            example: HTTP
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                          http_validation:
+                            description: 'This will only be set if `HTTP` is selected via the `validation_method` field.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              uri:
+                                type: string
+                                example: http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr
+                              body:
+                                type: string
+                                example: 0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI
+                          txt_validation:
+                            description: 'This will only be set if `TXT` is selected via the `validation_method` field.
+
+                              The delegated DCV CNAME is recommended over the individual TXT records,since delegated DCV would only need to be
+
+                              done one time, whereas the individual TXT records would have to be set everytime the certificate is renewed.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              delegated_dcv_domain:
+                                type: string
+                              delegated_dcv_cname_target:
+                                type: string
+                              txt_records:
+                                description: 'Will have multiple required tokens if the domain is a wildcard domain.
+
+                                  '
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    domain:
+                                      type: string
+                                      example: _acme-challenge.www.example.com
+                                    value:
+                                      type: string
+                                      example: -sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos
+                      managed_csr:
+                        description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        properties:
+                          managed_csr_id:
+                            description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+                              '
+                            type: string
+                            example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                          custom_public_certificate:
+                            description: 'Public CA signed certificate.
+
+                              '
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN CERTIFICATE-----
+
+                              MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                              ...
+
+                              -----END CERTIFICATE-----
+
+                              '
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                      custom_ssl_certificate:
+                        description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        required:
+                        - public_certificate
+                        - private_key
+                        properties:
+                          public_certificate:
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN CERTIFICATE-----
+
+                              MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                              ...
+
+                              -----END CERTIFICATE-----
+
+                              '
+                          private_key:
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN PRIVATE KEY-----
+
+                              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+                              ...
+
+                              -----END PRIVATE KEY-----
+
+                              '
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                      serving_dns_targets:
+                        description: 'DNS targets used to serve traffic through Yext. For apex domains, `a_records` is returned. For subdomains, `cname` is returned.
+
+                          Only one of `a_records` or `cname` will be set.
+
+                          '
+                        type: object
+                        readOnly: true
+                        properties:
+                          a_records:
+                            description: 'Expected A record targets to serve traffic. Returned for apex domains.
+
+                              '
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - 104.17.134.18
+                          cname:
+                            description: 'Expected CNAME target to serve traffic. Returned for subdomains.
+
+                              '
+                            type: string
+                            example: 93bpo083jheeb.yext.pagescdn.com
+                      errors:
+                        description: Errors and/or warnings regarding the Domain setup.
+                        type: array
+                        readOnly: true
+                        items:
+                          $ref: '#/components/schemas/ResponseError'
+                      create_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      update_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      delete_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: updateDomain
+      tags:
+      - Domains
+      summary: 'Domain: Update
+
+        '
+      description: 'Update the configurations for the specified domain. Also triggers a check for Yext or SSL verification, if the Domain is not yet ACTIVE.
+
+        See the `update_mask` parameter for fields that can be updated, any other provided fields will be ignored.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/forceMove'
+      - name: update_mask
+        in: query
+        schema:
+          type: array
+          default: '*'
+          items:
+            type: string
+            enum:
+            - '*'
+            - managed_ssl.certificate_authority
+            - custom_ssl_certificate
+            - managed_csr.custom_public_certificate
+        description: A comma-separated list of fields to update.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                managed_ssl:
+                  description: 'SSL certificate will be automatically managed by Yext.
+
+                    Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                    '
+                  type: object
+                  required:
+                  - certificate_authority
+                  properties:
+                    certificate_authority:
+                      $ref: '#/components/schemas/certificate_authority'
+                managed_csr:
+                  $ref: '#/components/schemas/managed_csr'
+                custom_ssl_certificate:
+                  $ref: '#/components/schemas/custom_ssl_certificate'
+      responses:
+        '200':
+          description: Domain updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Domain
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      hostname:
+                        description: Fully qualified domain name that will be delegated to Yext.
+                        type: string
+                        example: www.example.com
+                      wildcard:
+                        description: 'If set to true, [Domain Associations](#tag/Domains/operation/createDomainAssociation) can be created for single-level subdomains of the given hostname.
+
+                          '
+                        type: boolean
+                        default: false
+                      destination:
+                        description: 'The Yext product the domain will be used for. Currently, only `PAGES` is supported.
+
+                          '
+                        type: string
+                        enum:
+                        - PAGES
+                        example: PAGES
+                      integration_type:
+                        description: 'How the domain will be integrated with Yext. Only `USER_OWNED` is supported for domains created via the API.
+
+                          '
+                        type: string
+                        enum:
+                        - USER_OWNED
+                        - CUSTOM
+                        - LEGACY_YEXT_MANAGED
+                        example: USER_OWNED
+                      state:
+                        type: string
+                        readOnly: true
+                        enum:
+                        - PENDING_VERIFICATION
+                        - VERIFICATION_FAILED
+                        - PENDING_CREATION
+                        - CREATING
+                        - CREATION_FAILED
+                        - ACTIVE
+                        - PENDING_DELETION
+                        - DELETED
+                        - BLOCKED
+                        - DELETION_FAILED
+                        - MOVE_REQUIRED
+                        example: ACTIVE
+                      ownership_verification:
+                        description: 'One of CNAME, TXT, or HTTP verification must be used to complete Yext ownership verification for the domain.
+
+                          The tokens to use for each of these methods are provided in this object.
+
+                          '
+                        type: object
+                        readOnly: true
+                        properties:
+                          cname_target:
+                            type: string
+                            example: idzm5s34j5.yext.pgscdncf.com.
+                          txt_domain:
+                            type: string
+                            example: _yext-domain.www.example.com
+                          txt_value:
+                            type: string
+                            format: uuid
+                          http_uri:
+                            type: string
+                            example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                          http_body:
+                            type: string
+                            format: uuid
+                      managed_ssl:
+                        description: 'SSL certificate will be automatically managed by Yext.
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        required:
+                        - certificate_authority
+                        - validation_method
+                        properties:
+                          certificate_authority:
+                            type: string
+                            enum:
+                            - GOOGLE_TRUST
+                            - LETS_ENCRYPT
+                            default: GOOGLE_TRUST
+                          validation_method:
+                            type: string
+                            enum:
+                            - HTTP
+                            - TXT
+                            example: HTTP
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                          http_validation:
+                            description: 'This will only be set if `HTTP` is selected via the `validation_method` field.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              uri:
+                                type: string
+                                example: http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr
+                              body:
+                                type: string
+                                example: 0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI
+                          txt_validation:
+                            description: 'This will only be set if `TXT` is selected via the `validation_method` field.
+
+                              The delegated DCV CNAME is recommended over the individual TXT records,since delegated DCV would only need to be
+
+                              done one time, whereas the individual TXT records would have to be set everytime the certificate is renewed.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              delegated_dcv_domain:
+                                type: string
+                              delegated_dcv_cname_target:
+                                type: string
+                              txt_records:
+                                description: 'Will have multiple required tokens if the domain is a wildcard domain.
+
+                                  '
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    domain:
+                                      type: string
+                                      example: _acme-challenge.www.example.com
+                                    value:
+                                      type: string
+                                      example: -sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos
+                      managed_csr:
+                        description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        properties:
+                          managed_csr_id:
+                            description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+                              '
+                            type: string
+                            example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                          custom_public_certificate:
+                            description: 'Public CA signed certificate.
+
+                              '
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN CERTIFICATE-----
+
+                              MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                              ...
+
+                              -----END CERTIFICATE-----
+
+                              '
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                      custom_ssl_certificate:
+                        description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+                          Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                          '
+                        type: object
+                        required:
+                        - public_certificate
+                        - private_key
+                        properties:
+                          public_certificate:
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN CERTIFICATE-----
+
+                              MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                              ...
+
+                              -----END CERTIFICATE-----
+
+                              '
+                          private_key:
+                            type: string
+                            format: pem
+                            writeOnly: true
+                            example: '-----BEGIN PRIVATE KEY-----
+
+                              MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+                              ...
+
+                              -----END PRIVATE KEY-----
+
+                              '
+                          hostname_validation:
+                            description: 'Proof of ownership for the SSL provider.
+
+                              '
+                            type: object
+                            readOnly: true
+                            properties:
+                              cname_target:
+                                type: string
+                                example: idzm5s34j5.yext.pgscdncf.com.
+                              txt_domain:
+                                type: string
+                                example: _yext-domain.www.example.com
+                              txt_value:
+                                type: string
+                                format: uuid
+                              http_uri:
+                                type: string
+                                example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                              http_body:
+                                type: string
+                                format: uuid
+                      serving_dns_targets:
+                        description: 'DNS targets used to serve traffic through Yext. For apex domains, `a_records` is returned. For subdomains, `cname` is returned.
+
+                          Only one of `a_records` or `cname` will be set.
+
+                          '
+                        type: object
+                        readOnly: true
+                        properties:
+                          a_records:
+                            description: 'Expected A record targets to serve traffic. Returned for apex domains.
+
+                              '
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - 104.17.134.18
+                          cname:
+                            description: 'Expected CNAME target to serve traffic. Returned for subdomains.
+
+                              '
+                            type: string
+                            example: 93bpo083jheeb.yext.pagescdn.com
+                      errors:
+                        description: Errors and/or warnings regarding the Domain setup.
+                        type: array
+                        readOnly: true
+                        items:
+                          $ref: '#/components/schemas/ResponseError'
+                      create_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      update_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      delete_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteDomain
+      tags:
+      - Domains
+      summary: 'Domain: Delete
+
+        '
+      parameters:
+      - name: force
+        in: query
+        schema:
+          type: boolean
+          default: false
+        description: 'If true, Domain Associations using this domain will also be deleted.
+
+          If not set or false, and if Domain Associations exist using this domain, an error will be returned.
+
+          '
+      responses:
+        '202':
+          description: Domain deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/domains/migratepagesdomain/{hostname}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    post:
+      operationId: migratePagesDomain
+      tags:
+      - Domains
+      summary: Migrate Legacy Pages Domain
+      description: Migrates a legacy Pages domain to a Domains API domain resource.
+      parameters:
+      - name: hostname
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The hostname of the legacy domain to migrate.
+      responses:
+        '201':
+          description: Legacy domain migrated to Domains API successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      domains:
+                        description: '[Domain](#tag/Domains/operation/createDomain) resources created as a result of the migration.
+
+                          '
+                        type: array
+                        items:
+                          title: Domain
+                          type: object
+                          properties:
+                            name:
+                              description: Identifier for the resource.
+                              type: string
+                              readOnly: true
+                              example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                            hostname:
+                              description: Fully qualified domain name that will be delegated to Yext.
+                              type: string
+                              example: www.example.com
+                            wildcard:
+                              description: 'If set to true, [Domain Associations](#tag/Domains/operation/createDomainAssociation) can be created for single-level subdomains of the given hostname.
+
+                                '
+                              type: boolean
+                              default: false
+                            destination:
+                              description: 'The Yext product the domain will be used for. Currently, only `PAGES` is supported.
+
+                                '
+                              type: string
+                              enum:
+                              - PAGES
+                              example: PAGES
+                            integration_type:
+                              description: 'How the domain will be integrated with Yext. Only `USER_OWNED` is supported for domains created via the API.
+
+                                '
+                              type: string
+                              enum:
+                              - USER_OWNED
+                              - CUSTOM
+                              - LEGACY_YEXT_MANAGED
+                              example: USER_OWNED
+                            state:
+                              type: string
+                              readOnly: true
+                              enum:
+                              - PENDING_VERIFICATION
+                              - VERIFICATION_FAILED
+                              - PENDING_CREATION
+                              - CREATING
+                              - CREATION_FAILED
+                              - ACTIVE
+                              - PENDING_DELETION
+                              - DELETED
+                              - BLOCKED
+                              - DELETION_FAILED
+                              - MOVE_REQUIRED
+                              example: ACTIVE
+                            ownership_verification:
+                              description: 'One of CNAME, TXT, or HTTP verification must be used to complete Yext ownership verification for the domain.
+
+                                The tokens to use for each of these methods are provided in this object.
+
+                                '
+                              type: object
+                              readOnly: true
+                              properties:
+                                cname_target:
+                                  type: string
+                                  example: idzm5s34j5.yext.pgscdncf.com.
+                                txt_domain:
+                                  type: string
+                                  example: _yext-domain.www.example.com
+                                txt_value:
+                                  type: string
+                                  format: uuid
+                                http_uri:
+                                  type: string
+                                  example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                http_body:
+                                  type: string
+                                  format: uuid
+                            managed_ssl:
+                              description: 'SSL certificate will be automatically managed by Yext.
+
+                                Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                                '
+                              type: object
+                              required:
+                              - certificate_authority
+                              - validation_method
+                              properties:
+                                certificate_authority:
+                                  type: string
+                                  enum:
+                                  - GOOGLE_TRUST
+                                  - LETS_ENCRYPT
+                                  default: GOOGLE_TRUST
+                                validation_method:
+                                  type: string
+                                  enum:
+                                  - HTTP
+                                  - TXT
+                                  example: HTTP
+                                hostname_validation:
+                                  description: 'Proof of ownership for the SSL provider.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    cname_target:
+                                      type: string
+                                      example: idzm5s34j5.yext.pgscdncf.com.
+                                    txt_domain:
+                                      type: string
+                                      example: _yext-domain.www.example.com
+                                    txt_value:
+                                      type: string
+                                      format: uuid
+                                    http_uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                    http_body:
+                                      type: string
+                                      format: uuid
+                                http_validation:
+                                  description: 'This will only be set if `HTTP` is selected via the `validation_method` field.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr
+                                    body:
+                                      type: string
+                                      example: 0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI
+                                txt_validation:
+                                  description: 'This will only be set if `TXT` is selected via the `validation_method` field.
+
+                                    The delegated DCV CNAME is recommended over the individual TXT records,since delegated DCV would only need to be
+
+                                    done one time, whereas the individual TXT records would have to be set everytime the certificate is renewed.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    delegated_dcv_domain:
+                                      type: string
+                                    delegated_dcv_cname_target:
+                                      type: string
+                                    txt_records:
+                                      description: 'Will have multiple required tokens if the domain is a wildcard domain.
+
+                                        '
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          domain:
+                                            type: string
+                                            example: _acme-challenge.www.example.com
+                                          value:
+                                            type: string
+                                            example: -sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos
+                            managed_csr:
+                              description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+                                Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                                '
+                              type: object
+                              properties:
+                                managed_csr_id:
+                                  description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+                                    '
+                                  type: string
+                                  example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                                custom_public_certificate:
+                                  description: 'Public CA signed certificate.
+
+                                    '
+                                  type: string
+                                  format: pem
+                                  writeOnly: true
+                                  example: '-----BEGIN CERTIFICATE-----
+
+                                    MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                                    ...
+
+                                    -----END CERTIFICATE-----
+
+                                    '
+                                hostname_validation:
+                                  description: 'Proof of ownership for the SSL provider.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    cname_target:
+                                      type: string
+                                      example: idzm5s34j5.yext.pgscdncf.com.
+                                    txt_domain:
+                                      type: string
+                                      example: _yext-domain.www.example.com
+                                    txt_value:
+                                      type: string
+                                      format: uuid
+                                    http_uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                    http_body:
+                                      type: string
+                                      format: uuid
+                            custom_ssl_certificate:
+                              description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+                                Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+                                '
+                              type: object
+                              required:
+                              - public_certificate
+                              - private_key
+                              properties:
+                                public_certificate:
+                                  type: string
+                                  format: pem
+                                  writeOnly: true
+                                  example: '-----BEGIN CERTIFICATE-----
+
+                                    MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                                    ...
+
+                                    -----END CERTIFICATE-----
+
+                                    '
+                                private_key:
+                                  type: string
+                                  format: pem
+                                  writeOnly: true
+                                  example: '-----BEGIN PRIVATE KEY-----
+
+                                    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+                                    ...
+
+                                    -----END PRIVATE KEY-----
+
+                                    '
+                                hostname_validation:
+                                  description: 'Proof of ownership for the SSL provider.
+
+                                    '
+                                  type: object
+                                  readOnly: true
+                                  properties:
+                                    cname_target:
+                                      type: string
+                                      example: idzm5s34j5.yext.pgscdncf.com.
+                                    txt_domain:
+                                      type: string
+                                      example: _yext-domain.www.example.com
+                                    txt_value:
+                                      type: string
+                                      format: uuid
+                                    http_uri:
+                                      type: string
+                                      example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+                                    http_body:
+                                      type: string
+                                      format: uuid
+                            serving_dns_targets:
+                              description: 'DNS targets used to serve traffic through Yext. For apex domains, `a_records` is returned. For subdomains, `cname` is returned.
+
+                                Only one of `a_records` or `cname` will be set.
+
+                                '
+                              type: object
+                              readOnly: true
+                              properties:
+                                a_records:
+                                  description: 'Expected A record targets to serve traffic. Returned for apex domains.
+
+                                    '
+                                  type: array
+                                  items:
+                                    type: string
+                                  example:
+                                  - 104.17.134.18
+                                cname:
+                                  description: 'Expected CNAME target to serve traffic. Returned for subdomains.
+
+                                    '
+                                  type: string
+                                  example: 93bpo083jheeb.yext.pagescdn.com
+                            errors:
+                              description: Errors and/or warnings regarding the Domain setup.
+                              type: array
+                              readOnly: true
+                              items:
+                                $ref: '#/components/schemas/ResponseError'
+                            create_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            update_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            delete_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                      domain_associations:
+                        description: '[Domain Associations](#tag/Domains/operation/createDomainAssociation) resources created as a result of the migration.
+
+                          '
+                        type: array
+                        items:
+                          title: Domain Association
+                          type: object
+                          properties:
+                            name:
+                              description: Identifier for the resource.
+                              type: string
+                              readOnly: true
+                              example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                            hostname:
+                              description: 'For parent Domain''s with `wildcard=false`, this will equal parent Domain''s hostname.
+
+                                For parent Domain''s with `wildcard=true`, this can be a single-level subdomain of the parent Domain''s hostname.
+
+                                '
+                              type: string
+                              example: www.example.com
+                            site:
+                              description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+                              type: object
+                              properties:
+                                name:
+                                  description: Pages site resource name.
+                                  type: string
+                                  example: accounts/123456/sites/6789
+                                primary:
+                                  description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+                                    A Pages site can have at most one primary Domain.
+
+                                    '
+                                  type: boolean
+                                  default: false
+                            errors:
+                              description: Errors and/or warnings regarding the Domain setup.
+                              type: array
+                              readOnly: true
+                              items:
+                                $ref: '#/components/schemas/ResponseError'
+                            create_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            update_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/domains/{domainId}/associations:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/domainId'
+    post:
+      operationId: createDomainAssociation
+      tags:
+      - Domains
+      summary: 'Domain Association: Create
+
+        '
+      description: 'Creating a Domain Association will begin serving the contents of the associated resource at the Domain Association''s `hostname` (given DNS for the hostname is already set up).
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/forceMove'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Identifier for the resource.
+                  type: string
+                  readOnly: true
+                  example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                hostname:
+                  description: 'For parent Domain''s with `wildcard=false`, this will equal parent Domain''s hostname.
+
+                    For parent Domain''s with `wildcard=true`, this can be a single-level subdomain of the parent Domain''s hostname.
+
+                    '
+                  type: string
+                  example: www.example.com
+                site:
+                  description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+                  type: object
+                  properties:
+                    name:
+                      description: Pages site resource name.
+                      type: string
+                      example: accounts/123456/sites/6789
+                    primary:
+                      description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+                        A Pages site can have at most one primary Domain.
+
+                        '
+                      type: boolean
+                      default: false
+                errors:
+                  description: Errors and/or warnings regarding the Domain setup.
+                  type: array
+                  readOnly: true
+                  items:
+                    $ref: '#/components/schemas/ResponseError'
+                create_time:
+                  type: string
+                  format: date-time
+                  readOnly: true
+                update_time:
+                  type: string
+                  format: date-time
+                  readOnly: true
+      responses:
+        '201':
+          description: Domain Association created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Domain Association
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      hostname:
+                        description: 'For parent Domain''s with `wildcard=false`, this will equal parent Domain''s hostname.
+
+                          For parent Domain''s with `wildcard=true`, this can be a single-level subdomain of the parent Domain''s hostname.
+
+                          '
+                        type: string
+                        example: www.example.com
+                      site:
+                        description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+                        type: object
+                        properties:
+                          name:
+                            description: Pages site resource name.
+                            type: string
+                            example: accounts/123456/sites/6789
+                          primary:
+                            description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+                              A Pages site can have at most one primary Domain.
+
+                              '
+                            type: boolean
+                            default: false
+                      errors:
+                        description: Errors and/or warnings regarding the Domain setup.
+                        type: array
+                        readOnly: true
+                        items:
+                          $ref: '#/components/schemas/ResponseError'
+                      create_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      update_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      operationId: listDomainAssociations
+      tags:
+      - Domains
+      summary: 'Domain Association: List
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/domainIdAllowAll'
+      - name: referenced_resources
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Comma-separated list of associated resources to filter by.
+        example: accounts/123456/sites/6789,accounts/98765/sites/5678
+      - $ref: '#/components/parameters/index_pageSize'
+      - $ref: '#/components/parameters/index_pageToken'
+      responses:
+        '200':
+          description: Paginated list of Domains Associations matching request filters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      domain_associations:
+                        type: array
+                        items:
+                          title: Domain Association
+                          type: object
+                          properties:
+                            name:
+                              description: Identifier for the resource.
+                              type: string
+                              readOnly: true
+                              example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                            hostname:
+                              description: 'For parent Domain''s with `wildcard=false`, this will equal parent Domain''s hostname.
+
+                                For parent Domain''s with `wildcard=true`, this can be a single-level subdomain of the parent Domain''s hostname.
+
+                                '
+                              type: string
+                              example: www.example.com
+                            site:
+                              description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+                              type: object
+                              properties:
+                                name:
+                                  description: Pages site resource name.
+                                  type: string
+                                  example: accounts/123456/sites/6789
+                                primary:
+                                  description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+                                    A Pages site can have at most one primary Domain.
+
+                                    '
+                                  type: boolean
+                                  default: false
+                            errors:
+                              description: Errors and/or warnings regarding the Domain setup.
+                              type: array
+                              readOnly: true
+                              items:
+                                $ref: '#/components/schemas/ResponseError'
+                            create_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            update_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                      next_page_token:
+                        $ref: '#/components/schemas/nextPageToken'
+                      previous_page_token:
+                        $ref: '#/components/schemas/previousPageToken'
+                      total_size:
+                        $ref: '#/components/schemas/totalSize'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/domains/{domainId}/associations/{domainAssociationId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/domainId'
+    - $ref: '#/components/parameters/domainAssociationId'
+    get:
+      operationId: getDomainAssociation
+      tags:
+      - Domains
+      summary: 'Domain Association: Get
+
+        '
+      responses:
+        '200':
+          description: Domain Association found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Domain Association
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      hostname:
+                        description: 'For parent Domain''s with `wildcard=false`, this will equal parent Domain''s hostname.
+
+                          For parent Domain''s with `wildcard=true`, this can be a single-level subdomain of the parent Domain''s hostname.
+
+                          '
+                        type: string
+                        example: www.example.com
+                      site:
+                        description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+                        type: object
+                        properties:
+                          name:
+                            description: Pages site resource name.
+                            type: string
+                            example: accounts/123456/sites/6789
+                          primary:
+                            description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+                              A Pages site can have at most one primary Domain.
+
+                              '
+                            type: boolean
+                            default: false
+                      errors:
+                        description: Errors and/or warnings regarding the Domain setup.
+                        type: array
+                        readOnly: true
+                        items:
+                          $ref: '#/components/schemas/ResponseError'
+                      create_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      update_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: updateDomainAssociation
+      tags:
+      - Domains
+      summary: 'Domain Association: Update
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/domainId'
+      - $ref: '#/components/parameters/domainAssociationId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                site:
+                  $ref: '#/components/schemas/site'
+      responses:
+        '201':
+          description: Domain Association updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Domain Association
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      hostname:
+                        description: 'For parent Domain''s with `wildcard=false`, this will equal parent Domain''s hostname.
+
+                          For parent Domain''s with `wildcard=true`, this can be a single-level subdomain of the parent Domain''s hostname.
+
+                          '
+                        type: string
+                        example: www.example.com
+                      site:
+                        description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+                        type: object
+                        properties:
+                          name:
+                            description: Pages site resource name.
+                            type: string
+                            example: accounts/123456/sites/6789
+                          primary:
+                            description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+                              A Pages site can have at most one primary Domain.
+
+                              '
+                            type: boolean
+                            default: false
+                      errors:
+                        description: Errors and/or warnings regarding the Domain setup.
+                        type: array
+                        readOnly: true
+                        items:
+                          $ref: '#/components/schemas/ResponseError'
+                      create_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      update_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteDomainAssociation
+      tags:
+      - Domains
+      summary: 'Domain Association: Delete
+
+        '
+      description: 'Deleting a Domain Association will stop serving the contents of the associated resource from the Domain Association''s `hostname`.
+
+        '
+      responses:
+        '202':
+          description: Domain Association deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/csrs:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    post:
+      operationId: createManagedCsr
+      tags:
+      - Domains
+      summary: 'Managed CSR: Create
+
+        '
+      description: 'Creates a Certificate Signing Request (CSR) resource that can be used to provision SSL certificates.
+
+        Once created, this resource can be referenced by [Domains](#tag/Domains/operation/createDomain) with the `managed_csr` SSL integration to provision
+
+        certificates using this CSR and a public certificate.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Identifier for the resource.
+                  type: string
+                  readOnly: true
+                  example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                csr_payload:
+                  type: object
+                  properties:
+                    common_name:
+                      description: Fully qualified domain name.
+                      type: string
+                      example: www.example.com
+                    sans:
+                      description: Subject Alternative Names.
+                      type: array
+                      items:
+                        type: string
+                      example:
+                      - test.example.com
+                      - other.example.net
+                    organization:
+                      type: string
+                      example: Example Inc.
+                    organizational_unit:
+                      type: string
+                      example: IT Department
+                    key_type:
+                      type: string
+                      enum:
+                      - rsa2048
+                      - p256v1
+                    locality:
+                      type: string
+                      example: San Francisco
+                    state:
+                      type: string
+                      example: California
+                    country:
+                      type: string
+                      example: US
+                csr:
+                  description: The generated Certificate Signing Request.
+                  type: string
+                  readOnly: true
+                  example: '-----BEGIN CERTIFICATE REQUEST-----
+
+                    MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                    ...
+
+                    -----END CERTIFICATE REQUEST-----
+
+                    '
+                created_time:
+                  type: string
+                  format: date-time
+                  readOnly: true
+              required:
+              - csr_payload
+              - csr
+      responses:
+        '201':
+          description: Managed CSR created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Managed CSR
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      csr_payload:
+                        type: object
+                        properties:
+                          common_name:
+                            description: Fully qualified domain name.
+                            type: string
+                            example: www.example.com
+                          sans:
+                            description: Subject Alternative Names.
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - test.example.com
+                            - other.example.net
+                          organization:
+                            type: string
+                            example: Example Inc.
+                          organizational_unit:
+                            type: string
+                            example: IT Department
+                          key_type:
+                            type: string
+                            enum:
+                            - rsa2048
+                            - p256v1
+                          locality:
+                            type: string
+                            example: San Francisco
+                          state:
+                            type: string
+                            example: California
+                          country:
+                            type: string
+                            example: US
+                      csr:
+                        description: The generated Certificate Signing Request.
+                        type: string
+                        readOnly: true
+                        example: '-----BEGIN CERTIFICATE REQUEST-----
+
+                          MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                          ...
+
+                          -----END CERTIFICATE REQUEST-----
+
+                          '
+                      created_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      operationId: listManagedCsrs
+      tags:
+      - Domains
+      summary: 'Managed CSR: List
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/index_pageSize'
+      - $ref: '#/components/parameters/index_pageToken'
+      - $ref: '#/components/parameters/viewDefaultBasic'
+      responses:
+        '200':
+          description: Paginated list of Managed CSRs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      managed_csrs:
+                        type: array
+                        items:
+                          title: Managed CSR
+                          type: object
+                          properties:
+                            name:
+                              description: Identifier for the resource.
+                              type: string
+                              readOnly: true
+                              example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                            csr_payload:
+                              type: object
+                              properties:
+                                common_name:
+                                  description: Fully qualified domain name.
+                                  type: string
+                                  example: www.example.com
+                                sans:
+                                  description: Subject Alternative Names.
+                                  type: array
+                                  items:
+                                    type: string
+                                  example:
+                                  - test.example.com
+                                  - other.example.net
+                                organization:
+                                  type: string
+                                  example: Example Inc.
+                                organizational_unit:
+                                  type: string
+                                  example: IT Department
+                                key_type:
+                                  type: string
+                                  enum:
+                                  - rsa2048
+                                  - p256v1
+                                locality:
+                                  type: string
+                                  example: San Francisco
+                                state:
+                                  type: string
+                                  example: California
+                                country:
+                                  type: string
+                                  example: US
+                            csr:
+                              description: The generated Certificate Signing Request.
+                              type: string
+                              readOnly: true
+                              example: '-----BEGIN CERTIFICATE REQUEST-----
+
+                                MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                                ...
+
+                                -----END CERTIFICATE REQUEST-----
+
+                                '
+                            created_time:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                      next_page_token:
+                        $ref: '#/components/schemas/nextPageToken'
+                      previous_page_token:
+                        $ref: '#/components/schemas/previousPageToken'
+                      total_size:
+                        $ref: '#/components/schemas/totalSize'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/csrs/{managedCsrId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/managedCsrId'
+    get:
+      operationId: getManagedCsr
+      tags:
+      - Domains
+      summary: 'Managed CSR: Get
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/viewDefaultFull'
+      responses:
+        '200':
+          description: Managed CSR found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    title: Managed CSR
+                    type: object
+                    properties:
+                      name:
+                        description: Identifier for the resource.
+                        type: string
+                        readOnly: true
+                        example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+                      csr_payload:
+                        type: object
+                        properties:
+                          common_name:
+                            description: Fully qualified domain name.
+                            type: string
+                            example: www.example.com
+                          sans:
+                            description: Subject Alternative Names.
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - test.example.com
+                            - other.example.net
+                          organization:
+                            type: string
+                            example: Example Inc.
+                          organizational_unit:
+                            type: string
+                            example: IT Department
+                          key_type:
+                            type: string
+                            enum:
+                            - rsa2048
+                            - p256v1
+                          locality:
+                            type: string
+                            example: San Francisco
+                          state:
+                            type: string
+                            example: California
+                          country:
+                            type: string
+                            example: US
+                      csr:
+                        description: The generated Certificate Signing Request.
+                        type: string
+                        readOnly: true
+                        example: '-----BEGIN CERTIFICATE REQUEST-----
+
+                          MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+                          ...
+
+                          -----END CERTIFICATE REQUEST-----
+
+                          '
+                      created_time:
+                        type: string
+                        format: date-time
+                        readOnly: true
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteManagedCsr
+      tags:
+      - Domains
+      summary: 'Managed CSR: Delete
+
+        '
+      responses:
+        '202':
+          description: Managed CSR deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    site:
+      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+      type: object
+      properties:
+        name:
+          description: Pages site resource name.
+          type: string
+          example: accounts/123456/sites/6789
+        primary:
+          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+            A Pages site can have at most one primary Domain.
+
+            '
+          type: boolean
+          default: false
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    previousPageToken:
+      type: string
+      description: The token to use to retrieve the previous page of results. If empty, this is the first page.
+      example: eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==
+    nextPageToken:
+      type: string
+      description: The token to use to retrieve the next page of results. If empty, this is the last page.
+      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
+    managed_csr:
+      description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+        Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+        '
+      type: object
+      properties:
+        managed_csr_id:
+          description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+            '
+          type: string
+          example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+        custom_public_certificate:
+          description: 'Public CA signed certificate.
+
+            '
+          type: string
+          format: pem
+          writeOnly: true
+          example: '-----BEGIN CERTIFICATE-----
+
+            MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+            ...
+
+            -----END CERTIFICATE-----
+
+            '
+        hostname_validation:
+          description: 'Proof of ownership for the SSL provider.
+
+            '
+          type: object
+          readOnly: true
+          properties:
+            cname_target:
+              type: string
+              example: idzm5s34j5.yext.pgscdncf.com.
+            txt_domain:
+              type: string
+              example: _yext-domain.www.example.com
+            txt_value:
+              type: string
+              format: uuid
+            http_uri:
+              type: string
+              example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+            http_body:
+              type: string
+              format: uuid
+    totalSize:
+      type: integer
+      description: The total number of items that match the filter criteria, ignoring pagination.
+      example: 100
+    custom_ssl_certificate:
+      description: 'The provided custom SSL certificate will be used for serving requests to the domain.
+
+        Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+        '
+      type: object
+      required:
+      - public_certificate
+      - private_key
+      properties:
+        public_certificate:
+          type: string
+          format: pem
+          writeOnly: true
+          example: '-----BEGIN CERTIFICATE-----
+
+            MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+            ...
+
+            -----END CERTIFICATE-----
+
+            '
+        private_key:
+          type: string
+          format: pem
+          writeOnly: true
+          example: '-----BEGIN PRIVATE KEY-----
+
+            MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG
+
+            ...
+
+            -----END PRIVATE KEY-----
+
+            '
+        hostname_validation:
+          description: 'Proof of ownership for the SSL provider.
+
+            '
+          type: object
+          readOnly: true
+          properties:
+            cname_target:
+              type: string
+              example: idzm5s34j5.yext.pgscdncf.com.
+            txt_domain:
+              type: string
+              example: _yext-domain.www.example.com
+            txt_value:
+              type: string
+              format: uuid
+            http_uri:
+              type: string
+              example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+            http_body:
+              type: string
+              format: uuid
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    certificate_authority:
+      type: string
+      enum:
+      - GOOGLE_TRUST
+      - LETS_ENCRYPT
+      default: GOOGLE_TRUST
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+  parameters:
+    index_pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        default: 10
+        minimum: 0
+        maximum: 50
+      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
+    viewDefaultBasic:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: BASIC
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
+    domainIdAllowAll:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Set to "-" to reference Domain Associations from all domains in this account.
+    hostnameSearchFilter:
+      name: hostname_search
+      in: query
+      schema:
+        type: string
+      description: Case-insensitive substring used to filter by hostname.
+      example: example
+    hostnameFilters:
+      name: hostname
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
+      example: www.example.com,test.example.com
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    showDeleted:
+      name: show_deleted
+      in: query
+      schema:
+        type: boolean
+        default: false
+    viewDefaultFull:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: FULL
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
+    managedCsrId:
+      name: managedCsrId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    index_pageToken:
+      name: page_token
+      in: query
+      schema:
+        type: string
+      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
+    domainId:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    domainAssociationId:
+      name: domainAssociationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    forceMove:
+      name: force_move
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

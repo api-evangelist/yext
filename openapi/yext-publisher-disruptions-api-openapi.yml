@@ -1,0 +1,354 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Publisher Disruptions API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Publisher Disruptions
+paths:
+  /publishers/{publisherSiteId}/disruptions:
+    parameters:
+    - $ref: '#/components/parameters/publisherSiteId'
+    get:
+      operationId: listPublisherDisruptions
+      tags:
+      - Publisher Disruptions
+      summary: 'Publisher Disruptions: List'
+      description: 'Retrieve disruptions for a publisher.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/v'
+      - name: filter.severities
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CRITICAL
+            - HIGH
+            - MEDIUM
+            - MINOR
+        description: 'Only return disruptions with one of the provided severities.
+
+          '
+        style: form
+        explode: true
+      - name: filter.statuses
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - INVESTIGATING
+            - IDENTIFIED
+            - MONITORING
+            - ON_PUBLISHER
+            - RESOLVED
+        description: 'Only return disruptions with one of the provided statuses.
+
+          '
+        style: form
+        explode: true
+      - name: filter.startTime
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Inclusive lower bound on `lastEventTimestamp`.
+      - name: filter.endTime
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Inclusive upper bound on `lastEventTimestamp`.
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 50
+          minimum: 0
+          maximum: 1000
+        description: Number of results to return.
+      - name: pageToken
+        in: query
+        schema:
+          type: string
+        description: 'If a response to a previous request contained `meta.pagination.pageToken`, pass that
+
+          field''s value as the `pageToken` parameter to retrieve the next page of data.
+
+          '
+      - name: languageCode
+        in: query
+        schema:
+          type: string
+        description: Locale code for translated disruption content, such as `en_US` or `fr_FR`.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListPublisherDisruptionsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /publishers/{publisherSiteId}/disruptions/{disruptionExternalId}/statusUpdates:
+    parameters:
+    - $ref: '#/components/parameters/publisherSiteId'
+    - name: disruptionExternalId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: External ID of the disruption.
+    get:
+      operationId: listPublisherDisruptionStatusUpdates
+      tags:
+      - Publisher Disruptions
+      summary: 'Publisher Disruptions: List Status Updates'
+      description: 'Retrieve status updates for a publisher disruption.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/v'
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 50
+          minimum: 0
+          maximum: 1000
+        description: Number of results to return.
+      - name: pageToken
+        in: query
+        schema:
+          type: string
+        description: 'If a response to a previous request contained `meta.pagination.pageToken`, pass that
+
+          field''s value as the `pageToken` parameter to retrieve the next page of data.
+
+          '
+      - name: languageCode
+        in: query
+        schema:
+          type: string
+        description: Locale code for translated status update content, such as `en_US` or `fr_FR`.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListPublisherDisruptionStatusUpdatesResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    PublisherDisruption:
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: External ID of the disruption.
+        title:
+          type: string
+          description: Title of the disruption.
+        severity:
+          type: string
+          description: Severity of the disruption.
+          enum:
+          - SEVERITY_UNSPECIFIED
+          - CRITICAL
+          - HIGH
+          - MEDIUM
+          - MINOR
+        status:
+          type: string
+          description: Current status of the disruption.
+          enum:
+          - STATUS_UNSPECIFIED
+          - INVESTIGATING
+          - IDENTIFIED
+          - MONITORING
+          - ON_PUBLISHER
+          - RESOLVED
+        affectedProducts:
+          type: array
+          description: Products affected by the disruption.
+          items:
+            type: string
+            enum:
+            - AFFECTED_PRODUCT_UNSPECIFIED
+            - LISTINGS
+            - REVIEWS
+            - SOCIAL
+            - ANALYTICS
+        lastEventTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent event for the disruption.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    PublisherDisruptionStatusUpdate:
+      type: object
+      properties:
+        externalId:
+          type: string
+          description: External ID of the status update.
+        status:
+          type: string
+          description: Status represented by the update.
+          enum:
+          - STATUS_UNSPECIFIED
+          - INVESTIGATING
+          - IDENTIFIED
+          - MONITORING
+          - ON_PUBLISHER
+          - RESOLVED
+        messageHtml:
+          type: string
+          description: HTML message for the status update.
+        eventTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the status update.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    ListPublisherDisruptionStatusUpdatesResponse:
+      description: List Publisher Disruption Status Updates Response
+      content:
+        application/json:
+          schema:
+            title: ListPublisherDisruptionStatusUpdatesResponse
+            type: object
+            properties:
+              meta:
+                allOf:
+                - $ref: '#/components/schemas/ResponseMeta'
+                - type: object
+                  properties:
+                    pagination:
+                      description: 'If there are more status updates than the specified page size, pagination data
+
+                        will be included to retrieve the next page of data.
+
+                        '
+                      type: object
+                      properties:
+                        pageToken:
+                          type: string
+                          description: 'Token that can be sent as `pageToken` to retrieve the next page. If this
+
+                            field is omitted, there are no subsequent pages.
+
+                            '
+              response:
+                type: object
+                properties:
+                  statusUpdates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublisherDisruptionStatusUpdate'
+    ListPublisherDisruptionsResponse:
+      description: List Publisher Disruptions Response
+      content:
+        application/json:
+          schema:
+            title: ListPublisherDisruptionsResponse
+            type: object
+            properties:
+              meta:
+                allOf:
+                - $ref: '#/components/schemas/ResponseMeta'
+                - type: object
+                  properties:
+                    pagination:
+                      description: 'If there are more disruptions than the specified page size, pagination data
+
+                        will be included to retrieve the next page of data.
+
+                        '
+                      type: object
+                      properties:
+                        pageToken:
+                          type: string
+                          description: 'Token that can be sent as `pageToken` to retrieve the next page. If this
+
+                            field is omitted, there are no subsequent pages.
+
+                            '
+              response:
+                type: object
+                properties:
+                  disruptions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublisherDisruption'
+  parameters:
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    publisherSiteId:
+      name: publisherSiteId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Publisher site ID.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

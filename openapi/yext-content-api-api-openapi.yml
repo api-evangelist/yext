@@ -1,0 +1,408 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Content API API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Content API
+paths:
+  /accounts/{accountId}/content/{endpoint}/{ids}:
+    get:
+      operationId: contentGet
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/endpoint'
+      - $ref: '#/components/parameters/contentDocIds'
+      - $ref: '#/components/parameters/v'
+      tags:
+      - Content API
+      summary: 'Content: Get'
+      description: Retrieve records by ID from a Content Endpoint
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/content/{endpoint}:
+    get:
+      operationId: contentList
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/endpoint'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/pageToken'
+      tags:
+      - Content API
+      summary: 'Content: List'
+      description: 'List records from a Content Endpoint
+
+
+        Content API provides the ability for a user to filter and sort records
+
+        by the contents of an indexed field. The filters and sorting parameters can
+
+        be provided as query parameters, in addition to the query parameters
+
+        documented here. If no filters are provided, the API returns all the records
+
+        (with pagination).
+
+
+        For example, with the parameter **`name=Alice`**, only records where the
+
+        field **`name`** has value **`Alice`** will be returned.
+
+
+        Similarly, adding the parameters **`name__in=Alice`** and **`name__in=Bob`**
+
+        will result in records with **`name`** equal to **`Alice`** OR **`name`**
+
+        equal to **`Bob`** being returned.
+
+
+        ### Filters
+
+
+        Filters are supported on Text, Numeric, Date and DateTime fields, although
+
+        not all filters are supported by all fields. It is also possible to filter
+
+        on an array of strings, or a string field nested in an array of objects. In
+
+        this case, the record will be present in the response if one of the field
+
+        values in the array matches the filter.
+
+
+        Multiple filters on different fields and different filter types can be
+
+        combined in the same query. An indexed field with an object can be filtered
+
+        by using the dot notation, for example, **`address.city=Brooklyn`**.
+
+
+        A number of different types of filters are supported.
+
+
+        #### Equals
+
+
+        This can be specified as simple query parameter.
+
+
+        Supported Types: Text, Numeric, Date, DateTime, Fields within Arrays.
+
+
+        *Example:*
+
+        Adding **`&name=Alice`** as a query parameter will return records where the
+
+        name field matches Alice.
+
+
+
+        #### Not Equals
+
+
+        This can be specified with the **`neq`** modifier to the query parameter
+
+        key.
+
+
+        Supported Types: Text, Numeric, Date, DateTime, Fields within Arrays.
+
+
+        *Example:*
+
+        Adding **`&name__neq=Alice`** as a query parameter will return records where
+
+        the name field does not match Alice.
+
+
+        #### Equals Any Of
+
+
+        This is basically an `OR` clause for Equals on a given field. This can be
+
+        specified with the **`in`** modifier to the query parameter key.
+
+
+        Supported Types: Text, Numeric, Date, DateTime, Fields within Arrays.
+
+
+        *Example:*
+
+        Adding **`&name__in=Alice&name__in=Bob`** as a query parameter will return
+
+        records where the name field matches either Alice or Bob.
+
+
+        #### Comparison
+
+
+        The following comparison filters are supported:
+
+        * Greater Than with the modifier `gt`
+
+        * Greater Than Or Equals with the modifier `gte`
+
+        * Less Than with the modifier `lt`
+
+        * Less Than Or Equals with the modifier `lte`
+
+
+        Supported Types: Numeric, Date, DateTime.
+
+
+        *Example:*
+
+        Adding **`&createdDate__gt=2020-11-11&rating__gte=4`** as a query parameter
+
+        will return records where the `createdDate` is after `2020-11-11` and the
+
+        `rating` field has a value greater than or equal to `4`.
+
+
+        #### GeoSearch
+
+
+        Supports filtering to records for which the specified field is within the supplied radius to the supplied latitude and longitude.
+
+
+        Supported Types: Coordinates (ex: `yextDisplayCoordinate`, `displayCoordinate`, etc.).
+
+
+        GeoSearch queries are constructed by appending a `__geo` comparator to a coordinate field in the request. The details of the GeoSearch must then be included, comma separated, as part of the query value, optionally surrounded by parantheses.
+
+
+        The following parameters are supported:
+
+        * The latitude of the point to geosearch from, specified as `lat`
+
+        * The longitude of the point to geosearch from, specified as `lon`
+
+        * The numeric radius from the point which results will be filtered to, specifed as `radius`
+
+        * The unit of measurement for the radius, specified as `unit`. One of `km`, `mi`, `m`, `ft`. Defaults to `mi`
+
+
+        *Example:*
+
+        Adding **`&yextDisplayCoordinate__geo=(lat:40.740,lon:-73.987565,radius:50,unit:km)`** as a query parameter
+
+        will return records where the `yextDisplayCoordinate` field on the entities is within 50 km of the provided latitude and longitude.
+
+
+        Like all other filters, the field which is being geosearched upon must be specified in the `fieldIndexes` of the endpoint definition.
+
+
+        ### Sorting
+
+
+        Content Endpoints support sorting by an indexed field. This can be enabled
+
+        by adding the `$sortBy` query parameter with field name as the value.
+
+        Optionally, the modifiers `asc` and `desc` can be added to indicate
+
+        sorting by ascending and descending orders respectively. If no modifier is
+
+        specified, the results will be returned in descending order.
+
+
+        Currently, sorting is only supported on a single field per request.
+
+
+        *Example:*
+
+        Adding **`&$sortBy__desc=createdDate`** as a query parameter will return
+
+        records with the most recent `createdDate` first.
+
+
+        ### Additional Notes on Supported Types
+
+
+        Indexes are supported on String, Numeric, Date and DateTime types. The set
+
+        of supported filters for each type is documented in the previous section.
+
+
+        #### String
+
+
+        Content Endpoints support indexing UTF-8 strings with a maximum length of
+
+        256 characters.
+
+
+        #### Date and DateTime
+
+
+        * The timezone information on a DateTime, if present, will be stripped away
+
+        during indexing, without converting the time to another timezone.
+
+        * For indexing, the system expects to get [RFC3339 DateTime
+
+        format](https://datatracker.ietf.org/doc/html/rfc3339) for DateTimes and
+
+        `YYYY-MM-DD` for Dates.
+
+        * For querying, API accepts the following formats: `YYYY-MM-DD`,
+
+        `YYYY-MM-DDTHH`, `YYYY-MM-DDTHH:MM` and `YYYY-MM-DDTHH:MM:SS`.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  responses:
+    StreamsResponse:
+      description: Content Response
+      content:
+        application/json:
+          schema:
+            title: ContentResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                required:
+                - count
+                properties:
+                  count:
+                    type: integer
+                    description: '
+
+                      Total number of documents that meet the filter criteria.
+
+                      '
+                  docs:
+                    type: array
+                    description: Documents containing the data for the relevant Content Endpoint and request.
+                    items:
+                      type: object
+                  nextPageToken:
+                    $ref: '#/components/schemas/NextPageToken'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+  parameters:
+    contentDocIds:
+      name: ids
+      in: path
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+      style: simple
+      description: 'The Content records to get. Multiple record IDs can be provided separated by commas.
+
+        '
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    endpoint:
+      name: endpoint
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the Content Endpoint to query.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    pageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
+
+        '
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+        maximum: 50
+      description: Number of results to return.
+  schemas:
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

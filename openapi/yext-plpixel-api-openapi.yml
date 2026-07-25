@@ -1,0 +1,205 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Plpixel API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Plpixel
+paths:
+  /plpixel:
+    parameters:
+    - $ref: '#/components/parameters/pid'
+    - $ref: '#/components/parameters/ids'
+    - $ref: '#/components/parameters/source'
+    - $ref: '#/components/parameters/action'
+    - $ref: '#/components/parameters/query'
+    - $ref: '#/components/parameters/querylocation'
+    - $ref: '#/components/parameters/rank'
+    - $ref: '#/components/parameters/target'
+    - $ref: '#/components/parameters/property'
+    - $ref: '#/components/parameters/useragent'
+    - $ref: '#/components/parameters/userid'
+    - $ref: '#/components/parameters/pageurl'
+    - $ref: '#/components/parameters/additional'
+    get:
+      operationId: Pixel
+      summary: Pixel
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request (Incorrect Format)
+      tags:
+      - Plpixel
+components:
+  parameters:
+    rank:
+      name: rank
+      in: query
+      schema:
+        type: string
+      description: 'The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).
+
+        * Comma-separated list of integers, 1-indexed, parallel to ids.
+
+        * A rank of ''5'' in the first index would indicate that the first listing in the list appeared fifth in the organic results
+
+        '
+    query:
+      name: query
+      in: query
+      schema:
+        type: string
+      description: 'The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.
+
+        * Required if **source** is **serp**
+
+        * The value of this field must be URL encoded
+
+        '
+    useragent:
+      name: useragent
+      in: query
+      schema:
+        type: string
+      description: 'The user agent from the original web request.
+
+        * Required  if and only if making a server-side call to report a web page view
+
+        '
+    pid:
+      name: pid
+      in: query
+      schema:
+        type: string
+      required: true
+      description: 'Publisher secure ID. This value will be provided to you.
+
+        '
+    source:
+      name: source
+      in: query
+      schema:
+        type: string
+        enum:
+        - serp
+        - mapbubble
+        - detailspage
+        - drivingdirections
+      required: true
+      description: 'Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
+
+        '
+    userid:
+      name: userid
+      in: query
+      schema:
+        type: string
+      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
+    additional:
+      name: additional
+      in: query
+      schema:
+        type: string
+      description: 'Any additional data you wish to include
+
+        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
+
+        '
+    property:
+      name: property
+      in: query
+      schema:
+        type: string
+      description: 'Indicates the Internet property where the event took place.
+
+        You should always provide this value if your listings are available on multiple platforms or properties (e.g., website, iPhone app, and Android app or publisher.example.com and local.publisher.com).
+
+        * This value does not have to be a domain name, but please choose something that’s likely to be unique.
+
+        '
+    querylocation:
+      name: querylocation
+      in: query
+      schema:
+        type: string
+      description: 'Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in "Find X near Y", "X" should be provided as "query" and "Y" should be provided as **querylocation**.
+
+        * Required if **source** is **serp**
+
+        * The value of this field must be URL encoded
+
+        '
+    ids:
+      name: ids
+      in: query
+      schema:
+        type: string
+      required: true
+      description: 'Comma-separated list of Yext location Ids
+
+        '
+    target:
+      name: target
+      in: query
+      schema:
+        type: string
+        enum:
+        - bios
+        - directions
+        - email
+        - events
+        - hours
+        - map
+        - mappin
+        - menus
+        - moreinfo
+        - name
+        - phone
+        - products
+        - reviews
+        - searchnearby
+        - share
+        - website
+      description: 'Indicates which part of the page the user clicked on. For clicks on the SERP that send the user to the details page, you may optionally report a target of moreinfo rather than specifying a particular field.
+
+        If no appropriate value is available, please contact us.
+
+        * Required if **action** is **click**
+
+        '
+    action:
+      name: action
+      in: query
+      schema:
+        type: string
+        enum:
+        - impression
+        - click
+      required: true
+      description: 'Type of event that took place
+
+        '
+    pageurl:
+      name: pageurl
+      in: query
+      schema:
+        type: string
+      description: 'The URL of the original web request
+
+        * Required  if and only if making a server-side call to report a web page view
+
+        '
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

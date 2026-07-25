@@ -1,0 +1,231 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Optimization Tasks API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Optimization Tasks
+paths:
+  /accounts/{accountId}/optimizationtasks:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getOptimizationTasks
+      parameters:
+      - $ref: '#/components/parameters/taskIds'
+      - $ref: '#/components/parameters/taskLocationIds'
+      tags:
+      - Optimization Tasks
+      summary: 'Optimization Tasks: List'
+      description: List Optimization Tasks for the account, optionally filtered by task and location.
+      responses:
+        '200':
+          $ref: '#/components/responses/OptimizationTasksResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/optimizationlink:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getLinkOptimizationTask
+      parameters:
+      - $ref: '#/components/parameters/taskIds'
+      - $ref: '#/components/parameters/taskLocationId'
+      - $ref: '#/components/parameters/mode'
+      tags:
+      - Optimization Tasks
+      summary: 'Optimization Tasks: Get Link'
+      description: Retrieve a link to perform any pending Optimization Tasks given a set of Optimization Tasks and a location
+      responses:
+        '200':
+          $ref: '#/components/responses/OptimizationLinkResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    OptimizationTask:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Optimization Task’s ID
+        name:
+          type: string
+          description: The name of the Optimization Task
+        description:
+          type: string
+          description: Description of the Optimization Task
+        locationsEligible:
+          type: number
+          description: The number of locations specified in the request that are eligible to have the task completed.
+        locationsCompleted:
+          type: number
+          description: The number of locations specified in the request for which the task has been completed.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+  parameters:
+    taskLocationIds:
+      name: locationIds
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated list of Location IDs to be used as a filter.
+
+
+        If no IDs are provided, defaults to all Locations in the account.
+
+        '
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    mode:
+      name: mode
+      in: query
+      schema:
+        type: string
+        enum:
+        - PENDING_ONLY
+        - ALL_TASKS
+        - RESET
+        default: PENDING_ONLY
+      description: 'When mode is `PENDING_ONLY`, the resulting link will only ask the user to complete tasks that are pending or in progress (that have not been completed before).
+
+
+        When mode is `ALL_TASKS`, the resulting link will show the user all specified tasks for all specified locations, regardless of their status. If a task has been completed, the user is given the option to update the content they entered when completing the task.
+
+        '
+    taskLocationId:
+      name: locationId
+      in: query
+      schema:
+        type: string
+      description: 'Location ID to be used as a filter.
+
+
+        If no ID is provided, defaults to all Locations in the account.
+
+        '
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    taskIds:
+      name: taskIds
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated list of Optimization Task IDs corresponding to Optimization Tasks that should be included in the response.
+
+
+        If no IDs are provided, defaults to all available Optimization Tasks in the account.
+
+        '
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    OptimizationTasksResponse:
+      description: Optimization Tasks Response
+      content:
+        application/json:
+          schema:
+            title: OptimizationTasksResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  optimizationTasks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OptimizationTask'
+    OptimizationLinkResponse:
+      description: Optimization Task Links Response
+      content:
+        application/json:
+          schema:
+            title: OptimizationTaskLinksResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  link:
+                    type: string
+                    description: 'The URL where all requested task(s) for the requested location(s) can be completed.
+
+
+                      Will be null if none of the requested tasks on the requested locations are pending and mode is PENDING_ONLY.
+
+
+                      **Redirecting after the task:** You can automatically redirect users to a specific URL after they''ve completed the task. To do so, append a `continueUrl` parameter, whose value is the URL users should be redirected to, to the returned URL.
+
+                      '
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

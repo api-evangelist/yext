@@ -1,0 +1,996 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Analytics API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Analytics
+paths:
+  /accounts/{accountId}/analytics/catalog:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getCatalog
+      tags:
+      - Analytics
+      summary: Catalog
+      description: List of all metrics for which reporting data is available, along with their completed dates.
+      responses:
+        '200':
+          $ref: '#/components/responses/CatalogResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/analytics/maxdates:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getMaxDates
+      tags:
+      - Analytics
+      summary: Max Dates
+      description: Fetch the completed date for Listings and Bing metrics. Fetching the completed date for individual metrics can be done using the catalog endpoint.
+      responses:
+        '200':
+          $ref: '#/components/responses/MaxDatesResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/analytics/reports:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - name: async
+      in: query
+      schema:
+        type: boolean
+      description: Defaults to false.  When true, the report’s ID will be returned immediately and the report results can be fetched later.  When false, the report results will be returned immediately, but an error may occur if the data requested is too large.
+    - name: callback
+      in: query
+      schema:
+        type: string
+      description: "Optional.  When async=true and callback is specified, the provided URL will be called when the report is ready.\nThe URL must be of the form:\n\n    POST https://[your domain]/[your path]\n\nIt must accept the following parameters:\n\n    id:         (string)  - The ID of the report request which completed.\n\n    status:     (string)  - One of [DONE, FAILED] indicating the result of the request.\n\n    statusCode: (int)     - An HTTP status code indicating the result of the request.\n\n    message:    (string)  - When status=FAILED, contains an error message.\n\n    url:        (string)  - When status=DONE, contains the URL to download the report data as a text file.\n"
+    post:
+      operationId: createReports
+      tags:
+      - Analytics
+      summary: Reports
+      description: 'Create a report to retrieve analytics for each of your products using synchronous or asynchronous requests depending on the size of your data.
+
+
+        For more information available in the Reports API, check our documentation below:
+
+        * [Metrics in Analytics](https://help.yext.com/hc/en-us/articles/360000001103-Metrics-in-Analytics)
+
+        * [Dimensions in Analytics](https://help.yext.com/hc/en-us/articles/5901921968027-Dimensions-in-Analytics)
+
+        '
+      requestBody:
+        description: JSON object containing any filters to be applied to the report
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateReportsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/analytics/standardreports/{reportId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - name: reportId
+      in: path
+      schema:
+        type: integer
+      required: true
+    get:
+      operationId: reportStatus
+      tags:
+      - Analytics
+      summary: Report Status
+      description: Checks the status of a Report created with async=true.
+      responses:
+        '200':
+          $ref: '#/components/responses/ReportStatusResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    Metric:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of an Analytics metric for which reporting data can be retrieved.
+        completedDate:
+          format: date
+          type: string
+          description: The date until which complete data for the metric is available, in `YYYY-MM-DD` format.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    AnalyticsFilter:
+      type: object
+      properties:
+        ANSWERS_BACKEND:
+          type: array
+          description: Backend(s) used to return results.
+          items:
+            type: string
+            enum:
+            - ALGOLIA
+            - BING_CSE
+            - CUSTOM_SEARCHER
+            - GOOGLE_CSE
+            - KNOWLEDGE_MANAGER
+            - ZENDESK
+            - UNKNOWN
+        ANSWERS_BLANK_SEARCH_TERM:
+          type: boolean
+          description: Indicates whether no Search Term was entered for Search.
+        ANSWERS_CLICK_LABEL:
+          type: string
+          description: Label assigned to CTA_CLICK types.
+        ANSWERS_CLICK_TYPE:
+          type: string
+          description: Type of click performed by user.
+        ANSWERS_CLICK_URL:
+          type: string
+          description: URL user was sent to on click, e.g. Google Maps on Driving Directions click.
+        ANSWERS_CLUSTER:
+          type: string
+          description: Name of the Cluster a Search Term belongs to. Search Term Clusters are named by using the most popular Search Term (based on Sessions) within the Cluster.
+        ANSWERS_CONFIGURATION_VERSION:
+          type: array
+          description: Version Number of Configuration Search was run on.
+          items:
+            type: string
+        ANSWERS_CONFIGURATION_VERSION_LABEL:
+          type: array
+          description: Version Label of Configuration Search was run on.
+          items:
+            type: string
+        ANSWERS_DIRECT_ANSWER_CLICK:
+          type: boolean
+          description: Indicates whether click was a from Direct Answer.
+        ANSWERS_DIRECT_ANSWER_FIELD:
+          type: string
+          description: Field returned in Direct Answer.
+        ANSWERS_DIRECT_ANSWER_FIELD_TYPE:
+          type: array
+          description: Type of Field used for Direct Answer returned for a Search.
+          items:
+            type: string
+        ANSWERS_DIRECT_ANSWER_FIELD_VALUE:
+          type: string
+          description: Value returned in Direct Answer.
+        ANSWERS_DIRECT_ANSWER_TYPE:
+          type: array
+          description: Type of Direct Answers returned for a Search.
+          items:
+            type: string
+        ANSWERS_EXPERIENCE:
+          type: array
+          description: Name of Answers Experience.
+          items:
+            type: string
+        ANSWERS_FILTER_KEY:
+          type: array
+          description: Field from the Knowledge Graph which Search filtered on.
+          items:
+            type: string
+        ANSWERS_FILTER_OPERATOR:
+          type: array
+          description: Operator used for filter.
+          items:
+            type: string
+            enum:
+            - BETWEEN
+            - EQUALS
+            - EQUAL_TO
+            - GREATER_THAN
+            - GREATER_THAN_OR_EQUAL_TO
+            - LESS_THAN
+            - LESS_THAN_OR_EQUAL_TO
+            - NEAR
+            - OPEN_AT
+        ANSWERS_FILTER_SOURCE:
+          type: array
+          description: Operator used for filter.
+          items:
+            type: string
+            enum:
+            - ALGO
+            - QUERY_RULE
+            - UI
+        ANSWERS_FILTER_TYPE:
+          type: array
+          description: Type of filter applied.
+          items:
+            type: string
+            enum:
+            - FACET
+            - NLP
+            - STATIC
+        ANSWERS_FILTER_VALUE:
+          type: array
+          description: Value used to filter Search.
+          items:
+            type: string
+        ANSWERS_HAS_CASE_START:
+          type: boolean
+          description: Indicates the first search in the case creation process.
+        ANSWERS_HAS_CASE_SUBMIT:
+          type: boolean
+          description: Indicates the last search in the case creation process.
+        ANSWERS_HAS_KG_RESULTS:
+          type: boolean
+          description: Include only searches with results from the Knowledge Graph.
+        ANSWERS_HAS_SEARCH_TERM_CLUSTER:
+          type: boolean
+          description: Indicates whether a Search Term belongs to a Search Term Cluster. Search Terms may not belong to a cluster if they do not pertain to any other terms searched on your experience or if it is a new term that has been searched for the first time since clustering was last run.
+        ANSWERS_HAS_VOICE_SEARCH:
+          type: boolean
+          description: Includes only searches made using voice search.
+        ANSWERS_QUERY_SOURCE:
+          type: array
+          description: 'The integration source from which this search originated. This includes the following options: STANDARD (standard search bar) and OVERLAY (within an search overlay).'
+          items:
+            type: string
+            enum:
+            - STANDARD
+            - OVERLAY
+        ANSWERS_RAW_SEARCH_TERM:
+          type: string
+          description: Raw Search Term entered by user for Search.
+        ANSWERS_REFERRER_DOMAIN:
+          type: string
+          description: Domain of page where user was sent from, e.g. jobs.mysite.com.
+        ANSWERS_REFERRER_PAGE_URL:
+          type: string
+          description: URL of page where user was sent from e.g. https://jobs.mysite.com/careers/open-positions/.
+        ANSWERS_RESULT_ENTITY_POSITION:
+          type: integer
+          description: Position Entity was returned within Vertical.
+        ANSWERS_RESULT_TITLE:
+          type: string
+          description: Title of Result from Third Party Backends. For results that come from Knowledge Graph backends this will be blank.
+        ANSWERS_RESULT_VERTICAL_POSITION:
+          type: integer
+          description: Position of Verticals in Result.
+        ANSWERS_SEARCH_ID:
+          type: string
+          description: ID of Search.
+        ANSWERS_SEARCH_TERM:
+          type: string
+          description: 'Normalized Search Term of Search. Normalization removes: Capitalization, Punctuation, White Space.'
+        ANSWERS_SEARCH_TERM_CLUSTER_PERFORMANCE:
+          type: array
+          description: 'Identify how well a cluster is performing based on % of Total Searches and Click Through Rate.
+
+            Cluster Performance breaks down into four groups with ids between 0-3.
+
+            0: Needs Attention - Large Cluster
+
+            1: Needs Attention - Small Cluster
+
+            2: Performing Well - Small Cluster
+
+            3: Performing Well - Large Cluster
+
+            '
+          items:
+            type: integer
+        ANSWERS_SEARCH_TERM_INTENT:
+          type: string
+          description: Whether Search Term should be boosted or blacklisted based on your experience config. Options include BOOSTED and BLACKLISTED.
+        ANSWERS_SEARCH_VERTICAL:
+          type: array
+          description: Vertical Search was ran on.
+          items:
+            type: string
+        ANSWERS_SESSION_ID:
+          type: string
+          description: ID of Session Search was run in.
+        ANSWERS_TRAFFIC_TYPE:
+          type: array
+          description: Type of Traffic.
+          items:
+            type: string
+            enum:
+            - EXTERNAL
+            - INTERNAL
+        ANSWERS_USER_BROWSER:
+          type: array
+          description: Browser of the user running the Search.
+          items:
+            type: string
+        ANSWERS_USER_CITY:
+          type: string
+          description: City of user running Search.
+        ANSWERS_USER_COUNTRY:
+          type: string
+          description: Country of user running Search.
+        ANSWERS_USER_DEVICE_CLASS:
+          type: string
+          description: Device of user running Search.
+        ANSWERS_USER_LAT_LONG:
+          type: string
+          description: Lat, Long of user running Search.
+        ANSWERS_USER_LOCATION_ACCURACY:
+          type: string
+          description: Method for identifying user location. Options include Unknown, Device, and IP.
+        ANSWERS_USER_POSTAL_CODE:
+          type: array
+          description: Postal code of the user running the Search.
+          items:
+            type: string
+        ANSWERS_USER_REGION:
+          type: array
+          description: Region of the user running the Search.
+          items:
+            type: string
+        ANSWERS_VERTICAL_RETURNED:
+          type: array
+          description: Vertical returned in results for a Search.
+          items:
+            type: string
+        CLICK_TYPE:
+          type: array
+          description: Conversion Tracking click type.
+          items:
+            type: string
+            enum:
+            - ADD_TO_CART
+            - APPLY_NOW
+            - BOOK_APPOINTMENT
+            - CALL
+            - CALL_TO_ACTION
+            - DETAIL
+            - DRIVING_DIRECTIONS
+            - EMAIL
+            - FEATURED_MESSAGE
+            - ORDER_NOW
+            - ROW_EXPAND
+            - RSVP
+            - THUMBS_UP
+            - TITLE
+            - UBER_LINK
+            - WEB
+            - OTHER
+            - UNKNOWN
+        CONFIGURATION_VERSION_LABEL:
+          type: array
+          description: Configuration Version Label.
+          items:
+            type: string
+            enum:
+            - PRODUCTION
+            - STAGING
+        CONVERSION_TYPE:
+          type: array
+          description: Conversion Type.
+          items:
+            type: string
+            enum:
+            - COST_SAVING_CUSTOMER_SUPPORT
+            - COST_SAVING_OTHER
+            - LEAD
+            - NO_TYPE
+            - PAGE_VIEW
+            - PURCHASE
+            - SIGN_UP
+            - OTHER_CONVERSION_TYPE
+            - UNKNOWN_CONVERSION_TYPE
+        MEDIUM:
+          type: string
+          description: Conversion tracking medium.
+        PRODUCT:
+          type: array
+          description: Identify conversion analytics by the product in which they occurred.
+          items:
+            type: string
+            enum:
+            - ANSWERS
+            - LISTINGS
+            - PAGES
+            - UNKNOWN
+        TRAFFIC_SOURCE:
+          type: array
+          description: Identify conversion analytics by the source of the traffic.
+          items:
+            type: string
+            enum:
+            - EXTERNAL
+            - INTERNAL
+            - UNKNOWN_TRAFFIC_SOURCE
+        VALUE_PROPOSITION:
+          type: array
+          description: Identify conversion analytics by their value proposition.
+          items:
+            type: string
+            enum:
+            - COST_SAVINGS
+            - REVENUE_GENERATING
+        VERTICAL_CONFIG_ID:
+          type: string
+          description: Vertical Config ID.
+        age:
+          type: array
+          description: Array of age groups. Can only be used with Facebook metrics.
+          items:
+            type: string
+            enum:
+            - AGE13_17
+            - AGE18_24
+            - AGE25_34
+            - AGE35_44
+            - AGE45_54
+            - AGE55
+            - UNKNOWN
+        VISITOR_EMAIL:
+          type: array
+          description: Email of Unique Visitor who triggered event.
+          items:
+            type: string
+        VISITOR_ID:
+          type: array
+          description: ID of Unique Visitor who triggered event.
+          items:
+            type: string
+        VISITOR_ID_METHOD:
+          type: array
+          description: Method used to identify Visitor.
+          items:
+            type: string
+        VISITOR_NAME:
+          type: array
+          description: Name of Unique Visitor who triggered event.
+          items:
+            type: string
+        competitor:
+          type: array
+          items:
+            type: string
+          description: Competitors monitored by the Intelligent Search Tracker. Can only be used with Intelligent Search Tracker metrics.
+        countries:
+          type: array
+          items:
+            type: string
+          description: Array of 3166 Alpha-2 country codes.
+        customerActionType:
+          type: array
+          description: 'Specifies the type of customer actions to be included in the report. Can only be used with the `GOOGLE_CUSTOMER_ACTIONS` and `YELP_CUSTOMER_ACTIONS` metrics.
+
+            '
+          items:
+            type: string
+            enum:
+            - ACTION_DRIVING_DIRECTIONS
+            - ACTION_PHONE
+            - ACTION_WEBSITE
+        endDate:
+          type: string
+          format: date
+          description: 'The exclusive end date for the report data. Defaults to the earliest of the relevant maximum reporting dates. Must be after the date given in **`startDate`**.
+
+            NOTES:
+
+            - If **`dimensions`** contains `WEEKS`, or `MONTHS`, the end date must coincide with the end of a week or month, depending on the dimension chosen.
+
+            - If the **`v`** parameter is before `20180314`, the end date is inclusive, and the end date must be on or after the date given in **`startDate`**.
+
+            '
+          example: '2017-01-31'
+        entityGroup:
+          type: array
+          description: Array of entity groups.
+          items:
+            type: string
+            enum:
+            - CATEGORIES
+            - EVENTS
+            - LOCATIONS
+            - ORGANIZATIONS
+            - PEOPLE
+            - UNKNOWN
+        entityIds:
+          type: array
+          items:
+            type: string
+          description: Array of entity IDs.
+        entityType:
+          type: array
+          description: Array of entity types.
+          items:
+            type: string
+            enum:
+            - ATM
+            - CATEGORY_PAGE
+            - EVENT
+            - HEALTHCARE_PROFESSIONAL
+            - HEALTHCARE_FACILITY
+            - LOCATION
+            - ORGANIZATION
+            - RESTAURANT
+        eventSearchCondition:
+          type: array
+          description: Array of event search conditions.
+          items:
+            type: string
+            enum:
+            - INITIAL_SCAN
+            - DAYS28_PRIOR
+            - DAYS7_PRIOR
+            - DAY_OF
+            - DAYS7_AFTER
+        facebookImpressionType:
+          type: array
+          description: Array of Facebook impression types.
+          items:
+            type: string
+            enum:
+            - ORGANIC
+            - PAID
+            - VIRAL
+        facebookRsvpType:
+          type: array
+          description: Array of Facebook RSVP types.
+          items:
+            type: string
+            enum:
+            - ATTENDING
+            - DECLINED
+            - INTERESTED
+            - MAYBE
+        facebookStoryType:
+          type: array
+          description: Array of Facebook RSVP types.
+          items:
+            type: string
+            enum:
+            - CHECKIN
+            - COUPON
+            - EVENT
+            - FAN
+            - MENTION
+            - OTHER
+            - PAGE_POST
+            - QUESTION
+            - USER_POST
+        folderIds:
+          type: array
+          items:
+            type: integer
+          description: 'Specifies a list of folders whose locations and subfolders should be included in the results. Defaults to all folders.
+
+            Cannot be used when `ACCOUNT_ID` is in **`dimensions`**.
+
+            '
+        foursquareCheckinAge:
+          type: array
+          description: Array of Foursquare check-in age groups.
+          items:
+            type: string
+            enum:
+            - AGE13_17
+            - AGE18_24
+            - AGE25_34
+            - AGE35_44
+            - AGE45_54
+        foursquareCheckinGender:
+          type: string
+          description: Foursquare check-in gender.
+          enum:
+          - FEMALE
+          - MALE
+        foursquareCheckinTimeOfDay:
+          type: array
+          description: Array of Foursquare check-in times.
+          items:
+            type: string
+            enum:
+            - MORNING
+            - NOON
+            - AFTERNOON
+            - EVENING
+            - NIGHT
+        foursquareCheckinType:
+          type: string
+          description: Foursquare check-in type.
+          enum:
+          - NEW
+          - REPEAT
+        frequentWords:
+          type: array
+          description: Specifies the words that should be included in the report. Can only be used with Reviews metrics.
+          items:
+            type: string
+        gender:
+          type: string
+          enum:
+          - FEMALE
+          - MALE
+          - UNIDENTIFIED
+        googleActionType:
+          type: array
+          description: 'Specifies the type of customer actions to be included in the report. Can only be used with the `GOOGLE_CUSTOMER_ACTIONS` metric.
+
+            '
+          items:
+            type: string
+            enum:
+            - ACTION_DRIVING_DIRECTIONS
+            - ACTION_PHONE
+            - ACTION_WEBSITE
+        googleQueryType:
+          type: array
+          description: Specifies the type of queries to be included in the report. Can only be used with the `GOOGLE_SEARCH_QUERIES` metric.
+          items:
+            type: string
+            enum:
+            - QUERIES_CHAIN
+            - QUERIES_DIRECT
+            - QUERIES_INDIRECT
+        hours:
+          type: array
+          description: Specifies the hour(s) of day that should be included in the report. Can only, and must be used with the `GOOGLE_PHONE_CALLS` metric.
+          items:
+            type: number
+            format: integer
+            minimum: 0
+            maximum: 23
+        instagramContentType:
+          type: string
+          description: Instagram content type.
+          enum:
+          - PHOTO
+          - VIDEO
+        keyword:
+          type: array
+          items:
+            type: string
+          description: The keyword used to create search requests. Can only be used with Intelligent Search Tracker metrics.
+        listingsLiveType:
+          type: string
+          description: Specifies the type of listings live that should be included in the report. Can only be used with `LISTINGS_LIVE` metric.
+          enum:
+          - CLAIMED
+          - CREATED
+        locationIds:
+          type: array
+          items:
+            type: string
+          description: Array of location IDs
+        locationLabels:
+          type: array
+          items:
+            type: string
+          description: Array of location labels. Cannot be used with `NEW_REVIEWS` or `AVERAGE_RATING` metrics.
+        matchPosition:
+          type: array
+          description: The local pack or organic position of the search result. Can only be used with Intelligent Search Tracker metrics.
+          items:
+            type: string
+            enum:
+            - ONE
+            - TWO
+            - THREE
+            - FOUR
+            - FIVE
+            - SIX_TO_TEN
+        matchType:
+          type: array
+          description: One of Local Map Pack, Listings, Pages and Corporate Website. Can only be used with Intelligent Search Tracker metrics.
+          items:
+            type: string
+            enum:
+            - COMPETITOR
+            - COMPETITOR_PAID_AD
+            - CORPORATE_WEBSITE
+            - LISTINGS
+            - LOCAL_PACK
+            - LOCATION_PAGES
+            - NO_MATCH
+            - PAID_AD
+        maxSearchFrequency:
+          type: number
+          format: double
+          description: Maximum number of times a search term may have been used.
+        minSearchFrequency:
+          type: number
+          format: double
+          description: Minimum number of times a search term may have been used.
+        pageTypes:
+          type: array
+          description: Specifies the Pages page types that should be included in the report. Can only be used with Store Pages metrics
+          items:
+            type: string
+            enum:
+            - DIRECTORY
+            - SEARCH
+            - STORE
+        partners:
+          type: array
+          description: Specifies the partners that should be included in the report. Can only be used with Reviews metrics.
+          items:
+            type: number
+            format: long
+        platformType:
+          type: array
+          items:
+            type: string
+            enum:
+            - BOT
+            - DESKTOP
+            - MOBILE
+            - TABLET
+            - UNKNOWN
+          description: Array of platform types.
+        publisherSuggestionType:
+          type: array
+          description: Specifies the types of publisher suggestions that should be included in the report. Can only be used with `PUBLISHER_SUGGESTIONS` metric.
+          items:
+            type: string
+            enum:
+            - ACCEPTED
+            - CANCELED
+            - NEW
+            - REJECTED
+        queryTemplate:
+          type: array
+          description: The query template used to create search requests. Can only be used with Intelligent Search Tracker metrics.
+          items:
+            type: string
+            enum:
+            - KEYWORD
+            - KEYWORD_CITY
+            - KEYWORD_CITY_STATE
+            - KEYWORD_IN_CITY
+            - KEYWORD_NEAR_ME
+            - KEYWORD_ZIP
+        ratings:
+          type: array
+          description: Specifies the ratings to be included in the report. Can only be used with Reviews metrics.
+          items:
+            type: integer
+            minimum: 1
+            maximum: 5
+        reviewLabels:
+          type: array
+          description: Specifies the review labels that should be included in the report. Can only be used with Reviews metrics.
+          items:
+            type: number
+            format: long
+        searchEngine:
+          type: array
+          description: The search engine used for the Intelligent Search Tracker. Can only be used with Intelligent Search Tracker metrics.
+          items:
+            type: string
+            enum:
+            - BING_DESKTOP
+            - GOOGLE_DESKTOP
+            - GOOGLE_MOBILE
+            - YAHOO_DESKTOP
+        searchResultType:
+          type: array
+          description: One of Organic, Local Pack or Knowledge Card. Can only be used with Intelligent Search Tracker metrics.
+          items:
+            type: string
+            enum:
+            - KNOWLEDGE_CARD_RESULT
+            - LOCAL_PACK_RESULT
+            - ORGANIC_RESULT
+        searchTerms:
+          type: string
+        sentimentCollection:
+          type: array
+          description: Specifies the sentiment collection that should be included in the report. Can only be used with Reviews metrics.
+          items:
+            type: number
+            format: integer
+        startDate:
+          type: string
+          format: date
+          description: 'The inclusive start date for the report data. Defaults to 90 days before the end date. Must be before the date given in **`endDate`**.
+
+            E.g. ‘2016-08-22’
+
+            NOTE: If `WEEKS`, or `MONTHS` is in **`dimensions`**, **`startDate`** must coincide with the beginning and end of a week or month, depending on the dimension chosen.
+
+            '
+          example: '2017-01-01'
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    CreateReportRequestBody:
+      type: object
+      required:
+      - metrics
+      - dimensions
+      properties:
+        metrics:
+          type: array
+          items:
+            type: string
+          description: 'The kinds of data the report should include. Specify up to 10 values.
+
+            '
+        dimensions:
+          type: array
+          items:
+            type: string
+          description: 'Determines how the data will be grouped. Specify up to 10 values.
+
+            <br><br>
+
+            **NOTES:**
+
+            <br>
+
+            You can only use one time-based dimension (e.g., `DAYS`, `WEEKS`) per report.
+
+            <br>
+
+            You can only use one location-based dimension (e.g., `FOLDER_IDS`, `LOCATION_NAMES`) per report.
+
+            <br><br>
+
+            '
+        filters:
+          $ref: '#/components/schemas/AnalyticsFilter'
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    ReportStatusResponse:
+      description: Status of a report created with async=true
+      content:
+        application/json:
+          schema:
+            title: ReportStatusResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - PROCESSING
+                    - DONE
+                    - FAILED
+                  url:
+                    type: string
+                    description: When status=DONE, contains the URL to download the report data as a text file.
+    CreateReportsResponse:
+      description: Returns report data if synchronous or report id if asynchronous
+      content:
+        application/json:
+          schema:
+            title: CreateReportsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    description: Array with the contents of the report (encoded UTF-8), as specified in the request. This is returned for a synchronous request
+                  id:
+                    type: string
+                    description: the ID of the report. This is returned for an asynchronous request
+    MaxDatesResponse:
+      description: Maximum date through which reporting data is available
+      content:
+        application/json:
+          schema:
+            title: MaximumDatesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  standardMaxDate:
+                    type: string
+                    format: date
+                    description: The date through which reporting data is available from Listings publishers other than Bing.
+                  bingMaxDate:
+                    type: string
+                    format: date
+                    description: The date through which Bing data is available.
+    CatalogResponse:
+      description: Completed dates of all metrics available
+      content:
+        application/json:
+          schema:
+            title: CatalogResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  metrics:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Metric'
+  parameters:
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

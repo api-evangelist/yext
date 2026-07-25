@@ -1,0 +1,1770 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Social API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Social
+paths:
+  /accounts/{accountId}/posts:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    get:
+      operationId: listPosts
+      summary: 'Posts: List'
+      tags:
+      - Social
+      description: 'Retrieve Social Posts matching the given criteria.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - name: pageToken
+        in: query
+        schema:
+          type: string
+        description: 'If a response to a previous request contained the nextPageToken field,
+
+          pass that field''s value as the pageToken parameter to retrieve the next page of data.
+
+          '
+      - name: postIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Only return posts with the postIDs in the specified list.
+      - name: entityPostIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Only return entityPosts with entityPostIds in the specified list.
+      - name: entityIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Only return posts for the specified entities.
+      - name: publishers
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - INSTAGRAM
+            - FACEBOOK
+            - FIRSTPARTY
+            - GOOGLEMYBUSINESS
+        description: 'Only return posts on the specified publishers.
+
+          '
+      - name: text
+        in: query
+        schema:
+          type: string
+        description: Only return posts with the specified text.
+      - name: status
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: "Only include posts which match one of the specified statuses:\n  * `POST_SCHEDULED`\n  * `POST_AWAITING_APPROVAL`\n  * `POST_SUCCEEDED`\n  * `POST_PROCESSING`\n  * `DELETE_PROCESSING`\n  * `POST_FAILED`\n  * `DELETE_FAILED`\n  * `REJECTED_BY_APPROVER`\n"
+      responses:
+        '200':
+          $ref: '#/components/responses/PostsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createPosts
+      summary: 'Post: Create'
+      tags:
+      - Social
+      description: 'Create a new social post.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+      responses:
+        '200':
+          $ref: '#/components/responses/PostResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/posts/{postId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    get:
+      operationId: getPost
+      summary: 'Post: Get'
+      tags:
+      - Social
+      description: 'Retrieve a specific social post.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of a specific post.
+      responses:
+        '200':
+          $ref: '#/components/responses/PostResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    put:
+      operationId: updatePost
+      summary: 'Post: Update'
+      tags:
+      - Social
+      description: 'Update a social post.
+
+
+        **NOTE:** Updates are only allowed for posts with no entity posts currently processing.
+
+        Entity posts that failed to publish will not be updated by subsequent requests to the update endpoint.
+
+        Updates to Google Posts may not be reflected immediately.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The ID of a specific post.
+
+          '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePost'
+      responses:
+        '200':
+          $ref: '#/components/responses/PostResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deletePost
+      summary: 'Post: Delete'
+      tags:
+      - Social
+      description: 'Delete a social post.
+
+
+        **NOTE:** Posts that have status `POST_PROCESSING` may not be deleted.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: 'The ID of a specific post.
+
+
+          To delete individual entity posts, please use the
+
+          [**Entity Post: Delete**](#operation/deleteEntityPost) endpoint.
+
+          '
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/posts/generatePostText:
+    post:
+      operationId: generatePostText
+      summary: 'Post: Generate Text'
+      tags:
+      - Social
+      description: 'Generates caption, by using API, based on a set of criteria. The generated caption should then
+
+        be provided as a value against the `text` field in the Post: Create call.
+
+
+        Please note that this endpoint returns embedded fields using double brackets. You MUST use a
+
+        **`v`** parameter of`20250514` or greater in the Post: Create call in order for the embedded
+
+        fields to resolve correctly.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneratePostText'
+      responses:
+        '200':
+          description: Generate Post Text Response
+          content:
+            application/json:
+              schema:
+                title: GeneratePostTextResponse
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      postText:
+                        type: string
+                        description: "The generated post text. Please note that the generated post text may contain embedded fields.\nPlease use a **`v`** parameter of`20250514` or greater in the Post: Create endpoint in order \nfor the embedded fields to resolve correctly.\n"
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/entityPosts/{entityPostId}:
+    delete:
+      operationId: deleteEntityPost
+      summary: 'Entity Post: Delete'
+      tags:
+      - Social
+      description: 'Delete a specific entity post
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/entityPostId'
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/entityPosts/{entityPostId}/comments:
+    post:
+      operationId: createEntityPostComment
+      summary: 'Comment: Create'
+      tags:
+      - Social
+      description: 'Comment on a specific entity post.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/entityPostId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The text of the comment.
+                parentCommentId:
+                  type: string
+                  description: 'If the comment is in response to another comment, this is the ID of the parent
+
+                    comment. **Instagram and Facebook only**
+
+                    '
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateCommentResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      operationId: getEntityPostComments
+      summary: 'Entity Post: Comments'
+      tags:
+      - Social
+      description: 'Provided an entityPostId, returns a list of comments with pagination support.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/entityPostId'
+      - name: pageToken
+        in: query
+        schema:
+          type: string
+        description: 'If a response to a previous request contained the nextPageToken field,
+
+          pass that field''s value as the pageToken parameter to retrieve the next page of data.
+
+          '
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityPostCommentsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/entityPosts/{entityPostId}/comments/{commentId}:
+    delete:
+      operationId: deleteEntityPostComment
+      summary: 'Comment: Delete'
+      tags:
+      - Social
+      description: 'Delete a comment on a specific entity post.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/entityPostId'
+      - $ref: '#/components/parameters/commentId'
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/social/video:
+    post:
+      operationId: uploadVideo
+      summary: 'Video: Upload'
+      tags:
+      - Social
+      description: 'Upload a video to be used in a post.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadVideo'
+      responses:
+        '200':
+          $ref: '#/components/responses/UploadVideoResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/social/eligibility:
+    get:
+      operationId: socialEligibility
+      summary: 'Eligibility: Get'
+      tags:
+      - Social
+      description: 'Fetch publisher eligibility for a given set of entities. If a publisher is ELIGIBLE for an entity, that means it can be posted to. If a publisher is INELIGIBLE for an entity, that means that it cannot be posted to.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - name: publishers
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - APPLE
+            - INSTAGRAM
+            - FACEBOOK
+            - FIRSTPARTY
+            - GOOGLEMYBUSINESS
+          description: The publisher(s) for which to check for eligibility
+      - name: entityIds
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+          description: ID(s) of the entities for which to check for eligibility
+      responses:
+        '200':
+          $ref: '#/components/responses/SocialEligibilityResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/social/conversation:
+    get:
+      operationId: getSocialConversation
+      summary: 'Conversation: Get'
+      tags:
+      - Social
+      description: 'Fetches a full conversation for a `userId` \ `entityId` \ `publisher`. The `userId` can be retrieved from the
+
+        Messages: List response.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/pageToken'
+      - name: entityId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: ID of the entity to fetch a conversation for.
+      - name: publisher
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - INSTAGRAM
+          - FACEBOOK
+        description: The publisher(s) for which to fetch the conversation for
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: ID of the user to fetch the conversation for
+      responses:
+        '200':
+          description: Get Conversation Response
+          content:
+            application/json:
+              schema:
+                title: GetConversationResponse
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      nextPageToken:
+                        $ref: '#/components/schemas/NextPageToken'
+                      deadline:
+                        type: string
+                        format: date
+                        description: 'The latest time to which you can send a message to the user. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+                          '
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: The ID of the user that you're having a conversation with
+                          name:
+                            type: string
+                            description: The name of the user that you're having a conversation with
+                      conversation:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ConversationMessageWithParent'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/social/messages:
+    get:
+      operationId: listSocialMessages
+      summary: 'Messages: List'
+      tags:
+      - Social
+      description: 'Fetches the latest message sent by a `user` on a `publisher` / `entityId`.
+
+
+        To fetch the whole conversation for a specific `user` / `publisher` / `entityId`, provide the
+
+        `user.id` that''s returned in the response against the Conversation: Get endpoint.
+
+
+        To send a message to a specific `user` / `publisher` / `entityId`, provide the `user.id` that''s
+
+        returned in the response against the Messages: Create endpoint.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/pageToken'
+      - name: entityIds
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filters messages that match the specified entityId(s)
+      - name: publishers
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - INSTAGRAM
+            - FACEBOOK
+          description: Filters messages that match specified publisher(s)
+      - name: userName
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters messages that match the user name (Facebook name or Instagram handle)
+      - name: messageText
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filters messages that match the specified text
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - OLDEST_TO_NEWEST
+            - NEWEST_TO_OLDEST
+          description: Defaults to `NEWEST_TO_OLDEST`
+      - name: readUnreadStatus
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - READ
+            - UNREAD
+          description: Filters messages that match the specified readUnreadStatus
+      - name: minCreatedDate
+        in: query
+        schema:
+          type: string
+          format: date
+        description: 'Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+          '
+      - name: maxCreatedDate
+        in: query
+        schema:
+          type: string
+          format: date
+        description: 'Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+          '
+      responses:
+        '200':
+          description: List Messages Response
+          content:
+            application/json:
+              schema:
+                title: ListMessagesResponse
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      nextPageToken:
+                        $ref: '#/components/schemas/NextPageToken'
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Message'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createSocialMessages
+      summary: 'Messages: Create'
+      tags:
+      - Social
+      description: 'Sends a message to a specified `userId` \ `publisher` \ `entityId`. The `userId` can be retrieved from the
+
+        Messages: List response.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/pageToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - entityId
+              - publisher
+              - userId
+              - text
+              properties:
+                entityId:
+                  type: string
+                  description: ID of the entity to create a message for.
+                publisher:
+                  type: string
+                  enum:
+                  - INSTAGRAM
+                  - FACEBOOK
+                  description: The publisher the message should be sent to.
+                userId:
+                  type: string
+                  description: The publisher user ID that the message should be sent to.
+                text:
+                  type: string
+                  description: "The copy to be sent as the message. Character limits vary per publisher. Please refer to the following character limits: \nFacebook: 2000 \nInstagram: 1000\n"
+      responses:
+        '200':
+          description: Create Message Response
+          content:
+            application/json:
+              schema:
+                title: CreateMessageResponse
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      message:
+                        $ref: '#/components/schemas/Message'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    Entity:
+      type: object
+      description: The entity which the post is for.
+      properties:
+        id:
+          type: string
+          description: The ID of the entity which the post is for.
+    UploadVideo:
+      type: object
+      required:
+      - publisher
+      - videoUrl
+      - videoPostType
+      - uploadType
+      properties:
+        publisher:
+          type: string
+          enum:
+          - INSTAGRAM
+          - FACEBOOK
+          description: 'Upload a video to Yext''s CDN to be used in a post. A video must be in Yext''s CDN in order to be used in a Create Post request.
+
+            '
+        videoUrl:
+          type: string
+          description: A non Yext-CDN URL of a video to be posted to the publisher.
+        videoPostType:
+          type: string
+          description: The type of video post to be uploaded. Instagram only supports the `REEL` video post type.
+          enum:
+          - REEL
+          - VIDEO
+        uploadType:
+          type: string
+          description: The type of upload. Only `URL` is supported at this time.
+          enum:
+          - URL
+    Message:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: ID of the message that was created
+        publisher:
+          type: string
+          description: Publisher that the message was created on
+        entityId:
+          type: string
+          description: ID of the entity that the message was created on
+        type:
+          type: string
+          enum:
+          - MESSAGE
+          - EDITED_MESSAGE
+          - UNSENT_MESSAGE
+          - REPLY_MESSAGE
+          - BUMP_MESSAGE
+          - ATTACHMENT
+          - REACTION
+          - UNREACTION
+        messageText:
+          type: string
+          description: Text of the message
+        attachments:
+          type: array
+          items:
+            properties:
+              type:
+                type: string
+                description: Type of attachment
+              url:
+                type: string
+                description: URL of the attachment
+        reaction:
+          type: object
+          properties:
+            reaction:
+              type: string
+              description: The reaction sent in the message
+            emoji:
+              type: string
+              description: The type of emoji sent in the message
+            outbound:
+              type: boolean
+              description: true if the reaction was sent from you
+        readUnreadStatus:
+          type: string
+          description: The read status of the message
+          enum:
+          - READ
+          - UNREAD
+        outbound:
+          type: boolean
+          description: true if the message was sent from you
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The user ID that the message was sent to
+            name:
+              type: string
+              description: The name of the user (Facebook name or Instagram handle)
+            avatarUrl:
+              type: string
+              description: The URL of the avatar of the user
+        sentTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        editedTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        deadline:
+          type: string
+          format: date
+          description: 'The latest time to which you can send a message to the user. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
+    ConversationMessage:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: ID of the message that was created
+        messageText:
+          type: string
+          description: Text of the message. A message can either have messageText or atachments.
+        attachments:
+          type: array
+          description: Attachments in the message. A message can either have messageText or atachments.
+          items:
+            properties:
+              type:
+                type: string
+                description: Type of attachment
+              url:
+                type: string
+                description: URL of the attachment
+        outbound:
+          type: boolean
+          description: true if the message was sent from you
+        type:
+          type: string
+          enum:
+          - MESSAGE
+          - EDITED_MESSAGE
+          - UNSENT_MESSAGE
+          - REPLY_MESSAGE
+          - BUMP_MESSAGE
+          - ATTACHMENT
+          - REACTION
+          - UNREACTION
+        reactions:
+          type: array
+          items:
+            properties:
+              messageReaction:
+                type: object
+                properties:
+                  reaction:
+                    type: string
+                    description: The reaction sent in the message
+                  emoji:
+                    type: string
+                    description: The type of emoji sent in the message
+                  outbound:
+                    type: boolean
+                    description: true if the reaction was sent from you
+        sentTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        editedTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        unsent:
+          type: boolean
+          description: true if the message was unsent
+    GeneratePostText:
+      type: object
+      oneOf:
+      - title: textPrompt
+        required:
+        - entityIds
+        - textPrompt
+        properties:
+          textPrompt:
+            type: string
+            description: 'The text input to guide the post text generation.
+
+              '
+          entityIds:
+            type: array
+            items:
+              type: string
+            description: ID(s) of the entities to generate post text for
+          publishers:
+            type: array
+            items:
+              enum:
+              - INSTAGRAM
+              - FACEBOOK
+              - FIRSTPARTY
+              - GOOGLEMYBUSINESS
+              - LINKEDIN
+              - HEROLD
+            description: 'Publishers that the post text should generated for
+
+              '
+          tone:
+            type: string
+            description: 'Desired tone for the post text (eg. professional, friendly, humorous)
+
+              '
+          postType:
+            type: string
+            description: 'Type of post (eg. advertisement, educational, industry news)
+
+              '
+          audience:
+            type: string
+            description: 'Target audience description
+
+              '
+          keywords:
+            type: array
+            items:
+              type: string
+            description: 'List of keywords to include in the post text
+
+              '
+          language:
+            type: string
+            description: 'Desired language for the post text
+
+              '
+      - title: imagePrompts
+        required:
+        - entityIds
+        - imagePrompts
+        properties:
+          imagePrompts:
+            type: array
+            items:
+              type: string
+            description: 'URL of the image(s) to guide the post text generation.
+
+              '
+          entityIds:
+            type: array
+            items:
+              type: string
+            description: ID(s) of the entities to generate post text for
+          publishers:
+            type: array
+            items:
+              enum:
+              - INSTAGRAM
+              - FACEBOOK
+              - FIRSTPARTY
+              - GOOGLEMYBUSINESS
+              - LINKEDIN
+              - HEROLD
+            description: 'Publishers that the post text should generated for
+
+              '
+          tone:
+            type: string
+            description: 'Desired tone for the post text (eg. professional, friendly, humorous)
+
+              '
+          postType:
+            type: string
+            description: 'Type of post (eg. advertisement, educational, industry news)
+
+              '
+          audience:
+            type: string
+            description: 'Target audience description
+
+              '
+          keywords:
+            type: array
+            items:
+              type: string
+            description: 'List of keywords to include in the post text
+
+              '
+          language:
+            type: string
+            description: 'Desired language for the post text
+
+              '
+    CreatePost:
+      type: object
+      required:
+      - entityIds
+      - publisher
+      properties:
+        entityIds:
+          type: array
+          items:
+            type: string
+          description: ID(s) of the entities to post for
+        publisher:
+          type: string
+          enum:
+          - INSTAGRAM
+          - FACEBOOK
+          - FIRSTPARTY
+          - GOOGLEMYBUSINESS
+          - LINKEDIN
+          - TIKTOK
+          description: 'The publisher the post should be sent to.
+
+            '
+        postTitle:
+          type: string
+          description: The title of the post. This does not get sent out to the publisher network and is for internal use only. The title cannot exceed 250 characters. If a title is not provided, we will use the first 40 characters of the post text or if no text is provided then the title will be "Media Only Post".
+        text:
+          type: string
+          description: 'The copy to be featured on the post.
+
+
+            Please note that you should use double brackets for embedded fields if your **`v`** parameter
+
+            is on or after `20250514`. If you are using the response from a Post: Generate Post Text call,
+
+            then your **`v`** parameter must be on or after `20250514`, since responses from that call
+
+            use double brackets for embedded fields.
+
+
+            Character limits vary per publisher. Please refer to the following character limits:
+
+            * Google Business Profile: 1500
+
+            * Facebook: 5000
+
+            * First Party: 5000
+
+            * LinkedIn: 3000
+
+            * TikTok: 2200
+
+            '
+        clickthroughUrl:
+          type: string
+          description: 'Url included with the post. Required for Google posts that include a callToActionType except
+
+            CALL
+
+            '
+        photoUrls:
+          type: array
+          items:
+            type: string
+          description: 'List of publicly accessible URLs where the photos can be retrieved from.
+
+
+            **NOTE**: Currently supports up to 10 photo urls to create multi-image and carousel posts on Facebook and Instagram.
+
+            TikTok also supports multi-photo posts via this field when used together with
+
+            `tikTokPostFields.photoCoverIndex`.
+
+            '
+        videos:
+          type: array
+          description: Video to be posted to the publisher. Facebook, Instagram, and TikTok are supported and only one video can be uploaded per post.
+          items:
+            type: object
+            required:
+            - videoUrl
+            - videoPostType
+            properties:
+              videoUrl:
+                type: string
+                description: A URL of a video to be posted to the publisher. The video must first be uploaded to Yext's CDN via the Upload Video endpoint.
+              videoPostType:
+                type: string
+                description: The type of video post to be uploaded. Instagram only supports the `REEL` video post type. TikTok only supports the `VIDEO` video post type.
+                enum:
+                - REEL
+                - VIDEO
+              coverImageUrl:
+                type: string
+                description: The cover image URL of the video. The first frame of the video will be used if a cover image is not provided. This field is not used for TikTok video posts.
+              videoTitle:
+                type: string
+                description: The title of the video. Facebook only supports this for the `VIDEO` video post type.
+        tikTokPostFields:
+          type: object
+          description: 'TikTok-specific fields. This object is required when `publisher` is `TIKTOK`.
+
+
+            For TikTok posts:
+
+            * `privacyLevel` is required.
+
+            * `complianceSetting` is required and must be `true`.
+
+            * For multi-photo posts, `photoCoverIndex` is required and must reference one of the supplied `photoUrls`.
+
+            * Private posts (`SELF_ONLY`) cannot enable comments, duet, or stitch, and cannot be branded content.
+
+            * Multi-photo posts cannot enable duet or stitch.
+
+            '
+          properties:
+            privacyLevel:
+              type: string
+              description: The TikTok privacy level for the post.
+              enum:
+              - PUBLIC_TO_EVERYONE
+              - MUTUAL_FOLLOW_FRIENDS
+              - SELF_ONLY
+              - FOLLOWER_OF_CREATOR
+            enableComment:
+              type: boolean
+              description: Whether comments are enabled for the TikTok post.
+            isBrandedContent:
+              type: boolean
+              description: Whether the TikTok post is branded content.
+            isOrganicContent:
+              type: boolean
+              description: Whether the TikTok post is marked as organic branded content.
+            enableDuet:
+              type: boolean
+              description: Whether duet is enabled for the TikTok post. This cannot be `true` for multi-photo posts.
+            enableStitch:
+              type: boolean
+              description: Whether stitch is enabled for the TikTok post. This cannot be `true` for multi-photo posts.
+            photoCoverIndex:
+              type: integer
+              description: The zero-based index of the cover image within `photoUrls` for a TikTok multi-photo post.
+            multiPhotoTitle:
+              type: string
+              description: The title for a TikTok multi-photo post. Maximum length is 90 characters.
+            complianceSetting:
+              type: boolean
+              description: TikTok content disclosure acknowledgment. This field is required for TikTok posts and must be `true`.
+        postDate:
+          type: string
+          description: 'If the post should be scheduled for some time in the future, specify a postDate in the
+
+            future here. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`. Ex: 2021-04-06 08:45:00.
+
+            The timezone for the provided datetime will be UTC.
+
+            '
+        topicType:
+          type: string
+          enum:
+          - ALERT
+          - EVENT
+          - OFFER
+          - STANDARD
+          description: The topicType of the post. Only supported on Google posts. Defaults to `STANDARD`.
+        alertType:
+          type: string
+          enum:
+          - ALERT_TYPE_UNSPECIFIED
+          - COVID_19
+          description: 'The type of alert the post is created for.
+
+
+            **NOTE**: This field is only applicable for posts of
+
+            topicType `ALERT`, and behaves as a sub-type of Alerts. Only supported on Google posts.
+
+            '
+        offer:
+          $ref: '#/components/schemas/Offer'
+        callToActionType:
+          type: string
+          enum:
+          - BOOK
+          - CALL
+          - LEARN_MORE
+          - ORDER
+          - SIGN_UP
+          description: 'The actionType of the post. Only supported on Google posts.
+
+            '
+        eventInfo:
+          $ref: '#/components/schemas/EventInfo'
+    EntityPost:
+      type: object
+      properties:
+        entityPostId:
+          type: string
+          description: The ID of the individual post for a given entity on a given publisher.
+        entity:
+          $ref: '#/components/schemas/Entity'
+        publisher:
+          type: string
+          enum:
+          - INSTAGRAM
+          - FACEBOOK
+          - FIRSTPARTY
+          - GOOGLEMYBUSINESS
+          - LINKEDIN
+          description: The publisher which the post was sent to.
+        status:
+          $ref: '#/components/schemas/EntityPostStatus'
+        postUrl:
+          type: string
+          description: The URL where the post can be found
+        metrics:
+          $ref: '#/components/schemas/Metrics'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentWithReplies'
+          description: Any comments on the post.
+    CommentWithReplies:
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - type: object
+        properties:
+          replies:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
+            description: Replies to the comment. Only one level of replies is supported.
+    EntityPostStatus:
+      type: object
+      description: The status of the post.
+      properties:
+        status:
+          type: string
+          enum:
+          - POST_SCHEDULED
+          - POST_AWAITING_APPROVAL
+          - POST_SUCCEEDED
+          - POST_DELETED
+          - POST_PROCESSING
+          - POST_SAVING
+          - DELETE_PROCESSING
+          - POST_FAILED
+          - DELETE_FAILED
+          - REJECTED_BY_APPROVER
+          description: Status of the entity post
+        details:
+          type: string
+          description: Details about the status.
+    ConversationMessageWithParent:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: ID of the message that was created
+        messageText:
+          type: string
+          description: Text of the message
+        outbound:
+          type: boolean
+          description: true if the message was sent from you
+        type:
+          type: string
+          enum:
+          - MESSAGE
+          - EDITED_MESSAGE
+          - UNSENT_MESSAGE
+          - REPLY_MESSAGE
+          - BUMP_MESSAGE
+          - ATTACHMENT
+          - REACTION
+          - UNREACTION
+        reactions:
+          type: array
+          items:
+            properties:
+              messageReaction:
+                type: object
+                properties:
+                  reaction:
+                    type: string
+                    description: The reaction sent in the message
+                  emoji:
+                    type: string
+                    description: The type of emoji sent in the message
+                  outbound:
+                    type: boolean
+                    description: true if the reaction was sent from you
+        sentTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        editedTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        unsent:
+          type: boolean
+          description: true if the message was unsent
+        parent:
+          $ref: '#/components/schemas/ConversationMessage'
+        attachments:
+          type: array
+          items:
+            properties:
+              type:
+                type: string
+                description: Type of attachment
+              url:
+                type: string
+                description: URL of the attachment
+    UpdatePost:
+      type: object
+      properties:
+        text:
+          type: string
+          description: The copy to be featured on the post.
+        photoUrls:
+          type: array
+          items:
+            type: string
+          description: 'List of publicly accessible URLs where the photos can be retrieved from.
+
+
+            **NOTE**: Currently only supports one photo.
+
+            '
+        alertType:
+          type: string
+          enum:
+          - ALERT_TYPE_UNSPECIFIED
+          - COVID_19
+          description: 'The type of alert the post is created for. This field is only applicable for posts of
+
+            topicType `ALERT`, and behaves as a sub-type of Alerts. Defaults to `ALERT_TYPE_UNSPECIFIED`.
+
+            '
+        offer:
+          $ref: '#/components/schemas/Offer'
+        callToActionType:
+          type: string
+          enum:
+          - BOOK
+          - CALL
+          - LEARN_MORE
+          - ORDER
+          - SIGN_UP
+          description: 'The actionType of the post. Required for Google posts that include a clickthroughUrl.
+
+            '
+        clickthroughUrl:
+          type: string
+          description: The clickthrough URL included with the post.
+        eventInfo:
+          $ref: '#/components/schemas/EventInfo'
+    Comment:
+      type: object
+      properties:
+        commentId:
+          type: string
+          description: The ID of a specific comment.
+        parentCommentId:
+          type: string
+          description: 'The ID of the parent comment if this comment was created as a reply to another comment.
+
+            **Instagram and Facebook only**
+
+            '
+        authorName:
+          type: string
+          description: The author of the comment.
+        text:
+          type: string
+          description: The text of the comment.
+        hidden:
+          type: boolean
+          description: Indicates if the comment is hidden or not. **Instagram only**
+        likes:
+          type: integer
+          description: Number of likes on the comment. **Instagram only**
+        createdTimestamp:
+          type: boolean
+          description: The timestamp the comment was created.
+    EventInfo:
+      type: object
+      required:
+      - title
+      - startTime
+      - endTime
+      description: 'Event information. Required for topicType `EVENT` and `OFFER`. Only supported on Google posts.
+
+        '
+      properties:
+        title:
+          type: string
+          description: The title of the event.
+        startTime:
+          type: string
+          description: 'The start time of the event. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`
+
+            Ex: 2021-04-06 08:45:00.
+
+            '
+        endTime:
+          type: string
+          description: 'The end time of the event. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`.
+
+            Ex: 2021-04-06 08:45:00.
+
+            '
+    Offer:
+      type: object
+      description: 'Additional data for offer posts. Only supported on Google posts.
+
+        '
+      properties:
+        couponCode:
+          type: string
+          description: Offer code that is usable in store or online. Limit 58 characters.
+        redeemOnlineUrl:
+          type: string
+          description: Online link to redeem offer. Must be a valid URL.
+        termsConditions:
+          type: string
+          description: Offer terms and conditions. Limit 5000 characters.
+    Post:
+      type: object
+      properties:
+        postId:
+          type: string
+          description: The ID of the post.
+        entityId:
+          type: array
+          items:
+            type: string
+          description: The ID(s) of the entities which were included in the post.
+        publishers:
+          type: array
+          items:
+            type: string
+          description: The publisher(s) the post was made on.
+        postTitle:
+          type: string
+          description: The title of the post. This does not get sent out to the publisher network and is for internal use only. The title cannot exceed 250 characters. If a title is not provided, we will use the first 40 characters of the post text or if no text is provided then the title will be "Media Only Post".
+        text:
+          type: string
+          description: The copy featured on the post.
+        photoUrls:
+          type: array
+          items:
+            type: string
+          description: The list of URLs where the photos were retrieved from.
+        videos:
+          type: array
+          description: Video to be posted to the publisher. Facebook and Instagram are supported and only one video can be uploaded per post.
+          items:
+            type: object
+            required:
+            - videoUrl
+            - videoPostType
+            properties:
+              videoUrl:
+                type: string
+                description: A URL of a video to be posted to the publisher. The video must first be uploaded to Yext's CDN via the Upload Video endpoint.
+              videoPostType:
+                type: string
+                description: The type of video post to be uploaded. Instagram only supports the `REEL` video post type.
+                enum:
+                - REEL
+                - VIDEO
+              coverImageUrl:
+                type: string
+                description: The cover image URL of the video. The first frame of the video will be used if a cover image is not provided.
+              videoTitle:
+                type: string
+                description: The title of the video. Facebook only supports this for the `VIDEO` video post type.
+        topicType:
+          type: string
+          description: The topicType of the post. Only supported on Google posts. Defaults to `STANDARD`.
+        alertType:
+          type: string
+          description: The alertType of the post.
+        offer:
+          $ref: '#/components/schemas/Offer'
+        clickthroughUrl:
+          type: string
+          description: The clickthroughUrl of the post.
+        callToActionType:
+          type: string
+          description: 'The callToActionType of the post.
+
+
+            If the v parameter is >= 20221215, callToActionType ''SHOP'' will be shown as ''BUY''
+
+            '
+        eventInfo:
+          $ref: '#/components/schemas/EventInfo'
+          description: Event information for the post.
+        createdDate:
+          type: string
+          description: The date the post was created.
+        postDate:
+          type: string
+          description: The date posted or the scheduled date.
+        postCreatedInYext:
+          type: boolean
+          description: 'True if the post was originally created in Yext, otherwise False.
+
+            '
+        entityPosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityPost'
+          description: The individual posts created for a given entity.
+    Metrics:
+      type: object
+      description: The metrics for the entity post.
+      properties:
+        viewCount:
+          type: number
+          description: 'The number of times post was viewed.
+
+            '
+        uniqueViewCount:
+          type: number
+          description: 'The number of times the post was viewed by a unique user.
+
+            '
+        clickCount:
+          type: number
+          description: 'The number of times the post was clicked.
+
+            '
+        likeCount:
+          type: number
+          description: 'The number of times the post was liked.
+
+            '
+        loveCount:
+          type: number
+          description: Total "love" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        wowCount:
+          type: number
+          description: Total "wow" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        hahaCount:
+          type: number
+          description: Total "haha" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        sadCount:
+          type: number
+          description: Total "sad" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        angerCount:
+          type: number
+          description: Total "anger" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+  parameters:
+    pageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
+
+        '
+    commentId:
+      name: commentId
+      in: path
+      required: true
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    entityPostId:
+      name: entityPostId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The ID of an individual post created for a given entity on a given publisher.
+
+        '
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+  responses:
+    UploadVideoResponse:
+      description: Upload Video Response
+      content:
+        application/json:
+          schema:
+            title: UploadVideoResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  videoUrl:
+                    type: string
+                    description: The Yext CDN URL of the video.
+                  fileByteSize:
+                    type: number
+                    description: The size of the file in bytes.
+                  mimeType:
+                    type: string
+                    description: The mime type of the video.
+    PostResponse:
+      description: Post Response
+      content:
+        application/json:
+          schema:
+            title: PostResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Post'
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    SocialEligibilityResponse:
+      description: Social Eligibility Response
+      content:
+        application/json:
+          schema:
+            title: SocialEligibilityResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  entities:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        entityId:
+                          type: string
+                          description: The ID of the entity
+                        publisher:
+                          type: string
+                          description: The name of the publisher
+                        status:
+                          type: string
+                          description: The eligiblity status of the entityId/publisher pair
+                          enum:
+                          - ELIGIBLE
+                          - INELIGIBLE
+                        statusDetails:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              message:
+                                type: string
+                                description: A message indicating why the entityId is `INELIGIBLE` for a publisher
+    CreateCommentResponse:
+      description: Create Comment Response
+      content:
+        application/json:
+          schema:
+            title: CreateCommentResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  commentId:
+                    type: string
+                    description: The ID of a specific comment.
+                  text:
+                    type: string
+                    description: The text of the comment.
+                  parentCommentId:
+                    type: string
+                    description: 'If the comment is in response to another comment, this is the ID of the parent
+
+                      comment.
+
+                      '
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    PostsResponse:
+      description: Posts Response
+      content:
+        application/json:
+          schema:
+            title: PostsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                  nextPageToken:
+                    type: string
+    EntityPostCommentsResponse:
+      description: Entity Post Comments Response
+      content:
+        application/json:
+          schema:
+            title: EntityPostCommentsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  comments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CommentWithReplies'
+                  nextPageToken:
+                    type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

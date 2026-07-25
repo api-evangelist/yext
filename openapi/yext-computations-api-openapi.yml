@@ -1,0 +1,709 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Computations API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Computations
+paths:
+  /accounts/{accountId}/computations:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - name: api_key
+      in: query
+      schema:
+        type: string
+      description: 'All requests will be authenticated using an app''s API key
+
+        via the api_key query parameter. You can find this value
+
+        in Developer Console / [App Name] / API Credentials.
+
+        '
+      required: true
+    post:
+      operationId: createOperation
+      requestBody:
+        description: The computation operation to be created.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOperationRequest'
+      tags:
+      - Computations
+      summary: 'Computations: Create Operation'
+      description: 'Creates a single computation operation.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/OperationResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      operationId: listOperations
+      parameters:
+      - name: pageSize
+        in: query
+        schema:
+          type: string
+        description: 'Max Page Size = 1000 and unspecified defaults to 100.
+
+          '
+      - name: pageToken
+        in: query
+        schema:
+          type: string
+        description: 'If a response to a previous request contained the `pageToken` field,
+
+          pass that field''s value as the `pageToken` parameter to retrieve
+
+          the next page of data.
+
+          '
+      tags:
+      - Computations
+      summary: 'Computations: List Operations'
+      description: 'Retrieve a list of computation operations.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/ListOperationsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/computations/{operationUid}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/computationOperationUid'
+    - name: api_key
+      in: query
+      schema:
+        type: string
+      description: 'All requests will be authenticated using an app''s API key
+
+        via the api_key query parameter. You can find this value in
+
+        Developer Console / [App Name] / API Credentials.
+
+        '
+      required: true
+    post:
+      operationId: cancelOperation
+      tags:
+      - Computations
+      summary: 'Computations: Cancel Operation'
+      description: 'Cancels a computation operation.
+
+        '
+      responses:
+        '200':
+          description: OK
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      operationId: getOperation
+      tags:
+      - Computations
+      summary: 'Computations: Get Operation'
+      description: 'Retrieve a single computation operation.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/OperationResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    EntityProfileScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          entityProfileScope:
+            type: object
+            description: The exact entity profiles to trigger a computation for.
+            properties:
+              entityProfileIds:
+                type: array
+                description: 'For requests either IDs or UIDs must be provided, but not both.
+
+                  Responses will always return both.
+
+
+                  **NOTE**:
+
+
+                  An unset locale field will default to the primary locale of the entity.
+
+                  '
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: customEntity
+                    uid:
+                      type: integer
+                      example: 123456
+                    locale:
+                      type: string
+                      example: en
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    SavedFilterScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          savedFilterScope:
+            type: object
+            description: 'The set of entities that match a given set of saved filters.
+
+
+              **NOTE**:
+
+
+              An empty or unset locales field will default to the primary locale of the entity.
+
+              '
+            properties:
+              locales:
+                type: array
+                items:
+                  type: string
+                  example: en
+                description: The list of locales to compute a computation for.
+              savedFilterIds:
+                type: object
+                description: 'For requests either IDs or UIDs must be provided, but not both.
+
+                  Responses will always return both.
+
+                  '
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: string
+                      example: 1268765
+                    description: The external IDs of the saved filters.
+                  uids:
+                    type: array
+                    items:
+                      type: integer
+                      example: 235
+                    description: The internal IDs of the saved filters.
+    FieldBehavior:
+      type: string
+      description: 'Defines the field editing mode for a blank field or for a field
+
+        which has content. If `USE_AUTOMATIC_COMPUTATIONS_BEHAVIOR` is chosen,
+
+        the behavior will match that of the behavior set for
+
+        automated computations, if enabled.
+
+        '
+      example: WRITE_DIRECTLY
+      enum:
+      - SKIP
+      - USE_AUTOMATIC_COMPUTATIONS_BEHAVIOR
+      - CREATE_SUGGESTION
+      - WRITE_DIRECTLY
+    EntityProfileSearchScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          searchScope:
+            type: object
+            description: 'The set of entities that match a given filter.
+
+              The filter itself is redacted on read.
+
+
+              **NOTE**: Search Scope operations cannot be created using the API
+
+
+              An empty or unset locales field will default to the primary locale of the entity.
+
+              '
+            properties:
+              locales:
+                type: array
+                items:
+                  type: string
+                  example: en
+                description: The list of locales to compute a computation for.
+              scopeRedacted:
+                type: boolean
+                example: true
+    TargetFields:
+      properties:
+        targetFields:
+          type: object
+          description: 'The collection of fields to compute a value for.
+
+            For requests either IDs or UIDs must be provided, but not both.
+
+            Responses will always return both.
+
+            '
+          properties:
+            ids:
+              type: array
+              description: The external IDs of the fields.
+              items:
+                type: string
+                example: c_blogPost
+            uids:
+              type: array
+              description: The internal IDs of the fields.
+              items:
+                type: string
+                example: location.custom.123456.blogpost.0
+    Operation:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'The resource name.
+
+            Format: accounts/{account}/computations/{system-generated-id}
+
+            '
+          example: accounts/553564/computations/01HEV7A955WFEXNWDKRDRC5VM3
+        uid:
+          type: string
+          description: The system generated ID.
+          example: 01HEV7A955WFEXNWDKRDRC5VM3
+        accountId:
+          type: string
+          description: The ID of the business owning the operation.
+          example: 553564
+        createTime:
+          type: string
+          description: Timestamp of when the operation was created.
+          example: '2023-11-09T23:40:12.325Z'
+        startTime:
+          type: string
+          description: Timestamp of when the operation was started.
+          example: '2023-11-09T23:40:12.325Z'
+        completeTime:
+          type: string
+          description: Timestamp of when the operation was completed.
+          example: '2023-11-09T23:40:12.325Z'
+        definition:
+          allOf:
+          - $ref: '#/components/schemas/OperationDefinitionResponseOptions'
+          - type: object
+            properties:
+              triggerType:
+                type: string
+                description: 'Determines if a computation was triggered manually
+
+                  or if it was automatically triggered by some other field/fields.
+
+                  '
+                enum:
+                - MANUAL
+                - AUTOMATIC
+          description: The definition of the computation operation.
+        languageCode:
+          type: string
+          description: 'Language code to be used to localize messages.
+
+            If no language code was provided, it will default to English.
+
+            '
+          example: en
+        resultMetadata:
+          type: object
+          properties:
+            updatedEntityProfileCount:
+              type: integer
+              description: Count of unique entity profiles updated.
+              example: 0
+            updatedFieldCount:
+              type: integer
+              description: 'Count of unique fields updated. This is number of
+
+                entity-profiles*fields-per-entity.
+
+                '
+              example: 0
+            upsertedSuggestionsCount:
+              type: integer
+              description: 'Count of suggestions upserted. Suggestions are per entity-field.
+
+                '
+              example: 0
+            updatedErrorCount:
+              type: integer
+              description: Count of errors encountered while updating entities.
+              example: 0
+            suggestionsErrorCount:
+              type: integer
+              description: Count of errors encountered while generating suggestions.
+              example: 0
+            generationErrors:
+              type: integer
+              description: Count of errors in generating a value.
+              example: 0
+            status:
+              type: string
+              enum:
+              - CREATED
+              - PROCESSING
+              - COMPLETED
+              - COMPLETED_WITH_ERRORS
+              - FAILED
+              - CANCELED
+              description: The current status of the operation.
+              example: PROCESSING
+            updateTime:
+              type: string
+              description: 'Timestamp of when the operation result was was last updated.
+
+                '
+              example: '2023-11-09T23:40:17.065208732Z'
+        requestMetadata:
+          type: object
+          properties:
+            entityProfileRequestCount:
+              type: integer
+              description: Count of unique entity profiles that need to be processed.
+              example: 1
+            entityFieldRequestCount:
+              type: integer
+              description: 'Count of unique entity-profile-fields that need to be computed.
+
+                '
+              example: 1
+            planningCompleted:
+              type: boolean
+              description: 'Boolean indicating whether or not planning has been fully completed.
+
+                '
+              example: true
+    EntityTypeScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          entityTypeScope:
+            type: object
+            description: 'The set of entity types and locales to trigger a computation for.
+
+              The final set of entity profiles is the set of valid entity
+
+              profiles generated from the union of Entity Types and locales.
+
+
+              **NOTE**:
+
+
+              An empty or unset locales field will default to the primary locale of the entity.
+
+              '
+            properties:
+              locales:
+                type: array
+                items:
+                  type: string
+                  example: en
+                description: The list of locales to compute a computation for.
+              entityTypeIds:
+                type: object
+                description: 'For requests either IDs or UIDs must be provided, but not both.
+
+                  Responses will always return both.
+
+                  '
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: string
+                      example: blogPost
+                    description: The external IDs of the entity types.
+                  uids:
+                    type: array
+                    items:
+                      type: integer
+                      example: 1234
+                    description: The internal IDs of the entity types.
+    OperationDefinitionResponseOptions:
+      oneOf:
+      - $ref: '#/components/schemas/EntityScope'
+      - $ref: '#/components/schemas/EntityProfileScope'
+      - $ref: '#/components/schemas/SavedFilterScope'
+      - $ref: '#/components/schemas/EntityTypeScope'
+      - $ref: '#/components/schemas/EntityProfileSearchScope'
+    CreateOperationRequest:
+      type: object
+      required:
+      - definition
+      properties:
+        definition:
+          $ref: '#/components/schemas/OperationDefinitionOptions'
+        languageCode:
+          type: string
+          description: 'Language code to be used to localize messages.
+
+            If no language code is specified, it will default to English.
+
+            '
+          example: en
+        details:
+          type: object
+          description: 'An arbitrary object that can hold any additional metadata
+
+            provided by the caller.
+
+            '
+          properties:
+            source:
+              type: string
+              example: API Test
+    TriggerFields:
+      properties:
+        triggerFields:
+          type: object
+          description: 'The list of updated fields that may be a trigger for a field computation.
+
+            For requests either IDs or UIDs must be provided, but not both.
+
+            Responses will always return both.
+
+            '
+          properties:
+            ids:
+              type: array
+              description: The external IDs of the fields.
+              items:
+                type: string
+                example: c_blogPost
+            uids:
+              type: array
+              description: The internal IDs of the fields.
+              items:
+                type: string
+                example: location.custom.123456.blogpost.0
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    EntityScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          entityScope:
+            type: object
+            description: 'The set of entities and locales to trigger a computation for.
+
+              The final set of entity profiles is the set of valid entity
+
+              profiles generated from the union of IDs and locales.
+
+
+              **NOTE**:
+
+
+              An empty or unset locales field will default to the primary locale of the entity.
+
+              '
+            properties:
+              locales:
+                type: array
+                items:
+                  type: string
+                  example: en
+                description: The list of locales to compute a computation for.
+              entityIds:
+                type: object
+                description: 'For requests either IDs or UIDs must be provided, but not both.
+
+                  Responses will always return both.
+
+                  '
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: string
+                      example: customEntity
+                    description: The external IDs of the entities.
+                  uids:
+                    type: array
+                    items:
+                      type: integer
+                      example: 1234
+                    description: The internal IDs of the entities.
+    OperationDefinitionOptions:
+      oneOf:
+      - $ref: '#/components/schemas/EntityScope'
+      - $ref: '#/components/schemas/EntityProfileScope'
+      - $ref: '#/components/schemas/SavedFilterScope'
+      - $ref: '#/components/schemas/EntityTypeScope'
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    computationOperationUid:
+      name: operationUid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The Yext-generated unique identifier for the computation operation.
+  responses:
+    OperationResponse:
+      description: Operation Response
+      content:
+        application/json:
+          schema:
+            title: OperationResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Operation'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    ListOperationsResponse:
+      description: List Operations Response
+      content:
+        application/json:
+          schema:
+            title: OperationsResponse
+            type: object
+            properties:
+              meta:
+                allOf:
+                - $ref: '#/components/schemas/ResponseMeta'
+                - type: object
+                  properties:
+                    pagination:
+                      description: 'If there are more operations than the specified page size there
+
+                        will be pagination data to retrieve the next page of data.
+
+                        '
+                      type: object
+                      properties:
+                        pageToken:
+                          type: string
+                          example: CDk=
+                          description: 'A token, which can be sent as `pageToken` to retrieve the next page.
+
+                            If this field is omitted, there are no subsequent pages at that point in time.
+
+                            '
+              response:
+                type: object
+                properties:
+                  operations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Operation'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

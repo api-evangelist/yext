@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Suggestions API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Suggestions
+paths:
+  /listings/suggestions:
+    parameters:
+    - $ref: '#/components/parameters/listingId'
+    get:
+      operationId: getSuggestionsList
+      tags:
+      - Suggestions
+      summary: Suggestion List
+      description: "Yext uses Suggestions: List to retrieve all active suggestions data for business owners. You should provide access to all suggestions in status “PENDING”. \n"
+      responses:
+        '200':
+          $ref: '#/components/responses/GetSuggestionsSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/suggestions/{suggestionId}:
+    parameters:
+    - $ref: '#/components/parameters/suggestionId'
+    get:
+      operationId: getSuggestion
+      tags:
+      - Suggestions
+      summary: Single Suggestion
+      description: "Yext uses Suggestions: Get to retrieve the suggestion object for a specific suggestion ID. \n"
+      responses:
+        '200':
+          $ref: '#/components/responses/GetSingleSuggestionSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestionAcceptBody'
+      operationId: acceptSuggestion
+      tags:
+      - Suggestions
+      summary: Suggestion Accept
+      description: 'Yext uses Accept/Reject to indicate whether a suggestion object has been accepted or rejected by the user.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponseNew'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    ResponseErrorNew:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        message:
+          type: string
+          description: Message explaining the problem.
+    PartnerSuggestionList:
+      type: object
+      required:
+      - total
+      - suggestions
+      properties:
+        total:
+          type: integer
+          description: Total number of suggestions on the listing
+        suggestions:
+          type: array
+          description: A list of num Suggestion objects. Suggestions returned should only have status PENDING
+          items:
+            $ref: '#/components/schemas/PartnerSuggestion'
+    SuggestionAcceptBody:
+      type: object
+      description: The request body of a suggestion accept/reject
+      required:
+      - suggestionId
+      - accept
+      properties:
+        suggestionId:
+          type: string
+          description: The unique suggestion Id
+        accept:
+          type: string
+          description: ''
+          enum:
+          - ACTIVE
+          - SUPPRESSED
+    PartnerSuggestion:
+      type: object
+      required:
+      - id
+      - field
+      - status
+      - proposedValue
+      - timestamp
+      properties:
+        id:
+          type: string
+          description: A unique ID for each suggestion, as assigned by you
+          example: '5382'
+        field:
+          type: string
+          description: The name of the listing field associated with the suggestion (e.g. main_phone, website_url)
+          example: name
+        status:
+          type: string
+          description: '* ACCEPTED (the suggestion has been applied to the listing)
+
+            * PENDING (the suggestion is valid but has not been actioned on)
+
+            * REJECTED (the suggestion has been rejected)
+
+            * EXPIRED (the suggestion is no longer valid)''
+
+            '
+          enum:
+          - ACCEPTED
+          - PENDING
+          - REJECTED
+          - EXPIRED
+        timestamp:
+          type: string
+          description: Date and time that the suggestion was created in ISO-9601 format
+          example: '2020-01-04T13:15:53Z'
+        currentValue:
+          type: string
+          description: The existing field data
+          example: DeeDee’s Doughnuts
+        proposedValue:
+          type: string
+          description: The content of the suggestion. The type of this value should match the type structure of the field
+          example: Dee's Doughnuts
+  responses:
+    404NotFoundResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: 404NotFoundResponse
+            type: object
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                    description: Not Found
+                    example: Not Found
+    EmptyResponseNew:
+      description: OK
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            title: ServerError
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    GetSingleSuggestionSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSingleSuggestionSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestion'
+    ErrorResponseNew:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: ErrorResponseNew
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    GetSuggestionsSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSuggestionsSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestionList'
+  parameters:
+    suggestionId:
+      name: suggestionId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of a suggestion on your site is known as the suggestionId.
+
+        '
+    listingId:
+      name: listingId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of a listing on your site is known as the listingId.
+
+        '
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

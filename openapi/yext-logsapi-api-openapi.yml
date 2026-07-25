@@ -1,0 +1,297 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings LogsAPI API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: LogsAPI
+paths:
+  /accounts/{accountId}/logs/tables:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - name: api_key
+      in: query
+      schema:
+        type: string
+      description: API Key associated with your App that has access to Logs endpoint.
+      required: true
+    get:
+      operationId: GetTables
+      tags:
+      - LogsAPI
+      summary: Tables
+      description: Retrieve tables that can be queried in the POST Query endpoint of the Logs API.
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTablesResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/logs/tables/{table}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - name: api_key
+      in: query
+      schema:
+        type: string
+      description: API Key associated with your App that has access to Logs endpoint.
+      required: true
+    - name: table
+      in: path
+      schema:
+        type: string
+      required: true
+      description: Table to query
+    get:
+      operationId: GetTable
+      tags:
+      - LogsAPI
+      summary: Table Schema
+      description: Retrieve schema for table in the Logs API. Available tables can be found by querying the GET Tables endpoint of the Logs API.
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTableResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/logs/tables/{table}/query:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - name: api_key
+      in: query
+      schema:
+        type: string
+      description: API Key associated with your App that has access to Logs endpoint.
+      required: true
+    - name: table
+      in: path
+      schema:
+        type: string
+      required: true
+      description: Table to query
+    post:
+      operationId: postQuery
+      tags:
+      - LogsAPI
+      summary: Query
+      description: Retrieve data from table. Available tables can be found by querying the GET Tables endpoint of the Logs API.
+      requestBody:
+        description: JSON object containing fields, pageSize, sorting and filters to be applied to request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQueryRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateQueryResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  responses:
+    GetTableResponse:
+      description: Returns schema for table returned from the GET Tables endpoint in the Logs API.
+      content:
+        application/json:
+          schema:
+            title: GetTableResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Table Name associated with schema
+                  fields:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Identifier for field
+                        dataType:
+                          type: string
+                          description: Datatype of field
+    CreateQueryResponse:
+      description: Returns results of query.
+      content:
+        application/json:
+          schema:
+            title: createQueryResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  logRecords:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    description: Array with the query results.
+                  nextPageToken:
+                    type: string
+                    description: Token for paginating queries which return more records than the pageSize specified.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    GetTablesResponse:
+      description: Returns tables that can be queried from the POST Query endpoint in the Logs API.
+      content:
+        application/json:
+          schema:
+            title: GetTablesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  logTables:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Table Identifier
+                    description: Array with tables that can be queried from the POST Query endpoint in the Logs API.
+  parameters:
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    CreateQueryRequestBody:
+      type: object
+      required: []
+      properties:
+        fields:
+          type: array
+          description: 'Fields to return in request e.g. `"fields":["eventTimestamp","accountId"]`.<br><br> This field is optional and will return all fields if no fields are specified. All fields can also be explicitly specified as follows: `"fields" : ["*"]`'
+          items:
+            type: string
+        pageSize:
+          type: number
+          description: Maximum number of records to return in request e.g. `"pageSize":100`.<br><br> This field is optional and will be set to 50 records if no pageSize is specified. pageSize supports a max 1,000 records. If query returns greater than pageSize specified, additional records require pagination.
+        descending:
+          type: boolean
+          description: 'Order of records are returned based on timestamp e.g. `"descending": true`.<br><br> This field is optional and will return records in ascending order if not specified.'
+        filter:
+          type: string
+          description: 'Filter to apply to request e.g. `"filter": "eventTimestamp < ''2022-03-10T12:23:23.800Z''"`
+
+            <br><br>
+
+            Filter Operators supported by Logs API:
+
+            * **`&&`**: Combines multiple filter operators together. Records returned must satisfy both filters. <ul><li> Example: `"filter": "searchTerm.containsAnyCase(’hello'') && visitor.id == ''3523168''"`</ul>
+
+            * **`||`**: Combines multiple filter operators together. Records returned must satisfy either filter.<ul><li> Example: `"filter": "searchTerm.containsAnyCase(’hello'') || visitor.id == ''3523168''"`</ul>
+
+            * **`==`**: Returns records where field equals value.<ul><li> Example: `searchTerm == ‘branches near me’`</ul>
+
+            * **`!=`**: Returns records where field does not equal value.<ul><li> Example: `searchTerm != ‘branches near me’`</ul>
+
+            * **`<`**: Returns records where field is less than value.<ul><li> Example: `"filter": "eventTimestamp < ''2022-03-10T12:23:23.800Z''"`</ul>
+
+            * **`>`**: Returns records where field is greater than value.<ul><li> Example: `"filter": "eventTimestamp > ''2022-03-10T12:23:23.800Z''"`</ul>
+
+            * **`<=`**: Returns records where field is less than or equal value.<ul><li> Example: `"filter": "eventTimestamp <= ''2022-03-10T12:23:23.800Z''"`</ul>
+
+            * **`>=`**: Returns records where field is greater than or equal value.<ul><li> Example: `"filter": "eventTimestamp >= ''2022-03-10T12:23:23.800Z''"`</ul>
+
+            * **`has`**: Returns records where field is not null.<ul><li> Example: `"filter": "has(visitor.id)"`</ul>
+
+            * **`!has`**: Returns records where field is null.<ul><li> Example:  `"filter": "!has(visitor.id)"`</ul>
+
+            * **`in`**: Returns records where field equals value(s) in array.<ul><li> Example: `"filter": "searchTerm in [''bank holiday'',''branches near me'']"`</ul>
+
+            * **`!in`**: Returns records where field does not equal value(s) in array.<ul><li> Example: `!(searchTerm in [''bank holiday'',''branches near me''])`</ul>
+
+            * **`{FIELD}.containsAnyCase`**: Returns records where value exists in string field.<ul><li> Example: `"filter": "searchTerm.containsAnyCase(’hello'')"`</ul>
+
+            * **`!{FIELD}.containsAnyCase`**: Returns records where value does not exist in string field.<ul><li> Example: `"filter": "!searchTerm.containsAnyCase(’hello'')"`</ul>
+
+
+            <br>This field is optional and will apply no filters if no filters are specified.
+
+            '
+        pageToken:
+          type: string
+          description: 'Token for paginating queries which return more records than the pageSize specified e.g. `"pageToken": "BeYwVgOhe_fEz9VhfSES4GPDt6jElk7AHN6plsP_TLXk27rlG0YyYc78AOI_oyILcw"`.<br><br> This is optional and should only be used when your query returns more records than your pageSize (indicated by the nextPageToken being returned in your response body.)'
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

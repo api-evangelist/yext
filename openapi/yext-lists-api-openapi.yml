@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Lists API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Lists
+paths:
+  /lists:
+    parameters:
+    - $ref: '#/components/parameters/pid'
+    - $ref: '#/components/parameters/listingId'
+    - $ref: '#/components/parameters/yextId'
+    - $ref: '#/components/parameters/listId'
+    - $ref: '#/components/parameters/type'
+    - $ref: '#/components/parameters/template'
+    - $ref: '#/components/parameters/format'
+    get:
+      operationId: getEclList
+      summary: Get List
+      description: "Use Get List to retrieve Enhanced Content List (ECL) content in the following use cases:\n1. Fetch the HTML for a specific type of List.\n  * **Use listingId, template**\n  * Response will be rendered into a template and returned for direct display to the user\n2. Fetch the structured data (JSON) for a specific List\n  * **Use listingId, listId**\n3. Fetch the structured data (JSON) for a specific type of List\n  * **Use listingId, type**\n4. Fetch the structured data (JSON) for all Lists associated with a listing\n  * **Use listingId**\n"
+      responses:
+        '200':
+          $ref: '#/components/responses/GetECLSuccess'
+        '400':
+          description: Bad request (Incorrect Format)
+      tags:
+      - Lists
+components:
+  parameters:
+    type:
+      name: type
+      in: query
+      schema:
+        type: string
+        enum:
+        - MENU
+        - PRODUCTS
+        - BIOS
+        - EVENTS
+      description: 'Type of lists to return
+
+        '
+    yextId:
+      name: yextId
+      in: query
+      schema:
+        type: string
+      description: 'The Yext listing ID
+
+        '
+    pid:
+      name: pid
+      in: query
+      schema:
+        type: string
+      description: 'Publisher secure ID. This value will be provided to you.
+
+        '
+    format:
+      name: format
+      in: query
+      schema:
+        type: string
+        enum:
+        - html
+        - json
+      description: 'An alternative way to specify the desired content type of the response
+
+        '
+    listId:
+      name: listId
+      in: query
+      schema:
+        type: string
+      description: 'ECL ID (Yext-assigned)
+
+        '
+    listingId:
+      name: listingId
+      in: query
+      schema:
+        type: string
+      description: 'Publisher listing ID
+
+        '
+    template:
+      name: template
+      in: query
+      schema:
+        type: string
+      description: 'This parameter specifies the template to use when rendering the List content.
+
+        Yext will provide a list of your available templates. Yext configures each template with the type of data that it accepts -- for example, the template "mobile-menu" may be configured to render all Lists on a listing of type MENU.
+
+        * If no template is specified, all List data will be rendered using a default template
+
+        * Required if fetching HTML
+
+        '
+  schemas:
+    Section:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Name of the section.  Here are examples of section names for each type:
+
+            * Menu: [Appetizer, Entree, Dessert]
+
+            * Products: [Kenmore, Craftsman]
+
+            * Bios: [Dentists, Pediatrics]
+
+            * Events: [""]
+
+            * The name field may contain the empty string (""), which indicates that the enclosed items were not assigned to a section.
+
+            Events in a single list will never be divided into multiple sections. All events in a given list will always be in a single section with the name "", in order to preserve the structure used in the other list types.
+
+            '
+        description:
+          type: string
+          description: Description of the section
+        items:
+          type: array
+          description: 'One of:
+
+            * A list of Menu Items
+
+            * A list of Bios
+
+            * A list of Products
+
+            * A list of Events
+
+            **See examples of each above**
+
+            '
+    ECL:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of this list (Yext-assigned)
+        name:
+          type: string
+          description: 'Name of the list.  Here are examples of list names for each type:
+
+            * Menu: [Breakfast, Lunch, Dinner]
+
+            * Products: [Mens, Womens]
+
+            * Bios: [General Practitioners, Specialists]
+
+            * Events: [Concerts, Workshops]
+
+            '
+        description:
+          type: string
+          description: 'The label for this list type, as it should appear on the list type''s button or link in the PowerListing (e.g., Our Doctors for Bios, Store Events for Events)
+
+            Defaults are:
+
+            * Menu
+
+            * Products
+
+            * Bios
+
+            * Events
+
+            '
+        type:
+          type: string
+          enum:
+          - MENU
+          - PRODUCTS
+          - BIOS
+          - EVENTS
+        size:
+          type: integer
+          description: 'The number of items in the list
+
+            '
+        sourceUrl:
+          type: string
+          description: 'The URL of the source the list''s content is retrieved from
+
+            '
+        sections:
+          type: array
+          description: 'The list''s sections
+
+            '
+          items:
+            $ref: '#/components/schemas/Section'
+  responses:
+    GetECLSuccess:
+      description: (JSON Format)
+      content:
+        application/json:
+          schema:
+            title: GetECLSuccess
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/ECL'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

@@ -1,0 +1,316 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Configuration API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Configuration
+paths:
+  /accounts/{accountId}/config/resourcenames/{resourceGroup}/{resourceSubType}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/resourceGroup'
+    - $ref: '#/components/parameters/resourceSubType'
+    get:
+      operationId: listResourceConfigNames
+      tags:
+      - Configuration
+      summary: 'Resource Names: List'
+      description: 'Get a list of resource names for an account for a given resource type.
+
+
+        `resourceGroup` and `resourceSubType` combine to describe the type of resource to query.
+
+
+        Examples: `km/entity`, `platform/account-features`.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/ResourceNamesList'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/config/resources/{resourceGroup}/{resourceSubType}/{resourceId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/resourceId'
+    - $ref: '#/components/parameters/resourceGroup'
+    - $ref: '#/components/parameters/resourceSubType'
+    get:
+      operationId: getResourceConfiguration
+      tags:
+      - Configuration
+      summary: 'Resource Configuration: Get'
+      description: 'Get a resource configuration.
+
+
+        `resourceGroup` and `resourceSubType` combine to describe the type of resource to return.
+
+
+        Examples: `km/entity`, `platform/account-features`.
+
+
+        `resourceId` describes the specific resource to return, matching the `$id` field of the resource configuration.
+
+
+        To return the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.
+
+
+        Example: `platform/account-features/config`
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/Resource'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    put:
+      operationId: updateResourceConfig
+      tags:
+      - Configuration
+      summary: 'Resource Configuration: Update'
+      description: 'Update a resource configuration. It overwrites the existing resource entirely.
+
+
+        `resourceGroup` and `resourceSubType` combine to describe the type of resource to return.
+
+
+        Examples: `km/entity`, `platform/account-features`.
+
+
+        `resourceId` describes the specific resource to return, matching the `$id` field of the resource configuration.
+
+
+        To update the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.
+
+
+        Example: `platform/account-features/config`
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      operationId: patchResourceConfig
+      tags:
+      - Configuration
+      summary: 'Resource Configuration: Patch'
+      description: 'Patch a resource configuration. It only updates the provided attributes and keeps the existing attributes intact.
+
+
+        `resourceGroup` and `resourceSubType` combine to describe the type of resource to return.
+
+
+        Examples: `km/entity`, `platform/account-features`.
+
+
+        `resourceId` describes the specific resource to return, matching the `$id` field of the resource configuration.
+
+
+        To patch the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.
+
+
+        Example: `platform/account-features/config`
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/config/resources/{resourceGroup}/{resourceSubType}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/resourceGroup'
+    - $ref: '#/components/parameters/resourceSubType'
+    post:
+      operationId: createResourceConfig
+      tags:
+      - Configuration
+      summary: 'Resource Configuration: Create'
+      description: 'Create a new resource for a given resource type.
+
+
+        `resourceGroup` and `resourceSubType` combine to describe the type of resource to create.
+
+
+        Examples: `km/entity`, `platform/account-features`.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  parameters:
+    resourceGroup:
+      name: resourceGroup
+      description: 'Group of the resource
+
+
+        For example, for `km/entity`, the resourceGroup is `km`
+
+        '
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    resourceId:
+      name: resourceId
+      description: $id (name) of the resource
+      in: path
+      required: true
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    resourceSubType:
+      name: resourceSubType
+      description: 'Subtype of the resource
+
+
+        For example, for `km/entity`, the resourceSubType is `entity`
+
+        '
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    ResourceNamesList:
+      description: List of resource names
+      content:
+        application/json:
+          schema:
+            title: ResourceNamesList
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: array
+                items:
+                  type: string
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    Resource:
+      description: A resource configuration
+      content:
+        application/json:
+          schema:
+            title: Resource
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Resource'
+  schemas:
+    Resource:
+      type: object
+      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
+
+        '
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

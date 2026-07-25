@@ -1,0 +1,1816 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings Accounts API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Accounts
+paths:
+  /accounts/{accountId}/search/autocomplete:
+    get:
+      operationId: autocomplete
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/experienceKey'
+      - $ref: '#/components/parameters/locale'
+      - $ref: '#/components/parameters/autocompleteInput'
+      - $ref: '#/components/parameters/autocompleteLimit'
+      - $ref: '#/components/parameters/version'
+      summary: 'Universal Search: Autocomplete'
+      description: Retrieve a list of suggested queries across all verticals in the experience based on the characters already typed by the user. This API is meant to be hit after each keystroke.
+      responses:
+        '200':
+          $ref: '#/components/responses/AutocompleteResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Accounts
+  /accounts/{accountId}/search/query:
+    get:
+      operationId: query
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/experienceKey'
+      - $ref: '#/components/parameters/queryLocale'
+      - $ref: '#/components/parameters/requiredInput'
+      - $ref: '#/components/parameters/version'
+      - $ref: '#/components/parameters/location'
+      - $ref: '#/components/parameters/session_id'
+      - $ref: '#/components/parameters/universalLimit'
+      - $ref: '#/components/parameters/queryTrigger'
+      - $ref: '#/components/parameters/context'
+      - $ref: '#/components/parameters/referrerPageUrl'
+      - $ref: '#/components/parameters/skipSpellCheck'
+      - $ref: '#/components/parameters/restrictVerticals'
+      - $ref: '#/components/parameters/ignoreQueryRules'
+      - $ref: '#/components/parameters/queryId'
+      - $ref: '#/components/parameters/source'
+      - $ref: '#/components/parameters/jsLibVersion'
+      summary: 'Universal Search: Query'
+      description: 'Search for entities across all verticals within a Search experience.  Modules are returned for all verticals with relevant entities. Further fine tuning and filtering of the results can then be done using the vertical query endpoint. A maximum of 50 verticals can be queried with this endpoint.
+
+
+        In order prevent bot traffic from using Search API Capacity, you must integrate with the Search API from the front end of your application.  The Search API''s Bot Detection feature requires the API to be called directly from the end-user''s web browser.  If you must integrate with the Search API via another mechanism, all traffic will be charged against your search capacity and some features of Search Analytics, such as Search Terms and Search Term Clustering may not work.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/UniversalQueryResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Accounts
+  /accounts/{accountId}/search/vertical/autocomplete:
+    get:
+      operationId: verticalAutocomplete
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/experienceKey'
+      - $ref: '#/components/parameters/verticalKey'
+      - $ref: '#/components/parameters/locale'
+      - $ref: '#/components/parameters/autocompleteInput'
+      - $ref: '#/components/parameters/autocompleteLimit'
+      - $ref: '#/components/parameters/version'
+      summary: 'Vertical Search: Autocomplete'
+      description: Retrieve a list of suggested queries for the selected vertical based on the characters already typed by the user or the most popular queries when no user input is given.
+      responses:
+        '200':
+          $ref: '#/components/responses/AutocompleteResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Accounts
+  /accounts/{accountId}/search/vertical/query:
+    get:
+      operationId: verticalQuery
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/experienceKey'
+      - $ref: '#/components/parameters/verticalKey'
+      - $ref: '#/components/parameters/queryLocale'
+      - $ref: '#/components/parameters/verticalInput'
+      - $ref: '#/components/parameters/version'
+      - $ref: '#/components/parameters/location'
+      - $ref: '#/components/parameters/locationRadius'
+      - $ref: '#/components/parameters/session_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/queryTrigger'
+      - $ref: '#/components/parameters/context'
+      - $ref: '#/components/parameters/referrerPageUrl'
+      - $ref: '#/components/parameters/skipSpellCheck'
+      - $ref: '#/components/parameters/Filters'
+      - $ref: '#/components/parameters/FacetFilters'
+      - $ref: '#/components/parameters/retrieveFacets'
+      - $ref: '#/components/parameters/SortBys'
+      - $ref: '#/components/parameters/ignoreQueryRules'
+      - $ref: '#/components/parameters/queryId'
+      - $ref: '#/components/parameters/source'
+      - $ref: '#/components/parameters/jsLibVersion'
+      summary: 'Vertical Search: Query'
+      description: 'Search for entities within the selected vertical.  Vertical query allows for fine tuning of the search using filters, facets and sorts passed in through the API.
+
+
+        In order prevent bot traffic from using Search API Capacity, you must integrate with the Search API from the front end of your application.  The Search API''s Bot Detection feature requires the API to be called directly from the end-user''s web browser.  If you must integrate with the Search API via another mechanism, all traffic will be charged against your search capacity and some features of Search Analytics, such as Search Terms and Search Term Clustering may not work.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/VerticalQueryResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Accounts
+  /accounts/{accountId}/search/filtersearch:
+    get:
+      operationId: filtersearch
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/experienceKey'
+      - $ref: '#/components/parameters/filterSearchVerticalKey'
+      - $ref: '#/components/parameters/locale'
+      - $ref: '#/components/parameters/requiredInput'
+      - $ref: '#/components/parameters/SearchParameters'
+      - $ref: '#/components/parameters/version'
+      - $ref: '#/components/parameters/excluded'
+      summary: 'Vertical Search: Filter Search'
+      description: Retrieve a list of potential filters that match the user's input up to that point.  This differs from query suggest by only returning the names of filters that can be searched rather than the broader corpus of suggested queries.
+      responses:
+        '200':
+          $ref: '#/components/responses/FilterSearchResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Accounts
+  /accounts/{accountId}/search/generateAnswer:
+    post:
+      operationId: generateAnswer
+      summary: 'Answer: Generate
+
+        '
+      description: 'Leverages large language models (LLMs) to deliver generated summaries based on search results.
+
+
+        This endpoint works with the Universal/Vertical Search endpoint, which provides the search results for the LLM to analyze and generate direct answers.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/experienceKey'
+      - $ref: '#/components/parameters/queryLocale'
+      requestBody:
+        description: JSON object containing the search results and user query to generate an answer.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateAnswerRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GenerateAnswerResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Accounts
+  /accounts/{accountId}/chat/{botId}/message:
+    post:
+      operationId: message
+      description: Send messages and receive responses from a Yext Chat bot.
+      summary: 'Chat: Message Endpoint'
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/v'
+      - $ref: '#/components/parameters/botId'
+      responses:
+        '200':
+          description: Message Response
+          content:
+            application/json:
+              schema:
+                title: MessageResponse
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  response:
+                    type: object
+                    properties:
+                      conversationId:
+                        $ref: '#/components/schemas/conversationId'
+                      message:
+                        $ref: '#/components/schemas/Message'
+                      notes:
+                        $ref: '#/components/schemas/Notes'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                title: Message Response
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/ResponseMeta'
+                  error:
+                    $ref: '#/components/schemas/Error'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messages:
+                  description: List of messages representing the full conversation history.
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+                conversationId:
+                  $ref: '#/components/schemas/conversationId'
+                notes:
+                  $ref: '#/components/schemas/Notes'
+                context:
+                  type: object
+                  description: Additional, user-defined information that is passed to the chatbot, and can be referenced in the instruction flow.
+                version:
+                  type: string
+                  enum:
+                  - LATEST
+                  - STAGING
+                  - PRODUCTION
+                  description: The version of chatbot. Defaults to `LATEST`.
+      tags:
+      - Accounts
+  /accounts/me/events:
+    post:
+      operationId: sendEvents
+      summary: Analytics Events
+      description: "Send user events from your Yext digital experiences to Yext Analytics in near real-time.\n\nThis documentation is for version `1.0.0` of the Events API. If you are still using version\n`0.6`, refer to the documentation in the yext/analytics Github repository \n[here](https://github.com/yext/analytics/blob/release/v0.6.8/src/models/EventPayload.ts).\n"
+      requestBody:
+        description: JSON object containing the events to be sent to Yext Analytics
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEventsRequestBody'
+      responses:
+        '202':
+          description: Successful request, return analytics event ID that related to this event
+          content:
+            application/json:
+              schema:
+                title: SendEventsResponse
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the event.
+        '429':
+          description: Exceeded the limit of requests in the last minute
+          content:
+            application/json:
+              schema:
+                title: SendEventsResponse
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the event.
+                  errors:
+                    type: array
+                    description: Array of error messages that occurred during the request.
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                title: SendEventsResponse
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the event.
+                  errors:
+                    type: array
+                    description: Array of error messages that occurred during the request.
+      tags:
+      - Accounts
+components:
+  parameters:
+    context:
+      name: context
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Context is an arbitrary JSON object that is passed to query rules to be used for triggering rules as well as passing data to those rules. This parameter should be provided as a URL-encoded string containing a JSON object.
+    jsLibVersion:
+      name: jsLibVersion
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The version of the Search UI used for this request. Deprecated.
+    filterSearchVerticalKey:
+      name: verticalKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: String key that uniquely identifies the vertical to scope the filter search request to.
+    queryTrigger:
+      name: queryTrigger
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'String value that is logged to analytics denoting the trigger for the query.
+
+        Options include:
+
+        * `suggest`, sent if the query is triggered from a spelling correction.
+
+        * `initialize`, sent if the query is being triggered by a default initial search (in other words, the user did not enter query).
+
+        '
+    referrerPageUrl:
+      name: referrerPageUrl
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The URL of the webpage that directed to the page this request was made from.
+    requiredInput:
+      name: input
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The search term of the user.
+    SortBys:
+      name: sortBys
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter overrides the sort options that are configured on the experience configuration.  This parameter should be provided as a URL-encoded string containing a JSON array.\n\nThe input is a JSON array containing each of the sort options in the order in which they should be applied.\n\nEach sort options must contain a `type`\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Type</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>RELEVANCE</th>\n    <th>Sorts based on relevance according to the algorithm and, when relevant, location bias</th>\n  </tr>\n  <tr>\n    <th>ENTITY_DISTANCE</th>\n    <th>Sorts based on entity distance alone</th>\n  </tr>\n  <tr>\n    <th>FIELD</th>\n    <th>sorts based on a field with the direction specified</th>\n  </tr>\n</table>\n\n</br>\n\nIf the `type` is `FIELD` the sort options must also specify `field` which is the api name of the field to sort on.\n\nFinally, if the `type` is `FIELD` the sort options must also specify the `direction`.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Direction</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>ASC</th>\n    <th>Sorts in ascending order.  For numbers this is low to high. For text this is alphabetical.  For dates this is chronological order.</th>\n  </tr>\n  <tr>\n    <th>DESC</th>\n    <th>Sorts in ascending order.  For numbers this is high to low. For text this is reverse alphabetical.  For dates this is reverse chronological order.</th>\n  </tr>\n</table>\n\n</br>\n\n**Examples**\n```\n[\n  {\n    \"type\": \"FIELD\",\n    \"direction\": \"ASC\",\n    \"field\": \"startDate\"\n  },\n  {\n    \"type\": \"RELEVANCE\",\n    \"direction\": \"ASC\"\n  }\n]\n```\n"
+    experienceKey:
+      name: experienceKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: String key that uniquely identifies the Search experience.
+    locationRadius:
+      name: locationRadius
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Radius (in meters) that should be applied to any location filter that does not already have an explicit radius.
+    excluded:
+      name: excluded
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter represents any values which should not be returned. This parameter should be provided as a URL-encoded string containing a JSON array, where each entry of the array is a JSON object representing a field and an excluded value for that field. For example:\n```\n[\n  {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  },\n  {\n    \"c_jobCategory\": {\n      \"$eq\": \"Engineering\"\n    }\n  }\n]\n```\n"
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The user's location as a comma separated latitude and longitude (e.g. `"40.740957,-73.987565"`).
+    locale:
+      name: locale
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The locale code of the experience (e.g. `en_GB`).
+    session_id:
+      name: session_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: UUID used to track session state when cookies are blocked.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    skipSpellCheck:
+      name: skipSpellCheck
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: If true the query will skip spell checking.
+    verticalKey:
+      name: verticalKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: String key that uniquely identifies the vertical.
+    source:
+      name: source
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Indicates where the query is coming from (e.g. `"HOME_HEADER"` or `"TICKET_FORM"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `"STANDARD"`.
+    universalLimit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: string
+      description: JSON object specifying the limit for each vertical.  Each key is a vertical key and the value for each of those keys is a number 1-50 that denotes the limit for that vertical. This parameter should be provided as a URL-encoded string containing a JSON object.
+    Filters:
+      name: filters
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filters param after URL-encoding will be: `filters=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined to form a conjunction (AND) of disjunctions (ORs) using the *combinators* `$and` and `$or`.  For example:\n```\n{\n  \"$and\": [\n    {\n      \"$or\": [\n        {\n          \"firstName\": {\n            \"$eq\": \"Jane\"\n          }\n        },\n        {\n          \"firstName\": {\n            \"$eq\": \"John\"\n          }\n        }\n      ]\n    },\n    {\n      \"lastName\": {\n        \"$eq\": \"Smith\"\n      }\n    }\n  ]\n}\n```\nAny filter that is the only item in its respective combinator may omit the combinator as is done with the lastName above.\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for option custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$between</th>\n    <th>\n\n  An array that must contain exactly two elements with which the result is between.\n\n    {\n      \"time.end\": {\n        \"$between\":  [\"2018-08-28T05:56\", \"2018-08-29T05:56\"]\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  In addition to between, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue\" : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n"
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    ignoreQueryRules:
+      name: ignoreQueryRules
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false.
+    autocompleteLimit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+        minimum: 1
+      description: Number of autocomplete results to return.
+    queryLocale:
+      name: locale
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale.
+    FacetFilters:
+      name: facetFilters
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter represents the state of the currently checked facet options. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nThe JSON object contains a key for each facet category that has a checked facet option.  The value for each of these keys is an array of Filter objects that describe the filter that is applied by the facet option.\n\nAt the moment, facet options only support `$eq`.\n\nFor example, if `Engineering` was checked under the `Category` facet and `Chicago` and `New York` are checked under the `Job Location` facet, the `facetFilters` would look like:\n```\n{\n  \"c_jobCategory\": [\n    {\n      \"c_jobCategory\": {\n        \"$eq\": \"Engineering\"\n      }\n    }\n  ],\n  \"c_jobLocation\": [\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"Chicago\"\n      }\n    },\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"New York\"\n      }\n    }\n  ]\n}\n```\n"
+    retrieveFacets:
+      name: retrieveFacets
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: Whether facets should be computed for this vertical query.
+    queryId:
+      name: queryId
+      in: query
+      required: false
+      schema:
+        type: string
+      description: UUID of the query; recommended when moving through results, to associate multiple requests to the same query.
+    botId:
+      name: botId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the chatbot.
+    SearchParameters:
+      name: search_parameters
+      in: query
+      required: true
+      schema:
+        type: string
+      description: "This parameter represents the parameters that should be used for filter search. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFilter search uses the user's input string to find a set of existing filters that match the user's input query for the fields provided in the parameters.\n\nThe JSON object must have a `fields` property made up of a list of `FilterField` objects that have the following properties:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Property</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>fieldId</th>\n    <th>The api name of the field.</th>\n  </tr>\n  <tr>\n    <th>entityTypeId</th>\n    <th>The api name for the entity type the filter belongs to.</th>\n  </tr>\n  <tr>\n    <th>shouldFetchEntities</th>\n    <th>Optional boolean.  If true, entities matching each filter will be returned inline with the filter.</th>\n  </tr>\n</table>\n\n</br>\n\nAdditionally, there is an optional boolean property `sectioned`.  If set to true, the matching filters will be returned in a separate section per field.  By default, they are all returned in the same section.\n"
+    autocompleteInput:
+      name: input
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The partial search term from the user.
+    restrictVerticals:
+      name: restrictVerticals
+      in: query
+      required: false
+      schema:
+        type: string
+      description: A comma-separated list of verticals (e.g. `"people,locations"`). If specified, only results from these verticals will be returned.
+    version:
+      name: version
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used.
+    offset:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 9949
+        default: 0
+      description: Number of results to skip. Used to move through results.
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+        maximum: 50
+      description: Number of results to return.
+    verticalInput:
+      name: input
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The search term of the user.
+  schemas:
+    Entity:
+      type: object
+      properties:
+        data:
+          type: object
+          description: 'The data containing the main content of the entity. The format of the data is dependent on the entity type.
+
+            '
+        highlightedFields:
+          type: object
+          description: 'A map from fieldId to highlighted element.
+
+            '
+        distance:
+          type: integer
+          description: 'The distance in meters between the entity and the query''s location bias.
+
+            '
+        distanceFromFilter:
+          type: integer
+          description: 'The distance in meters between the entity and the filter applied to the query.
+
+            '
+    SearchIntents:
+      type: array
+      description: 'Items in array each represent a particular intent expressed in the user''s query. Example: `NEAR_ME`
+
+        '
+      items:
+        type: string
+    Facets:
+      type: object
+      properties:
+        fieldId:
+          type: string
+          description: The field identifier for the field being searched.
+        displayName:
+          type: string
+          description: The display name for the field being searched.
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+                description: The display name for the Facet option.
+              count:
+                type: integer
+                description: The number of entities within the vertical that are relevant to this Facet option.
+              isSelected:
+                type: boolean
+                description: A boolean indicator of whether this Facet option was used to filter results in the response.
+              filter:
+                $ref: '#/components/schemas/filter'
+    filter:
+      type: object
+      description: 'The filter, in the filter format, that was applied.
+
+        <br><br>
+
+        For example: `"c_exampleFieldId": { $eq": "Search" }`
+
+        '
+      example: 'c_exampleFieldId: { $eq": "Search" }
+
+        '
+    Message:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp when the message was received, in ISO 8601 format.
+        source:
+          type: string
+          enum:
+          - USER
+          - BOT
+          description: Either `USER` if the message was sent by the human user, or `BOT` if the message was sent by the chatbot.
+        text:
+          type: string
+          description: The text of the message.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    FailedVertical:
+      type: object
+      properties:
+        verticalConfigId:
+          $ref: '#/components/schemas/verticalConfigId'
+        errorType:
+          type: string
+          description: 'An identifier for the type of error causing the failure.
+
+            '
+          enum:
+          - TIMEOUT
+          - BACKEND_ERROR
+          - INVALID_CONFIG
+          - INVALID_QUERY
+        details:
+          type: object
+          properties:
+            responseCode:
+              type: integer
+              description: 'An HTTP response status code indicating the completion status of the request.
+
+                '
+            description:
+              type: string
+              description: Message explaining the error.
+        queryDurationMillis:
+          type: integer
+          description: 'A measure of query duration, recorded in milliseconds.
+
+            '
+    resultCount:
+      type: integer
+      description: 'The number of entities within the vertical that are relevant to the user''s query.
+
+        '
+    verticalConfigId:
+      type: string
+      description: String key that uniquely identifies the vertical.
+    AppliedQueryFilters:
+      type: array
+      description: A list of the filters that were inferred from the user's query and applied at search time.
+      items:
+        type: object
+        properties:
+          displayKey:
+            type: string
+            description: The display name of the field to which the filter belongs.
+          displayValue:
+            type: string
+            description: The value of the filter.
+          filter:
+            $ref: '#/components/schemas/filter'
+          type:
+            type: string
+            enum:
+            - FIELD_VALUE
+            - PLACE
+            - INTENT
+          details:
+            type: object
+            description: 'Object containing additional details relevant to the filter such as additional details about the place for `PLACE` type filters. The format of the data is dependent on the filter type.
+
+              '
+    conversationId:
+      type: string
+      description: A ULID representing the conversation between the user and the chatbot.
+    Notes:
+      type: object
+      properties:
+        currentGoal:
+          type: string
+          description: The current goal the chatbot has detected the user is trying to achieve.
+        currentStepIndices:
+          type: array
+          items:
+            type: integer
+          description: 'The index of the step within the instructions of `currentGoal` that the chatbot is currently performing.
+
+            If the step is nested under a conditional `IF` step, it is represented with an array with multiple values.
+
+            E.g., if the `IF` step is the third step in the goal, and the bot is on the second step within the `IF` step, the value would be `[2, 1]`.
+
+            '
+        collectedData:
+          type: object
+          description: The data that the chatbot has collected from the user so far.
+        searchQuery:
+          type: string
+          description: The search query that the chatbot predicted and ran to retrieve the `queryResult`.
+        queryResult:
+          type: object
+          description: The results returned in the Search, REST API call, or FUNCTION call using the `searchQuery`.
+        goalFirstMsgIndex:
+          type: integer
+          description: 'The index of the message within `messages` when the `currentGoal` began.
+
+            This is important in some cases when the chatbot should not pull context from messages that are not part of the current goal.
+
+            '
+    HighlightedValue:
+      type: object
+      description: 'Highlighting instructions for a field value, containing the original value of the field and all sections of the value that should be highlighted.
+
+        '
+      properties:
+        value:
+          type: string
+          description: 'The original value of the field.
+
+            '
+        matchedSubstrings:
+          type: array
+          description: 'The list of matched substrings within the value to highlight.
+
+            '
+          items:
+            type: object
+            description: 'Highlight information for the string autocomplete value.
+
+              '
+            properties:
+              offsets:
+                type: integer
+                description: 'The zero indexed offset from the start of the value where the highlight starts.
+
+                  '
+              length:
+                type: integer
+                description: 'The length of the highlight.
+
+                  '
+    businessId:
+      type: integer
+      description: ID of the account associated with this Search experience
+    Error:
+      type: array
+      description: List of errors and warnings.
+      items:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: Code that uniquely identifies the error or warning.
+          type:
+            type: string
+            description: Type of error.
+            enum:
+            - FATAL_ERROR
+            - NON_FATAL_ERROR
+            - WARNING
+          message:
+            type: string
+            description: Message explaining the problem.
+    Results:
+      type: array
+      description: 'The individual entity results that contain metadata about the entity as well as the fully rendered profiles.
+
+        '
+      items:
+        $ref: '#/components/schemas/Entity'
+    SpellCheck:
+      type: object
+      description: SpellCheck information that may correct the user's query.
+      properties:
+        originalQuery:
+          type: string
+          description: The unedited, original query from the request.
+        correctedQuery:
+          $ref: '#/components/schemas/HighlightedValue'
+        type:
+          type: string
+          description: 'The type of SpellCheck suggestion.
+
+            <br><br>
+
+            `SUGGEST` is often used for "Did you mean..."
+
+            <br>
+
+            `AUTOCORRECT` is often used for "Showing results for ... instead of ..."
+
+            <br>
+
+            `COMBINE` is often used for "Including results for ..."
+
+            <br><br>
+
+            '
+          enum:
+          - SUGGEST
+          - AUTOCORRECT
+          - COMBINE
+    DirectAnswer:
+      type: object
+      description: 'Information that is estimated to directly answer the question of the query.
+
+        '
+      properties:
+        type:
+          type: string
+          description: 'Type of the direct answer, such as `FIELD_VALUE` or `FEATURED_SNIPPET`.
+
+            '
+        answer:
+          type: object
+          description: 'The data containing the main content of the direct answer. The format of the data is dependent on the direct answer type.
+
+            '
+        relatedItem:
+          type: object
+          description: 'An optional item that is related to the direct answer. For Knowledge Manager verticals, related items will typically be entities.
+
+            '
+          properties:
+            verticalConfigId:
+              $ref: '#/components/schemas/verticalConfigId'
+            data:
+              type: object
+              description: 'The data of the related item, which should be in the same shape (with possibly extra fields) as an item that appears in a section of results from the same vertical in universal search.
+
+                '
+    Module:
+      type: object
+      description: The results and metadata pertaining to a single vertical relevant to the user's query.
+      properties:
+        verticalConfigId:
+          $ref: '#/components/schemas/verticalConfigId'
+        resultCount:
+          $ref: '#/components/schemas/resultCount'
+        encodedState:
+          type: string
+          description: Deprecated.
+        results:
+          $ref: '#/components/schemas/Results'
+        appliedQueryFilters:
+          $ref: '#/components/schemas/AppliedQueryFilters'
+    queryId:
+      type: string
+      description: UUID for the query
+    LocationBias:
+      type: object
+      description: Information about geographical location biases used in the search.
+      properties:
+        latitude:
+          type: number
+          description: The geographic coordinate, latitude, used to bias the search.
+          example: 41.7828
+        longitude:
+          type: number
+          description: The geographic coordinate, latitude, used to bias the search.
+          example: -87.8781
+        locationDisplayName:
+          type: string
+          description: The display name of the location.
+          example: Countryside, Illinois, United States
+        accuracy:
+          type: string
+          description: 'The accuracy of the location bias used for the search.
+
+            <br><br>
+
+            `DEVICE` is based on the user''s device (passed in via the request param)
+
+            <br>
+
+            `IP` is based on the request''s IP
+
+            <br>
+
+            '
+          enum:
+          - IP
+          - DEVICE
+          - UNKNOWN
+    FailedVerticals:
+      type: array
+      description: 'Contains error information when one or more verticals fail to return results.
+
+        '
+      items:
+        $ref: '#/components/schemas/FailedVertical'
+    SendEventsRequestBody:
+      type: object
+      title: Analytics Event
+      description: Represents an event for analytics purposes.
+      required:
+      - action
+      additionalProperties: false
+      properties:
+        action:
+          description: The action which caused the event.
+          oneOf:
+          - type: string
+            title: Standard
+            description: '`caseSensitive: false` <br>The action which caused the event. For a full list of supported standard actions, see our documentation on Hitchhikers [here](https://hitchhikers.yext.com/docs/analytics/standard-actions/). <br> **Note:** If the action is `CHAT_RESPONSE`, the `responseId` must be present in the `chat` domain object.'
+            enum:
+            - ADD_TO_CART
+            - ALL_TAB_NAVIGATION
+            - APPLY
+            - AUTO_COMPLETE_SELECTION
+            - BACKWARD_PAGINATE
+            - BOOK
+            - BRAND_ICON
+            - CASE_START
+            - CASE_SUBMITTED
+            - CHAT_IMPRESSION
+            - CHAT_LINK_CLICK
+            - CHAT_RESPONSE
+            - COLLAPSE
+            - CTA_CLICK
+            - DRIVING_DIRECTIONS
+            - EVENT
+            - EXPAND
+            - FEATURED_MESSAGE
+            - FILTERING_WITHIN_SECTION
+            - FORWARD_PAGINATE
+            - HEADER_LINKS
+            - ITEM_IN_LIST
+            - MAP_CARD
+            - MAP_PIN
+            - MENU
+            - MESSAGE
+            - ORDER
+            - PAGE_VIEW
+            - PAGINATE
+            - POST
+            - PRESET_PROMPT
+            - PRODUCT
+            - PROFILE
+            - QUESTION_FOCUS
+            - QUESTION_SUBMIT
+            - REMOVED_FILTER
+            - REVIEW
+            - SCROLL_TO_BOTTOM_OF_PAGE
+            - SEARCH_BAR_IMPRESSION
+            - SEARCH_CLEAR_BUTTON
+            - TAP_TO_CALL
+            - THUMBS_DOWN
+            - THUMBS_UP
+            - TICKET_URL
+            - TITLE
+            - VERTICAL_TAB_NAVIGATION
+            - VERTICAL_VIEW_ALL
+            - VOICE_START
+            - VOICE_STOP
+            - WEBSITE
+          - type: string
+            pattern: ^[Cc]_[a-zA-Z0-9_-]{1,30}$
+            title: Custom
+            description: 'Specifies a custom action for the event, which must start with "`C_`". `caseSensitive: false`, `pattern: "^[Cc]_[a-zA-Z0-9_-]{1,30}$"`'
+        authorization:
+          type: string
+          description: An alternative to using the Authorization HTTP header. If a value is provided, it will override any Authorization header. Api keys should be formatted like "KEY \<apiKey\>", access tokens should be formatted like "Bearer \<bearerToken\>"
+          minLength: 1
+          maxLength: 8192
+          pattern: ^(KEY|Bearer)\s.+$
+        bot:
+          description: Whether the event is the result of bot activity.
+          default: $auto
+          oneOf:
+          - type: boolean
+            description: Specifies that the event should not be considered bot traffic.
+          - type: string
+            title: $auto
+            enum:
+            - $auto
+            description: Indicates to automatically detect whether this event originates from a bot.
+        browserAgent:
+          type: object
+          additionalProperties: false
+          description: Information about the visitor's device and browser.
+          default:
+            browser: $auto
+            browserVersion: $auto
+            device: $auto
+            deviceClass: $auto
+            os: $auto
+            osVersion: $auto
+            userAgent: $auto
+          properties:
+            browser:
+              default: $auto
+              description: The browser associated with the event.
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,128}$)
+                title: string
+                description: 'Specifies the browser for the event. `pattern: "^[\x20-\x7E]{1,128}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to automatically determine the browser from request headers, or the value of the `userAgent` property if specified.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no browser should be stored with the event.
+            browserVersion:
+              default: $auto
+              description: The browser version associated with the event.
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,128}$)
+                title: string
+                description: 'Specifies the browser version for the event. `pattern: "^[\x20-\x7E]{1,128}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to automatically determine the browser version from request headers, or the value of the `userAgent` property if specified.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no browser version should be stored with the event.
+            device:
+              default: $auto
+              description: The device associated with the event.
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,128}$)
+                title: string
+                description: 'Specifies the device for the event. `pattern: "^[\x20-\x7E]{1,128}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to automatically determine the device from request headers, or the value of the `userAgent` property if specified.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no device should be stored with the event.
+            deviceClass:
+              default: $auto
+              description: The class of device associated with the event.
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,32}$)
+                title: string
+                description: 'Specifies the device class for the event. `caseSensitive: false`, `pattern: "^[\x20-\x7E]{1,32}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to automatically determine the device class from request headers, or the value of the `userAgent` property if specified.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no device class should be stored with the event.
+            os:
+              default: $auto
+              description: The operating system associated with the event.
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,128}$)
+                title: string
+                description: 'Specifies the operating system for the event. `pattern: "^[\x20-\x7E]{1,128}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to automatically determine the operating system from request headers, or the value of the `userAgent` property if specified.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no operating system should be stored with the event.
+            osVersion:
+              default: $auto
+              description: The operating system version associated with the event.
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,128}$)
+                title: string
+                description: 'Specifies the operating system version for the event. `pattern: "^[\x20-\x7E]{1,128}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to automatically determine the operating system version from request headers, or the value of the `userAgent` property if specified.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no operating system version should be stored with the event.
+            userAgent:
+              description: The user agent string for the event.
+              default: $auto
+              oneOf:
+              - type: string
+                pattern: (?!\$auto$)(^[\x20-\x7E]{1,8192}$)
+                title: string
+                description: 'Specifies the user agent string for the event. `pattern: "^[\x20-\x7E]{1,8192}$"`'
+              - type: string
+                title: $auto
+                enum:
+                - $auto
+                description: Indicates to use the `User-Agent` header of the request.
+              - type: 'null'
+                title: 'null'
+                description: Specifies that no user agent should be stored with the event.
+        chat:
+          type: object
+          title: Chat
+          description: The Yext Chat properties of the event.
+          properties:
+            botId:
+              type: string
+              minLength: 1
+              maxLength: 50
+              description: The ID of the chat bot an event was tied to.
+            conversationId:
+              type: string
+              minLength: 48
+              maxLength: 48
+              example: MDFIQjlKWkM5SlhaU0dEUjJNRFBCUFdLWTHeIqvURTeRr2EC
+              description: The ID of a conversation an event was tied to. Not all events are tied to a specific conversation. For example, both impressions are registered before the conversation begins. Must be 48 chars long
+            responseId:
+              type: string
+              pattern: ^[0-9A-HJKMNP-TV-Z]{26}$
+              description: 'The ID of the response an event was tied to. Not all events are tied to a specific response, but if present it must be a valid ULID. This is analogous to queryId in Search. `pattern: "^[0-9A-HJKMNP-TV-Z]{26}$"`'
+          required:
+          - botId
+          additionalProperties: false
+        clientSdk:
+          type: object
+          title: Client SDK
+          description: For the Yext client SDKs involved in the event, this is an object mapping the names of those SDKs to the version labels of those SDKs.
+          maxProperties: 100
+          properties:
+            ^[a-zA-Z][a-zA-Z0-9_]{0,31}$:
+              type: string
+        count:
+          type: integer
+          minimum: 1
+          maximum: 1000000000
+          default: 1
+          description: When one record summarizes multiple events, this is the number of events the record represents. The event is treated as if it is duplicated this many times.
+        customTags:
+          type: object
+          description: 'Up to 10 pairs matching custom string keys to string values to associate with the event. Keys are case-insensitive; values are case-sensitive. Property Name `pattern: "^[a-zA-Z][a-zA-Z0-9_]{0,31}$"`'
+          maxProperties: 10
+          properties:
+            ^[a-zA-Z][a-zA-Z0-9_]{0,31}$:
+              type: string
+        customValues:
+          type: object
+          description: 'Up to 10 pairs matching custom string keys to number values to associate with the event. Keys are case-insensitive. Property Name `pattern: "^[a-zA-Z][a-zA-Z0-9_]{0,31}$"`'
+          maxProperties: 10
+          properties:
+            ^[a-zA-Z][a-zA-Z0-9_]{0,31}$:
+              type: number
+              minimum: 1
+              maximum: 1000000000
+        destinationUrl:
+          type: string
+          format: uri
+          title: URL
+          description: 'The URL of the page the event is directing the visitor to. `format: uri`'
+        entity:
+          oneOf:
+          - type: string
+            title: entityId
+            minLength: 1
+            maxLength: 38
+            description: The mutable, customer-settable entity ID for the entity associated with the event.
+          - type: integer
+            title: entityUid
+            minimum: 0
+            description: The immutable entity ID set by the system. This is an internal ID.
+        internalUser:
+          type: boolean
+          default: false
+          description: Indicates whether the event is the result of internal activity.
+        ip:
+          description: The IP address for the event.
+          default:
+            address: $auto
+            algorithm: HASH
+          oneOf:
+          - type: object
+            title: IP
+            properties:
+              address:
+                oneOf:
+                - type: string
+                  format: ipv4
+                  title: IPv4
+                  description: 'Specifies the IPv4 address associated with the event. `format: "ipv4"`'
+                - type: string
+                  title: $auto
+                  enum:
+                  - $auto
+                  description: 'Indicates to use the Source IP address from the IP header of the request. This IP address is only used if the `Yext-Opt-In: ip` header is present.'
+              algorithm:
+                type: string
+                enum:
+                - HASH
+                description: The algorithm to use to anonymize the IP address after collection.
+            required:
+            - address
+            - algorithm
+            additionalProperties: false
+          - type: 'null'
+            title: 'null'
+            description: Specifies that no IP address should be associated with the event.
+        label:
+          type: string
+          description: A label assigned to the event, e.g. a CTA label.
+          minLength: 1
+          maxLength: 16777216
+        locale:
+          default: $auto
+          description: The locale of the user who generated the event.
+          oneOf:
+          - type: string
+            title: Locale
+            minLength: 1
+            maxLength: 16
+            pattern: ^(?!(\$auto)$).*$
+            description: Specifies the locale of the visitor for the event, e.g. `en-US`.
+          - type: string
+            title: $auto
+            enum:
+            - $auto
+            description: Indicates to automatically determine the locale from the Accept-Language header.
+          - type: 'null'
+            title: 'null'
+            description: Specifies that no locale information should be stored with the event.
+        location:
+          description: The location information of the visitor for the event. Either a Coordinates object with both latitude and longitude or a string with the country of the visitor for the event, as a ISO 3166-1 alpha-2 country code.
+          oneOf:
+          - type: object
+            title: Coordinates Object
+            description: The geographic coordinates of the visitor for the event.
+            properties:
+              coordinates:
+                type: object
+                description: The geographic coordinates of the visitor for the event.
+                properties:
+                  latitude:
+                    type: number
+                    minimum: -90
+                    maximum: 90
+                    description: The latitude, in degrees North.
+                  longitude:
+                    type: number
+                    minimum: -180
+                    maximum: 180
+                    description: The longitude, in degrees East.
+                required:
+                - latitude
+                - longitude
+                additionalProperties: false
+            required:
+            - coordinates
+            additionalProperties: false
+          - type: string
+            title: Country Code
+            minLength: 2
+            maxLength: 2
+            pattern: ^[A-Za-z]{2}$
+            description: 'The country of the visitor for the event, as a ISO 3166-1 alpha-2 country code. `caseSensitive: false`'
+        pages:
+          type: object
+          title: Pages
+          description: Fields specific to reporting Yext Pages Analytics Events
+          properties:
+            scope:
+              type: string
+              description: The scope of an action. Applies to Pages events.
+            originalEventName:
+              type: string
+              description: The Event name as it was used in previous analytics implementations.
+            siteUid:
+              type: integer
+              minimum: 0
+              description: The UID of the site an event was tied to.
+            template:
+              type: string
+              description: The ID of the template from which a site was generated.
+          additionalProperties: false
+        pageUrl:
+          description: The URL of the page the event occurred on.
+          oneOf:
+          - type: string
+            format: uri
+            title: URL
+            description: 'Specifies the URL of the page the event occurred on. `format: uri`'
+          - type: string
+            title: $auto
+            description: Indicates to use the `Referer` header of the request.
+          - type: 'null'
+            title: 'null'
+            description: Specifies that no page URL should be stored with the event. Will fallback to `document.URL` if it exists.
+        referrerUrl:
+          description: The URL of the page which the visitor came from prior to the event.
+          oneOf:
+          - type: string
+            format: uri
+            title: URL
+            description: 'Specifies the URL of the page which the visitor came from prior to the event. `format: uri`'
+          - type: 'null'
+            title: 'null'
+            description: Specifies that no referrer URL should be stored with the event. Will fallback to `document.referrer` if it exists.
+        search:
+          type: object
+          title: Search
+          description: Fields specific to reporting Yext Search Analytics Events
+          properties:
+            searchId:
+              type: string
+              description: Unique identifier of the search
+            queryId:
+              type: string
+              description: Unique identifier for a single query across pagination
+            verticalKey:
+              type: string
+              description: The vertical key on which the event occurred, if any
+            isDirectAnswer:
+              type: boolean
+              description: Whether or not the event occurred on a direct answer card
+            versionLabel:
+              type: string
+              enum:
+              - PRODUCTION
+              - STAGING
+              description: The label of the version number of the search config. Either "PRODUCTION" or "STAGING"
+            versionNumber:
+              type: number
+              description: The version number of the search config
+            experienceKey:
+              type: string
+              description: The identifier of the search experience.
+            isGenerativeDirectAnswer:
+              type: boolean
+              description: Whether or not the event occurred on a generative direct answer card
+          required:
+          - experienceKey
+          additionalProperties: false
+        searchTerm:
+          type: string
+          description: The query entered by the user.
+          minLength: 1
+          maxLength: 16777216
+        sessionId:
+          description: 'ID of the user session associated with event. `pattern: "^[\x20-\x7E]{1,36}$"`'
+          oneOf:
+          - type: string
+            pattern: ^[\x20-\x7E]{1,36}$
+            title: Session ID
+          - type: 'null'
+            title: 'null'
+            description: Specifies that no session ID should be stored with the event.
+        timestamp:
+          description: The timestamp at which the event occurred.
+          default: $auto
+          oneOf:
+          - type: string
+            format: date-time
+            title: ISO Timestamp
+            description: 'Specifies the timestamp at which the event occurred. `format: "date-time"`'
+          - type: number
+            minimum: 0
+            maximum: 3250091520000
+            title: Epoch millisecond
+            description: Specifies the timestamp at which the event occurred as the number of milliseconds since 1970-01-01T00:00:00Z UTC, ignoring leap seconds.
+          - type: string
+            title: $auto
+            enum:
+            - $auto
+            description: Indicates to use the time when the request was received as the event timestamp.
+        value:
+          type: object
+          title: Value
+          description: The monetary value of the event
+          properties:
+            amount:
+              type: number
+              multipleOf: 0.0001
+              description: The monetary value of the event.
+            currency:
+              type: string
+              minLength: 3
+              maxLength: 3
+              pattern: ^[A-Z]{3}$
+              description: 'The ISO 4217 currency code of the currency the value is expressed in. `pattern: "^[A-Z]{3}$"`'
+          required:
+          - amount
+          - currency
+          additionalProperties: false
+        visitor:
+          type: object
+          description: 'The visitor related to the event. Keys are visitor methods and values are visitor IDs. PropertyName pattern: "^[a-zA-Z0-9_-]{1,16}$". Value pattern: "^[\x20-\x7E]{1,64}$"'
+          properties:
+            ^[a-zA-Z0-9_-]{1,16}$:
+              type: string
+              pattern: ^[\x20-\x7E]{1,64}$
+          maxProperties: 100
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    Modules:
+      type: array
+      description: List of results for each vertical that was relevant to the query, returned in the order of relevance.
+      items:
+        $ref: '#/components/schemas/Module'
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    GenerateAnswerRequest:
+      type: object
+      required:
+      - searchId
+      - searchTerm
+      - results
+      properties:
+        searchId:
+          type: string
+          description: ID of the search associated to the results.
+        searchTerm:
+          type: string
+          description: The search term that was used to generate results.
+        results:
+          oneOf:
+          - $ref: '#/components/schemas/Module'
+          - type: object
+            properties:
+              verticals:
+                $ref: '#/components/schemas/Modules'
+  responses:
+    AutocompleteResponse:
+      description: Autocomplete Request Response
+      content:
+        application/json:
+          schema:
+            title: AutocompleteResponse
+            type: object
+            properties:
+              input:
+                type: object
+                properties:
+                  value:
+                    type: string
+                    description: 'The exact user input that triggered the autocomplete.
+
+                      '
+                  queryIntents:
+                    type: array
+                    description: 'List of query intents that the input has been tagged with.
+
+                      '
+                    items:
+                      type: string
+                      description: 'Intent that was derived from the user''s input.
+
+                        '
+              results:
+                type: array
+                description: 'The list of autocomplete results computed from the user''s input.
+
+                  '
+                items:
+                  type: object
+                  description: 'An individual autocomplete match.
+
+                    '
+                  properties:
+                    value:
+                      type: string
+                      description: 'The plain text version of the autocomplete result.
+
+                        '
+                    matchedSubstrings:
+                      type: array
+                      description: 'The list of matched substrings within the value to highlight.
+
+                        '
+                      items:
+                        type: object
+                        description: 'Highlight information for the string autocomplete value.
+
+                          '
+                        properties:
+                          offsets:
+                            type: integer
+                            description: 'The zero indexed offset from the start of the value where the highlight starts.
+
+                              '
+                          length:
+                            type: integer
+                            description: 'The length of the highlight.
+
+                              '
+                    queryIntents:
+                      type: array
+                      description: 'List of query intents that the input has been tagged with.
+
+                        '
+                      items:
+                        type: string
+                        description: 'Intent that was derived from the user''s input.
+
+                          '
+                    verticalKeys:
+                      type: array
+                      description: 'List of verticals that the autocomplete result is derived from. For results coming from universal search, this field will be blank.
+
+                        '
+                      items:
+                        type: string
+                        description: 'A single vertical represented in the autocomplete result.
+
+                          '
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              input:
+                value: yex
+                queryIntents: []
+              results:
+              - value: Yext Listings
+                matchedSubstrings:
+                - offset: 0
+                  length: 3
+                verticalKeys:
+                - products
+              - value: Yext Search
+                matchedSubstrings:
+                - offset: 0
+                  length: 3
+                verticalKeys:
+                - products
+    UniversalQueryResponse:
+      description: Universal Query Response
+      content:
+        application/json:
+          schema:
+            title: UniversalQueryResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  businessId:
+                    $ref: '#/components/schemas/businessId'
+                  queryId:
+                    $ref: '#/components/schemas/queryId'
+                  modules:
+                    $ref: '#/components/schemas/Modules'
+                  failedVerticals:
+                    $ref: '#/components/schemas/FailedVerticals'
+                  directAnswer:
+                    $ref: '#/components/schemas/DirectAnswer'
+                  spellCheck:
+                    $ref: '#/components/schemas/SpellCheck'
+                  locationBias:
+                    $ref: '#/components/schemas/LocationBias'
+    FilterSearchResponse:
+      description: Filter Search Response
+      content:
+        application/json:
+          schema:
+            title: FilterSearchResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  businessId:
+                    $ref: '#/components/schemas/businessId'
+                  sections:
+                    type: array
+                    description: 'The set of field names being queried, and their respective results for the current query
+
+                      '
+                    items:
+                      type: object
+                      properties:
+                        label:
+                          type: string
+                          description: 'The display name of the field being queried, can be used in a UI to distinguish one section from another
+
+                            '
+                        results:
+                          type: array
+                          description: 'The set of matches for the current query
+
+                            '
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                                description: 'The API name of a field with a match for the current query
+
+                                  '
+                              value:
+                                type: string
+                                description: 'The display name of the field value with a match for the current query
+
+                                  '
+                              filter:
+                                $ref: '#/components/schemas/filter'
+                              matchedSubstrings:
+                                type: array
+                                description: 'A set of offsets that represent the portion of the "value" that is a match for the current query
+
+                                  '
+                                items:
+                                  type: object
+                                  properties:
+                                    offset:
+                                      type: integer
+                                      description: 'In the "value", the number of characters between the beginning of the string and the start of the match for the current query
+
+                                        '
+                                    length:
+                                      type: integer
+                                      description: 'In the "value", the number of characters from the offset that represents the end of the match for the current query
+
+                                        '
+                              relatedItem:
+                                type: object
+                                description: 'If a unique entity returns for the current query, the full entity object
+
+                                  '
+                  failedVerticals:
+                    $ref: '#/components/schemas/FailedVerticals'
+                  queryId:
+                    $ref: '#/components/schemas/queryId'
+    VerticalQueryResponse:
+      description: Vertical Query Response
+      content:
+        application/json:
+          schema:
+            title: VerticalQueryResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  businessId:
+                    $ref: '#/components/schemas/businessId'
+                  queryId:
+                    $ref: '#/components/schemas/queryId'
+                  resultsCount:
+                    $ref: '#/components/schemas/resultCount'
+                  results:
+                    $ref: '#/components/schemas/Results'
+                  appliedQueryFilters:
+                    $ref: '#/components/schemas/AppliedQueryFilters'
+                  facets:
+                    type: array
+                    description: Contextual facets that contain metadata about the facet as well as the full facet.
+                    items:
+                      $ref: '#/components/schemas/Facets'
+                  searchIntents:
+                    $ref: '#/components/schemas/SearchIntents'
+                  source:
+                    type: string
+                    description: Identifier for the backend source of the response.
+                    example: KNOWLEDGE_MANAGER
+                  directAnswer:
+                    $ref: '#/components/schemas/DirectAnswer'
+                  alternativeVerticals:
+                    type: object
+                    description: Response information from running this query on other verticals.
+                    properties:
+                      modules:
+                        $ref: '#/components/schemas/Modules'
+                      failedVerticals:
+                        $ref: '#/components/schemas/FailedVerticals'
+                  spellCheck:
+                    $ref: '#/components/schemas/SpellCheck'
+                  locationBias:
+                    $ref: '#/components/schemas/LocationBias'
+                  allResultsForVertical:
+                    type: object
+                    description: All results for this vertical.
+                    properties:
+                      businessId:
+                        $ref: '#/components/schemas/businessId'
+                      queryId:
+                        $ref: '#/components/schemas/queryId'
+                      resultsCount:
+                        $ref: '#/components/schemas/resultCount'
+                      results:
+                        $ref: '#/components/schemas/Results'
+                      facets:
+                        type: array
+                        description: Contextual facets that contain metadata about the facet as well as the full facet.
+                        items:
+                          $ref: '#/components/schemas/Facets'
+                      searchIntents:
+                        $ref: '#/components/schemas/SearchIntents'
+    GenerateAnswerResponse:
+      description: Generate Answer Response
+      content:
+        application/json:
+          schema:
+            title: GenerateAnswerResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  directAnswer:
+                    type: string
+                    description: The direct answer for the query.
+                  resultStatus:
+                    type: string
+                    description: The status of the result.
+                  citations:
+                    type: array
+                    description: The list of entity IDs that were used to generate the answer.
+                    items:
+                      type: string
+                      description: An ID of an entity that was used to generate the answer.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header

@@ -1,0 +1,1128 @@
+openapi: 3.0.0
+info:
+  title: Yext Admin Account Settings API
+  version: '2.0'
+servers:
+- url: https://api.yextapis.com/v2
+security:
+- api_key: []
+- api-key: []
+tags:
+- name: Account Settings
+paths:
+  /accounts/{accountId}/roles:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getRoles
+      tags:
+      - Account Settings
+      summary: 'Roles: Get'
+      description: Retrieves a list of the roles that users can have within a customer’s account.
+      responses:
+        '200':
+          $ref: '#/components/responses/RolesResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/users:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getUsers
+      parameters:
+      - $ref: '#/components/parameters/offset'
+      tags:
+      - Account Settings
+      summary: 'Users: List'
+      description: 'Lists all Users in an account.
+
+
+        **NOTE**:
+
+
+        If the **`v`** parameter is before `20211115`: **`acl`** and **`externalIdentities`** will not be included in the response.
+
+
+        This endpoint does not support the **`all`** macro.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/UsersResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createUser
+      tags:
+      - Account Settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      summary: 'Users: Create'
+      description: Create a new User
+      responses:
+        '201':
+          $ref: '#/components/responses/IdResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/users/{userId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/userId'
+    get:
+      operationId: getUser
+      tags:
+      - Account Settings
+      summary: 'Users: Get'
+      description: 'Retrieves details of a specific User.
+
+
+        **NOTE**:
+
+
+        If the **`v`** parameter is before `20211115`: **`acl`** and **`externalIdentities`** will not be included in the response.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/UserResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    put:
+      operationId: updateUser
+      tags:
+      - Account Settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      summary: 'Users: Update'
+      description: Updates an existing User.
+      responses:
+        '200':
+          $ref: '#/components/responses/IdResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteUser
+      tags:
+      - Account Settings
+      summary: 'Users: Delete'
+      description: Deletes an existing User.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/users/{userId}/password:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/userId'
+    put:
+      operationId: updateUserPassword
+      tags:
+      - Account Settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      summary: 'Users: Update Password'
+      description: Updates a User's password.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts:
+    parameters:
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: listAccounts
+      parameters:
+      - name: name
+        in: query
+        schema:
+          type: string
+        description: Returns only accounts whose name contains the provided string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          maximum: 1000
+          default: 100
+      - $ref: '#/components/parameters/offset'
+      tags:
+      - Account Settings
+      summary: 'Accounts: List'
+      description: List all accounts that you have access to. Unless you are in Partner Portal mode, this will only be your own account.
+      responses:
+        '200':
+          $ref: '#/components/responses/AccountsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getAccount
+      tags:
+      - Account Settings
+      summary: 'Accounts: Get'
+      description: Get details for an account
+      responses:
+        '200':
+          $ref: '#/components/responses/AccountResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/approvalgroups:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getApprovalGroups
+      tags:
+      - Account Settings
+      summary: 'Approval Groups: List'
+      description: Lists all Approval Groups in the account.
+      responses:
+        '200':
+          $ref: '#/components/responses/ApprovalGroupsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    post:
+      operationId: createApprovalGroup
+      tags:
+      - Account Settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApprovalGroupRequest'
+      summary: 'Approval Groups: Create'
+      description: Creates an Approval Group.
+      responses:
+        '200':
+          $ref: '#/components/responses/IdResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/approvalgroups/{approvalGroupId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/v'
+    - $ref: '#/components/parameters/approvalGroupId'
+    get:
+      operationId: getApprovalGroup
+      tags:
+      - Account Settings
+      summary: 'Approval Groups: Get'
+      description: Gets a single Approval Group.
+      responses:
+        '200':
+          $ref: '#/components/responses/ApprovalGroupResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    put:
+      operationId: updateApprovalGroup
+      tags:
+      - Account Settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalGroup'
+      summary: 'Approval Groups: Update'
+      description: 'Updates a single Approval Group.
+
+
+        **NOTE:** Despite using the PUT method, Approval Groups: Update only updates supplied fields. Omitted fields are not modified. However, the users list will be overwritten with what the user provides.
+
+        '
+      responses:
+        '200':
+          $ref: '#/components/responses/IdResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      operationId: deleteApprovalGroup
+      tags:
+      - Account Settings
+      summary: 'Approval Groups: Delete'
+      description: Deletes an Approval Group.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/linkedaccounts:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/linkedAccountsEntityIds'
+    - $ref: '#/components/parameters/linkedAccountsPublisherIds'
+    - $ref: '#/components/parameters/linkedAccountsStatuses'
+    - $ref: '#/components/parameters/pageToken'
+    - $ref: '#/components/parameters/limit'
+    - $ref: '#/components/parameters/offset'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: listLinkedAccounts
+      tags:
+      - Account Settings
+      summary: 'LinkedAccounts: List'
+      description: Lists all linked accounts in an account.
+      responses:
+        '200':
+          $ref: '#/components/responses/LinkedAccountsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /accounts/{accountId}/linkedaccounts/{linkedAccountId}:
+    parameters:
+    - $ref: '#/components/parameters/accountId'
+    - $ref: '#/components/parameters/linkedAccountId'
+    - $ref: '#/components/parameters/v'
+    get:
+      operationId: getLinkedAccount
+      tags:
+      - Account Settings
+      summary: 'LinkedAccounts: Get'
+      description: Get details for an linked account.
+      responses:
+        '200':
+          $ref: '#/components/responses/LinkedAccountResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+          example: CUST-439843
+        locationCount:
+          type: integer
+          readOnly: true
+          description: The number of locations in this account.
+        subAccountCount:
+          type: integer
+          readOnly: true
+          description: The number of sub-accounts directly under this account, if any.
+        parentAccountId:
+          type: string
+          description: Customer-provided ID of the account that this is a sub-account of, if any. Not provided if this is a top-level account.
+        accountName:
+          type: string
+          description: The name of this account.
+        contactFirstName:
+          type: string
+          description: First name of the contact user for this account.
+        contactLastName:
+          type: string
+          description: Last name of the contact user for this account.
+        contactPhone:
+          type: string
+          description: Phone number of the contact user for this account.
+        contactEmail:
+          type: string
+          description: Email address of the contact user for this account.
+    CreateUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of this User.
+        firstName:
+          type: string
+          description: User's first name.
+        lastName:
+          type: string
+          description: User's last name.
+        username:
+          type: string
+          description: User's username.
+        password:
+          type: string
+          description: User's password.
+        emailAddress:
+          type: string
+          description: User's email address.
+        phoneNumber:
+          type: string
+          description: User's phone number.
+        emailLanguagePreference:
+          type: string
+          description: 'User''s preferred email language. Must be a valid locale code (e.g., `en`, `en_UK`, `fr_FR`, `it`, etc.).
+
+
+            If omitted or set to `null`, the default language of the user''s country will be used.
+
+            '
+        displayLanguagePreference:
+          type: string
+          description: 'User''s preferred display language in the Yext platform. Must be a valid locale code (e.g., `en`, `en_UK`, `fr_FR`, `it`, etc.).
+
+
+            If omitted or set to `null`, the browser''s default language will be used.
+
+            '
+        notifyUser:
+          type: boolean
+          description: 'Indicates whether to send the user an email notification upon successful user creation.
+
+
+            Defaults to false.
+
+            '
+        sso:
+          type: boolean
+          description: 'Indicates whether SAML SSO has been enabled for this user. Omit this field if you are using Signed Link SSO. More information can be found in our [Implementing Single Sign-On](http://developer.yext.com/docs/guides/implementing-single-sign-on/) guide.
+
+
+            Defaults to false.
+
+            '
+        acl:
+          type: array
+          description: Entries in the access-control list.
+          items:
+            type: object
+            required:
+            - roleId
+            - 'on'
+            - accountId
+            - onType
+            properties:
+              roleId:
+                type: string
+                description: The Yext Role ID.
+              roleName:
+                type: string
+                description: The Role's Name
+              'on':
+                type: string
+                description: The ID of the account, folder, or entity that this role gives the user access to.
+              accountId:
+                type: string
+                description: 'The external ID of the account that contains the folder or entity that this role applies to.
+
+
+                  If ``onType`` is ``ACCOUNT``, the value of ``accountId`` must be the same as the value of ``on``.
+
+                  '
+              onType:
+                type: string
+                description: The type of object that this role gives the user access to.
+                enum:
+                - ACCOUNT
+                - FOLDER
+                - ENTITY
+        externalIdentities:
+          type: array
+          description: An array of objects that have a source and an identities field.
+          items:
+            type: object
+            required:
+            - source
+            - identities
+            properties:
+              source:
+                type: string
+                description: A unique string, no two source/identities field pairs for a single user can have the same source value.
+              identities:
+                type: array
+                description: An array of strings. Multiple users can have the same (source, identity) pair(s).
+                items:
+                  type: string
+    LinkedAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the linked account.
+        publisherId:
+          type: string
+          description: ID of the publisher associated with the linked account.
+        entityIds:
+          type: array
+          items:
+            type: string
+          description: The entityId values for the entities the linked account is assigned to.
+        firstName:
+          type: string
+          description: The first name of the linked account owner.
+        lastName:
+          type: string
+          description: The last name of the linked account owner.
+        email:
+          type: string
+          description: The email address associated with the linked account.
+        status:
+          type: string
+          description: 'The last known status of the account.
+
+
+            * `VALID`
+
+            * `INVALID`
+
+
+            `VALID`
+
+            The account''s token is valid.
+
+
+            `INVALID`
+
+            The account’s token has expired and will not be successful when syncing to/from publishers.
+
+            '
+        canAssign:
+          type: boolean
+          description: 'Indicates whether a linked account can be assigned to subaccounts and/or entities within subaccounts.
+
+
+            This field is only available for certain Yext accounts.
+
+            '
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of this User.
+        firstName:
+          type: string
+          description: User's first name.
+        lastName:
+          type: string
+          description: User's last name.
+        username:
+          type: string
+          description: User's username.
+        emailAddress:
+          type: string
+          description: User's email address.
+        phoneNumber:
+          type: string
+          description: User's phone number.
+        emailLanguagePreference:
+          type: string
+          description: Locale code of user's preferred email language.
+        displayLanguagePreference:
+          type: string
+          description: Locale code of user's preferred display language in the Yext platform.
+        lastLoginDate:
+          type: string
+          description: User's last login time in UNIX timestamp.
+        createdDate:
+          type: string
+          description: Time of user creation in UNIX timestamp.
+        sso:
+          type: boolean
+          description: Indicates whether SAML SSO has been enabled for this user.
+        acl:
+          type: array
+          description: 'Entries in the access-control list. If there are no entries, this field will be returned as empty.
+
+
+            If the **`v`** parameter is before `20211115` acl entries are not returned for non-location entities.
+
+            '
+          items:
+            type: object
+            properties:
+              roleId:
+                type: string
+                description: The Yext Role ID.
+              roleName:
+                type: string
+                description: The Role's Name.
+              'on':
+                type: string
+                description: The ID of the account, folder, or entity that this role gives the user access to.
+              accountId:
+                type: string
+                description: The ID of the account that contains the folder or entity that this role applies to.
+              onType:
+                type: string
+                description: The type of object that this role gives the user access to.
+                enum:
+                - ACCOUNT
+                - FOLDER
+                - ENTITY
+        externalIdentities:
+          type: array
+          description: 'An array of objects that have a source and an identities field. If there are no externalIdentities, this field will be returned as empty.
+
+
+            If the **`v`** parameter is before `20211115` external identities will not be included.
+
+            '
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+                description: A unique string, no two source/identities field pairs for a single user can have the same source value.
+              identities:
+                type: array
+                description: An array of strings. Multiple users can have the same (source, identity) pair(s).
+                items:
+                  type: string
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Yext Role ID
+        name:
+          type: string
+          description: The Role's Name
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
+    CreateUserRequest:
+      required:
+      - id
+      - firstName
+      - lastName
+      - emailAddress
+      allOf:
+      - $ref: '#/components/schemas/CreateUser'
+    ApprovalGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Approval Group ID
+        name:
+          type: string
+          description: Approval Group Name
+        users:
+          type: array
+          description: Array of user IDs associated with the Approval Group
+          items:
+            type: string
+        isDefault:
+          type: boolean
+          description: true if Approval Group is default for assignment of new tasks. Defaults to false.
+    CreateApprovalGroupRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Approval Group Name
+        users:
+          type: array
+          description: Array of user ids associated with the Approval Group
+          items:
+            type: integer
+            format: int32
+        isDefault:
+          type: boolean
+          description: True if Approval Group is default for assignment of new tasks. Defaults to false.
+    UpdateUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'ID of this User.
+
+
+            Ignored when sent in update requests.
+
+            '
+        firstName:
+          type: string
+          description: User's first name.
+        lastName:
+          type: string
+          description: User's last name.
+        username:
+          type: string
+          description: User's username.
+        emailAddress:
+          type: string
+          description: User's email address.
+        phoneNumber:
+          type: string
+          description: User's phone number.
+        emailLanguagePreference:
+          type: string
+          description: 'User''s preferred email language. Must be a valid locale code (e.g., `en`, `en_UK`, `fr_FR`, `it`, etc.).
+
+
+            If omitted or set to `null`, the default language of the user''s country will be used.
+
+            '
+        displayLanguagePreference:
+          type: string
+          description: 'User''s preferred display language in the Yext platform. Must be a valid locale code (e.g., `en`, `en_UK`, `fr_FR`, `it`, etc.).
+
+
+            If omitted or set to `null`, the browser''s default language will be used.
+
+            '
+        sso:
+          type: boolean
+          description: 'Indicates whether SAML SSO has been enabled for this user. Omit this field if you are using Signed Link SSO. More information can be found in our [Implementing Single Sign-On](http://developer.yext.com/docs/guides/implementing-single-sign-on/) guide.
+
+
+            Defaults to false.
+
+            '
+        acl:
+          type: array
+          description: Entries in the access-control list.
+          items:
+            type: object
+            required:
+            - roleId
+            - 'on'
+            - accountId
+            - onType
+            properties:
+              roleId:
+                type: string
+                description: The Yext Role ID.
+              roleName:
+                type: string
+                description: The Role's Name.
+              'on':
+                type: string
+                description: The ID of the account, folder, or entity that this role gives the user access to.
+              accountId:
+                type: string
+                description: 'The external ID of the account that contains the folder or entity that this role applies to.
+
+
+                  If ``onType`` is ``ACCOUNT``, the value of ``accountId`` must be the same as the value of ``on``.
+
+                  '
+              onType:
+                type: string
+                description: The type of object that this role gives the user access to.
+                enum:
+                - ACCOUNT
+                - FOLDER
+                - ENTITY
+        externalIdentities:
+          type: array
+          description: An array of objects that have a source and an identities field.
+          items:
+            type: object
+            required:
+            - source
+            - identities
+            properties:
+              source:
+                type: string
+                description: A unique string, no two source/identities field pairs for a single user can have the same source value.
+              identities:
+                type: array
+                description: An array of strings. Multiple users can have the same (source, identity) pair(s).
+                items:
+                  type: string
+    UpdateUserRequest:
+      required:
+      - id
+      allOf:
+      - $ref: '#/components/schemas/UpdateUser'
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    UpdatePasswordRequest:
+      type: object
+      required:
+      - newPassword
+      properties:
+        newPassword:
+          type: string
+          description: User's new password
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+  responses:
+    UserResponse:
+      description: User Response
+      content:
+        application/json:
+          schema:
+            title: UserResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/User'
+    LinkedAccountResponse:
+      description: Linked Account Response
+      content:
+        application/json:
+          schema:
+            title: LinkedAccountResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/LinkedAccount'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 3955191
+              publisherId: GOOGLEMYBUSINESS
+              entityIds:
+              - '3492378'
+              firstName: John
+              lastName: Doe
+              email: johndoe@email.com
+              status: VALID
+              canAssign: true
+    LinkedAccountsResponse:
+      description: Linked Accounts Response
+      content:
+        application/json:
+          schema:
+            title: LinkedAccountsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  nextPageToken:
+                    type: string
+                    description: 'This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field''s value as the **`pageToken`** parameter in a subsequent request
+
+
+                      nextPageToken is only returned with the inclusion of a **`v`** parameter of `20170901` or later.
+
+                      '
+                  linkedAccounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LinkedAccount'
+    ApprovalGroupsResponse:
+      description: Approval Groups Response
+      content:
+        application/json:
+          schema:
+            title: ApprovalGroupsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Approval Groups (ignores limit / offset)
+                  nextPageToken:
+                    $ref: '#/components/schemas/NextPageToken'
+                  approvalGroups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApprovalGroup'
+    AccountsResponse:
+      description: Accounts Response
+      content:
+        application/json:
+          schema:
+            title: AccountsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              count: 1
+              accounts:
+              - accountId: '1264805'
+                locationCount: 11
+                subAccountCount: 0
+                accountName: Yext Demo Account
+                contactFirstName: John
+                contactLastName: Doe
+                contactPhone: '1234567890'
+                contactEmail: johndoe@email.com
+    RolesResponse:
+      description: Roles Response
+      content:
+        application/json:
+          schema:
+            title: RolesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Roles that meet filter criteria (ignores limit / offset)
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+    IdResponse:
+      description: ID Response.
+      content:
+        application/json:
+          schema:
+            title: IdResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
+    AccountResponse:
+      description: Account Response
+      content:
+        application/json:
+          schema:
+            title: AccountResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Account'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              accountId: 1264805
+              locationCount: 11
+              subAccountCount: 0
+              accountName: Yext Demo Account
+              contactFirstName: John
+              contactLastName: Doe
+              contactPhone: '1234567890'
+              contactEmail: johndoe@email.com
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    ApprovalGroupResponse:
+      description: Approval Group Response
+      content:
+        application/json:
+          schema:
+            title: ApprovalGroupResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/ApprovalGroup'
+    UsersResponse:
+      description: Users Response
+      content:
+        application/json:
+          schema:
+            title: UsersResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Users that meet the filter criteria (ignores limit / offset)
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+  parameters:
+    linkedAccountId:
+      name: linkedAccountId
+      in: path
+      required: true
+      schema:
+        type: string
+    linkedAccountsStatuses:
+      name: statuses
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - VALID
+          - INVALID
+      required: false
+      description: Defaults to all statuses. When specified, only linked accounts with the provided statuses will be returned.
+    linkedAccountsEntityIds:
+      name: entityIds
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      required: false
+      description: When provided, only linked accounts assigned to the specified entities will be returned.
+    pageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
+
+        '
+    approvalGroupId:
+      name: approvalGroupId
+      in: path
+      required: true
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    linkedAccountsPublisherIds:
+      name: publisherIds
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      required: false
+      description: When provided, only linked accounts for the specified sites will be returned.
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    userId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 0
+      description: '
+
+        Number of results to skip. Used to page through results.
+
+        Cannot be used together with **`pageToken`**.
+
+        '
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+        maximum: 50
+      description: Number of results to return.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    api-key:
+      type: apiKey
+      name: api-key
+      in: header
