@@ -1,7 +1,20 @@
 aid: yext
 name: Yext
 description: Yext is a digital presence platform that enables businesses to manage their listings across 200+ publishers, update location data, manage reviews, and power AI search experiences. Its REST APIs provide programmatic access to the Knowledge Graph, Listings, Reviews, Analytics, and Content Delivery capabilities.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/yext.png
 url: https://raw.githubusercontent.com/api-evangelist/yext/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -15,156 +28,522 @@ tags:
   - AI Search
   - Knowledge Graph
 apis:
-  - name: Yext Knowledge API
-    description: Core Management API for creating, updating, and querying entities in the Yext Knowledge Graph including locations, events, healthcare facilities, restaurants, hotels, and custom entity types.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/managementapis/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Knowledge Graph
-      - Entities
-      - Locations
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/managementapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/knowledgeapi.yaml
-  - name: Yext Answers API
-    description: Search API that powers AI-powered search experiences, enabling natural language queries against the Yext Knowledge Graph.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/contentdeliveryapis/
-    baseURL: https://cdn.yextapis.com/v2
-    tags:
-      - Search
-      - AI Search
-      - Content Delivery
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/answersapi.yaml
-  - name: Yext Chat API
-    description: API for building conversational AI chat experiences powered by Yext's Knowledge Graph and AI platform.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/chat/
-    baseURL: https://cdn.yextapis.com/v2
-    tags:
-      - Chat
-      - Conversational AI
-      - Content Delivery
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/chat/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/chatapi.yaml
-  - name: Yext Events API
-    description: API for managing events and event-driven workflows within the Yext platform.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/managementapis/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Events
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/managementapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/eventsapi.yaml
-  - name: Yext Live API
-    description: Content Delivery API optimized for performance and uptime, surfacing entity information for consumer-facing experiences.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/contentdeliveryapis/
-    baseURL: https://cdn.yextapis.com/v2
-    tags:
-      - Content Delivery
-      - Live Data
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/liveapi.yaml
-  - name: Yext Admin API
-    description: Administrative API for managing Yext accounts, users, and platform configuration.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/managementapis/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Administration
-      - Account Management
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/managementapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/adminapi.yaml
-  - name: Yext Publisher Listings API
-    description: API for publisher partners to receive and manage business listing data from Yext for syndication across directories.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Listings
-      - Publishers
-      - Directories
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publisherlistingsapi.yaml
-  - name: Yext Publisher ECL API
-    description: Publisher Extended Content Library API enabling publisher partners to manage enhanced content for business listings.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/publisherapis/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Publishers
-      - Enhanced Content
-      - Listings
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/publisherapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publishereclapi.yaml
-  - name: Yext Publisher Notify Review API
-    description: API for publisher partners to notify Yext of new reviews received on their platforms.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/publisherapis/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Publishers
-      - Reviews
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/publisherapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publishernotifyreviewapi.yaml
-  - name: Yext Publisher Tracking Pixel API
-    description: API enabling publisher partners to report impression and click tracking data back to Yext for analytics.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/publisherapis/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Publishers
-      - Analytics
-      - Tracking
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/publisherapis/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/publishertrackingpixelapi.yaml
-  - name: Yext Webhooks
-    description: Webhook specifications for receiving real-time notifications about changes to entities, reviews, listings, and other Yext platform events.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://hitchhikers.yext.com/docs/managementapis/webhooks/
-    baseURL: https://api.yextapis.com/v2
-    tags:
-      - Webhooks
-      - Events
-      - Real-time
-    properties:
-      - type: Documentation
-        url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/yext/openapi/main/yaml/webhooks.yaml
+- aid: yext:yext-account-settings-api
+  name: Yext Account Settings API
+  description: The Account Settings API from Yext — 10 operation(s) for account settings.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Account Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-account-settings-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-accounts-api
+  name: Yext Accounts API
+  description: The Accounts API from Yext — 8 operation(s) for accounts.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-administrative-api-api
+  name: Yext Administrative API API
+  description: >-
+    NOTE: You need a sandbox account to test your Administrative API integration. Contact your Account
+    Manager to have one created for you.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Administrative API
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-administrative-api-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-analytics-api
+  name: Yext Analytics API
+  description: The Analytics API from Yext — 4 operation(s) for analytics.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-computations-api
+  name: Yext Computations API
+  description: The Computations API from Yext — 2 operation(s) for computations.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Computations
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-computations-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-configuration-api
+  name: Yext Configuration API
+  description: The Configuration API from Yext — 3 operation(s) for configuration.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-connectors-api
+  name: Yext Connectors API
+  description: The Connectors API from Yext — 5 operation(s) for connectors.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-connectors-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-content-api-api
+  name: Yext Content API API
+  description: The Content API API from Yext — 2 operation(s) for content api.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Content API
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-content-api-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-domains-api
+  name: Yext Domains API
+  description: The Domains API from Yext — 7 operation(s) for domains.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-domains-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-health-check-api
+  name: Yext Health Check API
+  description: The Health Check API from Yext — 1 operation(s) for health check.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-knowledge-manager-api
+  name: Yext Knowledge Manager API
+  description: The Knowledge Manager API from Yext — 30 operation(s) for knowledge manager.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Knowledge Manager
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-knowledge-manager-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-licenses-api
+  name: Yext Licenses API
+  description: The Licenses API from Yext — 3 operation(s) for licenses.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Licenses
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-licenses-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-listings-api
+  name: Yext Listings API
+  description: The Listings API from Yext — 26 operation(s) for listings.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Listings
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-listings-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-lists-api
+  name: Yext Lists API
+  description: The Lists API from Yext — 1 operation(s) for lists.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-lists-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-live-api-api
+  name: Yext Live API API
+  description: The Live API API from Yext — 21 operation(s) for live api.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Live API
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-live-api-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-logsapi-api
+  name: Yext LogsAPI API
+  description: The LogsAPI API from Yext — 3 operation(s) for logsapi.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - LogsAPI
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-logsapi-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-optimization-tasks-api
+  name: Yext Optimization Tasks API
+  description: The Optimization Tasks API from Yext — 2 operation(s) for optimization tasks.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Optimization Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-optimization-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-plpixel-api
+  name: Yext Plpixel API
+  description: The Plpixel API from Yext — 1 operation(s) for plpixel.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Plpixel
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-plpixel-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-publisher-disruptions-api
+  name: Yext Publisher Disruptions API
+  description: The Publisher Disruptions API from Yext — 2 operation(s) for publisher disruptions.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Publisher Disruptions
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-publisher-disruptions-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-publisher-notify-review-api
+  name: Yext Webhooks API
+  description: The Webhooks API from Yext — 0 operation(s) for webhooks.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-publisher-notify-review-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-reviews-api
+  name: Yext Reviews API
+  description: The Reviews API from Yext — 14 operation(s) for reviews.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-social-api
+  name: Yext Social API
+  description: The Social API from Yext — 10 operation(s) for social.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Social
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-social-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-suggestions-api
+  name: Yext Suggestions API
+  description: The Suggestions API from Yext — 2 operation(s) for suggestions.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  tags:
+  - Suggestions
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-suggestions-api-openapi.yml
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/chat/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
+  - type: Documentation
+    url: https://hitchhikers.yext.com/publisherapis/
+  - type: Documentation
+    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
+- aid: yext:yext-webhooks-openapi
+  name: Yext Webhooks
+  description: Yext Webhooks from Yext, described in OpenAPI.
+  humanURL: https://hitchhikers.yext.com/docs/managementapis/
+  baseURL: https://api.yextapis.com/v2
+  properties:
+  - type: OpenAPI
+    url: openapi/yext-webhooks-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/yext-agentic-access.yml
