@@ -1,0 +1,4384 @@
+openapi: 3.0.0
+info:
+  version: '2.0'
+  title: 'Yext Listings: Partner Documentation'
+  description: |
+    # Integration Overview
+    This section helps you understand how your site becomes integrated with Yext and what we need from you during the implementation process. Depending on the type of integration you are setting up, some sections may not apply.
+
+    ## Integration Process
+    When you decide to become a Yext Listings publisher, you can expect the implementation process to unfold as follows:
+    Yext sends you a pre-implementation questionnaire. After we receive your completed questionnaire, we set up a kick-off call with you to more thoroughly explain the implementation process and answer any questions you may have.
+
+    Your team builds the required APIs and delivers them to Yext one at time, along with other required materials, in this order:
+    * **Categories**
+    * **SEARCH API**
+    * **DETAILS API**
+    * **ORDER API**
+    * **UPDATE API**
+    * **CANCEL API**
+    * **SUPPRESS API**
+    * **REVIEWS API**
+    * **SUGGESTIONS API**
+    * **CSS Selectors**
+
+    Your team will also build around the following Yext APIs for accessing Enhanced Conent lists, sending webhook notifications, and providing analytics:
+    * **[GET LIST API](https://hitchhikers.yext.com/publisherapis/publishertrackingpixelapi)**
+    * **[NOTIFY API](https://hitchhikers.yext.com/publisherapis/publishernotifyreviewapi)**
+    * **[TRACKING PIXEL API](https://hitchhikers.yext.com/publisherapis/publishereclapi)**
+
+
+    After Yext receives each API, we test it and give you feedback as soon as possible.
+    * One of our engineers does cursory testing to determine if the API is functional.
+    * A member of our Operations team then conducts more thorough testing to ensure the API is working correctly.
+    * When all integration points are completed, Yext completes stress testing using real data, which helps to ensure that we can add many locations at once without issue.
+    * After each launch, we share any issues we encountered. These issues must be resolved before attempting the next launch.
+    * When all launches pass, we begin to add all Yext businesses to your site through the APIs.
+
+    For required API fields, please refer to the Data Formats section below.
+
+    ## Security Measures
+    To ensure the integrity of your integration, we have put the following security measures in place and are enforcing them for all API requests sent to or from Yext.
+
+    ### HTTPS
+    HTTPS connections are **required** when sending API requests or responses.
+
+    ### Secure IDs
+
+    **You must provide Yext with at least one of the following methods** to authenticate our connection to your system:
+    * Basic authentication with login credentials that you specify
+    * API keys
+
+    Authentication should be implemented so they can be easily updated/refreshed upon Yext’s request, as our team will refresh these credentials from time to time.
+
+    ### IP Filtering
+    Using IP address filtering as a security measure is **required** when integrating with Yext.
+    Yext uses a static set of IP addresses when sending API requests to your system that you can use to configure our access to your databases. The full list of IP addresses will be provided by your TPM.
+
+    ## Rate Limits
+    In order to ensure an optimal user experience for both businesses and consumers, we ask all publishers to meet the requirements outlined in the table below.
+
+    | Requirement      | Description |
+    | ----------- | ----------- |
+    | <p>You must allow Yext to issue 700,000 queries per day and up to 12 QPS.</p>      | <p>Three API endpoints in particular need to support high volume:</p> <p><ul><li>SEARCH and DETAILS</li><li>UPDATE, since large customers can generate many updates by bulk-editing their locations</li></ul></p>       |
+    | <p>You must not block Yext from scraping your property, including SERP and profile pages.</p>   | <p>Yext takes screenshots of listings when they go live, which can result in many thousands of page views per day. You may want to filter those page views from other purposes (e.g., in order to not charge advertisers for Yext page views). </p> <p>Our requests will always originate from the Yext IP addresses.</p>       |
+
+
+    ### Volume
+    Yext will generally not send more than the following for each endpoint:
+    * Search/Details/Reviews - 7 QPS or 500K requests per day collectively
+    * Order/Update/Cancel - 5 QPS or 200K requests per day collectively
+
+    Each API is designed for a particular set of users.
+
+    ## Design Guidelines
+
+    | Field Type                    | Specifications |
+    | -----------                   | ----------- |
+    | Business name                 | <p><ul><li>You should be able to accommodate at least 100 characters.</li><li>You should respect the spelling and capitalization that we pass to you (e.g., the first letter may not always be capitalized).</li></ul></p>|
+    | Business address              | <p><ul><li>The business address fields should be displayed in the correct order based on the country of the location.</li><li>If a `displayAddress` value is provided for the address, it should be shown after `address2` and before `city`.</li><li>If `address.visible` is `false`, hide only `address` and `address2` on the listing and on the SERP.</li></ul></p>       |
+    | Phone numbers                 | <p><ul><li>All phone numbers should be formatted according to local conventions, without the country code.</li><li>You should able to support all of the following types of phone numbers and label them as specified by Yext:</li><ul><li>Main Phone</li><li>Alternate Phone</li><li>Fax</li><li>Mobile</li><li>Toll-Free</li><li>TTY</li></ul><li>The Main Phone number must appear at the top of the listing and should not be repeated at the bottom of the listing in an "Additional Phone Numbers" section.</li><li>An "Additional Phone Numbers" section should only appear if we provide you with additional types of phone numbers (Alternate Phone, Fax, etc.).</li></ul></p>       |
+    | Map marker                    | <p><ul><li>The location's map marker should be updated based on the latitude and longitude provided by Yext.</li><li>If `address.visible` is `false`, complete one of the following options both on the listing and on the SERP.</li><ul><li>completely remove the map from the listing or SERP</li><li>hide the map marker</li><li>move the map marker to the center of the location's city</li></ul><li>You must also ensure that the location's address is not in the listing page's source code and is not visible to search engines.</li></ul></p>      |
+    | Featured Message              | <p><ul><li>The Featured Message text should be highlighted in some way (i.e., a box around it, shaded background, or both).</li><li>The text should be preceded by a special icon. Yext can provide you with examples, but we encourage you to create your own.</li><li>The Featured Message, with its special formatting, should appear on both in the listing and on the search engine results page (SERP) under or as close to the business name as possible.</li><li>You should be able to create new listings that do not contain Feature Messages. If we pass a blank Featured Message, the special icon should not appear in the listing or on the SERP.</li></ul></p>     |
+    | Featured Message URL          | <p><ul><li>The Featured Message should only be clickable in the listing and on the SERP when a Featured Message URL is provided.</li><li>The capitalization in the URL should be reflected in the listing and on the SERP.</li></ul></p>       |
+    | Website URLs                  | <p><ul><li>The capitalization in the URLs provided by Yext should be reflected in your listings.</li><li>You should be able to accommodate URLs of unlimited length.</li><li>You should be able display an unlimited number of websites in your listings.</li><li>The first URL that we pass you should be displayed as the "main" URL on the listing and appear at the top of the page.</li><li>If a `displayURL` is provided for a website, that URL should appear in the listing, but the link should redirect the consumer to the site specified by that URL's `url`.</li><li>When displaying links to websites, you should show each website's type followed by its clickable URL. For example:<ul><li>`Website: www.location.example.com`</li><li>`Reservation: www.location.example.com/reserve`</li><li>`Menu: www.location.example.com/menu`</li><li>`Order: www.location.example.com/order`</li></ul></li><li>You should be able to show more than one URL for each type of website.</li></ul></p>  |
+    | Description                   | <p><ul><li>You should be able to accommodate at least 5,000 characters.</li><li>You should be able to support newline characters (i.e., separate text into paragraphs).</li><li>You should be able to support non-Latin characters.</li></ul></p>     |
+    | Email addresses               | <p><ul><li>All email addresses should be clickable.</li><li>You should be able to display an unlimited number of email addresses in your listings.</li></ul></p>      |
+    | Hours                         | <p><ul><li>It is your choice whether to include the `:00` at the end of hours.</li><li>Hours should be shown with the day they apply to (e.g., `Friday: 8:00am - 5:00pm`).</li><li>You should be able to accommodate the following types of hours:<ul><li>Split hours (e.g., `Thursday: 8:00am - 1:30pm, 4:00pm - 9:30pm`)</li><li>Closed (e.g., `Monday: Closed`. If a business is closed on a certain day, do not omit that day from the listing.)</li><li>Open 24 hours (e.g., `Tuesday: Open 24 hours`. If is business is open all day on a certain day, do not list the day without any hours.)</li></ul></li><li>You should be able to support and display some indicator for “temporarily closed” businesses</li></ul></p>       |
+    | Business hours text           | <p><ul><li>It is your choice whether to include the :00 at the end of hours.</li><li>Hours should be shown with the day they apply to (e.g., `Friday: 8:00am - 5:00pm`).</li><li>You should be able to accommodate the following types of hours:<ul><li>Split hours (e.g., `Thursday: 8:00am - 1:30pm, 4:00pm - 9:30pm`)</li><li>Closed (e.g., `Monday: Closed`. If a business is closed on a certain day, do not omit that day from the listing.)</li><li>Open 24 hours (e.g., `Tuesday: Open 24 hours`. If is business is open all day on a certain day, do not list the day without any hours.)</li></ul></li><li>You should be able to support and display some indicator for “temporarily closed” businesses</li></ul></p>        |
+    | Logo                          | <p>If you have any special placement for a business's logo in the listing or on the SERP, apply it to the image that has `type` set to `logo`.</p>       |
+    | Photos                        | <p><ul><li>The order of the photos in the listing should match the order given by Yext.</li><li>You should be able to support an up to 50 photos on your listings.</li><li>You must be able to remove outdated photos (i.e., those not included in the most recent update).</li></ul></p>       |
+    | Photo captions                | <p>Each photo caption should appear directly under the photo it describes.</p>       |
+    | Videos                        | <p><ul><li>Ideally, videos should be embedded in the listing page.</li><li>You should be able to support an unlimited number of videos in your listings.</li><li>We will sometimes provide a description and type for each video:<ul><li>description: a caption for the video</li><li>type: can be ignored</li></ul></li></ul></p>       |
+    | Categories                    | <p><ul><li>You should be able to support up to 10 categories on your listings.</li><li>You should be able to create a new listing without passing a category.</li><li>Listings should be searchable by all categories sent to you by Yext.</li><li>The category names in the listings should match those provided in the taxonomy you send to Yext.</li><li>The categories that Yext sends you must have the same functionality as the native categories on your site (e.g., if your category names are normally clickable and redirect the consumer to a "search by category" page, the categories that we send to you must have those same properties).</li></ul></p>       |
+    | Attribution                   | <p><ul><li>The attribution logo should appear toward the bottom of your listings.</li><li>The attribution logo should be clickable and linked to the URL provided by Yext.</li></ul></p>       |
+
+
+    ## Payment Options
+
+    The table below lists the possible values for paymentOptions in our Listing Format, along with the countryCode values for which they are valid.
+
+    | Payment Option                | Valid countryCode values |
+    | -----------                   | ----------- |
+    | Alipay                        | CN,DE,JP       |
+    | American Express              | **All**        |
+    | Apple Pay                     | AE,AT,AU,CA,CH,CN,DE,DK,ES,FI,GB,GG,GU,HK,IE,IM,IT,JE<br />JP,MO,NZ,PL,PR,RU,SE,SG,SM,TW,US,VI       |
+    | ATM                           | AT        |
+    | ATM Quick                     | AT       |
+    | BACS                          | GB,IE        |
+    | Bancontact                    | BE **only**       |
+    | Bank Deposit                  | MX **only**        |
+    | Banküberweisung               | CH,DE       |
+    | Bank/Giro Overschrijving      | NL **only**        |
+    | Bitcoin                       | **All**       |
+    | Bargeld                       | AT, CH, DE        |
+    | CartaSi                       | IT **only**       |
+    | Cash                          | **All**        |
+    | CCS                           | CZ **only**       |
+    | Check                         | **All except** BE **and** DE       |
+    | Contactloos betalen           | NL **only**       |
+    | Cadeaubon/VVV bon             | NL **only**        |
+    | Debit Note                    | AT **only**       |
+    | Diners Club                   | **All**        |
+    | Direct Debit                  | AU, GB, **and** IE **only**       |
+    | Discover                      | **All except** AT, BE        |
+    | Girokarte                     | AT,CH,DE,IT       |
+    | EcoCheque                     | BE **only**        |
+    | E-kena                        | BE **only**       |
+    | Elektronische Maaltijdcheques | BE **only**        |
+    | Financing                     | **All except** AT       |
+    | Google Pay                    | **All**        |
+    | GoPay                         | CZ **only**       |
+    | He-Bag                        | CN **only**         |
+    | iBOD                          | CZ **only**        |
+    | IC Cards                      | JP **only**         |
+    | ID                            | JP **only**       |
+    | iDeal                         | NL **only**         |
+    | Incasso                       | NL **only**        |
+    | Invoice                       | **All**        |
+    | JCB                           | AT,BE,IT,JP       |
+    | JKO Pay                       | JP **only**        |
+    | Klantenkaart                  | NL **only**       |
+    | Klarna                        | SE **only**        |
+    | LINE Pay                      | JP **only**       |
+    | Maestro                       | AT,BE,CH, DE, GB, HR, IT, NL, PL, SI        |
+    | MasterCard                    | **All**       |
+    | MI Pay                        | CN **only**        |
+    | Monizze                       | BE **only**       |
+    | Manuelle Lastschrift          | CH,DE        |
+    | nanaco                        | JP **only**       |
+    | Nexi                          | IT **only**        |
+    | Onder Rembours                | NL **only**       |
+    | Paybox Pay                    | DE **only**        |
+    | Paybox                        | AT **only**       |
+    | Payconiq                      | BE,NL        |
+    | PayPal                        | **All**       |
+    | PayPay                        | JP **only**       |
+    | PaySec                        | CZ **only**       |
+    | Postepay                      | IT **only**        |
+    | QR Code Payment               | JP **only**       |
+    | QUICPay                       | JP **only**        |
+    | Rakuten Edy                   | JP **only**       |
+    | Samsung Pay                   | CN, US        |
+    | Sodexo                        | AT, BE, CZ       |
+    | Swish                         | SE **only**        |
+    | Ticket Restaurant             | IT, BE       |
+    | Traveler's Check              | **All except** AT **and** BE        |
+    | China UnionPay                | CN, JP       |
+    | Via een verzekering           | NL **only**       |
+    | Visa                          | **All**       |
+    | Visa Electron                 | BE **only**        |
+    | Vooruit betalen               | NL **only**       |
+    | Voucher                       | IT, MX        |
+    | V Pay                         | **European countries**       |
+    | WAON                          | JP **only**       |
+    | WeChat Pay                    | CN, JP       |
+    | Wire Transfer                 | MX **only**       |
+
+    ## CSS Selectors
+
+    After the integration process, we will need to periodically scan, or scrape, your listings to ensure that you are displaying the most up-to-date data.  In order for us to successfully scan your site's listings, we ask that you assign specific CSS selector names to each field you support.
+
+    You may choose different names for each field, but please inform us of the selector names. In addition, you may use CSS selectors that already exist as long as they are unique. Please use the same set of CSS selector names for both Yext-powered listings and listings that are in your site’s default format.
+servers:
+  - url: https://partner.example.com
+paths:
+  /listings/search:
+    parameters:
+      - $ref: '#/components/parameters/name'
+      - $ref: '#/components/parameters/address'
+      - $ref: '#/components/parameters/address2'
+      - $ref: '#/components/parameters/sublocality'
+      - $ref: '#/components/parameters/locality'
+      - $ref: '#/components/parameters/region'
+      - $ref: '#/components/parameters/postal_code'
+      - $ref: '#/components/parameters/country'
+      - $ref: '#/components/parameters/phone'
+      - $ref: '#/components/parameters/latlng'
+      - $ref: '#/components/parameters/firstName'
+      - $ref: '#/components/parameters/lastName'
+      - $ref: '#/components/parameters/npi'
+      - $ref: '#/components/parameters/type'
+    get:
+      operationId: Search
+      tags:
+        - Listings
+      summary: Search
+      description: |
+        Yext uses SEARCH to search your site for existing listings. We expect the SEARCH API response to match the search results on your website or mobile app.
+        You should support at least the following search requests:
+        * Phone and Country Code
+        * Name and Lat/Lng OR Name and Address
+      responses:
+        '200':
+          $ref: '#/components/responses/SearchResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/details:
+    parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: |
+          The unique identifier of a listing on your site.
+    get:
+      operationId: Details
+      tags:
+        - Listings
+      summary: Details
+      description: |
+        Yext uses DETAILS to retrieve listings details from your site using a known existing listing ID. The Details API should be able to retrieve data for both Yext-powered listings and listings that are in your site’s native format.
+
+        *NB* For any of the array fields, if there are no items, please default to an empty array, instead of omitting the field, or returning `null`.
+
+        If the `type` of the listing is `HealthcareProfessional` or `HealthcareFacility`, additional fields are required.
+      responses:
+        '200':
+          $ref: '#/components/responses/DetailsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/order:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListingDelivery'
+      operationId: Order
+      tags:
+        - Listings
+      summary: Order
+      description: |
+        Yext uses ORDER to establish a relationship between an entity in our system with a listing in your system. By sending the ORDER request, Yext will either create a new Listing on your site or claim and update an existing listing that represents the entity. You should include all fields that we pass to you in your listing. Once Yext has successfully sent an ORDER request, the listing content should be “locked”, preventing non-Yext updates to the Yext-updated fields. 
+        * Like all of the other real-time API methods, while the ORDER operation uses the POST method, it actually needs to be idempotent for a given yextId. 
+        * In the event that a ORDER acknowledgment gets lost, Yext will retry the ORDER operation, which may create duplicates in your index. Therefore, if Yext sends two consecutive ORDER commands using the same yextId, you should re-use the generated id from the first ORDER operation (i.e., you must not create a duplicate listing). 
+        * If we send an ORDER request for a listing that has already been claimed by Yext (i.e., the listing's yextId is associated with an id in your system), you should treat the ORDER as an UPDATE and respond accordingly.
+        * For a full list of fields available, including those specific to healthcare and hotels, please reach out to your Yext partner manager or pubops-team@yext.com
+      responses:
+        '200':
+          $ref: '#/components/responses/LiveResponse'
+        '409':
+          $ref: '#/components/responses/BlockedResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/{listingId}:
+    parameters:
+      - name: listingId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: |
+          The unique identifier of a listing on your site is known as the listingId.
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListingDelivery'
+      operationId: Update
+      tags:
+        - Listings
+      summary: Update
+      description: |
+        Yext uses UPDATE to update existing Listings on your site.
+        * For a full list of fields available, including those specific to healthcare and hotels, please reach out to your Yext partner manager or pubops-team@yext.com
+      responses:
+        '200':
+          $ref: '#/components/responses/LiveResponse'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '409':
+          $ref: '#/components/responses/BlockedResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: Cancel
+      tags:
+        - Listings
+      summary: Cancel
+      description: |
+        The CANCEL request is used to notify you when a business cancels their Yext subscription for a given location. This API call effectively undoes an ORDER request.
+        When a listing is CANCELed, we expect you to remove all Yext-specific fields: e.g. Featured Message, attribution logo, Enhanced Content Lists, and pixel tracking from the SERP and profile page.
+        To the extent that the listing was locked for editing / claiming by other data sources, you should remove those restrictions and open the listing for claiming and updates in accordance with your policies.
+        If Yext sends a CANCEL, this should not remove, delete, or revert the listing.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponseNew'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+  /listings/suppress:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuppressionRequest'
+      operationId: Suppress
+      tags:
+        - Listings
+      summary: Suppress
+      description: |
+        This call allows Yext to suppress duplicate or invalid listings. If a listing is SUPPRESSed, we expect you to exclude the listing from your site's search results. Going to the SUPPRESSed listing's URL should result in either a 404 error, redirect to the SERP, or a redirect to the listing specified in canonicalListingId. Only non-Yext listings are suppressed: We only suppress listings that are not powered by Yext. We do not suppress listings that we sync data to.
+        * Yext will indicate to the publisher that a listing must be suppressed, optionally providing the id of a listing that it duplicates (the “canonical” listing). The publisher must comply within 24 hours by taking the following actions:
+          * The listing should be marked as suppressed in Search and Details API responses. Alternatively, the listing can be excluded from your Search API response.
+          * The publisher must exclude the suppressed listing from their search index.
+          * If a canonical listing ID is provided, the publisher must place a redirect to send users that access the suppressed listing’s profile page to the canonical listing’s profile page.
+        * Conversely, Yext may indicate to the publisher that a listing suppression should be reverted.
+          * The listing should have an AVAILABLE status in your Search and Details API response
+          * The publisher should revert the listing back to its original state
+        * Calls should be idempotent; for example, the publisher should report success and do nothing if Yext attempts to suppress a listing that is already suppressed.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '409':
+          $ref: '#/components/responses/BlockedSuppression'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/reviews:
+    parameters:
+      - $ref: '#/components/parameters/listingId'
+      - $ref: '#/components/parameters/num'
+      - $ref: '#/components/parameters/before'
+    get:
+      operationId: getReviewList
+      tags:
+        - Reviews
+      summary: Review List
+      description: |
+        Yext uses REVIEWS to retrieve review data for business owners. You should provide access to all organic reviews displayed on your properties (i.e., no third-party reviews).
+
+        ## **Requirements**
+        When Yext customers sign in to their Listings dashboard, Yext shows them all their reviews from across the Yext Knowledge Network. In order to support this, we have the following requirements for any publisher that supports customer reviews on their listings.
+
+        * Publisher must provide access to all review data.
+        * Publisher’s system must notify Yext when new reviews are added, updated, or deleted from Yext-powered listings.
+        * Publisher must provide a direct link to each individual review.
+        * If the publisher allows users to respond to reviews, the publisher must allow Yext to do so (on behalf of the business owner).
+        * If the publisher allows users to flag reviews as abuse, the publisher must allow Yext to do so (on behalf of the business owner).  
+      responses:
+        '200':
+          $ref: '#/components/responses/GetReviewsSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/reviews/{reviewId}:
+    parameters:
+      - $ref: '#/components/parameters/reviewId'
+    get:
+      operationId: getReview
+      tags:
+        - Reviews
+      summary: Get Review
+      description: |
+        Get the review object for a specific review ID.
+      responses:
+        '200':
+          $ref: '#/components/responses/GetSingleReviewSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      operationId: reviewRespond
+      tags:
+        - Reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerReviewResponse'
+      summary: Create Comment
+      description: |
+        Yext uses RESPOND to allow business owners to interact with reviews left by consumers.
+        The endpoint supports review response by a business owner and the capability to flag reviews for inappropriate content. You should support any capabilities you already have on your site.
+
+        # **Requirements**
+          Yext's customers would like to be able to manage all their reviews from one platform. To that end, they should be able to use the Yext platform to take advantage of the review-management features you have on your site.
+        ## Specifically:
+        * Publishers who support review response from business owners must provide that capability via this endpoint.
+        * Publishers who support flagging reviews for inappropriate content must provide that capability via this endpoint.
+      responses:
+        '200':
+          $ref: '#/components/responses/NewCommentSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/reviews/{reviewId}/comment/{commentId}:
+    parameters:
+      - $ref: '#/components/parameters/reviewId'
+      - $ref: '#/components/parameters/commentId'
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerReviewResponseUpdate'
+      operationId: updateReviewComment
+      tags:
+        - Reviews
+      summary: Update Comment
+      description: |
+        Yext uses the PUT operation to update a review comment from the business owner on a specific review.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponseNew'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: deleteReviewComment
+      tags:
+        - Reviews
+      summary: Delete Comment
+      description: |
+        Yext uses the DELETE operation to remove a review comment from the business owner on a specific review.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponseNew'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/suggestions:
+    parameters:
+      - $ref: '#/components/parameters/listingId'
+    get:
+      operationId: getSuggestionsList
+      tags:
+        - Suggestions
+      summary: Suggestion List
+      description: |
+        Yext uses Suggestions: List to retrieve all active suggestions data for business owners. You should provide access to all suggestions in status “PENDING”. 
+      responses:
+        '200':
+          $ref: '#/components/responses/GetSuggestionsSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /listings/suggestions/{suggestionId}:
+    parameters:
+      - $ref: '#/components/parameters/suggestionId'
+    get:
+      operationId: getSuggestion
+      tags:
+        - Suggestions
+      summary: Single Suggestion
+      description: |
+        Yext uses Suggestions: Get to retrieve the suggestion object for a specific suggestion ID. 
+      responses:
+        '200':
+          $ref: '#/components/responses/GetSingleSuggestionSuccess'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestionAcceptBody'
+      operationId: acceptSuggestion
+      tags:
+        - Suggestions
+      summary: Suggestion Accept
+      description: |
+        Yext uses Accept/Reject to indicate whether a suggestion object has been accepted or rejected by the user.
+      responses:
+        '200':
+          $ref: '#/components/responses/EmptyResponseNew'
+        '400':
+          $ref: '#/components/responses/ErrorResponseNew'
+        '404':
+          $ref: '#/components/responses/404NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
+tags:
+  - name: Listings
+  - name: Reviews
+  - name: Suggestions
+components:
+  parameters:
+    name:
+      in: query
+      name: name
+      description: |
+        Business name.
+
+        e.g. `Yext`
+      schema:
+        type: string
+    address:
+      in: query
+      name: address
+      description: |
+        Street address, including house numbers, to search.
+
+        e.g `75 9th Ave`, `Bismarckstraße 35`
+      schema:
+        type: string
+    address2:
+      in: query
+      name: address2
+      description: |
+        Address line 2 to search.
+
+        e.g. `7th floor`
+      schema:
+        type: string
+    sublocality:
+      in: query
+      name: sublocality
+      description: |
+        Sublocality (e.g., neighborhood, ward or district) in which to search.
+
+        e.g. `pos. Lesnoe` (Russia), `Saiwai-ku` (Japan)
+      schema:
+        type: string
+    locality:
+      in: query
+      name: city
+      description: |
+        City in which to search
+
+        e.g. `New York`
+      schema:
+        type: string
+    region:
+      in: query
+      name: state
+      description: |
+        State, region, or province in which to search. Abbreviations are used for some countries.
+
+        e.g. `NY`, `Kanagawa`
+      schema:
+        type: string
+    postal_code:
+      in: query
+      name: zip
+      description: |
+        ZIP or postal code in which to search.
+
+        e.g. `10011`, `212-0011`, `4841 EP`
+      schema:
+        type: string
+    country:
+      in: query
+      name: countryCode
+      description: |
+        The ISO 3166-1 alpha-2 code of the country in which to search.
+
+        e.g. `GB`, `NL`, `GB`
+      schema:
+        type: string
+    phone:
+      in: query
+      name: phone
+      description: |
+        Location's phone number.
+        For international numbers, this number reflects how the number is dialed within the country (i.e., no country code or punctuation).
+
+        e.g. `2126518966`
+      schema:
+        type: string
+    latlng:
+      in: query
+      name: latlng
+      description: |
+        latitude and longitude coordinates, separated by a comma.
+
+        e.g. `-27.1259105,-109.4789002`
+      schema:
+        type: string
+    firstName:
+      in: query
+      name: firstName
+      description: |
+        The first name of the healthcare professional whose records should be returned.
+
+        NOTE: You only need to support this parameter if your site supports first/last name search.
+      schema:
+        type: string
+    lastName:
+      in: query
+      name: lastName
+      description: |
+        The last name of the healthcare professional whose records should be returned.
+
+        NOTE: You only need to support this parameter if your site supports first/last name search.
+      schema:
+        type: string
+    npi:
+      in: query
+      name: npi
+      description: |
+        National Provider Identifier (NPI) of the healthcare professional or facility whose records should be returned.
+
+        NOTE: This parameter will only be used if you have NPI data.
+      schema:
+        type: string
+    type:
+      in: query
+      name: type
+      description: |
+        The kind of records that should be returned.
+
+        NOTE: This parameter will only be used if you support more than just the `Location` type.
+      schema:
+        type: string
+        enum:
+          - Location
+          - HealthcareFacility
+          - HealthcareProfessional
+    listingId:
+      name: listingId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: |
+        The unique identifier of a listing on your site is known as the listingId.
+    num:
+      name: num
+      in: query
+      required: true
+      schema:
+        type: string
+      description: |
+        The number of reviews to return
+    before:
+      name: before
+      in: query
+      required: false
+      schema:
+        type: string
+      description: |
+        An ISO-8601 date-time that filters results to those reviews posted before this time (exclusive). If not specified, no filter should be applied.
+        NOTE: This parameter is used to page through results. For example, Yext may fetch the newest 10 reviews and make a subsequent request with before set to the last review's timestamp in order to fetch the second page.
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: ID of this Review.
+    commentId:
+      name: commentId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: |
+        The review comment’s ID on your site
+    suggestionId:
+      name: suggestionId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: |
+        The unique identifier of a suggestion on your site is known as the suggestionId.
+  schemas:
+    ListingStatus:
+      type: string
+      description: The status of the listing
+      enum:
+        - AVAILABLE
+        - ACTIVE
+        - CLAIMED
+        - SUPPRESSED
+        - BLOCKED
+    Categories:
+      type: array
+      description: List of business categories, in your taxonomy, ordered by importance / relevance
+      items:
+        type: object
+        required:
+          - id
+          - name
+        properties:
+          id:
+            type: string
+            description: Category ID in your taxonomy
+          name:
+            type: string
+            description: Category name
+    LocationType:
+      type: string
+      description: The kind of listing
+      enum:
+        - Location
+        - HealthcareFacility
+        - HealthcareProfessional
+    SearchResult:
+      type: object
+      required:
+        - id
+        - name
+        - status
+        - address
+        - phone
+        - url
+        - city
+        - latitude
+        - longitude
+        - countryCode
+        - categories
+        - type
+      properties:
+        id:
+          type: string
+          description: The ID of this location, as assigned by you
+          example: '567482'
+        status:
+          $ref: '#/components/schemas/ListingStatus'
+        name:
+          type: string
+          example: Yext
+          description: |
+            The name of the result listing
+            For sites that track offices and professionals separately (e.g., a doctor’s office vs. individual doctors), please return both the office name and the individual professionals’ names.
+        address:
+          type: string
+          example: 75 9th Avenue
+          description: |
+            The street address of the result listing
+            In cases where the business sets address.visible to false, hide the address on your page, but still return its value in the API response.
+        address2:
+          type: string
+          example: 7th Floor
+          description: |
+            Address line 2 for the result listing
+        sublocality:
+          type: string
+          example: 'null'
+          description: |
+            The sublocality (e.g., neighborhood or district) of the result listing
+        city:
+          type: string
+          example: New York
+          description: |
+            The city of the result listing
+        state:
+          type: string
+          example: NY
+          description: |
+            `required` for US, CA and some other countries.
+
+            The state, region, or province of the result listing
+        zip:
+          type: string
+          example: '10011'
+          description: |
+            `required` for most countries.
+
+            The ZIP or postal code of the result listing. Contact the Implementation team for valid formats.
+        countryCode:
+          type: string
+          example: US
+          description: |
+            The ISO 3166-1 alpha-2 code of the area of the result listing
+        latitude:
+          type: number
+          example: 40.741959
+          description: The latidude of the result listing
+        longitude:
+          type: number
+          example: -74.004855
+          description: The longitude of the result listing
+        phone:
+          type: string
+          example: '2126518966'
+          description: The primary phone number of the listing. For international numbers, the number should match how a person within the country would dial it (i.e., no area code or punctuation).
+        url:
+          type: string
+          example: http://www.example.publisher.com/profile/567482
+          description: The URL where the listing’s details page can be viewed
+        categories:
+          $ref: '#/components/schemas/Categories'
+        type:
+          $ref: '#/components/schemas/LocationType'
+        websiteUrl:
+          type: string
+          description: |
+            The business's website URL on the listing
+        reviewCount:
+          type: integer
+          description: |
+            The number of reviews posted on the listing
+        averageReviewScore:
+          type: number
+          description: |
+            The average of the ratings (e.g., 4.3 for an average of 4.3 stars) posted on the listing
+        listingCreationDate:
+          type: string
+          description: |
+            The date the listing was created (YYYY-MM-DD)
+    ResponseErrorNew:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: |
+            Code that uniquely identifies the error or warning.
+        message:
+          type: string
+          description: Message explaining the problem.
+    DetailsHours:
+      type: array
+      description: The hours associated with the listing.
+      items:
+        type: object
+        properties:
+          day:
+            type: string
+            enum:
+              - MONDAY
+              - TUESDAY
+              - WEDNESDAY
+              - THURSDAY
+              - FRIDAY
+              - SATURDAY
+              - SUNDAY
+          intervals:
+            type: array
+            description: A set of opening and closing times for the specified day
+            items:
+              type: object
+              properties:
+                start:
+                  type: string
+                  description: The starting time of the interval on the 24-hour clock (e.g., 09:00:00)
+                end:
+                  type: string
+                  description: The ending time of the interval on the 24-hour clock (e.g., 14:00:00)
+    ClosedStatus:
+      type: string
+      description: The closed status of the listing
+      enum:
+        - OPEN
+        - TEMPORARILY_CLOSED
+        - PERMANENTLY_CLOSED
+    Details:
+      type: object
+      description: Base fields for any type of listing
+      required:
+        - id
+        - url
+        - status
+        - name
+        - address
+        - phone
+        - hours
+        - latitude
+        - longitude
+        - closedStatus
+      properties:
+        id:
+          type: string
+          description: The ID of this location, as assigned by you
+          example: xTydnfger
+        status:
+          $ref: '#/components/schemas/ListingStatus'
+        name:
+          type: string
+          description: The name to be displayed on the listing
+        address:
+          type: string
+          description: The building number and street address of the location
+        address2:
+          type: string
+          description: Second line of address (e.g., suite number)
+        sublocality:
+          type: string
+          description: The sublocality (e.g., neighborhood or district) of the location
+        city:
+          type: string
+          description: City
+        state:
+          type: string
+          description: The location's state, region, or province. Abbreviations are used for some countries.
+        zip:
+          type: string
+          description: The ZIP or postal code of the location
+        countryCode:
+          type: string
+          description: The ISO 3166-1 alpha-2 code of the location
+        phone:
+          type: string
+          description: The primary phone number of the listing. For international numbers, the number should match how a person within the country would dial it (i.e., no area code or punctuation).
+        url:
+          type: string
+          description: The URL where the listing’s details page can be viewed
+        rating:
+          type: number
+          description: The current rating for the listing (if your site has ratings). This is usually measured in “stars” and ranges from 0 to 5 in increments of 0.5.
+        totalReviews:
+          type: integer
+          description: The total number of reviews for the listing (if your site has reviews).
+        categories:
+          $ref: '#/components/schemas/Categories'
+        website:
+          type: string
+          description: The website associated with the result listing.
+        description:
+          type: string
+          description: The business description associated with the result listing.
+        hours:
+          $ref: '#/components/schemas/DetailsHours'
+        photos:
+          type: array
+          description: Array of urls of photos associated with the result listing.
+          items:
+            type: string
+        yearEstablished:
+          type: integer
+          description: The year that the business opened (e.g., 1982)
+        specialOfferMessage:
+          type: string
+          description: The "message" portion of the `specialOffer` that we send to you
+        specialOfferUrl:
+          type: string
+          description: The "URL" portion of the `specialOffer` that we send to you
+        contactEmail:
+          type: string
+          description: The email address that consumers can use to contact a representative of the business
+        latitude:
+          type: string
+          description: The latitude of the listing
+        longitude:
+          type: string
+          description: The longitude of the listing
+        video:
+          type: string
+          description: The URL of the business's YouTube video
+        paymentOptions:
+          type: array
+          description: A list of payment methods that the business accepts.
+          items:
+            type: string
+        twitter:
+          type: string
+          description: The Twitter username used by the business
+        facebook:
+          type: string
+          description: The URL of the business's Facebook Page
+        type:
+          $ref: '#/components/schemas/LocationType'
+        closedStatus:
+          $ref: '#/components/schemas/ClosedStatus'
+    HealthcareProfessional:
+      type: object
+      description: The following additional fields are available if `type` is `HealthcareProfessional`.
+      required:
+        - npi
+        - firstName
+        - middleName
+        - lastName
+        - officeName
+        - gender
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI) of the healthcare professional.
+        firstName:
+          type: string
+          description: The first name of the healthcare professional.
+        middleName:
+          type: string
+          description: The middle name of the healthcare professional.
+        lastName:
+          type: string
+          description: The last name of the healthcare professional.
+        officeName:
+          type: string
+          description: The name of the office where the healthcare professional works.
+        gender:
+          type: string
+          description: The gender of the healthcare professional.
+        conditionsTreated:
+          type: array
+          description: A list of the conditions treated by the healthcare professional.
+          items:
+            type: string
+        acceptingNewPatients:
+          type: boolean
+          description: Indicates whether the healthcare professional is accepting new patients.
+          default: true
+    HealthcareFacility:
+      type: object
+      description: The following additional fields are available if `type` is `HealthcareFacility`.
+      required:
+        - npi
+      properties:
+        npi:
+          type: string
+          description: National Provider Identifier (NPI) of the healthcare facility.
+        conditionsTreated:
+          type: array
+          description: A list of the conditions treated by the healthcare professional.
+          items:
+            type: string
+        acceptingNewPatients:
+          type: boolean
+          description: Indicates whether the healthcare professional is accepting new patients.
+          default: true
+    Address:
+      type: object
+      description: The structured address for the location
+      required:
+        - address
+        - address2
+        - city
+        - state
+        - postalCode
+        - countryCode
+      properties:
+        address:
+          type: string
+          description: The building number and street address of the location
+        address2:
+          type: string
+          description: Second line of address (e.g., suite number)
+        displayAddress:
+          type: string
+          description: Additional information to help consumers find the location. This string should be presented in addition to the address (e.g., In Menlo Mall, 3rd Floor). It may also be used in conjunction with a hidden address (address.visible = false) e.g., Servicing the New York Area
+        visible:
+          type: boolean
+          description: Defaults to true. When present and false, the street address (address, address2,address3) should not be shown to consumers, but displayAddress should still appear, along with sublocality, city, state, and postalCode.
+        sublocality:
+          type: string
+          description: The sublocality (e.g., neighborhood or district) of the location
+        city:
+          type: string
+          description: City
+        state:
+          type: string
+          description: The location's state, region, or province. Abbreviations are used for some countries.
+        postalCode:
+          type: string
+          description: The ZIP or postal code of the location
+        countryCode:
+          type: string
+          description: The ISO 3166-1 alpha-2 code of the location
+    Phones:
+      type: array
+      description: A list of the location’s phone numbers. There will be exactly one MAIN phone number and optionally some non-MAIN phone numbers (at most one of each type).
+      items:
+        type: object
+        required:
+          - number
+        properties:
+          description:
+            type: string
+            description: A description of the phone number, e.g. “Main”.
+          number:
+            type: object
+            properties:
+              countryCode:
+                type: string
+                description: The ITU-T code of the location’s phone number. Note that this may not match the country code of the location address.
+              number:
+                type: string
+                description: Area code and phone number. How the number would be dialed in the location’s country (with no punctuation or country code).
+          type:
+            type: string
+            enum:
+              - MAIN
+              - ALTERNATE
+              - FAX
+              - LOCAL
+              - MOBILE
+              - TOLL_FREE
+              - TTY
+    PartnerCategories:
+      type: array
+      description: List of business categories, in your taxonomy, ordered by importance / relevance
+      items:
+        type: object
+        required:
+          - id
+          - name
+        properties:
+          id:
+            type: string
+            description: Category ID in your taxonomy
+          name:
+            type: string
+            description: Category name
+    Emails:
+      type: array
+      description: A list of contact email addresses that consumers can use to reach someone who represents the location
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Email Address
+          description:
+            type: string
+            description: Description
+    GeoData:
+      type: object
+      description: Geolocation data describing where exactly the physical location is
+      required:
+        - displayLatitude
+        - displayLongitude
+      properties:
+        displayLatitude:
+          type: number
+          description: The latitude coordinate of the location's center
+        displayLongitude:
+          type: number
+          description: The longitude coordinate of the location's center
+        routableLatitude:
+          type: number
+          description: The latitude coordinate of where consumers should go to first when visiting the location (e.g., a parking lot, a particular building entrance)
+        routableLongitude:
+          type: number
+          description: The longitude coordinate of where consumers should go to first when visiting the location (e.g., a parking lot, a particular building entrance)
+        walkingLatitude:
+          type: number
+          description: The latitude coordinate of where consumers should go in order reach the location on foot (e.g., a particular entrance, the start of a walkway)
+        walkingLongitude:
+          type: number
+          description: The latitude coordinate of where consumers should go in order reach the location on foot (e.g., a particular entrance, the start of a walkway)
+    Interval:
+      type: array
+      description: A set of opening and closing times for the specified date.
+      items:
+        type: object
+        properties:
+          start:
+            type: string
+            description: The starting time of the interval on the 24-hour clock (e.g., 09:00:00)
+          end:
+            type: string
+            description: The end time of the interval on the 24-hour clock (e.g., 14:00:00)
+    HolidayHour:
+      type: array
+      description: A set of special hours that may vary from the standard business hours.
+      items:
+        type: object
+        properties:
+          date:
+            type: string
+            description: Date on which the holiday hours will be in effect. Will only provide future dates.
+          isClosed:
+            type: boolean
+            description: Indicates if the hours of operation are "closed" on the given date.
+          isRegularHours:
+            type: boolean
+            description: Indicates whether the holiday hours are the same as the regular business hours for the given date.
+          intervals:
+            type: array
+            description: A set of opening and closing times for the specified date
+            items:
+              $ref: '#/components/schemas/Interval'
+    Hours:
+      type: object
+      description: Contains structured business-hours information. Any days that are unspecified should be interpreted as 'we don't have information for this day'. Days that are specified, but contain no times, should be interpreted as 'Closed'. This is not a required field in Yext but should be displayed if provided.
+      properties:
+        day:
+          type: string
+          enum:
+            - MONDAY
+            - TUESDAY
+            - WEDNESDAY
+            - THURSDAY
+            - FRIDAY
+            - SATURDAY
+            - SUNDAY
+        intervals:
+          type: array
+          description: A set of opening and closing times for the specified day
+          items:
+            $ref: '#/components/schemas/Interval'
+        reopenDate:
+          type: string
+          description: If populated, indicates that the business is temporarily closed and provides the date that the business is planning to reopen.
+        holidayHours:
+          type: array
+          description: A set of special hours that may vary from the standard business hours.
+          items:
+            $ref: '#/components/schemas/HolidayHour'
+    AccessHours:
+      additionalProperties: false
+      type: object
+      description: |-
+        Contains the daily access hours, holiday access hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `accessHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday access hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+
+        Filtering Type: `hours`
+
+        ```
+        Eligible For:
+           * atm
+           * healthcareFacility
+           * hotel
+           * location
+           * restaurant
+        ```
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Friday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              description: |-
+                Contains the time intervals for which the Entity is open on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+          description: 'Filtering Type: `object`'
+        holidayHours:
+          description: |-
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+
+
+            Filtering Type: `list of object`
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+
+                  Filtering Type: `date`
+              isClosed:
+                type: boolean
+                description: |-
+                  Indicates if the access hours are "closed" on on the given date.
+
+                  Filtering Type: `boolean`
+              isRegularHours:
+                type: boolean
+                description: |-
+                  Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+
+                  Filtering Type: `boolean`
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: |-
+                        The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                        Filtering Type: `time`
+                    start:
+                      format: time
+                      type: string
+                      description: |-
+                        The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                        Filtering Type: `time`
+                  description: 'Filtering Type: `object`'
+                description: |-
+                  Contains the time intervals for which the Entity is open on the specified date.
+
+                  Filtering Type: `list of object`
+            description: 'Filtering Type: `object`'
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Monday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+              description: |-
+                Contains the time intervals for which the Entity is open on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+          description: 'Filtering Type: `object`'
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+
+            Filtering Type: `date`
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Saturday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+              description: |-
+                Contains the time intervals for which the Entity is open on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+          description: 'Filtering Type: `object`'
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Sunday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+              description: |-
+                Contains the time intervals for which the Entity is open on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+          description: 'Filtering Type: `object`'
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Thursday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+              description: |-
+                Contains the time intervals for which the Entity is open on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+          description: 'Filtering Type: `object`'
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Tuesday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+              description: |-
+                Contains the time intervals for which the Entity is open on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+          description: 'Filtering Type: `object`'
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: |-
+                Indicates if the access hours are "closed" on Wednesday.
+
+                Filtering Type: `boolean`
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: |-
+                      The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                  start:
+                    format: time
+                    type: string
+                    description: |-
+                      The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+
+                      Filtering Type: `time`
+                description: 'Filtering Type: `object`'
+              description: |-
+                Contains the time intervals for which the Entity is open on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+
+                Filtering Type: `list of object`
+          description: 'Filtering Type: `object`'
+    BrunchHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the brunch hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for which the Entity is open on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the brunch hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for brunch on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily brunch hours, holiday brunch hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `brunchHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday brunch hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    DeliveryHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the delivery hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for which the Entity is delivering on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the delivery hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is delivering on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily delivery hours, holiday delivery hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `deliveryHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday delivery hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    DriveThroughHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the drive-through hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for which the Entity's drive-through is open on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the drive-through hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's drive-through is open on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily drive-through hours, holiday drive-through hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `driveThroughHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday drive-through hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    HappyHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's happy hours on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the happy hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for the Entity's happy hours on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's happy hours on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's happy hours on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's happy hours on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's happy hours on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's happy hours on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the happy hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's happy hours on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily happy hours, holiday happy hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `happyHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday happy hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    KitchenHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen is open on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the kitchen hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for which the Entity's kitchen is open on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen is open on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen is open on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen is open on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen is open on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen open on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the kitchen hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity's kitchen is open on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily kitchen hours, holiday kitchen hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `kitchenHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday kitchen hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    OnlineServiceHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the online service hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for the Entity's online service hours on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the online service hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's online service hours on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily online service hours, holiday online service hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `onlineServiceHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday online service hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    PickupHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the pickup hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for which the Entity is open for pickup on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the pickup hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for pickup on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily pickup hours, holiday pickup hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `pickupHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday pickup hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    SeniorHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the senior hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for the Entity's senior hours on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the senior hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for the Entity's senior hours on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily senior hours, holiday senior hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `seniorHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday senior hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    TakeoutHours:
+      additionalProperties: false
+      type: object
+      properties:
+        friday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Friday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Friday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        holidayHours:
+          description: |
+
+            **NOTE:** The list of Holiday Hours that you send us must be comprehensive. For example, if you send us a list of Holiday Hours that does not include Holiday Hours that you sent in your last update, Yext considers the missing Holiday Hours to be deleted, and we remove them.
+
+
+            Array must be ordered.
+          uniqueItems: true
+          type: array
+          items:
+            required:
+              - date
+            additionalProperties: false
+            type: object
+            properties:
+              date:
+                format: date
+                type: string
+                description: |-
+                  Date on which the holiday hours will be in effect. Cannot be in the past.
+
+
+                  Date must be on or after 1970-01-01
+                  Date must be before or on 2038-01-01
+              isClosed:
+                type: boolean
+                description: Indicates if the takeout hours are "closed" on on the given date.
+              isRegularHours:
+                type: boolean
+                description: Indicates whether the holiday hours are the same as the regular business hours for the given date. If set to true, we will update the holiday hours if the regular business hours change for the date's day of the week.
+              openIntervals:
+                uniqueItems: false
+                type: array
+                items:
+                  additionalProperties: false
+                  type: object
+                  properties:
+                    end:
+                      format: time
+                      type: string
+                      description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                    start:
+                      format: time
+                      type: string
+                      description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                description: Contains the time intervals for which the Entity is open for takeout on the specified date.
+        monday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Monday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Monday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        reopenDate:
+          format: date
+          type: string
+          description: |-
+
+            Date must be on or after 1970-01-01
+            Date must be before or on 2038-01-01
+        saturday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Saturday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Saturday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        sunday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Sunday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Sunday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        thursday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Thursday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Thursday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        tuesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Tuesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Tuesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+        wednesday:
+          additionalProperties: false
+          type: object
+          properties:
+            isClosed:
+              type: boolean
+              description: Indicates if the takeout hours are "closed" on Wednesday.
+            openIntervals:
+              uniqueItems: false
+              type: array
+              items:
+                additionalProperties: false
+                type: object
+                properties:
+                  end:
+                    format: time
+                    type: string
+                    description: The end time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+                  start:
+                    format: time
+                    type: string
+                    description: The start time of the interval in `hh:mm` format (e.g., `"06:30"`, `"17:00"`).
+              description: Contains the time intervals for which the Entity is open for takeout on Wednesday. Note that if isClosed is set to true, "openIntervals" cannot be provided in an update.
+      description: |-
+        Contains the daily takeout hours, holiday takeout hours, and reopen date for the Entity.
+
+        Each day is represented by a sub-field of `takeoutHours`. (e.g. `monday`, `tuesday`, etc.) Open times can be specified per day through the `openIntervals` field and the `isClosed` flag.
+        Similarly, holiday takeout hours are represented by the `holidayHours` sub-field.
+        Setting the `reopenDate` sub-field indicates that the business is temporarily closed and will reopen on the specified date.
+        SPECIAL CASES:
+        * To indicate that an Entity is open 24 hours on a specific day, set start to 00:00 and end to 23:59 in `openIntervals` for that day.
+        * To indicate that an Entity has split hours on a specific day (e.g., open from 9:00 AM to 12:00 PM and again from 1:00 PM to 5:00 PM), supply two or more `openIntervals` values with non-overlapping sets of hours.
+        * If you are providing `openIntervals`, you may not set `isClosed` to true for that day.
+    Image:
+      type: object
+      description: 'You should be able to support and maintain the image size of the photo passed by Yext. We will not send you photos greater than 5MB. '
+      properties:
+        url:
+          type: string
+          description: URL where the image can be viewed. We encourage you to use this URL directly on your sites.
+        type:
+          type: string
+          enum:
+            - LOGO
+            - STOREFRONT
+            - GALLERY
+            - HEADSHOT
+        width:
+          type: integer
+          description: The width of the image, in pixels.
+        height:
+          type: integer
+          description: The height of the image, in pixels.
+        description:
+          type: string
+          description: A caption for the image.
+    Video:
+      type: object
+      description: YouTube videos specified by the business
+      properties:
+        url:
+          type: string
+          description: Youtube URL for the video
+        description:
+          type: string
+          description: A caption for the video.
+    FeaturedMessage:
+      type: object
+      description: The featured message of the location
+      properties:
+        message:
+          type: string
+          description: The featured message text to be displayed.
+        url:
+          type: string
+          description: The featured message should be clickable when the featured message URL is provided
+    URL:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL where the image can be viewed. We encourage you to use this URL directly on your sites.
+        type:
+          type: string
+          description: A key describing what the URL references.
+          enum:
+            - WEBSITE
+            - RESERVATION
+            - MENU
+            - ORDER
+        displayUrl:
+          type: string
+          description: If provided, the URL shown in the link text for url. Since consumers are still taken to the URL specified in url, businesses are still able to track click-throughs.
+    Attribution:
+      type: object
+      description: Listing attribution to whomever the business bought Listings from (i.e., Yext or one of Yext's partners)
+      properties:
+        image:
+          type: object
+          description: Details for the attribution image.
+          properties:
+            url:
+              type: string
+              description: URL where the image can be viewed.
+            description:
+              type: string
+              description: A brief description of the attribution image.
+            width:
+              type: integer
+              description: The width of the image, in pixels.
+            height:
+              type: integer
+              description: The height of the image, in pixels.
+    ECLID:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The list’s ID (numeric, Yext-assigned)
+        type:
+          type: string
+          enum:
+            - MENU
+            - PRODUCTS
+            - EVENTS
+            - BIOS
+        description:
+          type: string
+          description: The text of the link for the List’s type within the listing. When consumers click the link, they see a set of tabs, one for each List of that type.
+        name:
+          type: string
+          description: Name of the List, which is shown on the List’s tab.
+    FrequentlyAskedQuestion:
+      type: object
+      properties:
+        question:
+          type: string
+          description: The question of the FAQ
+        answer:
+          type: string
+          description: The answer to the question
+    ListingDelivery:
+      type: object
+      properties:
+        yextId:
+          type: string
+          description: Yext’s ID for the location
+        partnerId:
+          type: string
+          description: The ID of this location, as assigned by you. This value will be present in all instances except when Yext is issuing an ORDER request (e.g., it does not yet exist in your system)
+        name:
+          type: string
+          description: The name to be displayed on the listing
+        address:
+          $ref: '#/components/schemas/Address'
+        geomodifier:
+          type: string
+          description: Provides additional information on where the entity can be found (e.g. Times Square, Global Center Mall)
+        phones:
+          type: array
+          description: A list of the location’s phone numbers. There will be exactly one MAIN phone number and optionally some non-MAIN phone numbers (at most one of each type)
+          items:
+            $ref: '#/components/schemas/Phones'
+        categories:
+          type: array
+          description: List of business categories, in your taxonomy, ordered by importance / relevance
+          items:
+            $ref: '#/components/schemas/PartnerCategories'
+        description:
+          type: string
+          description: A description of the location. The description might be quite long (i.e., thousands of characters). It is the publisher’s responsibility to HTML-escape it. As part of display, the publisher should convert newline characters to break tags in order to maintain the structure of paragraphs and lists
+        emails:
+          type: array
+          description: List of emails associated with the listing
+          items:
+            $ref: '#/components/schemas/Emails'
+        geodata:
+          $ref: '#/components/schemas/GeoData'
+        hours:
+          type: array
+          description: Contains structured business-hours information. Any days that are unspecified should be interpreted as 'we don't have information for this day'. Days that are specified, but contain no times, should be interpreted as 'Closed'. This is not a required field in Yext but should be displayed if provided.
+          items:
+            $ref: '#/components/schemas/Hours'
+        accessHours:
+          $ref: '#/components/schemas/AccessHours'
+        brunchHours:
+          $ref: '#/components/schemas/BrunchHours'
+        deliveryHours:
+          $ref: '#/components/schemas/DeliveryHours'
+        driveThroughHours:
+          $ref: '#/components/schemas/DriveThroughHours'
+        happyHours:
+          $ref: '#/components/schemas/HappyHours'
+        kitchenHours:
+          $ref: '#/components/schemas/KitchenHours'
+        onlineServiceHours:
+          $ref: '#/components/schemas/OnlineServiceHours'
+        pickupHours:
+          $ref: '#/components/schemas/PickupHours'
+        seniorHours:
+          $ref: '#/components/schemas/SeniorHours'
+        takeoutHours:
+          $ref: '#/components/schemas/TakeoutHours'
+        images:
+          type: array
+          description: Photos of the location (e.g., storefront, logo). You should be able to support and maintain the image size of the photo passed by Yext. We will not send you photos greater than 5MB.
+          items:
+            $ref: '#/components/schemas/Image'
+        videos:
+          type: array
+          description: YouTube videos specified by the business
+          items:
+            $ref: '#/components/schemas/Video'
+        featuredMessage:
+          $ref: '#/components/schemas/FeaturedMessage'
+        paymentOptions:
+          type: array
+          description: A list of payment methods accepted at the location
+          items:
+            type: string
+            description: Payment Options in string format
+        urls:
+          type: array
+          description: A list of URLs (e.g., the location's website and reservation page). There will be at most one URL of each type.
+          items:
+            $ref: '#/components/schemas/URL'
+        twitterHandle:
+          type: string
+          description: The location’s Twitter username, without the leading '@'
+        facebookPageUrl:
+          type: string
+          description: The location’s Facebook Page URL (e.g., http://www.facebook.com/YextInc)
+        instagramHandle:
+          type: string
+          description: Valid Instagram username for the entity without the leading '@'
+        attribution:
+          $ref: '#/components/schemas/Attribution'
+        keywords:
+          type: array
+          description: Keywords by which the business wants to be searchable (e.g., Sears wants to be searchable by Craftsman, their brand of tools)
+          items:
+            type: string
+        lists:
+          type: array
+          description: The Enhanced Content Lists (ECLs) for this listing. This field provides the information about the Lists that are associated with this location (if any), but it does not include the item data, since it may be quite large and change frequently. You can call Get List to retrieve that data / HTML.
+          items:
+            $ref: '#/components/schemas/ECLID'
+        closed:
+          type: boolean
+          description: The value is true if the business has indicated that this location is closed. They may still have an active PowerListing to direct customers to the nearest store in their chain. Defaults to false.
+        closeDate:
+          type: string
+          description: |
+            If present, indicates the last day that the store was, or will be, open.
+            * Since the date may be in the future, the mere presence of closeDate does not imply that the location is already closed.
+            * (YYYY-MM-DD format)
+        reopenDate:
+          type: string
+          description: |
+            If present, indicates the business is temporarily closed and the day that the store will open
+            * (YYYY-MM-DD format)
+        pickupAndDeliveryOptions:
+          type: array
+          items:
+            type: string
+            enum:
+              - INSTORE_PICKUP
+              - CURBSIDE_PICKUP
+              - DELIVERY
+              - SAME_DAY_DELIVERY
+              - NO_CONTACT_DELIVERY
+        specialties:
+          type: array
+          description: A list of the location's specialties (e.g., Pizza)
+          items:
+            type: string
+        brands:
+          type: array
+          description: A list of brands that the location sells (e.g., Toshiba, Samsung, Sony)
+          items:
+            type: string
+        products:
+          type: array
+          description: A list of products or product groups provided at this location (e.g., Optical, Hardware)
+          items:
+            type: string
+        services:
+          type: array
+          description: A list of services (e.g., Gift Registry, Store Pickup, Eye Exams, Spinal Decompression)
+          items:
+            type: string
+        yearEstablished:
+          type: string
+          description: The year the location opened
+        associations:
+          type: array
+          description: Any association memberships relevant to the location (e.g., New York Doctors Association)
+          items:
+            type: string
+        languages:
+          type: array
+          description: Languages spoken at this location
+          items:
+            type: string
+        frequentlyAskedQuestions:
+          type: array
+          description: 'A list of Frequently Asked Questions about the business. '
+          items:
+            $ref: '#/components/schemas/FrequentlyAskedQuestion'
+        blackOwnedBusiness:
+          type: boolean
+          description: Used to indicate whether a business is black-owned or not
+        priceRange:
+          type: string
+          enum:
+            - $
+            - $$
+            - $$$
+            - $$$$
+        neighborhood:
+          type: string
+          description: Used to indicate the neighborhood of a business
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: |
+            Code that uniquely identifies the error or warning.
+        type:
+          type: string
+          enum:
+            - FATAL_ERROR
+            - NON_FATAL_ERROR
+            - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+        - $ref: '#/components/schemas/ResponseMeta'
+        - type: object
+          properties:
+            errors:
+              type: array
+              description: List of errors and warnings.
+              items:
+                $ref: '#/components/schemas/ResponseError'
+    SuppressionRequest:
+      type: object
+      properties:
+        listingId:
+          type: string
+          description: The partner listing ID that should be suppressed (or unsuppressed)
+        supress:
+          type: boolean
+          description: |
+            * true, if listing should be suppressed
+            * false, if listing should be unsupressed
+        canonicalListingId:
+          type: string
+          description: |
+            A partner listing ID.
+            * When suppressing a listing, this value may be provided. If it is provided, the partner is expected to redirect the profile page specified in listingId to the one specified in canonicalListingId.
+    PartnerReviewComments:
+      type: array
+      description: List of comments on the review
+      items:
+        required:
+          - commentId
+          - timestamp
+          - authorName
+          - content
+        properties:
+          commentId:
+            type: string
+            description: Id of the review comment
+            example: '832813382'
+          timestamp:
+            type: string
+            description: Date and time that the review comment was posted in ISO-9601 format
+            example: '2020-01-04T13:15:53Z'
+          authorName:
+            type: string
+            description: The name of the user who posted the review comment
+            example: Gomez Adams
+          content:
+            type: string
+            description: The full text of the review comment
+            example: The hummus is good too!
+          ownerResponse:
+            type: boolean
+            description: Indicates whether the comment was made by the business owner
+    PartnerReview:
+      type: object
+      required:
+        - reviewId
+        - status
+        - timestamp
+        - authorName
+        - url
+      properties:
+        reviewId:
+          type: string
+          description: A unique ID for each review, as assinged by you
+          example: '5382'
+        status:
+          type: string
+          description: The status of the review
+          enum:
+            - ACTIVE
+            - SUPPRESSED
+        timestamp:
+          type: string
+          description: Date and time that the review was posted in ISO-9601 format
+          example: '2020-01-01T13:15:53Z'
+        authorName:
+          type: string
+          description: The name of the user who posted the review
+          example: Dana Smith
+        title:
+          type: string
+          description: The title of the review
+          example: Great falafel
+        content:
+          type: string
+          description: The full text of the review
+          example: Went there for lunch and had the best sandwich of my life.
+        url:
+          type: string
+          description: The URL where consumers can read the review
+          example: http://www.partner.com/listings/382384/reviews/5382
+        rating:
+          type: string
+          description: The rating given by the review
+          example: '4.5'
+        maxRating:
+          type: string
+          description: The maximum possible rating of a review on your site
+        flagReason:
+          type: string
+          description: If present, the business owner has flagged the review a specific reason
+          enum:
+            - INAPPROPRIATE_CONTENT
+            - SPAM
+            - NOT_LOCATION_RELATED
+        comments:
+          $ref: '#/components/schemas/PartnerReviewComments'
+        generated:
+          type: boolean
+          description: Indicates whether the review was written in response to a request from a review_generation program
+    PartnerReviewList:
+      type: object
+      required:
+        - total
+        - rating
+        - maxRating
+      properties:
+        total:
+          type: integer
+          description: Total number of reviews on the listing
+        rating:
+          type: number
+          description: The average rating across all reviews for this listing
+        maxRating:
+          type: integer
+          description: The maximum possible rating (e.g., 5)
+        reviews:
+          type: array
+          description: A list of num Review objects, respecting the filter specified in before and sorted in reverse chronological order
+          items:
+            $ref: '#/components/schemas/PartnerReview'
+    PartnerReviewResponse:
+      type: object
+      properties:
+        reviewId:
+          type: string
+          description: |
+            The review's ID on your site
+        flagReason:
+          type: string
+          enum:
+            - INAPPROPRIATE_CONTENT
+            - SPAM
+            - NOT_LOCATION_RELATED
+          description: |
+            If present, the business owner is flagging the review for the specified reason.
+        comment:
+          type: string
+          description: |
+            If present, the business owner's response to the review
+    PartnerReviewResponseUpdate:
+      type: object
+      properties:
+        reviewId:
+          type: string
+          description: |
+            The review's ID on your site
+        flagReason:
+          type: string
+          enum:
+            - INAPPROPRIATE_CONTENT
+            - SPAM
+            - NOT_LOCATION_RELATED
+          description: |
+            If present, the business owner is flaggint the review for the specified reason.
+        commentId:
+          type: string
+          description: |
+            The review comment's Id on your site
+        comment:
+          type: string
+          description: |
+            If present, the business owner's response to the review
+    PartnerSuggestion:
+      type: object
+      required:
+        - id
+        - field
+        - status
+        - proposedValue
+        - timestamp
+      properties:
+        id:
+          type: string
+          description: A unique ID for each suggestion, as assigned by you
+          example: '5382'
+        field:
+          type: string
+          description: The name of the listing field associated with the suggestion (e.g. main_phone, website_url)
+          example: name
+        status:
+          type: string
+          description: |
+            * ACCEPTED (the suggestion has been applied to the listing)
+            * PENDING (the suggestion is valid but has not been actioned on)
+            * REJECTED (the suggestion has been rejected)
+            * EXPIRED (the suggestion is no longer valid)'
+          enum:
+            - ACCEPTED
+            - PENDING
+            - REJECTED
+            - EXPIRED
+        timestamp:
+          type: string
+          description: Date and time that the suggestion was created in ISO-9601 format
+          example: '2020-01-04T13:15:53Z'
+        currentValue:
+          type: string
+          description: The existing field data
+          example: DeeDee’s Doughnuts
+        proposedValue:
+          type: string
+          description: The content of the suggestion. The type of this value should match the type structure of the field
+          example: Dee's Doughnuts
+    PartnerSuggestionList:
+      type: object
+      required:
+        - total
+        - suggestions
+      properties:
+        total:
+          type: integer
+          description: Total number of suggestions on the listing
+        suggestions:
+          type: array
+          description: A list of num Suggestion objects. Suggestions returned should only have status PENDING
+          items:
+            $ref: '#/components/schemas/PartnerSuggestion'
+    SuggestionAcceptBody:
+      type: object
+      description: The request body of a suggestion accept/reject
+      required:
+        - suggestionId
+        - accept
+      properties:
+        suggestionId:
+          type: string
+          description: The unique suggestion Id
+        accept:
+          type: string
+          description: ''
+          enum:
+            - ACTIVE
+            - SUPPRESSED
+  responses:
+    SearchResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: SearchSuccess
+            type: array
+            description: A list of search results; empty if no matching listings could be found.
+            items:
+              $ref: '#/components/schemas/SearchResult'
+    ErrorResponseNew:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: ErrorResponseNew
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            title: ServerError
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    DetailsResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: DetailsResponse
+            type: object
+            anyOf:
+              - $ref: '#/components/schemas/Details'
+              - $ref: '#/components/schemas/HealthcareProfessional'
+              - $ref: '#/components/schemas/HealthcareFacility'
+    404NotFoundResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: 404NotFoundResponse
+            type: object
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                    description: Not Found
+                    example: Not Found
+    LiveResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: LiveResponse
+            type: object
+            properties:
+              status:
+                type: string
+                description: In the case of a 200 response, should always be 'LIVE'
+                example: LIVE
+              id:
+                type: string
+                description: Your ID for the Listing. If the listing already exists on your site, id must match that listing's ID in your system.
+                example: 73ghf90jd0
+              url:
+                type: string
+                description: The URL where the listing can be seen on your site
+                example: http://partner.com/places/73ghf90jd0.html
+    BlockedResponse:
+      description: Blocked
+      content:
+        application/json:
+          schema:
+            title: BlockedResponse
+            type: object
+            properties:
+              status:
+                type: string
+                description: The current status of the Listing.
+                enum:
+                  - REJECTED
+                  - BLOCKED
+              issues:
+                type: array
+                description: List of issues that are causing the status to be REJECTED or BLOCKED
+                items:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                      description: Describes the issue
+                      example: Country not supported
+                    field:
+                      type: string
+                      description: |
+                        (Optional) Specifies which field (as named in the JSON Listing Format body) is causing the issue. If the field is part of an array, its array index should be included. This value should be omitted if the issue does not apply to a specific field.
+                        * If we send more than one location in a request, this value should identify which location the field is part of by the location's yextId (e.g., if the postalCode field of the location with yextId 3524 is causing the issue: location[3524].address.postalCode)
+                    suggestedValue:
+                      type: string
+                      description: (Optional) contains a value for the field that you would accept
+    EmptyResponseNew:
+      description: OK
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    BlockedSuppression:
+      description: Blocked
+      content:
+        application/json:
+          schema:
+            title: BlockedSuppression
+            type: object
+            properties:
+              issue:
+                type: string
+                description: Issue that is causing the suppression to be blocked
+                example: Listing is managed by another partner
+    GetReviewsSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetReviewsSuccess
+            $ref: '#/components/schemas/PartnerReviewList'
+    GetSingleReviewSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSingleReviewSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerReview'
+    NewCommentSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: NewCommentSuccess
+            type: object
+            properties:
+              commentId:
+                type: string
+                description: The ID of the comment that was successfully created
+                example: f3j94g8h3
+    GetSuggestionsSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSuggestionsSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestionList'
+    GetSingleSuggestionSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSingleSuggestionSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestion'
