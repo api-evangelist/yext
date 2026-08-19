@@ -1,0 +1,218 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Connectors API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Connectors: Push Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/connectors/:connectorId/pushData",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Connector."
+              },
+              {
+                "name": "runMode",
+                "value": "",
+                "type": "query",
+                "description": "The run mode of the Connector."
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "Whether the run should include a dry run."
+              }
+            ]
+          },
+          "docs": "Pushes data to be saved for and processed by a specified Connector.\nA run will be initiated with the data provided.\n"
+        },
+        {
+          "info": {
+            "name": "Connectors: Trigger",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/connectors/:connectorId/trigger",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Connector."
+              },
+              {
+                "name": "runMode",
+                "value": "",
+                "type": "query",
+                "description": "The run mode of the Connector."
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "Whether the run should include a dry run."
+              }
+            ]
+          },
+          "docs": "Triggers a run of the specified Connector."
+        },
+        {
+          "info": {
+            "name": "Connectors: Get Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/connectors/:connectorId/runs/:runUid",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Connector."
+              },
+              {
+                "name": "runUid",
+                "value": "",
+                "type": "path",
+                "description": "UID of the Run."
+              }
+            ]
+          },
+          "docs": "Retrieve information for a Run with a given ID and Connector ID."
+        },
+        {
+          "info": {
+            "name": "Connectors: Approve Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/connectors/:connectorId/runs/:runUid/approve",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Connector."
+              },
+              {
+                "name": "runUid",
+                "value": "",
+                "type": "path",
+                "description": "UID of the run to be approved."
+              }
+            ]
+          },
+          "docs": "Approves a dry run that is ready for review.\nThe changes from the dry run will be applied once the run is approved.\n"
+        },
+        {
+          "info": {
+            "name": "Connectors: Cancel Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/connectors/:connectorId/runs/:runUid/cancel",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "connectorId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Connector."
+              },
+              {
+                "name": "runUid",
+                "value": "",
+                "type": "path",
+                "description": "UID of the run to be cancelled."
+              }
+            ]
+          },
+          "docs": "Cancels a non-terminal run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

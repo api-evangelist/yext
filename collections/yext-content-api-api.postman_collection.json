@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "a4fc5b27-4f80-41eb-a02c-f248abbea7c1",
+      "name": "Content API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "edce7746-b436-4b85-9aa5-2a0d093c7a12",
+          "name": "Content: Get",
+          "request": {
+            "name": "Content: Get",
+            "description": {
+              "content": "Retrieve records by ID from a Content Endpoint",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "content",
+                ":endpoint",
+                ":ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint",
+                  "description": "(Required) The ID of the Content Endpoint to query."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>,<string>",
+                  "key": "ids",
+                  "description": "(Required) The Content records to get. Multiple record IDs can be provided separated by commas.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca5da5a1-e29f-4456-80b3-74b2fd63482c",
+              "name": "Content Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "content",
+                    ":endpoint",
+                    ":ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint",
+                      "description": "(Required) The ID of the Content Endpoint to query."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>,<string>",
+                      "key": "ids",
+                      "description": "(Required) The Content records to get. Multiple record IDs can be provided separated by commas.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"count\": 1828,\n    \"nextPageToken\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1bf7f48-7b4d-4bda-9868-3afc763ab60c",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "content",
+                    ":endpoint",
+                    ":ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint",
+                      "description": "(Required) The ID of the Content Endpoint to query."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>,<string>",
+                      "key": "ids",
+                      "description": "(Required) The Content records to get. Multiple record IDs can be provided separated by commas.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4380,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4542,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efdc3d44-abdd-40f2-ab85-218685705433",
+          "name": "Content: List",
+          "request": {
+            "name": "Content: List",
+            "description": {
+              "content": "List records from a Content Endpoint\n\nContent API provides the ability for a user to filter and sort records\nby the contents of an indexed field. The filters and sorting parameters can\nbe provided as query parameters, in addition to the query parameters\ndocumented here. If no filters are provided, the API returns all the records\n(with pagination).\n\nFor example, with the parameter **`name=Alice`**, only records where the\nfield **`name`** has value **`Alice`** will be returned.\n\nSimilarly, adding the parameters **`name__in=Alice`** and **`name__in=Bob`**\nwill result in records with **`name`** equal to **`Alice`** OR **`name`**\nequal to **`Bob`** being returned.\n\n### Filters\n\nFilters are supported on Text, Numeric, Date and DateTime fields, although\nnot all filters are supported by all fields. It is also possible to filter\non an array of strings, or a string field nested in an array of objects. In\nthis case, the record will be present in the response if one of the field\nvalues in the array matches the filter.\n\nMultiple filters on different fields and different filter types can be\ncombined in the same query. An indexed field with an object can be filtered\nby using the dot notation, for example, **`address.city=Brooklyn`**.\n\nA number of different types of filters are supported.\n\n#### Equals\n\nThis can be specified as simple query parameter.\n\nSupported Types: Text, Numeric, Date, DateTime, Fields within Arrays.\n\n*Example:*\nAdding **`&name=Alice`** as a query parameter will return records where the\nname field matches Alice.\n\n\n#### Not Equals\n\nThis can be specified with the **`neq`** modifier to the query parameter\nkey.\n\nSupported Types: Text, Numeric, Date, DateTime, Fields within Arrays.\n\n*Example:*\nAdding **`&name__neq=Alice`** as a query parameter will return records where\nthe name field does not match Alice.\n\n#### Equals Any Of\n\nThis is basically an `OR` clause for Equals on a given field. This can be\nspecified with the **`in`** modifier to the query parameter key.\n\nSupported Types: Text, Numeric, Date, DateTime, Fields within Arrays.\n\n*Example:*\nAdding **`&name__in=Alice&name__in=Bob`** as a query parameter will return\nrecords where the name field matches either Alice or Bob.\n\n#### Comparison\n\nThe following comparison filters are supported:\n* Greater Than with the modifier `gt`\n* Greater Than Or Equals with the modifier `gte`\n* Less Than with the modifier `lt`\n* Less Than Or Equals with the modifier `lte`\n\nSupported Types: Numeric, Date, DateTime.\n\n*Example:*\nAdding **`&createdDate__gt=2020-11-11&rating__gte=4`** as a query parameter\nwill return records where the `createdDate` is after `2020-11-11` and the\n`rating` field has a value greater than or equal to `4`.\n\n#### GeoSearch\n\nSupports filtering to records for which the specified field is within the supplied radius to the supplied latitude and longitude.\n\nSupported Types: Coordinates (ex: `yextDisplayCoordinate`, `displayCoordinate`, etc.).\n\nGeoSearch queries are constructed by appending a `__geo` comparator to a coordinate field in the request. The details of the GeoSearch must then be included, comma separated, as part of the query value, optionally surrounded by parantheses.\n\nThe following parameters are supported:\n* The latitude of the point to geosearch from, specified as `lat`\n* The longitude of the point to geosearch from, specified as `lon`\n* The numeric radius from the point which results will be filtered to, specifed as `radius`\n* The unit of measurement for the radius, specified as `unit`. One of `km`, `mi`, `m`, `ft`. Defaults to `mi`\n\n*Example:*\nAdding **`&yextDisplayCoordinate__geo=(lat:40.740,lon:-73.987565,radius:50,unit:km)`** as a query parameter\nwill return records where the `yextDisplayCoordinate` field on the entities is within 50 km of the provided latitude and longitude.\n\nLike all other filters, the field which is being geosearched upon must be specified in the `fieldIndexes` of the endpoint definition.\n\n### Sorting\n\nContent Endpoints support sorting by an indexed field. This can be enabled\nby adding the `$sortBy` query parameter with field name as the value.\nOptionally, the modifiers `asc` and `desc` can be added to indicate\nsorting by ascending and descending orders respectively. If no modifier is\nspecified, the results will be returned in descending order.\n\nCurrently, sorting is only supported on a single field per request.\n\n*Example:*\nAdding **`&$sortBy__desc=createdDate`** as a query parameter will return\nrecords with the most recent `createdDate` first.\n\n### Additional Notes on Supported Types\n\nIndexes are supported on String, Numeric, Date and DateTime types. The set\nof supported filters for each type is documented in the previous section.\n\n#### String\n\nContent Endpoints support indexing UTF-8 strings with a maximum length of\n256 characters.\n\n#### Date and DateTime\n\n* The timezone information on a DateTime, if present, will be stripped away\nduring indexing, without converting the time to another timezone.\n* For indexing, the system expects to get [RFC3339 DateTime\nformat](https://datatracker.ietf.org/doc/html/rfc3339) for DateTimes and\n`YYYY-MM-DD` for Dates.\n* For querying, API accepts the following formats: `YYYY-MM-DD`,\n`YYYY-MM-DDTHH`, `YYYY-MM-DDTHH:MM` and `YYYY-MM-DDTHH:MM:SS`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "content",
+                ":endpoint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint",
+                  "description": "(Required) The ID of the Content Endpoint to query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c66f4e2-fb80-47c8-9c44-2f7e61168732",
+              "name": "Content Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "content",
+                    ":endpoint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint",
+                      "description": "(Required) The ID of the Content Endpoint to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"count\": 1756,\n    \"nextPageToken\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5a34a8b-ae0f-4733-98f9-171ff2edce4a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "content",
+                    ":endpoint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint",
+                      "description": "(Required) The ID of the Content Endpoint to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 1794,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 2514,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a351ea8b-e13e-42d3-961c-5684c627cfb5",
+    "name": "Yext Admin Account Settings Content API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

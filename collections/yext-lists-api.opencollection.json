@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Lists API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/lists",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Publisher secure ID. This value will be provided to you.\n"
+              },
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "query",
+                "description": "Publisher listing ID\n"
+              },
+              {
+                "name": "yextId",
+                "value": "",
+                "type": "query",
+                "description": "The Yext listing ID\n"
+              },
+              {
+                "name": "listId",
+                "value": "",
+                "type": "query",
+                "description": "ECL ID (Yext-assigned)\n"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of lists to return\n"
+              },
+              {
+                "name": "template",
+                "value": "",
+                "type": "query",
+                "description": "This parameter specifies the template to use when rendering the List content.\nYext will provide a list of your available templates. Yext configures each template with the type of data that it accepts -- for example, the template \"mobile-menu\" may be configured to render all Lists on a listing of type MENU.\n* If no template is specified, all List data will be rendered using a default template\n* Required if fetching HTML\n"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "An alternative way to specify the desired content type of the response\n"
+              }
+            ]
+          },
+          "docs": "Use Get List to retrieve Enhanced Content List (ECL) content in the following use cases:\n1. Fetch the HTML for a specific type of List.\n  * **Use listingId, template**\n  * Response will be rendered into a template and returned for direct display to the user\n2. Fetch the structured data (JSON) for a specific List\n  * **Use listingId, listId**\n3. Fetch the structured data (JSON) for a specific type of List\n  * **Use listingId, type**\n4. Fetch the structured data (JSON) for all Lists associated wit"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

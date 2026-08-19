@@ -1,0 +1,3097 @@
+{
+  "item": [
+    {
+      "id": "57ac4448-3a00-4a1a-9ccc-b8fd697d820f",
+      "name": "Account Settings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a4d2b71-b0d2-414b-a6cf-4c6744ecb41c",
+          "name": "Roles: Get",
+          "request": {
+            "name": "Roles: Get",
+            "description": {
+              "content": "Retrieves a list of the roles that users can have within a customer’s account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef21423f-9309-4bef-bc40-d8b814975662",
+              "name": "Roles Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"count\": 1277,\n    \"roles\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44ff875d-a95e-4dd3-9bad-c061275ec8c8",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 3940,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 8525,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f061be16-3a6d-4792-9577-5e10a5050ccb",
+          "name": "Users: List",
+          "request": {
+            "name": "Users: List",
+            "description": {
+              "content": "Lists all Users in an account.\n\n**NOTE**:\n\nIf the **`v`** parameter is before `20211115`: **`acl`** and **`externalIdentities`** will not be included in the response.\n\nThis endpoint does not support the **`all`** macro.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a66c0cbc-7dc2-4f4f-bf42-537d069707fe",
+              "name": "Users Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"count\": 465,\n    \"users\": [\n      {\n        \"id\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"username\": \"string\",\n        \"emailAddress\": \"string\",\n        \"phoneNumber\": \"string\",\n        \"emailLanguagePreference\": \"string\",\n        \"displayLanguagePreference\": \"string\",\n        \"lastLoginDate\": \"string\",\n        \"createdDate\": \"string\",\n        \"sso\": false,\n        \"acl\": [\n          {\n            \"roleId\": \"string\",\n            \"roleName\": \"string\",\n            \"on\": \"string\",\n            \"accountId\": \"string\",\n            \"onType\": \"ACCOUNT\"\n          },\n          {\n            \"roleId\": \"string\",\n            \"roleName\": \"string\",\n            \"on\": \"string\",\n            \"accountId\": \"string\",\n            \"onType\": \"FOLDER\"\n          }\n        ],\n        \"externalIdentities\": [\n          {\n            \"source\": \"string\",\n            \"identities\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"source\": \"string\",\n            \"identities\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      },\n      {\n        \"id\": \"string\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"username\": \"string\",\n        \"emailAddress\": \"string\",\n        \"phoneNumber\": \"string\",\n        \"emailLanguagePreference\": \"string\",\n        \"displayLanguagePreference\": \"string\",\n        \"lastLoginDate\": \"string\",\n        \"createdDate\": \"string\",\n        \"sso\": true,\n        \"acl\": [\n          {\n            \"roleId\": \"string\",\n            \"roleName\": \"string\",\n            \"on\": \"string\",\n            \"accountId\": \"string\",\n            \"onType\": \"ACCOUNT\"\n          },\n          {\n            \"roleId\": \"string\",\n            \"roleName\": \"string\",\n            \"on\": \"string\",\n            \"accountId\": \"string\",\n            \"onType\": \"FOLDER\"\n          }\n        ],\n        \"externalIdentities\": [\n          {\n            \"source\": \"string\",\n            \"identities\": [\n              \"string\",\n              \"string\"\n            ]\n          },\n          {\n            \"source\": \"string\",\n            \"identities\": [\n              \"string\",\n              \"string\"\n            ]\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c8e962b-7a88-4d8b-8a63-22f88528a8e8",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f318934-88a3-4560-a477-8be42018217c",
+          "name": "Users: Create",
+          "request": {
+            "name": "Users: Create",
+            "description": {
+              "content": "Create a new User",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"emailLanguagePreference\": \"<string>\",\n  \"displayLanguagePreference\": \"<string>\",\n  \"notifyUser\": \"<boolean>\",\n  \"sso\": \"<boolean>\",\n  \"acl\": [\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    },\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    }\n  ],\n  \"externalIdentities\": [\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d057976b-dd23-4595-9873-d59ddedbe3e5",
+              "name": "ID Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"emailLanguagePreference\": \"<string>\",\n  \"displayLanguagePreference\": \"<string>\",\n  \"notifyUser\": \"<boolean>\",\n  \"sso\": \"<boolean>\",\n  \"acl\": [\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    },\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    }\n  ],\n  \"externalIdentities\": [\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ff6aeb7-dbdb-4a06-913e-0947b52a818f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"emailLanguagePreference\": \"<string>\",\n  \"displayLanguagePreference\": \"<string>\",\n  \"notifyUser\": \"<boolean>\",\n  \"sso\": \"<boolean>\",\n  \"acl\": [\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    },\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    }\n  ],\n  \"externalIdentities\": [\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "096a6cf9-b287-4c2f-bd96-f9dfa4f7b8de",
+          "name": "Users: Get",
+          "request": {
+            "name": "Users: Get",
+            "description": {
+              "content": "Retrieves details of a specific User.\n\n**NOTE**:\n\nIf the **`v`** parameter is before `20211115`: **`acl`** and **`externalIdentities`** will not be included in the response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de240e2c-9406-499f-8f94-daacc71b9ef8",
+              "name": "User Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"username\": \"string\",\n    \"emailAddress\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"emailLanguagePreference\": \"string\",\n    \"displayLanguagePreference\": \"string\",\n    \"lastLoginDate\": \"string\",\n    \"createdDate\": \"string\",\n    \"sso\": false,\n    \"acl\": [\n      {\n        \"roleId\": \"string\",\n        \"roleName\": \"string\",\n        \"on\": \"string\",\n        \"accountId\": \"string\",\n        \"onType\": \"ACCOUNT\"\n      },\n      {\n        \"roleId\": \"string\",\n        \"roleName\": \"string\",\n        \"on\": \"string\",\n        \"accountId\": \"string\",\n        \"onType\": \"ACCOUNT\"\n      }\n    ],\n    \"externalIdentities\": [\n      {\n        \"source\": \"string\",\n        \"identities\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"source\": \"string\",\n        \"identities\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e628f6ae-5b2b-4887-9bfb-b1969bc4bead",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2f0a828-5c05-4986-b5ca-d4f07032ae13",
+          "name": "Users: Update",
+          "request": {
+            "name": "Users: Update",
+            "description": {
+              "content": "Updates an existing User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"username\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"emailLanguagePreference\": \"<string>\",\n  \"displayLanguagePreference\": \"<string>\",\n  \"sso\": \"<boolean>\",\n  \"acl\": [\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    },\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    }\n  ],\n  \"externalIdentities\": [\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3af3d213-0162-4e72-9cb9-edf7a6f5ed22",
+              "name": "ID Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"username\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"emailLanguagePreference\": \"<string>\",\n  \"displayLanguagePreference\": \"<string>\",\n  \"sso\": \"<boolean>\",\n  \"acl\": [\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    },\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    }\n  ],\n  \"externalIdentities\": [\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aca9551c-7b6f-42ad-8217-8f56dd395ee3",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"username\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"emailLanguagePreference\": \"<string>\",\n  \"displayLanguagePreference\": \"<string>\",\n  \"sso\": \"<boolean>\",\n  \"acl\": [\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    },\n    {\n      \"roleId\": \"<string>\",\n      \"on\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"onType\": \"<string>\",\n      \"roleName\": \"<string>\"\n    }\n  ],\n  \"externalIdentities\": [\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"source\": \"<string>\",\n      \"identities\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b419b922-80b2-4a14-977c-24c50fbf23ae",
+          "name": "Users: Delete",
+          "request": {
+            "name": "Users: Delete",
+            "description": {
+              "content": "Deletes an existing User.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4935f2ae-d4d5-4cfd-9f60-3b91c7f03beb",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7858e9c-c5c8-4191-9c94-5cf3580f0d29",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8461cf4e-72c2-47a2-8905-c1e09ba362be",
+          "name": "Users: Update Password",
+          "request": {
+            "name": "Users: Update Password",
+            "description": {
+              "content": "Updates a User's password.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "users",
+                ":userId",
+                "password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newPassword\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09f6d9eb-1f9e-4233-8f49-1cadfbae940a",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId",
+                    "password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newPassword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4d3b12c-8a75-465e-9549-4e267e66ecfb",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "users",
+                    ":userId",
+                    "password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newPassword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a644c76b-7738-42fa-bc11-b5409bd2794f",
+          "name": "Accounts: List",
+          "request": {
+            "name": "Accounts: List",
+            "description": {
+              "content": "List all accounts that you have access to. Unless you are in Partner Portal mode, this will only be your own account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Returns only accounts whose name contains the provided string"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7baff32d-914e-4655-8c48-93beab50b8e3",
+              "name": "Accounts Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"count\": 1,\n    \"accounts\": [\n      {\n        \"accountId\": \"1264805\",\n        \"locationCount\": 11,\n        \"subAccountCount\": 0,\n        \"accountName\": \"Yext Demo Account\",\n        \"contactFirstName\": \"John\",\n        \"contactLastName\": \"Doe\",\n        \"contactPhone\": \"1234567890\",\n        \"contactEmail\": \"johndoe@email.com\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98ac31d0-57aa-4309-b4a3-11821ed628e8",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db4aad5a-cdff-4dd2-b479-a09fd536337b",
+          "name": "Accounts: Get",
+          "request": {
+            "name": "Accounts: Get",
+            "description": {
+              "content": "Get details for an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c5d8a9b3-e3e6-44d7-a473-e297c9842b93",
+              "name": "Account Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"accountId\": 1264805,\n    \"locationCount\": 11,\n    \"subAccountCount\": 0,\n    \"accountName\": \"Yext Demo Account\",\n    \"contactFirstName\": \"John\",\n    \"contactLastName\": \"Doe\",\n    \"contactPhone\": \"1234567890\",\n    \"contactEmail\": \"johndoe@email.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5709cb07-81e4-4951-81a6-4634777e4475",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "602a54ba-0b77-4914-a976-10151eaabbb8",
+          "name": "Approval Groups: List",
+          "request": {
+            "name": "Approval Groups: List",
+            "description": {
+              "content": "Lists all Approval Groups in the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "approvalgroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c348e39e-110d-4610-9752-867a41974737",
+              "name": "Approval Groups Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"count\": 2511,\n    \"nextPageToken\": \"string\",\n    \"approvalGroups\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"users\": [\n          \"string\",\n          \"string\"\n        ],\n        \"isDefault\": false\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"users\": [\n          \"string\",\n          \"string\"\n        ],\n        \"isDefault\": false\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97ffb1ee-13ea-431d-8c1c-ec8a15c44d34",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7f2b305-627b-44da-b5a5-02b6818bf397",
+          "name": "Approval Groups: Create",
+          "request": {
+            "name": "Approval Groups: Create",
+            "description": {
+              "content": "Creates an Approval Group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "approvalgroups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3199098-d028-412b-affd-2be0e716afc5",
+              "name": "ID Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3d3025c-2bac-4023-894f-4dc57ae2b8b8",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"isDefault\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9caeb52c-392f-48b3-a0f5-ea0faf75a1e9",
+          "name": "Approval Groups: Get",
+          "request": {
+            "name": "Approval Groups: Get",
+            "description": {
+              "content": "Gets a single Approval Group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "approvalgroups",
+                ":approvalGroupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "approvalGroupId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2dff96d8-85ba-4af7-97b7-fb7cbf8e53d2",
+              "name": "Approval Group Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups",
+                    ":approvalGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "approvalGroupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"users\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isDefault\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2d7b54c-cf01-4fd6-bb41-aa0c5e87b3a0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups",
+                    ":approvalGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "approvalGroupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98045d6b-e7bc-440e-957b-46baf759af84",
+          "name": "Approval Groups: Update",
+          "request": {
+            "name": "Approval Groups: Update",
+            "description": {
+              "content": "Updates a single Approval Group.\n\n**NOTE:** Despite using the PUT method, Approval Groups: Update only updates supplied fields. Omitted fields are not modified. However, the users list will be overwritten with what the user provides.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "approvalgroups",
+                ":approvalGroupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "approvalGroupId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"users\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDefault\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf80b054-ee90-4e8e-9cd2-233c5224bd6a",
+              "name": "ID Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups",
+                    ":approvalGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "approvalGroupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"users\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDefault\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35a27de0-3e40-4d05-9828-187e8f4ac48f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups",
+                    ":approvalGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "approvalGroupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"users\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDefault\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dda47889-05d8-4976-8c09-2345de9bd827",
+          "name": "Approval Groups: Delete",
+          "request": {
+            "name": "Approval Groups: Delete",
+            "description": {
+              "content": "Deletes an Approval Group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "approvalgroups",
+                ":approvalGroupId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "approvalGroupId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c64ac29-996c-485e-b0a6-a38c18439340",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups",
+                    ":approvalGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "approvalGroupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44976c24-53fd-469e-9eb9-1985c8991a59",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "approvalgroups",
+                    ":approvalGroupId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "approvalGroupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "332cbe83-1574-4d22-b026-824bad149e73",
+          "name": "LinkedAccounts: List",
+          "request": {
+            "name": "LinkedAccounts: List",
+            "description": {
+              "content": "Lists all linked accounts in an account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "linkedaccounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "When provided, only linked accounts assigned to the specified entities will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "When provided, only linked accounts assigned to the specified entities will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "publisherIds",
+                  "value": "<string>",
+                  "description": "When provided, only linked accounts for the specified sites will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "publisherIds",
+                  "value": "<string>",
+                  "description": "When provided, only linked accounts for the specified sites will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Defaults to all statuses. When specified, only linked accounts with the provided statuses will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Defaults to all statuses. When specified, only linked accounts with the provided statuses will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c188e797-5a0c-4898-9f36-d0a3c22450ac",
+              "name": "Linked Accounts Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "linkedaccounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisherIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisherIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"count\": 3183,\n    \"nextPageToken\": \"string\",\n    \"linkedAccounts\": [\n      {\n        \"id\": \"string\",\n        \"publisherId\": \"string\",\n        \"entityIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"email\": \"string\",\n        \"status\": \"string\",\n        \"canAssign\": true\n      },\n      {\n        \"id\": \"string\",\n        \"publisherId\": \"string\",\n        \"entityIds\": [\n          \"string\",\n          \"string\"\n        ],\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"email\": \"string\",\n        \"status\": \"string\",\n        \"canAssign\": false\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99b3f2dd-5732-4e3c-bc3f-6ac30627d9bf",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "linkedaccounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisherIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisherIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d885e49c-548c-45d0-ac61-afefd931ce63",
+          "name": "LinkedAccounts: Get",
+          "request": {
+            "name": "LinkedAccounts: Get",
+            "description": {
+              "content": "Get details for an linked account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "linkedaccounts",
+                ":linkedAccountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "linkedAccountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "37e7e970-ab52-44cb-9b4b-e821eaf24d10",
+              "name": "Linked Account Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "linkedaccounts",
+                    ":linkedAccountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkedAccountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 3955191,\n    \"publisherId\": \"GOOGLEMYBUSINESS\",\n    \"entityIds\": [\n      \"3492378\"\n    ],\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"johndoe@email.com\",\n    \"status\": \"VALID\",\n    \"canAssign\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c940cfa4-0532-4824-9f5e-8247b6de8e62",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "linkedaccounts",
+                    ":linkedAccountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "linkedAccountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 2363,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 6208,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3747e9a5-c8d5-4601-825b-ccb1f796174f",
+    "name": "Yext Admin Account Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Suggestions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Suggestions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Suggestion List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/listings/suggestions",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of a listing on your site is known as the listingId.\n"
+              }
+            ]
+          },
+          "docs": "Yext uses Suggestions: List to retrieve all active suggestions data for business owners. You should provide access to all suggestions in status “PENDING”. \n"
+        },
+        {
+          "info": {
+            "name": "Single Suggestion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/listings/suggestions/:suggestionId",
+            "params": [
+              {
+                "name": "suggestionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of a suggestion on your site is known as the suggestionId.\n"
+              }
+            ]
+          },
+          "docs": "Yext uses Suggestions: Get to retrieve the suggestion object for a specific suggestion ID. \n"
+        },
+        {
+          "info": {
+            "name": "Suggestion Accept",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/listings/suggestions/:suggestionId",
+            "params": [
+              {
+                "name": "suggestionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of a suggestion on your site is known as the suggestionId.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Yext uses Accept/Reject to indicate whether a suggestion object has been accepted or rejected by the user.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

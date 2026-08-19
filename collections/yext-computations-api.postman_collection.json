@@ -1,0 +1,844 @@
+{
+  "item": [
+    {
+      "id": "5928a4c0-ab7f-4211-83ff-4e3fc6124856",
+      "name": "Computations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "953d9069-9a12-4277-a533-ada9e7b99b14",
+          "name": "Computations: Create Operation",
+          "request": {
+            "name": "Computations: Create Operation",
+            "description": {
+              "content": "Creates a single computation operation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "computations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value\nin Developer Console / [App Name] / API Credentials.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"definition\": {\n    \"targetFields\": {\n      \"ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"uids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"languageCode\": \"<string>\",\n  \"details\": {\n    \"source\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b249de62-ffe5-4e62-b915-79dc18599314",
+              "name": "Operation Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"definition\": {\n    \"targetFields\": {\n      \"ids\": [\n        \"c_blogPost\",\n        \"c_blogPost\"\n      ],\n      \"uids\": [\n        \"location.custom.123456.blogpost.0\",\n        \"location.custom.123456.blogpost.0\"\n      ]\n    }\n  },\n  \"languageCode\": \"en\",\n  \"details\": {\n    \"source\": \"API Test\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/553564/computations/01HEV7A955WFEXNWDKRDRC5VM3\",\n    \"uid\": \"01HEV7A955WFEXNWDKRDRC5VM3\",\n    \"accountId\": \"string\",\n    \"createTime\": \"2023-11-09T23:40:12.325Z\",\n    \"startTime\": \"2023-11-09T23:40:12.325Z\",\n    \"completeTime\": \"2023-11-09T23:40:12.325Z\",\n    \"definition\": {\n      \"targetFields\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"triggerType\": \"MANUAL\"\n    },\n    \"languageCode\": \"en\",\n    \"resultMetadata\": {\n      \"updatedEntityProfileCount\": 0,\n      \"updatedFieldCount\": 0,\n      \"upsertedSuggestionsCount\": 0,\n      \"updatedErrorCount\": 0,\n      \"suggestionsErrorCount\": 0,\n      \"generationErrors\": 0,\n      \"status\": \"PROCESSING\",\n      \"updateTime\": \"2023-11-09T23:40:17.065208732Z\"\n    },\n    \"requestMetadata\": {\n      \"entityProfileRequestCount\": 1,\n      \"entityFieldRequestCount\": 1,\n      \"planningCompleted\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b8de77b-3378-4055-b4e6-99ecc8ebf145",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"definition\": {\n    \"targetFields\": {\n      \"ids\": [\n        \"c_blogPost\",\n        \"c_blogPost\"\n      ],\n      \"uids\": [\n        \"location.custom.123456.blogpost.0\",\n        \"location.custom.123456.blogpost.0\"\n      ]\n    }\n  },\n  \"languageCode\": \"en\",\n  \"details\": {\n    \"source\": \"API Test\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 8392,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 931,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f0fd525-43c0-4246-9dc9-f4a656fd40d5",
+          "name": "Computations: List Operations",
+          "request": {
+            "name": "Computations: List Operations",
+            "description": {
+              "content": "Retrieve a list of computation operations.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "computations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<string>",
+                  "description": "Max Page Size = 1000 and unspecified defaults to 100.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the `pageToken` field,\npass that field's value as the `pageToken` parameter to retrieve\nthe next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value\nin Developer Console / [App Name] / API Credentials.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a67d14ec-66b6-4a73-9a90-ff27b06edecd",
+              "name": "List Operations Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"pagination\": {\n      \"pageToken\": \"CDk=\"\n    }\n  },\n  \"response\": {\n    \"operations\": [\n      {\n        \"name\": \"accounts/553564/computations/01HEV7A955WFEXNWDKRDRC5VM3\",\n        \"uid\": \"01HEV7A955WFEXNWDKRDRC5VM3\",\n        \"accountId\": \"string\",\n        \"createTime\": \"2023-11-09T23:40:12.325Z\",\n        \"startTime\": \"2023-11-09T23:40:12.325Z\",\n        \"completeTime\": \"2023-11-09T23:40:12.325Z\",\n        \"definition\": {\n          \"triggerType\": \"MANUAL\"\n        },\n        \"languageCode\": \"en\",\n        \"resultMetadata\": {\n          \"updatedEntityProfileCount\": 0,\n          \"updatedFieldCount\": 0,\n          \"upsertedSuggestionsCount\": 0,\n          \"updatedErrorCount\": 0,\n          \"suggestionsErrorCount\": 0,\n          \"generationErrors\": 0,\n          \"status\": \"PROCESSING\",\n          \"updateTime\": \"2023-11-09T23:40:17.065208732Z\"\n        },\n        \"requestMetadata\": {\n          \"entityProfileRequestCount\": 1,\n          \"entityFieldRequestCount\": 1,\n          \"planningCompleted\": true\n        }\n      },\n      {\n        \"name\": \"accounts/553564/computations/01HEV7A955WFEXNWDKRDRC5VM3\",\n        \"uid\": \"01HEV7A955WFEXNWDKRDRC5VM3\",\n        \"accountId\": \"string\",\n        \"createTime\": \"2023-11-09T23:40:12.325Z\",\n        \"startTime\": \"2023-11-09T23:40:12.325Z\",\n        \"completeTime\": \"2023-11-09T23:40:12.325Z\",\n        \"definition\": {\n          \"triggerType\": \"AUTOMATIC\"\n        },\n        \"languageCode\": \"en\",\n        \"resultMetadata\": {\n          \"updatedEntityProfileCount\": 0,\n          \"updatedFieldCount\": 0,\n          \"upsertedSuggestionsCount\": 0,\n          \"updatedErrorCount\": 0,\n          \"suggestionsErrorCount\": 0,\n          \"generationErrors\": 0,\n          \"status\": \"PROCESSING\",\n          \"updateTime\": \"2023-11-09T23:40:17.065208732Z\"\n        },\n        \"requestMetadata\": {\n          \"entityProfileRequestCount\": 1,\n          \"entityFieldRequestCount\": 1,\n          \"planningCompleted\": true\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2ee966-fc0e-4926-9037-e933deff9ab6",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 753,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1271,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e3caae9-fd7e-4c0f-a75a-ffe228ac3d18",
+          "name": "Computations: Cancel Operation",
+          "request": {
+            "name": "Computations: Cancel Operation",
+            "description": {
+              "content": "Cancels a computation operation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "computations",
+                ":operationUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value in\nDeveloper Console / [App Name] / API Credentials.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operationUid",
+                  "description": "(Required) The Yext-generated unique identifier for the computation operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b16b8f9d-3470-4367-9735-de6f004b67a4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations",
+                    ":operationUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationUid",
+                      "description": "(Required) The Yext-generated unique identifier for the computation operation."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7d009bc-16d5-473c-89f0-a530b169e2b0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations",
+                    ":operationUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationUid",
+                      "description": "(Required) The Yext-generated unique identifier for the computation operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 753,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1271,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21508b77-9c36-4ffa-b132-b2d8ba210ccd",
+          "name": "Computations: Get Operation",
+          "request": {
+            "name": "Computations: Get Operation",
+            "description": {
+              "content": "Retrieve a single computation operation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "computations",
+                ":operationUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value in\nDeveloper Console / [App Name] / API Credentials.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operationUid",
+                  "description": "(Required) The Yext-generated unique identifier for the computation operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0787bf43-094e-4172-9cf1-17e86b332997",
+              "name": "Operation Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations",
+                    ":operationUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationUid",
+                      "description": "(Required) The Yext-generated unique identifier for the computation operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/553564/computations/01HEV7A955WFEXNWDKRDRC5VM3\",\n    \"uid\": \"01HEV7A955WFEXNWDKRDRC5VM3\",\n    \"accountId\": \"string\",\n    \"createTime\": \"2023-11-09T23:40:12.325Z\",\n    \"startTime\": \"2023-11-09T23:40:12.325Z\",\n    \"completeTime\": \"2023-11-09T23:40:12.325Z\",\n    \"definition\": {\n      \"targetFields\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"triggerType\": \"MANUAL\"\n    },\n    \"languageCode\": \"en\",\n    \"resultMetadata\": {\n      \"updatedEntityProfileCount\": 0,\n      \"updatedFieldCount\": 0,\n      \"upsertedSuggestionsCount\": 0,\n      \"updatedErrorCount\": 0,\n      \"suggestionsErrorCount\": 0,\n      \"generationErrors\": 0,\n      \"status\": \"PROCESSING\",\n      \"updateTime\": \"2023-11-09T23:40:17.065208732Z\"\n    },\n    \"requestMetadata\": {\n      \"entityProfileRequestCount\": 1,\n      \"entityFieldRequestCount\": 1,\n      \"planningCompleted\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6d755ab-670f-4f71-8471-1e85e21aebb0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "computations",
+                    ":operationUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationUid",
+                      "description": "(Required) The Yext-generated unique identifier for the computation operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 753,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1271,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d06609bf-91ad-4f9c-8d70-da289f5eb287",
+    "name": "Yext Admin Account Settings Computations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

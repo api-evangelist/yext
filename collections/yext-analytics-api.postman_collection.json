@@ -1,0 +1,782 @@
+{
+  "item": [
+    {
+      "id": "096ff799-3ead-4416-9c3f-c501542e700e",
+      "name": "Analytics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7205022c-c981-4465-bf33-f8199949c41c",
+          "name": "Catalog",
+          "request": {
+            "name": "Catalog",
+            "description": {
+              "content": "List of all metrics for which reporting data is available, along with their completed dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "analytics",
+                "catalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "638644f8-905c-4ac2-8fff-6ce294688445",
+              "name": "Completed dates of all metrics available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"metrics\": [\n      {\n        \"id\": \"string\",\n        \"completedDate\": \"2001-01-11\"\n      },\n      {\n        \"id\": \"string\",\n        \"completedDate\": \"1961-03-15\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a434f3f-5f35-4135-9b19-0468feabfb2f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 7206,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1548,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30ec9629-8d4e-4a25-b456-2c074e38cf3d",
+          "name": "Max Dates",
+          "request": {
+            "name": "Max Dates",
+            "description": {
+              "content": "Fetch the completed date for Listings and Bing metrics. Fetching the completed date for individual metrics can be done using the catalog endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "analytics",
+                "maxdates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6edcf947-f6d2-4fdd-b125-8515ac0d86ba",
+              "name": "Maximum date through which reporting data is available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "maxdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"standardMaxDate\": \"1975-06-18\",\n    \"bingMaxDate\": \"2004-12-18\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a711af30-0f05-4ba5-86a8-4237d146fd21",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "maxdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4326,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 7170,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "074e7b94-4dae-45aa-99e9-6b757baba40f",
+          "name": "Reports",
+          "request": {
+            "name": "Reports",
+            "description": {
+              "content": "Create a report to retrieve analytics for each of your products using synchronous or asynchronous requests depending on the size of your data.\n\nFor more information available in the Reports API, check our documentation below:\n* [Metrics in Analytics](https://help.yext.com/hc/en-us/articles/360000001103-Metrics-in-Analytics)\n* [Dimensions in Analytics](https://help.yext.com/hc/en-us/articles/5901921968027-Dimensions-in-Analytics)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "analytics",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "async",
+                  "value": "<boolean>",
+                  "description": "Defaults to false.  When true, the report’s ID will be returned immediately and the report results can be fetched later.  When false, the report results will be returned immediately, but an error may occur if the data requested is too large."
+                },
+                {
+                  "disabled": false,
+                  "key": "callback",
+                  "value": "<string>",
+                  "description": "Optional.  When async=true and callback is specified, the provided URL will be called when the report is ready.\nThe URL must be of the form:\n\n    POST https://[your domain]/[your path]\n\nIt must accept the following parameters:\n\n    id:         (string)  - The ID of the report request which completed.\n\n    status:     (string)  - One of [DONE, FAILED] indicating the result of the request.\n\n    statusCode: (int)     - An HTTP status code indicating the result of the request.\n\n    message:    (string)  - When status=FAILED, contains an error message.\n\n    url:        (string)  - When status=DONE, contains the URL to download the report data as a text file.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"ANSWERS_BACKEND\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_BLANK_SEARCH_TERM\": \"<boolean>\",\n    \"ANSWERS_CLICK_LABEL\": \"<string>\",\n    \"ANSWERS_CLICK_TYPE\": \"<string>\",\n    \"ANSWERS_CLICK_URL\": \"<string>\",\n    \"ANSWERS_CLUSTER\": \"<string>\",\n    \"ANSWERS_CONFIGURATION_VERSION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_CONFIGURATION_VERSION_LABEL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_DIRECT_ANSWER_CLICK\": \"<boolean>\",\n    \"ANSWERS_DIRECT_ANSWER_FIELD\": \"<string>\",\n    \"ANSWERS_DIRECT_ANSWER_FIELD_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_DIRECT_ANSWER_FIELD_VALUE\": \"<string>\",\n    \"ANSWERS_DIRECT_ANSWER_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_EXPERIENCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_KEY\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_OPERATOR\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_VALUE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_HAS_CASE_START\": \"<boolean>\",\n    \"ANSWERS_HAS_CASE_SUBMIT\": \"<boolean>\",\n    \"ANSWERS_HAS_KG_RESULTS\": \"<boolean>\",\n    \"ANSWERS_HAS_SEARCH_TERM_CLUSTER\": \"<boolean>\",\n    \"ANSWERS_HAS_VOICE_SEARCH\": \"<boolean>\",\n    \"ANSWERS_QUERY_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_RAW_SEARCH_TERM\": \"<string>\",\n    \"ANSWERS_REFERRER_DOMAIN\": \"<string>\",\n    \"ANSWERS_REFERRER_PAGE_URL\": \"<string>\",\n    \"ANSWERS_RESULT_ENTITY_POSITION\": \"<integer>\",\n    \"ANSWERS_RESULT_TITLE\": \"<string>\",\n    \"ANSWERS_RESULT_VERTICAL_POSITION\": \"<integer>\",\n    \"ANSWERS_SEARCH_ID\": \"<string>\",\n    \"ANSWERS_SEARCH_TERM\": \"<string>\",\n    \"ANSWERS_SEARCH_TERM_CLUSTER_PERFORMANCE\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"ANSWERS_SEARCH_TERM_INTENT\": \"<string>\",\n    \"ANSWERS_SEARCH_VERTICAL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_SESSION_ID\": \"<string>\",\n    \"ANSWERS_TRAFFIC_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_BROWSER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_CITY\": \"<string>\",\n    \"ANSWERS_USER_COUNTRY\": \"<string>\",\n    \"ANSWERS_USER_DEVICE_CLASS\": \"<string>\",\n    \"ANSWERS_USER_LAT_LONG\": \"<string>\",\n    \"ANSWERS_USER_LOCATION_ACCURACY\": \"<string>\",\n    \"ANSWERS_USER_POSTAL_CODE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_REGION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_VERTICAL_RETURNED\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CLICK_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CONFIGURATION_VERSION_LABEL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CONVERSION_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MEDIUM\": \"<string>\",\n    \"PRODUCT\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"TRAFFIC_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VALUE_PROPOSITION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VERTICAL_CONFIG_ID\": \"<string>\",\n    \"age\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_EMAIL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_ID\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_ID_METHOD\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_NAME\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"competitor\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"countries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customerActionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"endDate\": \"<date>\",\n    \"entityGroup\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"entityIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"entityType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eventSearchCondition\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookImpressionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookRsvpType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookStoryType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folderIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"foursquareCheckinAge\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"foursquareCheckinGender\": \"<string>\",\n    \"foursquareCheckinTimeOfDay\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"foursquareCheckinType\": \"<string>\",\n    \"frequentWords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"gender\": \"<string>\",\n    \"googleActionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"googleQueryType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"hours\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"instagramContentType\": \"<string>\",\n    \"keyword\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"listingsLiveType\": \"<string>\",\n    \"locationIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"locationLabels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"matchPosition\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"matchType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"maxSearchFrequency\": \"<double>\",\n    \"minSearchFrequency\": \"<double>\",\n    \"pageTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"partners\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"platformType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"publisherSuggestionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"queryTemplate\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ratings\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"reviewLabels\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"searchEngine\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searchResultType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searchTerms\": \"<string>\",\n    \"sentimentCollection\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"startDate\": \"<date>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f2e7ad8-be74-48ca-b4fa-5226aaf0feac",
+              "name": "Returns report data if synchronous or report id if asynchronous",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "async",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"ANSWERS_BACKEND\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_BLANK_SEARCH_TERM\": \"<boolean>\",\n    \"ANSWERS_CLICK_LABEL\": \"<string>\",\n    \"ANSWERS_CLICK_TYPE\": \"<string>\",\n    \"ANSWERS_CLICK_URL\": \"<string>\",\n    \"ANSWERS_CLUSTER\": \"<string>\",\n    \"ANSWERS_CONFIGURATION_VERSION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_CONFIGURATION_VERSION_LABEL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_DIRECT_ANSWER_CLICK\": \"<boolean>\",\n    \"ANSWERS_DIRECT_ANSWER_FIELD\": \"<string>\",\n    \"ANSWERS_DIRECT_ANSWER_FIELD_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_DIRECT_ANSWER_FIELD_VALUE\": \"<string>\",\n    \"ANSWERS_DIRECT_ANSWER_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_EXPERIENCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_KEY\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_OPERATOR\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_VALUE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_HAS_CASE_START\": \"<boolean>\",\n    \"ANSWERS_HAS_CASE_SUBMIT\": \"<boolean>\",\n    \"ANSWERS_HAS_KG_RESULTS\": \"<boolean>\",\n    \"ANSWERS_HAS_SEARCH_TERM_CLUSTER\": \"<boolean>\",\n    \"ANSWERS_HAS_VOICE_SEARCH\": \"<boolean>\",\n    \"ANSWERS_QUERY_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_RAW_SEARCH_TERM\": \"<string>\",\n    \"ANSWERS_REFERRER_DOMAIN\": \"<string>\",\n    \"ANSWERS_REFERRER_PAGE_URL\": \"<string>\",\n    \"ANSWERS_RESULT_ENTITY_POSITION\": \"<integer>\",\n    \"ANSWERS_RESULT_TITLE\": \"<string>\",\n    \"ANSWERS_RESULT_VERTICAL_POSITION\": \"<integer>\",\n    \"ANSWERS_SEARCH_ID\": \"<string>\",\n    \"ANSWERS_SEARCH_TERM\": \"<string>\",\n    \"ANSWERS_SEARCH_TERM_CLUSTER_PERFORMANCE\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"ANSWERS_SEARCH_TERM_INTENT\": \"<string>\",\n    \"ANSWERS_SEARCH_VERTICAL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_SESSION_ID\": \"<string>\",\n    \"ANSWERS_TRAFFIC_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_BROWSER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_CITY\": \"<string>\",\n    \"ANSWERS_USER_COUNTRY\": \"<string>\",\n    \"ANSWERS_USER_DEVICE_CLASS\": \"<string>\",\n    \"ANSWERS_USER_LAT_LONG\": \"<string>\",\n    \"ANSWERS_USER_LOCATION_ACCURACY\": \"<string>\",\n    \"ANSWERS_USER_POSTAL_CODE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_REGION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_VERTICAL_RETURNED\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CLICK_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CONFIGURATION_VERSION_LABEL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CONVERSION_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MEDIUM\": \"<string>\",\n    \"PRODUCT\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"TRAFFIC_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VALUE_PROPOSITION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VERTICAL_CONFIG_ID\": \"<string>\",\n    \"age\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_EMAIL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_ID\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_ID_METHOD\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_NAME\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"competitor\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"countries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customerActionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"endDate\": \"2017-01-31\",\n    \"entityGroup\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"entityIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"entityType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eventSearchCondition\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookImpressionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookRsvpType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookStoryType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folderIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"foursquareCheckinAge\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"foursquareCheckinGender\": \"<string>\",\n    \"foursquareCheckinTimeOfDay\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"foursquareCheckinType\": \"<string>\",\n    \"frequentWords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"gender\": \"<string>\",\n    \"googleActionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"googleQueryType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"hours\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"instagramContentType\": \"<string>\",\n    \"keyword\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"listingsLiveType\": \"<string>\",\n    \"locationIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"locationLabels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"matchPosition\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"matchType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"maxSearchFrequency\": \"<double>\",\n    \"minSearchFrequency\": \"<double>\",\n    \"pageTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"partners\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"platformType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"publisherSuggestionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"queryTemplate\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ratings\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"reviewLabels\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"searchEngine\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searchResultType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searchTerms\": \"<string>\",\n    \"sentimentCollection\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"startDate\": \"2017-01-01\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"data\": [\n      {\n        \"key_0\": \"string\"\n      },\n      {\n        \"key_0\": \"string\"\n      }\n    ],\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4231931-2136-4d01-93bd-ed21e29d8ef6",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "async",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "callback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"ANSWERS_BACKEND\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_BLANK_SEARCH_TERM\": \"<boolean>\",\n    \"ANSWERS_CLICK_LABEL\": \"<string>\",\n    \"ANSWERS_CLICK_TYPE\": \"<string>\",\n    \"ANSWERS_CLICK_URL\": \"<string>\",\n    \"ANSWERS_CLUSTER\": \"<string>\",\n    \"ANSWERS_CONFIGURATION_VERSION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_CONFIGURATION_VERSION_LABEL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_DIRECT_ANSWER_CLICK\": \"<boolean>\",\n    \"ANSWERS_DIRECT_ANSWER_FIELD\": \"<string>\",\n    \"ANSWERS_DIRECT_ANSWER_FIELD_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_DIRECT_ANSWER_FIELD_VALUE\": \"<string>\",\n    \"ANSWERS_DIRECT_ANSWER_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_EXPERIENCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_KEY\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_OPERATOR\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_FILTER_VALUE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_HAS_CASE_START\": \"<boolean>\",\n    \"ANSWERS_HAS_CASE_SUBMIT\": \"<boolean>\",\n    \"ANSWERS_HAS_KG_RESULTS\": \"<boolean>\",\n    \"ANSWERS_HAS_SEARCH_TERM_CLUSTER\": \"<boolean>\",\n    \"ANSWERS_HAS_VOICE_SEARCH\": \"<boolean>\",\n    \"ANSWERS_QUERY_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_RAW_SEARCH_TERM\": \"<string>\",\n    \"ANSWERS_REFERRER_DOMAIN\": \"<string>\",\n    \"ANSWERS_REFERRER_PAGE_URL\": \"<string>\",\n    \"ANSWERS_RESULT_ENTITY_POSITION\": \"<integer>\",\n    \"ANSWERS_RESULT_TITLE\": \"<string>\",\n    \"ANSWERS_RESULT_VERTICAL_POSITION\": \"<integer>\",\n    \"ANSWERS_SEARCH_ID\": \"<string>\",\n    \"ANSWERS_SEARCH_TERM\": \"<string>\",\n    \"ANSWERS_SEARCH_TERM_CLUSTER_PERFORMANCE\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"ANSWERS_SEARCH_TERM_INTENT\": \"<string>\",\n    \"ANSWERS_SEARCH_VERTICAL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_SESSION_ID\": \"<string>\",\n    \"ANSWERS_TRAFFIC_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_BROWSER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_CITY\": \"<string>\",\n    \"ANSWERS_USER_COUNTRY\": \"<string>\",\n    \"ANSWERS_USER_DEVICE_CLASS\": \"<string>\",\n    \"ANSWERS_USER_LAT_LONG\": \"<string>\",\n    \"ANSWERS_USER_LOCATION_ACCURACY\": \"<string>\",\n    \"ANSWERS_USER_POSTAL_CODE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_USER_REGION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ANSWERS_VERTICAL_RETURNED\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CLICK_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CONFIGURATION_VERSION_LABEL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"CONVERSION_TYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MEDIUM\": \"<string>\",\n    \"PRODUCT\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"TRAFFIC_SOURCE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VALUE_PROPOSITION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VERTICAL_CONFIG_ID\": \"<string>\",\n    \"age\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_EMAIL\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_ID\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_ID_METHOD\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VISITOR_NAME\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"competitor\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"countries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customerActionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"endDate\": \"2017-01-31\",\n    \"entityGroup\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"entityIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"entityType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eventSearchCondition\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookImpressionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookRsvpType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"facebookStoryType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folderIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"foursquareCheckinAge\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"foursquareCheckinGender\": \"<string>\",\n    \"foursquareCheckinTimeOfDay\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"foursquareCheckinType\": \"<string>\",\n    \"frequentWords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"gender\": \"<string>\",\n    \"googleActionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"googleQueryType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"hours\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"instagramContentType\": \"<string>\",\n    \"keyword\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"listingsLiveType\": \"<string>\",\n    \"locationIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"locationLabels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"matchPosition\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"matchType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"maxSearchFrequency\": \"<double>\",\n    \"minSearchFrequency\": \"<double>\",\n    \"pageTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"partners\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"platformType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"publisherSuggestionType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"queryTemplate\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ratings\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"reviewLabels\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"searchEngine\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searchResultType\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searchTerms\": \"<string>\",\n    \"sentimentCollection\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"startDate\": \"2017-01-01\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4326,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 7170,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7be7c498-04db-45d0-bbe7-942058460694",
+          "name": "Report Status",
+          "request": {
+            "name": "Report Status",
+            "description": {
+              "content": "Checks the status of a Report created with async=true.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "analytics",
+                "standardreports",
+                ":reportId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "reportId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "624e462c-e30c-4de7-9425-b1c65ccf3dc9",
+              "name": "Status of a report created with async=true",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "standardreports",
+                    ":reportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"status\": \"FAILED\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b95adeb2-d7e5-4647-91fd-f246c4d0b326",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "analytics",
+                    "standardreports",
+                    ":reportId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4326,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 7170,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5d4669b8-bf73-404a-bd30-b34d179903cb",
+    "name": "Yext Admin Account Settings Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

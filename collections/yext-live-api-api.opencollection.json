@@ -1,0 +1,1095 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Live API API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Live API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Entities: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entities",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "convertMarkdownToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Markdown** as HTML.\n  - `false`: **Markdown** fields will be returned as JSON\n  - `true`: **Markdown** fields will be returned as HTML\n"
+              },
+              {
+                "name": "convertRichTextToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Rich Text** as HTML.\n  - `false`: **Rich Text** fields will be returned as JSON\n  - `true`: **Rich Text** fields will be returned as HTML\n"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Entity types to filter on. Example: `\"location,event\"`\n\nShould be from the following types:\n  * `atm`\n  * `event`\n  * `faq`\n  * `financialProfessional`\n  * `healthcareFacility`\n  * `healthcareProfessional`\n  * `hotel`\n  * `hotelRoomType`\n  * `job`\n  * `location`\n  * `organization`\n  * `product`\n  * `restaurant`\n\nOR the API name of a custom entity type.\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"address.line1\"`). Custom fields are specified in the same way, albeit with their `c_*` name."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filter param after URL-encoding will be: `filter=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined into one object using *combinators*. For example, the following filter JSON combines multiple filters using the combinator `$and`. `$or` is also supported.\n```\n{\n  \"$and\":[\n    {\n      \"firstName\":{\n        \"$eq\":\"John\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"$in\":[\n          \"US\",\n          \"GB\"\n        ]\n      }\n    }\n  ]\n}\n```\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**Filter Complement**\n\nYou can also search for the complement of a filter. This filter would match entities that do not contain \"hello\" in their descriptions, or do not have a description set. This is different from negation which can only match entities who have the negated field set to something.\n\n```\n{\n  \"$complement\":{\n    \"description\":{\n      \"$contains\":\"hello\"\n    }\n  }\n}\n```\n\n**Addressing Subfields**\n\nSubfields of fields can be addressed using the \"dot\" notation while filtering. For example, if you have a custom field called **`c_myCustomField`**:\n\n```\n{\n  \"c_myCustomField\":{\n    \"age\": 30,\n    \"name\": \"Jim\",\n  }\n}\n```\n\nWhile filtering, subfields may be addressed using the \"dot\" notation.\n\n```\n{\n  \"c_myCustomField.name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\nFields that are nested deeper may be addressed using dot notation, as well. For example, if **`name`** in the above example was a compound field with two subfields **`first`** and **`last`**, **`first`** may be addressed as **`c_myCustomField.name.first`**.\n\n**Field Support**\n\nEntity fields correspond to certain filter types, which support matchers. Going by the example above, the field **`name`** supports the `TEXT` filter type, which supports `$eq` (equals) and `$startsWith` (starts with).\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n  Matches if the field starts with the argument value.\n\n  e.g., \"Amazing\" starts with \"amaz\"\n\n    {\n       \"address.line1\":{\n          \"$startsWith\": \"Jo\"\n       }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n  Matches if field value is a member of the argument list.\n\n    {\n      \"firstName\":{\n        \"$in\": [\"John\", \"Jimmy\"]\n      }\n    }\n\n  Does not support negation. Negation can be mimicked by using an \"OR\" matcher, for example:\n\n    {\n      \"$and\":[\n        {\n          \"firstName\":{\n            \"!$eq\": \"John\"\n          }\n        },\n        {\n          \"firstName\":{\n            \"!$eq\": \"Jimmy\"\n          }\n        }\n      ]\n    }\n\n  </tr>\n  <tr>\n    <th>$contains</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$contains\":\"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" is contained in any string within **`c_myString`**.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n  <tr>\n    <th>$containsAny</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$containsAny\":[\n          \"sample1\", \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if either \"sample1\" or \"sample2\" is contained in any string within **`c_myString`**. The argument list can contain more than two strings.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n  <tr>\n    <th>$containsAll</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$containsAll\":[\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"sample1\" and \"sample2\" are contained in any string within **`c_myString`**. The argument list can contain more than two strings.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**STRUCT**\n\nThe STRUCT filter type is supported for compound fields with subfields.\n\n*e.g., **`address`**, **`featuredMessage`**, fields of custom types*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$hasProperty</th>\n    <th>\n\n  Matches if argument is a key (subfield) of field being filtered by. This filter type is useful for filtering by compound fields or to check if certain fields have a value set.\n\n    {\n      \"address\": {\n        \"$hasProperty\": \"line1\"\n      }\n    }\n\n  Note that if a given property of a compound field is not set, the filter will not match. For example, if `line1` of **`address`** is not set for an entity, then the above matcher will not match the entity.\n\n  Supports negation.\n\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for options custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n\n  Supports negation. Negating `$eq` on the list will match any field that does not hold any of the provided values.\n\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n    {\n      \"eventStatus\": {\n        \"$in\": [\n          \"SCHEDULED\",\n          \"POSTPONED\"\n        ]\n      }\n    }\n\n  Does not support negation. However, negation can be mimicked by using an `$and` matcher to negate individually over the desired values. For example:\n\n    {\n      \"$and\": [\n        {\n          \"eventStatus\":{\n            \"!$eq\": \"SCHEDULED\"\n          }\n        },\n        {\n          \"firstName\":{\n            \"!$eq\": \"POSTPONED\"\n          }\n        }\n      ]\n    }\n\n  </tr>\n</table>\n\n**PHONE**\n\nThe PHONE filter type is supported for phone number fields only. PHONE will support the same matchers as TEXT, except that for `$eq`, the same phone number with or without calling code will match.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"mainPhone\":{\n        \"$eq\":\"+18187076189\"\n      }\n    },\n    {\n      \"mainPhone\":{\n        \"$eq\":\"8187076189\"\n      }\n    },\n    {\n      \"mainPhone\":{\n        \"!$eq\":\"9177076189\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n  Matches if the field starts with the argument value.\n\n  e.g., \"8187076189\" starts with \"818\"\n\n    {\n      \"mainPhone\":{\n        \"$startsWith\": \"818\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n  Matches if field value is a member of the argument list.\n\n    {\n      \"mainPhone\":{\n        \"$in\": [\n          \"8185551616\",\n          \"9171112211\"\n        ]\n      }\n    }\n\n  Does not support negation. However, negation can be mimicked by using an `$and` matcher to negate individually over the desired values.\n\n  </tr>\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  While we do not support \"between\" in our filtering syntax, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n\n**LIST OF TEXT**\n\nAny field that has a list of valid values and supports any of the previously mentioned filter types will also support the `$contains` matcher.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eq\": \"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" EXACTLY matches any string within **`c_myStringList`**.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAny</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAny\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if any one of \"sample1\" or \"sample2\" EXACTLY match a string within **`c_myStringList`** . The argument can have more than two strings.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"sample1\" AND \"sample2\" EXACTLY match a string within **`c_myStringList`**. The argument can have more than two strings.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$contains</th>\n    <th>\n\n    {\n      \"c_myStringList\":{\n        \"$contains\":\"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" is contained in any string within **`c_myStringList`**.\n\n  Note that this matching is \"left edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This is a sample\", \"Sample one\", \"Sample 2\" but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$containsAny</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$containsAny\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n\n  This filter will match if either \"sample1\" or \"sample2\" is contained in any string within **`c_myStringList`**. The argument list can have more than two strings.\n\n  Note that similar to `$contains`, the matching for `$containsAny` is \"left edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This is a sample\", \"Sample one\", \"Sample 2\" but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$containsAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$containsAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if BOTH \"sample1\" and \"sample2\" are contained in strings within **`c_myStringList`**. The argument list can have more than two strings.\n\n  Note that similar to `$contains`, the matching for `$containsAll` is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$startsWith\":\"sample\"\n      }\n    }\n\n  This filter will match if any string within **`c_myStringList`** starts with \"sample\".\n\n  Does not supports negation. Case Insensitive.\n\n  </tr>\n</table>\n\n**LIST OF BOOLEAN, OPTION, PHONE, INTEGER, FLOAT, DATE, DATETIME, OR TIME**\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"c_myDateList\": {\n        \"$eq\": \"2019-01-01\"\n      }\n    }\n\n\n  This filter will match if \"2019-01-01\" EXACTLY matches any date within **`c_myDateList`**.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAny</th>\n    <th>\n\n    {\n      \"c_myIntegerList\": {\n        \"$eqAny\": [1, 2]\n      }\n    }\n\n  This filter will match if 1 or 2 EXACTLY match any integer within **`c_myIntegerList`**. The argument list can have more than two elements.\n\n  Supports negation.\n\n  </tr>\n\n  <tr>\n    <th>$eqAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"2019-01-01\" AND \"2019-01-02\" EXACTLY match a date within **`c_myDateList`**. The argument list can have more than two elements.\n\n  Supports negation.\n\n  </tr>\n</table>\n\n**LIST OF STRUCT**\n\nFiltering on lists of struct types is a bit nuanced. Filtering can only be done on lists of structs of the SAME type.\nFor example, if **`c_myStructList`** is a list of compound fields with the subfields **`age`** and **`name`**, then one can address the **`age`** properties of each field in **`c_myStructList`** as a flattened list of integers and filtering upon them. For example, the following filter:\n\n```\n{\n  \"c_myStructList.age\":{\n    \"$eq\": 20\n  }\n}\n```\n\nwill match if any field in the list has an **`age`** property equal to 20. Similarly, any filter that can be applied to lists of integers could be applied to **`age`** in this case (`$eq`, `$eqAll`, `$eqAny`).\n\n\n**HOURS**\n\nBy filtering on an hours field, you can find which entities are open or closed at a specified time or during a certain time range. All of these filters also take an entity’s holiday hours and reopen date into account.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$openAt</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openAt\":\n          \"2019-01-06T13:45\"\n      }\n    }\n\n\n  This filter would match entities open at the specified time.\n\n  </tr>\n  <tr>\n    <th>$closedAt</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedAt:\n          \"2019-01-06T13:45\"\n      }\n    }\n\n  </tr>\n\n  <tr>\n    <th>$openForAllOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openForAllOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n\n  This filter would match only those entities that are open for the entire range between 2019-01-06T13:45 and 2019-01-06T15:00.\n\n    {\n      \"hours\": {\n        \"$openForAllOf\":\n          \"2019-05-10\"\n      }\n    }\n\n  This filter would match entities open for the entire 24 hour period on 2019-05-10.\n\n  You can also supply a year, a month, or an hour to filter for entities open for the entire year, month, or hour, respectively.\n\n  </tr>\n  <tr>\n    <th>$openForAnyOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openForAnyOf\": {\n          \"start\": \"now\",\n          \"end\": \"now+2h\"\n        }\n      }\n    }\n\n  This filter will match any entities that are open for at least a portion of the time range between now and two hours from now.\n\n  </tr>\n  <tr>\n    <th>$closedForAllOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedForAllOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n  This filter will match only those entities that are closed for the entire given time range.\n  </tr>\n  <tr>\n    <th>$closedForAnyOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedForAnyOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n  This filter will match any entities that are closed for at least a portion of the given time range.\n  </tr>\n</table>\n\n\n**Filtering by Dates and Times**\n\n**Time zones**\n\nThe filtering language supports searching both in local time and within a certain time zone. Searching in local time will simply ignore the time zone on the target entities, while providing one will convert the zone of your queried time to the zone of the target entities.\n\nTo search in local time, simply provide the date or time without any zone: `2019-06-07T15:30` or `2019-06-07`.\n\nTo conduct a zoned search, provide the name of the time zone in brackets after the time, as it is shown in the tz database: `2019-06-07T15:30[America/New_York]` or `2019-06-06[America/Phoenix]`.\n\n\n**Date and time types**\n\nIn addition to searching with dates and datetimes, you can also query with years, months, and hours. For example, the filter:\n\n```\n{\n  \"time.start\": {\n    \"$eq\": \"2018\"\n  }\n}\n```\n\nwould match all start times in the year 2018. The same logic would apply for a month (`2019-05`), a date (`2019-05-01`), or an hour (`2019-05-01T06`).\n\nThese types also work with ordered searches. For example:\n\n```\n{\n \"time.start\": {\n    \"$lt\": \"2018\"\n }\n}\n```\n\nwould match start times before 2018 (i.e., anything in 2017 or before). On the other hand, the same query with a `$le` matcher would include anything in or before 2018.\n\n**\"Now\" and Date Math**\n\nInstead of providing a static date or time, you can also use `now` in place of any date time. When you do so, the system will calculate the time when the query is made and conduct a zoned search.\n\nIn order to search for a future or past time relative to `now`, you can use date math. For example, you can enter `now+3h` or `now-1d`, which would mean 3 hours from now and 1 day ago, respectively. You can also add and subtract minutes (`m`), months (`M`), and years (`y`).\n\nIt is also possible to add or subtract time from a static date or datetime. Simply add `||` between the static value and any addition or subtraction. For example, `2019-02-03||+1d` would be the same as `2019-02-04`.\n\nYou can also convert date and time types to other types. For example, to convert the datetime `2019-05-06T22:15` to a date, use `2019-05-06T22:15||/d`. Doing so would yield the same result as using `2019-05-06`. This method also works with `now`: `now/d` will give you today’s date without the time.\n\n**Filtering Across an Entity**\n\nIt is possible to search for a specific text string across all fields of an entity by using the `$anywhere` matcher.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$anywhere</th>\n    <th>\n\n  Matches if the argument text appears anywhere in the entity (including subfields, structs, and lists)\n\n    {\n      \"$anywhere\": \"hello\"\n    }\n\n  This filter will match all entities that contain the string \"hello\" or strings that begin with \"hello\".\n\n  </tr>\n</table>\n\n**Examples**\n\nThe following filter will match against entities that:\n- Are of type `event` (note that entity types can also be filtered by the **`entityTypes`** query parameter)\n- Have a name that starts with the text \"Century\"\n- Have a maximum age between 10 and 20\n- Have a minimum age between 5 and 7\n- Start after 7 PM (19:00) on August 28, 2018\n\n```\n{\n  \"$and\":[\n    {\n      \"entityType\":{\n        \"$eq\":\"event\"\n      }\n    },\n    {\n      \"name\":{\n        \"$startsWith\":\"Century\"\n      }\n    },\n    {\n      \"ageRange.maxValue\":{\n        \"$gt\":10,\n        \"$lt\":20\n      }\n    },\n    {\n      \"ageRange.minValue\":{\n        \"$gt\":5,\n        \"$lt\":7\n      }\n    },\n    {\n      \"time.start\":{\n        \"$ge\":\"2018-08-28T19:00\"\n      }\n    }\n  ]\n}\n```\n"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Present if and only if at least one field is of type \"**Legacy Rich Text**.\"\n\nValid values:\n  * `markdown`\n  * `html`\n  * `none`\n"
+              },
+              {
+                "name": "languages",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of language codes.\n\nWhen present, the system will return Entities that have profiles in one or more of the provided languages. For each Location, only the first available profile from the provided list of languages will be returned. The keyword `\"primary\"` can be used to refer to a Location’s primary profile without providing a specific language code. If an Entity does not have profiles in any of the languages provided, that Entity's primary profile will be returned.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n\nFor Live API requests, the offset cannot be higher than 9,950. For Knowledge API the maximum limit is only enforced if a filter and/or sortBy parameter are given.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`pageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data."
+              },
+              {
+                "name": "savedFilterIds",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of saved filter IDs.\n\nWhen present, the system will return entities that are included in the filters matching **all** of the provided IDs.\n"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "A list of fields and sort directions to order results by. Each ordering in the list should be in the format `{\"field_name\", \"sort_direction\"}`, where `sort_direction` is either `ASCENDING` or `DESCENDING`.\n\nFor example, to order by `name` the sort order would be `[{\"name\":\"ASCENDING\"}]`. To order by `name` and then `description`, the sort order would be `[{\"name\":\"ASCENDING\"},{\"description\":\"ASCENDING\"}]`.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of Entities within an account\n\n**NOTE:** Responses will contain resolved values for embedded fields\n"
+        },
+        {
+          "info": {
+            "name": "Entities: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entities/:entityId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "The external ID of the requested Entity"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "convertMarkdownToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Markdown** as HTML.\n  - `false`: **Markdown** fields will be returned as JSON\n  - `true`: **Markdown** fields will be returned as HTML\n"
+              },
+              {
+                "name": "convertRichTextToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Rich Text** as HTML.\n  - `false`: **Rich Text** fields will be returned as JSON\n  - `true`: **Rich Text** fields will be returned as HTML\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"address.line1\"`). Custom fields are specified in the same way, albeit with their `c_*` name."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Present if and only if at least one field is of type \"**Legacy Rich Text**.\"\n\nValid values:\n  * `markdown`\n  * `html`\n  * `none`\n"
+              }
+            ]
+          },
+          "docs": "Retrieve information for an Entity with a given ID\n\n**NOTE:** Responses will contain resolved values for embedded fields\n"
+        },
+        {
+          "info": {
+            "name": "Entities: GeoSearch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entities/geosearch",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Only entities near this position will be returned. The values can be specified in one of two ways:\n\n1) Latitude and Longitude: The latitude and longitude of the point, separated by a comma (e.g.`\"40.740957,-73.987565\"`),\n\n2) Address: A free-form address to geocode into a latitude and longitude (e.g., `\"1 Madison Ave, New York, NY 10010\"` or `\"New York, NY\"`).\n\nNote that providing an address that resolves to an area, like a city or a postal code, does not restrict the search to exactly that area; it simply centers the search circle on a point in that area.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "countryBias",
+                "value": "",
+                "type": "query",
+                "description": "The two-character ISO 3166-1 code of the country where the geocoder should be biased.\n\nThe value of the **`countryBias`** parameter influences the search results, but it does not guarantee that the geocoded location will be in the country provided.\n\nIf both **`countryBias`** and **`geocoderBias`** are provided, **`geocoderBias`** is given priority, but both values are considered in the search.\n"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Entity types to filter on. Example: `\"location,event\"`\n\nShould be from the following types:\n  * `atm`\n  * `event`\n  * `faq`\n  * `financialProfessional`\n  * `healthcareFacility`\n  * `healthcareProfessional`\n  * `hotel`\n  * `hotelRoomType`\n  * `job`\n  * `location`\n  * `organization`\n  * `product`\n  * `restaurant`\n\nOR the API name of a custom entity type.\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"address.line1\"`). Custom fields are specified in the same way, albeit with their `c_*` name."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filter param after URL-encoding will be: `filter=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined into one object using *combinators*. For example, the following filter JSON combines multiple filters using the combinator `$and`. `$or` is also supported.\n```\n{\n  \"$and\":[\n    {\n      \"firstName\":{\n        \"$eq\":\"John\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"$in\":[\n          \"US\",\n          \"GB\"\n        ]\n      }\n    }\n  ]\n}\n```\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**Filter Complement**\n\nYou can also search for the complement of a filter. This filter would match entities that do not contain \"hello\" in their descriptions, or do not have a description set. This is different from negation which can only match entities who have the negated field set to something.\n\n```\n{\n  \"$complement\":{\n    \"description\":{\n      \"$contains\":\"hello\"\n    }\n  }\n}\n```\n\n**Addressing Subfields**\n\nSubfields of fields can be addressed using the \"dot\" notation while filtering. For example, if you have a custom field called **`c_myCustomField`**:\n\n```\n{\n  \"c_myCustomField\":{\n    \"age\": 30,\n    \"name\": \"Jim\",\n  }\n}\n```\n\nWhile filtering, subfields may be addressed using the \"dot\" notation.\n\n```\n{\n  \"c_myCustomField.name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\nFields that are nested deeper may be addressed using dot notation, as well. For example, if **`name`** in the above example was a compound field with two subfields **`first`** and **`last`**, **`first`** may be addressed as **`c_myCustomField.name.first`**.\n\n**Field Support**\n\nEntity fields correspond to certain filter types, which support matchers. Going by the example above, the field **`name`** supports the `TEXT` filter type, which supports `$eq` (equals) and `$startsWith` (starts with).\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n  Matches if the field starts with the argument value.\n\n  e.g., \"Amazing\" starts with \"amaz\"\n\n    {\n       \"address.line1\":{\n          \"$startsWith\": \"Jo\"\n       }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n  Matches if field value is a member of the argument list.\n\n    {\n      \"firstName\":{\n        \"$in\": [\"John\", \"Jimmy\"]\n      }\n    }\n\n  Does not support negation. Negation can be mimicked by using an \"OR\" matcher, for example:\n\n    {\n      \"$and\":[\n        {\n          \"firstName\":{\n            \"!$eq\": \"John\"\n          }\n        },\n        {\n          \"firstName\":{\n            \"!$eq\": \"Jimmy\"\n          }\n        }\n      ]\n    }\n\n  </tr>\n  <tr>\n    <th>$contains</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$contains\":\"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" is contained in any string within **`c_myString`**.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n  <tr>\n    <th>$containsAny</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$containsAny\":[\n          \"sample1\", \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if either \"sample1\" or \"sample2\" is contained in any string within **`c_myString`**. The argument list can contain more than two strings.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n  <tr>\n    <th>$containsAll</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$containsAll\":[\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"sample1\" and \"sample2\" are contained in any string within **`c_myString`**. The argument list can contain more than two strings.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**STRUCT**\n\nThe STRUCT filter type is supported for compound fields with subfields.\n\n*e.g., **`address`**, **`featuredMessage`**, fields of custom types*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$hasProperty</th>\n    <th>\n\n  Matches if argument is a key (subfield) of field being filtered by. This filter type is useful for filtering by compound fields or to check if certain fields have a value set.\n\n    {\n      \"address\": {\n        \"$hasProperty\": \"line1\"\n      }\n    }\n\n  Note that if a given property of a compound field is not set, the filter will not match. For example, if `line1` of **`address`** is not set for an entity, then the above matcher will not match the entity.\n\n  Supports negation.\n\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for options custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n\n  Supports negation. Negating `$eq` on the list will match any field that does not hold any of the provided values.\n\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n    {\n      \"eventStatus\": {\n        \"$in\": [\n          \"SCHEDULED\",\n          \"POSTPONED\"\n        ]\n      }\n    }\n\n  Does not support negation. However, negation can be mimicked by using an `$and` matcher to negate individually over the desired values. For example:\n\n    {\n      \"$and\": [\n        {\n          \"eventStatus\":{\n            \"!$eq\": \"SCHEDULED\"\n          }\n        },\n        {\n          \"firstName\":{\n            \"!$eq\": \"POSTPONED\"\n          }\n        }\n      ]\n    }\n\n  </tr>\n</table>\n\n**PHONE**\n\nThe PHONE filter type is supported for phone number fields only. PHONE will support the same matchers as TEXT, except that for `$eq`, the same phone number with or without calling code will match.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"mainPhone\":{\n        \"$eq\":\"+18187076189\"\n      }\n    },\n    {\n      \"mainPhone\":{\n        \"$eq\":\"8187076189\"\n      }\n    },\n    {\n      \"mainPhone\":{\n        \"!$eq\":\"9177076189\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n  Matches if the field starts with the argument value.\n\n  e.g., \"8187076189\" starts with \"818\"\n\n    {\n      \"mainPhone\":{\n        \"$startsWith\": \"818\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n  Matches if field value is a member of the argument list.\n\n    {\n      \"mainPhone\":{\n        \"$in\": [\n          \"8185551616\",\n          \"9171112211\"\n        ]\n      }\n    }\n\n  Does not support negation. However, negation can be mimicked by using an `$and` matcher to negate individually over the desired values.\n\n  </tr>\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  While we do not support \"between\" in our filtering syntax, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n\n**LIST OF TEXT**\n\nAny field that has a list of valid values and supports any of the previously mentioned filter types will also support the `$contains` matcher.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eq\": \"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" EXACTLY matches any string within **`c_myStringList`**.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAny</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAny\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if any one of \"sample1\" or \"sample2\" EXACTLY match a string within **`c_myStringList`** . The argument can have more than two strings.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"sample1\" AND \"sample2\" EXACTLY match a string within **`c_myStringList`**. The argument can have more than two strings.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$contains</th>\n    <th>\n\n    {\n      \"c_myStringList\":{\n        \"$contains\":\"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" is contained in any string within **`c_myStringList`**.\n\n  Note that this matching is \"left edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This is a sample\", \"Sample one\", \"Sample 2\" but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$containsAny</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$containsAny\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n\n  This filter will match if either \"sample1\" or \"sample2\" is contained in any string within **`c_myStringList`**. The argument list can have more than two strings.\n\n  Note that similar to `$contains`, the matching for `$containsAny` is \"left edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This is a sample\", \"Sample one\", \"Sample 2\" but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$containsAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$containsAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if BOTH \"sample1\" and \"sample2\" are contained in strings within **`c_myStringList`**. The argument list can have more than two strings.\n\n  Note that similar to `$contains`, the matching for `$containsAll` is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$startsWith\":\"sample\"\n      }\n    }\n\n  This filter will match if any string within **`c_myStringList`** starts with \"sample\".\n\n  Does not supports negation. Case Insensitive.\n\n  </tr>\n</table>\n\n**LIST OF BOOLEAN, OPTION, PHONE, INTEGER, FLOAT, DATE, DATETIME, OR TIME**\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"c_myDateList\": {\n        \"$eq\": \"2019-01-01\"\n      }\n    }\n\n\n  This filter will match if \"2019-01-01\" EXACTLY matches any date within **`c_myDateList`**.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAny</th>\n    <th>\n\n    {\n      \"c_myIntegerList\": {\n        \"$eqAny\": [1, 2]\n      }\n    }\n\n  This filter will match if 1 or 2 EXACTLY match any integer within **`c_myIntegerList`**. The argument list can have more than two elements.\n\n  Supports negation.\n\n  </tr>\n\n  <tr>\n    <th>$eqAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"2019-01-01\" AND \"2019-01-02\" EXACTLY match a date within **`c_myDateList`**. The argument list can have more than two elements.\n\n  Supports negation.\n\n  </tr>\n</table>\n\n**LIST OF STRUCT**\n\nFiltering on lists of struct types is a bit nuanced. Filtering can only be done on lists of structs of the SAME type.\nFor example, if **`c_myStructList`** is a list of compound fields with the subfields **`age`** and **`name`**, then one can address the **`age`** properties of each field in **`c_myStructList`** as a flattened list of integers and filtering upon them. For example, the following filter:\n\n```\n{\n  \"c_myStructList.age\":{\n    \"$eq\": 20\n  }\n}\n```\n\nwill match if any field in the list has an **`age`** property equal to 20. Similarly, any filter that can be applied to lists of integers could be applied to **`age`** in this case (`$eq`, `$eqAll`, `$eqAny`).\n\n\n**HOURS**\n\nBy filtering on an hours field, you can find which entities are open or closed at a specified time or during a certain time range. All of these filters also take an entity’s holiday hours and reopen date into account.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$openAt</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openAt\":\n          \"2019-01-06T13:45\"\n      }\n    }\n\n\n  This filter would match entities open at the specified time.\n\n  </tr>\n  <tr>\n    <th>$closedAt</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedAt:\n          \"2019-01-06T13:45\"\n      }\n    }\n\n  </tr>\n\n  <tr>\n    <th>$openForAllOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openForAllOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n\n  This filter would match only those entities that are open for the entire range between 2019-01-06T13:45 and 2019-01-06T15:00.\n\n    {\n      \"hours\": {\n        \"$openForAllOf\":\n          \"2019-05-10\"\n      }\n    }\n\n  This filter would match entities open for the entire 24 hour period on 2019-05-10.\n\n  You can also supply a year, a month, or an hour to filter for entities open for the entire year, month, or hour, respectively.\n\n  </tr>\n  <tr>\n    <th>$openForAnyOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openForAnyOf\": {\n          \"start\": \"now\",\n          \"end\": \"now+2h\"\n        }\n      }\n    }\n\n  This filter will match any entities that are open for at least a portion of the time range between now and two hours from now.\n\n  </tr>\n  <tr>\n    <th>$closedForAllOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedForAllOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n  This filter will match only those entities that are closed for the entire given time range.\n  </tr>\n  <tr>\n    <th>$closedForAnyOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedForAnyOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n  This filter will match any entities that are closed for at least a portion of the given time range.\n  </tr>\n</table>\n\n\n**Filtering by Dates and Times**\n\n**Time zones**\n\nThe filtering language supports searching both in local time and within a certain time zone. Searching in local time will simply ignore the time zone on the target entities, while providing one will convert the zone of your queried time to the zone of the target entities.\n\nTo search in local time, simply provide the date or time without any zone: `2019-06-07T15:30` or `2019-06-07`.\n\nTo conduct a zoned search, provide the name of the time zone in brackets after the time, as it is shown in the tz database: `2019-06-07T15:30[America/New_York]` or `2019-06-06[America/Phoenix]`.\n\n\n**Date and time types**\n\nIn addition to searching with dates and datetimes, you can also query with years, months, and hours. For example, the filter:\n\n```\n{\n  \"time.start\": {\n    \"$eq\": \"2018\"\n  }\n}\n```\n\nwould match all start times in the year 2018. The same logic would apply for a month (`2019-05`), a date (`2019-05-01`), or an hour (`2019-05-01T06`).\n\nThese types also work with ordered searches. For example:\n\n```\n{\n \"time.start\": {\n    \"$lt\": \"2018\"\n }\n}\n```\n\nwould match start times before 2018 (i.e., anything in 2017 or before). On the other hand, the same query with a `$le` matcher would include anything in or before 2018.\n\n**\"Now\" and Date Math**\n\nInstead of providing a static date or time, you can also use `now` in place of any date time. When you do so, the system will calculate the time when the query is made and conduct a zoned search.\n\nIn order to search for a future or past time relative to `now`, you can use date math. For example, you can enter `now+3h` or `now-1d`, which would mean 3 hours from now and 1 day ago, respectively. You can also add and subtract minutes (`m`), months (`M`), and years (`y`).\n\nIt is also possible to add or subtract time from a static date or datetime. Simply add `||` between the static value and any addition or subtraction. For example, `2019-02-03||+1d` would be the same as `2019-02-04`.\n\nYou can also convert date and time types to other types. For example, to convert the datetime `2019-05-06T22:15` to a date, use `2019-05-06T22:15||/d`. Doing so would yield the same result as using `2019-05-06`. This method also works with `now`: `now/d` will give you today’s date without the time.\n\n**Filtering Across an Entity**\n\nIt is possible to search for a specific text string across all fields of an entity by using the `$anywhere` matcher.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$anywhere</th>\n    <th>\n\n  Matches if the argument text appears anywhere in the entity (including subfields, structs, and lists)\n\n    {\n      \"$anywhere\": \"hello\"\n    }\n\n  This filter will match all entities that contain the string \"hello\" or strings that begin with \"hello\".\n\n  </tr>\n</table>\n\n**Examples**\n\nThe following filter will match against entities that:\n- Are of type `event` (note that entity types can also be filtered by the **`entityTypes`** query parameter)\n- Have a name that starts with the text \"Century\"\n- Have a maximum age between 10 and 20\n- Have a minimum age between 5 and 7\n- Start after 7 PM (19:00) on August 28, 2018\n\n```\n{\n  \"$and\":[\n    {\n      \"entityType\":{\n        \"$eq\":\"event\"\n      }\n    },\n    {\n      \"name\":{\n        \"$startsWith\":\"Century\"\n      }\n    },\n    {\n      \"ageRange.maxValue\":{\n        \"$gt\":10,\n        \"$lt\":20\n      }\n    },\n    {\n      \"ageRange.minValue\":{\n        \"$gt\":5,\n        \"$lt\":7\n      }\n    },\n    {\n      \"time.start\":{\n        \"$ge\":\"2018-08-28T19:00\"\n      }\n    }\n  ]\n}\n```\n"
+              },
+              {
+                "name": "geocoderBias",
+                "value": "",
+                "type": "query",
+                "description": "The latitude, longitude, and approximate radius in miles, separated by commas, where the geocoder should be biased."
+              },
+              {
+                "name": "languages",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of language codes.\n\nWhen present, the system will return Entities that have profiles in one or more of the provided languages. For each Location, only the first available profile from the provided list of languages will be returned. The keyword `\"primary\"` can be used to refer to a Location’s primary profile without providing a specific language code. If an Entity does not have profiles in any of the languages provided, that Entity's primary profile will be returned.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n\nFor Live API requests, the offset cannot be higher than 9,950. For Knowledge API the maximum limit is only enforced if a filter and/or sortBy parameter are given.\n"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "Indicates the search radius around the provided **`location`** in miles"
+              },
+              {
+                "name": "randomization",
+                "value": "",
+                "type": "query",
+                "description": "Determines the noise level for randomizing sort order. Must be between 0 and 1 inclusive.\n\nA value of `0` results in no randomness: results are returned by order of distance.\n\nA value of `1` results in full randomness: results within the radius are returned in a random order.\n\nOnly one of **`randomization`** and **`randomizationToken`** can be set.\n"
+              },
+              {
+                "name": "randomizationToken",
+                "value": "",
+                "type": "query",
+                "description": "To be used alongside **`offset`** to allow for movement through randomized search results. After the first search with **`randomization`** set, **`randomizationToken`** is returned, which should be passed into the request as this parameter in order to iterate through subsequent results under the same randomness.\n\nOnly one of **`randomization`** and **`randomizationToken`** can be set.\n"
+              },
+              {
+                "name": "savedFilterIds",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of saved filter IDs.\n\nWhen present, the system will return entities that are included in the filters matching **all** of the provided IDs.\n"
+              }
+            ]
+          },
+          "docs": "Gets multiple Entities with addresses near a given geographical point,\nordered by proximity to that point and restricted to a radius.\n\n**NOTE:** Responses will contain resolved values for embedded fields\n"
+        },
+        {
+          "info": {
+            "name": "Entities Schema: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityschema/:entityType/:entityId/:languageCode",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "\nThe external ID of the requested Entity.\n"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "path",
+                "description": "The language code corresponding to the language of the profiles that the user wishes to retrieve\n"
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "path",
+                "description": "The type of entity to be created. Should be one of the following:\n* `atm`\n* `event`\n* `healthcareFacility`\n* `healthcareProfessional`\n* `hotel`\n* `job`\n* `location`\n* `restaurant`\n* `faq`\n\nOR the API name of a custom entity type.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Gets the schema.org-compliant schema for the primary profile of a single Entity. Schema will vary depending on entity type."
+        },
+        {
+          "info": {
+            "name": "Entity Language Profiles: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityprofiles/:entityId/:languageCode",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "The external ID of the requested Entity"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "path",
+                "description": "The language code corresponding to the language of the profiles that the user wishes to retrieve"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "convertMarkdownToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Markdown** as HTML.\n  - `false`: **Markdown** fields will be returned as JSON\n  - `true`: **Markdown** fields will be returned as HTML\n"
+              },
+              {
+                "name": "convertRichTextToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Rich Text** as HTML.\n  - `false`: **Rich Text** fields will be returned as JSON\n  - `true`: **Rich Text** fields will be returned as HTML\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"address.line1\"`). Custom fields are specified in the same way, albeit with their `c_*` name."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Present if and only if at least one field is of type \"**Legacy Rich Text**.\"\n\nValid values:\n  * `markdown`\n  * `html`\n  * `none`\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a Language Profile for an Entity\n\n**NOTE:**\n\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full\nentity profile for the requested language\n"
+        },
+        {
+          "info": {
+            "name": "Entity Language Profiles: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityprofiles/:entityId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "The external ID of the requested Entity"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "convertMarkdownToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Markdown** as HTML.\n  - `false`: **Markdown** fields will be returned as JSON\n  - `true`: **Markdown** fields will be returned as HTML\n"
+              },
+              {
+                "name": "convertRichTextToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Rich Text** as HTML.\n  - `false`: **Rich Text** fields will be returned as JSON\n  - `true`: **Rich Text** fields will be returned as HTML\n"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Entity types to filter on. Example: `\"location,event\"`\n\nShould be from the following types:\n  * `atm`\n  * `event`\n  * `faq`\n  * `financialProfessional`\n  * `healthcareFacility`\n  * `healthcareProfessional`\n  * `hotel`\n  * `hotelRoomType`\n  * `job`\n  * `location`\n  * `organization`\n  * `product`\n  * `restaurant`\n\nOR the API name of a custom entity type.\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"address.line1\"`). Custom fields are specified in the same way, albeit with their `c_*` name."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Present if and only if at least one field is of type \"**Legacy Rich Text**.\"\n\nValid values:\n  * `markdown`\n  * `html`\n  * `none`\n"
+              },
+              {
+                "name": "languageCodes",
+                "value": "",
+                "type": "query",
+                "description": "The comma-separated language codes corresponding to the languages of the profile that the user wishes to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieve Language Profiles for an Entity\n\n**NOTE:**\n\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full\nentity profile for the requested language\n"
+        },
+        {
+          "info": {
+            "name": "Entity Language Profiles: List All",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityprofiles",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "convertMarkdownToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Markdown** as HTML.\n  - `false`: **Markdown** fields will be returned as JSON\n  - `true`: **Markdown** fields will be returned as HTML\n"
+              },
+              {
+                "name": "convertRichTextToHTML",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to return fields of type **Rich Text** as HTML.\n  - `false`: **Rich Text** fields will be returned as JSON\n  - `true`: **Rich Text** fields will be returned as HTML\n"
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Entity types to filter on. Example: `\"location,event\"`\n\nShould be from the following types:\n  * `atm`\n  * `event`\n  * `faq`\n  * `financialProfessional`\n  * `healthcareFacility`\n  * `healthcareProfessional`\n  * `hotel`\n  * `hotelRoomType`\n  * `job`\n  * `location`\n  * `organization`\n  * `product`\n  * `restaurant`\n\nOR the API name of a custom entity type.\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"address.line1\"`). Custom fields are specified in the same way, albeit with their `c_*` name."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filter param after URL-encoding will be: `filter=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined into one object using *combinators*. For example, the following filter JSON combines multiple filters using the combinator `$and`. `$or` is also supported.\n```\n{\n  \"$and\":[\n    {\n      \"firstName\":{\n        \"$eq\":\"John\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"$in\":[\n          \"US\",\n          \"GB\"\n        ]\n      }\n    }\n  ]\n}\n```\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**Filter Complement**\n\nYou can also search for the complement of a filter. This filter would match entities that do not contain \"hello\" in their descriptions, or do not have a description set. This is different from negation which can only match entities who have the negated field set to something.\n\n```\n{\n  \"$complement\":{\n    \"description\":{\n      \"$contains\":\"hello\"\n    }\n  }\n}\n```\n\n**Addressing Subfields**\n\nSubfields of fields can be addressed using the \"dot\" notation while filtering. For example, if you have a custom field called **`c_myCustomField`**:\n\n```\n{\n  \"c_myCustomField\":{\n    \"age\": 30,\n    \"name\": \"Jim\",\n  }\n}\n```\n\nWhile filtering, subfields may be addressed using the \"dot\" notation.\n\n```\n{\n  \"c_myCustomField.name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\nFields that are nested deeper may be addressed using dot notation, as well. For example, if **`name`** in the above example was a compound field with two subfields **`first`** and **`last`**, **`first`** may be addressed as **`c_myCustomField.name.first`**.\n\n**Field Support**\n\nEntity fields correspond to certain filter types, which support matchers. Going by the example above, the field **`name`** supports the `TEXT` filter type, which supports `$eq` (equals) and `$startsWith` (starts with).\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n  Matches if the field starts with the argument value.\n\n  e.g., \"Amazing\" starts with \"amaz\"\n\n    {\n       \"address.line1\":{\n          \"$startsWith\": \"Jo\"\n       }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n  Matches if field value is a member of the argument list.\n\n    {\n      \"firstName\":{\n        \"$in\": [\"John\", \"Jimmy\"]\n      }\n    }\n\n  Does not support negation. Negation can be mimicked by using an \"OR\" matcher, for example:\n\n    {\n      \"$and\":[\n        {\n          \"firstName\":{\n            \"!$eq\": \"John\"\n          }\n        },\n        {\n          \"firstName\":{\n            \"!$eq\": \"Jimmy\"\n          }\n        }\n      ]\n    }\n\n  </tr>\n  <tr>\n    <th>$contains</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$contains\":\"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" is contained in any string within **`c_myString`**.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n  <tr>\n    <th>$containsAny</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$containsAny\":[\n          \"sample1\", \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if either \"sample1\" or \"sample2\" is contained in any string within **`c_myString`**. The argument list can contain more than two strings.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n  <tr>\n    <th>$containsAll</th>\n    <th>\n\n    {\n      \"c_myString\":{\n        \"$containsAll\":[\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"sample1\" and \"sample2\" are contained in any string within **`c_myString`**. The argument list can contain more than two strings.\n\n  Note that this matching is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n  </tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**STRUCT**\n\nThe STRUCT filter type is supported for compound fields with subfields.\n\n*e.g., **`address`**, **`featuredMessage`**, fields of custom types*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$hasProperty</th>\n    <th>\n\n  Matches if argument is a key (subfield) of field being filtered by. This filter type is useful for filtering by compound fields or to check if certain fields have a value set.\n\n    {\n      \"address\": {\n        \"$hasProperty\": \"line1\"\n      }\n    }\n\n  Note that if a given property of a compound field is not set, the filter will not match. For example, if `line1` of **`address`** is not set for an entity, then the above matcher will not match the entity.\n\n  Supports negation.\n\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for options custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n\n  Supports negation. Negating `$eq` on the list will match any field that does not hold any of the provided values.\n\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n    {\n      \"eventStatus\": {\n        \"$in\": [\n          \"SCHEDULED\",\n          \"POSTPONED\"\n        ]\n      }\n    }\n\n  Does not support negation. However, negation can be mimicked by using an `$and` matcher to negate individually over the desired values. For example:\n\n    {\n      \"$and\": [\n        {\n          \"eventStatus\":{\n            \"!$eq\": \"SCHEDULED\"\n          }\n        },\n        {\n          \"firstName\":{\n            \"!$eq\": \"POSTPONED\"\n          }\n        }\n      ]\n    }\n\n  </tr>\n</table>\n\n**PHONE**\n\nThe PHONE filter type is supported for phone number fields only. PHONE will support the same matchers as TEXT, except that for `$eq`, the same phone number with or without calling code will match.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"mainPhone\":{\n        \"$eq\":\"+18187076189\"\n      }\n    },\n    {\n      \"mainPhone\":{\n        \"$eq\":\"8187076189\"\n      }\n    },\n    {\n      \"mainPhone\":{\n        \"!$eq\":\"9177076189\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n  Matches if the field starts with the argument value.\n\n  e.g., \"8187076189\" starts with \"818\"\n\n    {\n      \"mainPhone\":{\n        \"$startsWith\": \"818\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n\n  </tr>\n  <tr>\n    <th>$in</th>\n    <th>\n\n  Matches if field value is a member of the argument list.\n\n    {\n      \"mainPhone\":{\n        \"$in\": [\n          \"8185551616\",\n          \"9171112211\"\n        ]\n      }\n    }\n\n  Does not support negation. However, negation can be mimicked by using an `$and` matcher to negate individually over the desired values.\n\n  </tr>\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  While we do not support \"between\" in our filtering syntax, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n\n**LIST OF TEXT**\n\nAny field that has a list of valid values and supports any of the previously mentioned filter types will also support the `$contains` matcher.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eq\": \"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" EXACTLY matches any string within **`c_myStringList`**.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAny</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAny\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if any one of \"sample1\" or \"sample2\" EXACTLY match a string within **`c_myStringList`** . The argument can have more than two strings.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"sample1\" AND \"sample2\" EXACTLY match a string within **`c_myStringList`**. The argument can have more than two strings.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$contains</th>\n    <th>\n\n    {\n      \"c_myStringList\":{\n        \"$contains\":\"sample\"\n      }\n    }\n\n  This filter will match if \"sample\" is contained in any string within **`c_myStringList`**.\n\n  Note that this matching is \"left edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This is a sample\", \"Sample one\", \"Sample 2\" but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$containsAny</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$containsAny\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n\n  This filter will match if either \"sample1\" or \"sample2\" is contained in any string within **`c_myStringList`**. The argument list can have more than two strings.\n\n  Note that similar to `$contains`, the matching for `$containsAny` is \"left edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This is a sample\", \"Sample one\", \"Sample 2\" but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$containsAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$containsAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if BOTH \"sample1\" and \"sample2\" are contained in strings within **`c_myStringList`**. The argument list can have more than two strings.\n\n  Note that similar to `$contains`, the matching for `$containsAll` is \"left-edge n-gram\", meaning the argument string must be the beginning of a token. The string \"sample\" will match strings like \"This a sample\", \"Sample one\", and \"Sample 2\", but not strings like \"thisisasamplewithoutspaces\".\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$startsWith</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$startsWith\":\"sample\"\n      }\n    }\n\n  This filter will match if any string within **`c_myStringList`** starts with \"sample\".\n\n  Does not supports negation. Case Insensitive.\n\n  </tr>\n</table>\n\n**LIST OF BOOLEAN, OPTION, PHONE, INTEGER, FLOAT, DATE, DATETIME, OR TIME**\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"c_myDateList\": {\n        \"$eq\": \"2019-01-01\"\n      }\n    }\n\n\n  This filter will match if \"2019-01-01\" EXACTLY matches any date within **`c_myDateList`**.\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$eqAny</th>\n    <th>\n\n    {\n      \"c_myIntegerList\": {\n        \"$eqAny\": [1, 2]\n      }\n    }\n\n  This filter will match if 1 or 2 EXACTLY match any integer within **`c_myIntegerList`**. The argument list can have more than two elements.\n\n  Supports negation.\n\n  </tr>\n\n  <tr>\n    <th>$eqAll</th>\n    <th>\n\n    {\n      \"c_myStringList\": {\n        \"$eqAll\": [\n          \"sample1\",\n          \"sample2\"\n        ]\n      }\n    }\n\n  This filter will match if both \"2019-01-01\" AND \"2019-01-02\" EXACTLY match a date within **`c_myDateList`**. The argument list can have more than two elements.\n\n  Supports negation.\n\n  </tr>\n</table>\n\n**LIST OF STRUCT**\n\nFiltering on lists of struct types is a bit nuanced. Filtering can only be done on lists of structs of the SAME type.\nFor example, if **`c_myStructList`** is a list of compound fields with the subfields **`age`** and **`name`**, then one can address the **`age`** properties of each field in **`c_myStructList`** as a flattened list of integers and filtering upon them. For example, the following filter:\n\n```\n{\n  \"c_myStructList.age\":{\n    \"$eq\": 20\n  }\n}\n```\n\nwill match if any field in the list has an **`age`** property equal to 20. Similarly, any filter that can be applied to lists of integers could be applied to **`age`** in this case (`$eq`, `$eqAll`, `$eqAny`).\n\n\n**HOURS**\n\nBy filtering on an hours field, you can find which entities are open or closed at a specified time or during a certain time range. All of these filters also take an entity’s holiday hours and reopen date into account.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$openAt</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openAt\":\n          \"2019-01-06T13:45\"\n      }\n    }\n\n\n  This filter would match entities open at the specified time.\n\n  </tr>\n  <tr>\n    <th>$closedAt</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedAt:\n          \"2019-01-06T13:45\"\n      }\n    }\n\n  </tr>\n\n  <tr>\n    <th>$openForAllOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openForAllOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n\n  This filter would match only those entities that are open for the entire range between 2019-01-06T13:45 and 2019-01-06T15:00.\n\n    {\n      \"hours\": {\n        \"$openForAllOf\":\n          \"2019-05-10\"\n      }\n    }\n\n  This filter would match entities open for the entire 24 hour period on 2019-05-10.\n\n  You can also supply a year, a month, or an hour to filter for entities open for the entire year, month, or hour, respectively.\n\n  </tr>\n  <tr>\n    <th>$openForAnyOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$openForAnyOf\": {\n          \"start\": \"now\",\n          \"end\": \"now+2h\"\n        }\n      }\n    }\n\n  This filter will match any entities that are open for at least a portion of the time range between now and two hours from now.\n\n  </tr>\n  <tr>\n    <th>$closedForAllOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedForAllOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n  This filter will match only those entities that are closed for the entire given time range.\n  </tr>\n  <tr>\n    <th>$closedForAnyOf</th>\n    <th>\n\n    {\n      \"hours\": {\n        \"$closedForAnyOf\": {\n          \"start\":\n            \"2019-01-06T13:45\",\n          \"end\":\n            \"2019-01-06T15:00\"\n        }\n      }\n    }\n\n  This filter will match any entities that are closed for at least a portion of the given time range.\n  </tr>\n</table>\n\n\n**Filtering by Dates and Times**\n\n**Time zones**\n\nThe filtering language supports searching both in local time and within a certain time zone. Searching in local time will simply ignore the time zone on the target entities, while providing one will convert the zone of your queried time to the zone of the target entities.\n\nTo search in local time, simply provide the date or time without any zone: `2019-06-07T15:30` or `2019-06-07`.\n\nTo conduct a zoned search, provide the name of the time zone in brackets after the time, as it is shown in the tz database: `2019-06-07T15:30[America/New_York]` or `2019-06-06[America/Phoenix]`.\n\n\n**Date and time types**\n\nIn addition to searching with dates and datetimes, you can also query with years, months, and hours. For example, the filter:\n\n```\n{\n  \"time.start\": {\n    \"$eq\": \"2018\"\n  }\n}\n```\n\nwould match all start times in the year 2018. The same logic would apply for a month (`2019-05`), a date (`2019-05-01`), or an hour (`2019-05-01T06`).\n\nThese types also work with ordered searches. For example:\n\n```\n{\n \"time.start\": {\n    \"$lt\": \"2018\"\n }\n}\n```\n\nwould match start times before 2018 (i.e., anything in 2017 or before). On the other hand, the same query with a `$le` matcher would include anything in or before 2018.\n\n**\"Now\" and Date Math**\n\nInstead of providing a static date or time, you can also use `now` in place of any date time. When you do so, the system will calculate the time when the query is made and conduct a zoned search.\n\nIn order to search for a future or past time relative to `now`, you can use date math. For example, you can enter `now+3h` or `now-1d`, which would mean 3 hours from now and 1 day ago, respectively. You can also add and subtract minutes (`m`), months (`M`), and years (`y`).\n\nIt is also possible to add or subtract time from a static date or datetime. Simply add `||` between the static value and any addition or subtraction. For example, `2019-02-03||+1d` would be the same as `2019-02-04`.\n\nYou can also convert date and time types to other types. For example, to convert the datetime `2019-05-06T22:15` to a date, use `2019-05-06T22:15||/d`. Doing so would yield the same result as using `2019-05-06`. This method also works with `now`: `now/d` will give you today’s date without the time.\n\n**Filtering Across an Entity**\n\nIt is possible to search for a specific text string across all fields of an entity by using the `$anywhere` matcher.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$anywhere</th>\n    <th>\n\n  Matches if the argument text appears anywhere in the entity (including subfields, structs, and lists)\n\n    {\n      \"$anywhere\": \"hello\"\n    }\n\n  This filter will match all entities that contain the string \"hello\" or strings that begin with \"hello\".\n\n  </tr>\n</table>\n\n**Examples**\n\nThe following filter will match against entities that:\n- Are of type `event` (note that entity types can also be filtered by the **`entityTypes`** query parameter)\n- Have a name that starts with the text \"Century\"\n- Have a maximum age between 10 and 20\n- Have a minimum age between 5 and 7\n- Start after 7 PM (19:00) on August 28, 2018\n\n```\n{\n  \"$and\":[\n    {\n      \"entityType\":{\n        \"$eq\":\"event\"\n      }\n    },\n    {\n      \"name\":{\n        \"$startsWith\":\"Century\"\n      }\n    },\n    {\n      \"ageRange.maxValue\":{\n        \"$gt\":10,\n        \"$lt\":20\n      }\n    },\n    {\n      \"ageRange.minValue\":{\n        \"$gt\":5,\n        \"$lt\":7\n      }\n    },\n    {\n      \"time.start\":{\n        \"$ge\":\"2018-08-28T19:00\"\n      }\n    }\n  ]\n}\n```\n"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Present if and only if at least one field is of type \"**Legacy Rich Text**.\"\n\nValid values:\n  * `markdown`\n  * `html`\n  * `none`\n"
+              },
+              {
+                "name": "languageCodes",
+                "value": "",
+                "type": "query",
+                "description": "The comma-separated language codes corresponding to the languages of the profile that the user wishes to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n\nFor Live API requests, the offset cannot be higher than 9,950. For Knowledge API the maximum limit is only enforced if a filter and/or sortBy parameter are given.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`pageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "A list of fields and sort directions to order results by. Each ordering in the list should be in the format `{\"field_name\", \"sort_direction\"}`, where `sort_direction` is either `ASCENDING` or `DESCENDING`.\n\nFor example, to order by `name` the sort order would be `[{\"name\":\"ASCENDING\"}]`. To order by `name` and then `description`, the sort order would be `[{\"name\":\"ASCENDING\"},{\"description\":\"ASCENDING\"}]`.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of Language Profiles for Entities within an account\n\n**NOTE:**\n\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full\nentity profile for the requested language\n"
+        },
+        {
+          "info": {
+            "name": "Menus: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/menus/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "ID of this List."
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific Menu"
+        },
+        {
+          "info": {
+            "name": "Bios: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/bios/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "ID of this List."
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific Bios ECL"
+        },
+        {
+          "info": {
+            "name": "Products: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/products/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "ID of this List."
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific Products ECL"
+        },
+        {
+          "info": {
+            "name": "Events (Legacy): Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/events/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "ID of this List."
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific Events ECL"
+        },
+        {
+          "info": {
+            "name": "Language Profiles (Legacy): Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations/:locationId/profiles/:languageCode",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "path",
+                "description": "The language code corresponding to the language of the profiles that the user wishes to retrieve\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names from the Location object. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"logo.url\"`). To include a custom field, specify it as `custom###`, where \"###\" is the custom field's **`id`**.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Gets the requested Language Profile for a given Location\n\n**NOTE:**\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full \nentity profile for the requested language\n"
+        },
+        {
+          "info": {
+            "name": "Language Profiles (Legacy): List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations/:locationId/profiles",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names from the Location object. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"logo.url\"`). To include a custom field, specify it as `custom###`, where \"###\" is the custom field's **`id`**.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Gets all Language Profiles for a Location\n\n**NOTE:**\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full \nentity profile for the requested language\n"
+        },
+        {
+          "info": {
+            "name": "Language Profiles Schema (Legacy): Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations/:locationId/profiles/:languageCode/schema",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "path",
+                "description": "The language code corresponding to the language of the profiles that the user wishes to retrieve\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Gets the schema.org-compliant schema for the requested Language Profile of a given Location. Schema will vary depending on the primary category of the Location."
+        },
+        {
+          "info": {
+            "name": "Locations (Legacy): Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations/:locationId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names from the Location object. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"logo.url\"`). To include a custom field, specify it as `custom###`, where \"###\" is the custom field's **`id`**.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Gets the primary profile for a single Location\n\n**NOTE:** Responses will contain resolved values for embedded fields\n"
+        },
+        {
+          "info": {
+            "name": "Locations (Legacy): List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip. Used to move through results"
+              },
+              {
+                "name": "languages",
+                "value": "",
+                "type": "query",
+                "description": "\nComma-separated list of language codes. When present, the system will return Locations with one or more of the provided languages.  For each Location, only the first available language from the provided list will be returned. The keyword `\"primary\"` can be used to refer to a Location’s primary profile without providing a specific language code.\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names from the Location object. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"logo.url\"`). To include a custom field, specify it as `custom###`, where \"###\" is the custom field's **`id`**.\n"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "A set of filters that is applied to the set of locations that would otherwise be returned. Should be provided as a URL-encoded string containing a JSON array. The array should have one or more filter objects defined. All filter objects will apply as an intersection (i.e., AND). Field names reference Location fields, as well as custom fields using the format `custom###`, where \"###\" is the custom field’s **`id`**.\n\nFor example, to provide a filter that would match location names containing the word \"gourmet\", the filter parameter would be `[{\"name\":{\"contains\":[\"gourmet\"]}}]`, which URL-encoded would be `%5B%7B%22name%22%3A%7B%22contains%22%3A%5B%22gourmet%22%5D%7D%7D%5D`.\n\nNOTE: \"x\", \"xx\", and \"xxx\" are reserved keywords that, when passed in a `contains` matcher for a Full or Text filter, will cause that filter to match on all locations.\n\nThe filter types are the following. Note there may be multiple available specifications for a given filter type:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Filter Type</th>\n    <th>Syntax</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td>Full</td>\n    <td>fieldName: {contains: $search}</td>\n    <td>$search is the search string</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: {$type: [$search,...]}</td>\n    <td>$type is one of [contains,doesNotContain,startsWith,equalTo], $search is an array of search strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is the numeric value</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are numeric values</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is a string of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are strings of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Country</td>\n    <td>fieldName: {$type: [$country,...]}</td>\n    <td>$type is one of [includes,notIncludes], $country is an array of country code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>PrimaryLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [is,isNot], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>AlternateLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [includes, notIncludes], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringSingle</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [is,isNot], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringList</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [includes,notIncludes], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>LocationType</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [is,isNot], $id is an array of location type IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Bool</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [true,false]</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: $id}</td>\n    <td>$type is one of [is,isNot], $id is an option ID (For single option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of option IDs, combined with OR (For multi option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: [$id,...]</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: $id</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$id is a numeric folder ID, $type is one of ['isIn', 'isNotIn']</td>\n  </tr>\n  <tr>\n    <td>Labels</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of label IDs, combined with OR</td>\n  </tr>\n</table>\n\nThe following fields can be specified in the request (Field name/Filter Type/Example(s)):\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Field Name</th>\n    <th>Filter Type</th>\n    <th>Example(s)</th>\n  </tr>\n  <tr>\n    <td>location</td>\n    <td>Full</td>\n    <td>\"location\": {\"contains\": \"Atlanta\"}</td>\n  </tr>\n  <tr>\n    <td>name</td>\n    <td>Text</td>\n    <td>\"name\": {\"startsWith\": [\"Guitar\"]}, \"name\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>address</td>\n    <td>Text</td>\n    <td>\"address\": {\"startsWith\": [\"South\"]}</td>\n  </tr>\n  <tr>\n    <td>address2</td>\n    <td>Text</td>\n    <td>\"address2\": {\"contains\": [\"Suite\"]}</td>\n  </tr>\n  <tr>\n    <td>city</td>\n    <td>Text</td>\n    <td>\"city\": {\"contains\": [\"Atlanta\"]}</td>\n  </tr>\n  <tr>\n    <td>state</td>\n    <td>Text</td>\n    <td>\"state\": {\"contains\": [\"AK\",\"VA\"]}</td>\n  </tr>\n  <tr>\n    <td>zip</td>\n    <td>Text</td>\n    <td>\"zip\": {\"contains\": [\"M5K 7QB\"]}</td>\n  </tr>\n  <tr>\n    <td>phones</td>\n    <td>Text</td>\n    <td>\"phones\": {\"startsWith\": [\"703\",\"571\"]}</td>\n  </tr>\n  <tr>\n    <td>specialOffer</td>\n    <td>Text</td>\n    <td>\"specialOffer\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>emails</td>\n    <td>Text</td>\n    <td>\"emails\": {\"doesNotContain\": [\"@yext.com\"]}</td>\n  </tr>\n  <tr>\n    <td>website</td>\n    <td>Text</td>\n    <td>\"website\": {\"equalTo\": [\"https://www.yext.com/\"]}</td>\n  </tr>\n  <tr>\n    <td>categories</td>\n    <td>Categories</td>\n    <td>\"categories\": {\"includes\": [23,755,34]}</td>\n  </tr>\n  <tr>\n    <td>closed</td>\n    <td>Bool</td>\n    <td>\"closed\": true</td>\n  </tr>\n  <tr>\n    <td>storeId</td>\n    <td>Text</td>\n    <td>\"storeId\": {\"equalTo\": [\"MCD0001\"]}</td>\n  </tr>\n  <tr>\n    <td>countryCode</td>\n    <td>Country</td>\n    <td>\"countryCode\": {\"notIncludes\": [\"US\"]}</td>\n  </tr>\n  <tr>\n    <td>products</td>\n    <td>Text</td>\n    <td>\"products\": {\"startsWith\": [\"Burger\",\"Fries\"]}</td>\n  </tr>\n  <tr>\n    <td>services</td>\n    <td>Text</td>\n    <td>\"services\": {\"contains\": [\"Manicures\"]}</td>\n  </tr>\n  <tr>\n    <td>specialities</td>\n    <td>Text</td>\n    <td>\"services\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>associations</td>\n    <td>Text</td>\n    <td>\"associations\": \"empty\"</td>\n  </tr>\n  <tr>\n    <td>brands</td>\n    <td>Text</td>\n    <td>\"brands\": {\"equalTo\": [\"North Face\"]}</td>\n  </tr>\n  <tr>\n    <td>languages</td>\n    <td>Text</td>\n    <td>\"languages\": {\"equalTo\": [\"English\",\"Spanish\"]}</td>\n  </tr>\n  <tr>\n    <td>keywords</td>\n    <td>Text</td>\n    <td>\"keywords\": {\"startsWith\": [\"Franchise\"]}</td>\n  </tr>\n  <tr>\n    <td>menuIds</td>\n    <td>IdList</td>\n    <td>\"menuIds\": {\"includes\": [\"m-23\",\"755\",\"menu34\"]}</td>\n  </tr>\n  <tr>\n    <td>productListIds</td>\n    <td>IdList</td>\n    <td>\"productListIds\": {\"notIncludes\": [\"pl-2\"]}</td>\n  </tr>\n  <tr>\n    <td>calendarIds</td>\n    <td>IdList</td>\n    <td>\"calendarIds\": {\"notIncludes\": [\"cal34\"]}</td>\n  </tr>\n  <tr>\n    <td>bioIds</td>\n    <td>IdList</td>\n    <td>\"bioIds\": {\"includes\": [\"b23\",\"34\"]}</td>\n  </tr>\n  <tr>\n    <td>custom###</td>\n    <td>Text (for Multiline Text, URL, Text List, and Text Custom Fields), Number, Date, Bool, or Option</td>\n    <td>\"custom123\": {\"equalTo\": [\"asdf\"]}</td>\n  </tr>\n  <tr>\n    <td>folder</td>\n    <td>Folder</td>\n    <td>\"folder\": 123, \"folder\": [123,456]</td>\n  </tr>\n  <tr>\n    <td>primary_language</td>\n    <td>PrimaryLanguage</td>\n    <td>\"primary_language\": {\"is\": \"fr_CA\"}</td>\n  </tr>\n  <tr>\n    <td>alternateProfileLanguage</td>\n    <td>AlternateLanguage</td>\n    <td>\"alternateProfileLanguage\": {\"includes\": [\"en\", \"fr\"]}</td>\n  </tr>\n  <tr>\n    <td>npi</td>\n    <td>StringSingle</td>\n    <td>\"npi\": {\"is\": [\"1234567890\", \"1111111111\"]}</td>\n  </tr>\n  <tr>\n    <td>conditionsTreated</td>\n    <td>Text</td>\n    <td>\"conditionsTreated\": {\"startsWith\": [\"Influenza\"]}, \"conditionsTreated\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>lastUpdated</td>\n    <td>Date</td>\n    <td>\"lastUpdated\": {\"eq\": \"2018-01-01\"}, \"lastUpdated\": {\"between\": [\"2017-01-01\", \"2018-01-01\"]}</td>\n  </tr>\n  <tr>\n    <td>fieldsWithData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithData\": [\"email\", \"hours\"]</td>\n  </tr>\n  <tr>\n    <td>fieldsWithoutData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithoutData\": [\"logo\", \"video\"]</td>\n  </tr>\n  <tr>\n    <td>reviewCount</td>\n    <td>Number</td>\n    <td>\"review_count\": {\"gt\": 1}, \"review_count \": {\"lt\": 10}</td>\n  </tr>\n  <tr>\n    <td>averageRating</td>\n    <td>Number</td>\n    <td>\"averageRating\": {\"lt\": 3}</td>\n  </tr>\n  <tr>\n    <td>locationType</td>\n    <td>LocationType</td>\n    <td>\"locationType\": {\"is\": [1]}, \"locationType\": {\"isNot\": [123]}</td>\n  </tr>\n  <tr>\n    <td>gender</td>\n    <td>StringSingle</td>\n    <td>\"gender\": {\"is\": [\"FEMALE\"]}, \"gender\": {\"isNot\": [\"MALE\"]}</td>\n  </tr>\n  <tr>\n    <td>degrees</td>\n    <td>StringList</td>\n    <td>\"degrees\": {\"includes\": [\"MD\"]}, \"degrees\": {\"notIncludes\": [\"PHD\"]}</td>\n  </tr>\n  <tr>\n    <td>experiences</td>\n    <td>StringList</td>\n    <td>\"experiences\": {\"includes\": [\"FELLOWSHIP\"]}, \"experiences\": {\"notIncludes\":[\"INTERNSHIP\"]}</td>\n  </tr>\n  <tr>\n    <td>yearCompleted</td>\n    <td>Number</td>\n    <td>\"yearCompleted\": {\"gt\": 2000}, \"yearCompleted\": {\"lt\": 2015}</td>\n  </tr>\n  <tr>\n    <td>acceptingNewPatients</td>\n    <td>Bool</td>\n    <td>\"acceptingNewPatients\": true</td>\n  </tr>\n  <tr>\n    <td>firstName</td>\n    <td>Text</td>\n    <td>\"firstName\": {\"startsWith\": [\"David\"]}, \"firstName\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>middleName</td>\n    <td>Text</td>\n    <td>\"middleName\": {\"startsWith\": [\"P\"]}, \"middleName\": {\"contains\": [\"N\",\"E\"]}</td>\n  </tr>\n  <tr>\n    <td>lastName</td>\n    <td>Text</td>\n    <td>\"lastName\": {\"startsWith\": [\"Sm\"]}, \"lastName\": {\"contains\": [\"Y\",\"Z\"]}</td>\n  </tr>\n  <tr>\n    <td>officeName</td>\n    <td>Text</td>\n    <td>\"officeName\": {\"startsWith\": [\"Chiropractic\"]}, \"officeName\": {\"contains\":[\"Center\",\"P\"]}</td>\n  </tr>\n  <tr>\n    <td>certifications</td>\n    <td>Text</td>\n    <td>\"certifications\": {\"contains\": [\"Radiation Oncology\"]}</td>\n  </tr>\n  <tr>\n    <td>institutionName</td>\n    <td>Text</td>\n    <td>\"institutionName\": {\"startsWith\": [\"New York\"]}</td>\n  </tr>\n  <tr>\n    <td>insuranceAccepted</td>\n    <td>Text</td>\n    <td>\"insuranceAccepted\": {\"startsWith\": [\"United\"]}, \"insuranceAccepted\":{\"contains\": [\"C\",\"Health\"]}</td>\n  </tr>\n  <tr>\n    <td>admittingHospitals</td>\n    <td>Text</td>\n    <td>\"admittingHospitals\": {\"startsWith\": [\"Children's\"]}, \"admittingHospitals\":{\"contains\": [\"Medical\",\"University\"]}</td>\n  </tr>\n  <tr>\n    <td>subscriptions</td>\n    <td>IdList</td>\n    <td>\"subscriptions\": {\"notIncludes\": [\"123\"]}</td>\n  </tr>\n  <tr>\n    <td>facebookAccounts</td>\n    <td>IdList</td>\n    <td>\"facebookAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>foursquareAccounts</td>\n    <td>IdList</td>\n    <td>\"foursquareAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>googleplusAccounts</td>\n    <td>IdList</td>\n    <td>\"googleplusAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>labels</td>\n    <td>Labels</td>\n    <td>\"labels\": {\"includes\": [1, 100]}</td>\n  </tr>\n</table>\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the fields and direction by which the output should be sorted. Should be provided as a URL-encoded string containing a JSON array of `sortDefinition` objects. A `sortDefinition` object consists of a `sortField` and a `sortDirection` field. The `sortField` is the name of the field you are sorting by (e.g., `firstName` or `custom###` for a custom field, where \"###\" is the custom field’s **`id`**). The `sortDirection` indicates whether the sort is ascending (`ASCENDING`) or descending (`DESCENDING`).\n\nFor example, to sort by last name ascending and first name descending, this parameter would be `[{\"sortField\":\"lastName\",\"sortDirection\":\"ASCENDING\"},{\"sortField\":\"firstName\", \"sortDirection\":\"DESCENDING\"}]`, which, when URL-encoded, would be `%5B%7B%22sortField%22%3A%22lastName%22%2C%22sortDirection%22%3A%22ASCENDING%22%7D%2C%7B%22sortField%22%3A%22firstName%22%2C%22sortDirection%22%3A%22DESCENDING%22%7D%5D`.\n\n**NOTE:** Currently, we support sorting by **`firstName`**, **`lastName`**, and text custom fields.\n"
+              }
+            ]
+          },
+          "docs": "Get multiple Locations (primary profile only). Filters are evaluated against all language profiles as well as the primary profile.\n\n**NOTE:** Responses will contain resolved values for embedded fields\n"
+        },
+        {
+          "info": {
+            "name": "Locations Schema (Legacy): Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations/:locationId/schema",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Gets the schema.org-compliant schema for the primary profile of a single Location. Schema will vary depending on the primary category of the Location."
+        },
+        {
+          "info": {
+            "name": "Locations (Legacy): GeoSearch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/locations/geosearch",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip. Used to move through results"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "\nOnly entities near this position will be returned. The values can be specified in one of two ways:\n\n1) Latitude and Longitude: The latitude and longitude of the point, separated by a comma (e.g.`\"40.740957,-73.987565\"`),\n\n2) Address: A free-form address to geocode into a latitude and longitude (e.g., `\"1 Madison Ave, New York, NY 10010\"` or `\"New York, NY\"`).\n\nNote that providing an address that resolves to an area, like a city or a postal code, does not restrict the search to exactly that area; it simply centers the search circle on a point in that area.\n"
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "\nIndicates the search radius around the provided **`location`** in miles\n"
+              },
+              {
+                "name": "geocoderBias",
+                "value": "",
+                "type": "query",
+                "description": "The latitude, longitude, and approximate radius in miles, separated by commas, where the geocoder should be biased.\n"
+              },
+              {
+                "name": "countryBias",
+                "value": "",
+                "type": "query",
+                "description": "\nThe two-character ISO 3166-1 code of the country where the geocoder should be biased.\n\nThe value of the **`countryBias`** parameter influences the search results, but it does not guarantee that the geocoded location will be in the country provided.\n\nIf both **`countryBias`** and **`geocoderBias`** are provided, **`geocoderBias`** is given priority, but both values are considered in the search.\n"
+              },
+              {
+                "name": "languages",
+                "value": "",
+                "type": "query",
+                "description": "\nComma-separated list of language codes. When present, the system will return Locations with one or more of the provided languages.  For each Location, only the first available language from the provided list will be returned. The keyword `\"primary\"` can be used to refer to a Location’s primary profile without providing a specific language code.\n"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names from the Location object. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `\"logo.url\"`). To include a custom field, specify it as `custom###`, where \"###\" is the custom field's **`id`**.\n"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "A set of filters that is applied to the set of locations that would otherwise be returned. Should be provided as a URL-encoded string containing a JSON array. The array should have one or more filter objects defined. All filter objects will apply as an intersection (i.e., AND). Field names reference Location fields, as well as custom fields using the format `custom###`, where \"###\" is the custom field’s **`id`**.\n\nFor example, to provide a filter that would match location names containing the word \"gourmet\", the filter parameter would be `[{\"name\":{\"contains\":[\"gourmet\"]}}]`, which URL-encoded would be `%5B%7B%22name%22%3A%7B%22contains%22%3A%5B%22gourmet%22%5D%7D%7D%5D`.\n\nNOTE: \"x\", \"xx\", and \"xxx\" are reserved keywords that, when passed in a `contains` matcher for a Full or Text filter, will cause that filter to match on all locations.\n\nThe filter types are the following. Note there may be multiple available specifications for a given filter type:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Filter Type</th>\n    <th>Syntax</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td>Full</td>\n    <td>fieldName: {contains: $search}</td>\n    <td>$search is the search string</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: {$type: [$search,...]}</td>\n    <td>$type is one of [contains,doesNotContain,startsWith,equalTo], $search is an array of search strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is the numeric value</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are numeric values</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is a string of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are strings of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Country</td>\n    <td>fieldName: {$type: [$country,...]}</td>\n    <td>$type is one of [includes,notIncludes], $country is an array of country code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>PrimaryLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [is,isNot], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>AlternateLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [includes, notIncludes], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringSingle</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [is,isNot], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringList</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [includes,notIncludes], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>LocationType</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [is,isNot], $id is an array of location type IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Bool</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [true,false]</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: $id}</td>\n    <td>$type is one of [is,isNot], $id is an option ID (For single option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of option IDs, combined with OR (For multi option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: [$id,...]</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: $id</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$id is a numeric folder ID, $type is one of ['isIn', 'isNotIn']</td>\n  </tr>\n  <tr>\n    <td>Labels</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of label IDs, combined with OR</td>\n  </tr>\n</table>\n\nThe following fields can be specified in the request (Field name/Filter Type/Example(s)):\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Field Name</th>\n    <th>Filter Type</th>\n    <th>Example(s)</th>\n  </tr>\n  <tr>\n    <td>location</td>\n    <td>Full</td>\n    <td>\"location\": {\"contains\": \"Atlanta\"}</td>\n  </tr>\n  <tr>\n    <td>name</td>\n    <td>Text</td>\n    <td>\"name\": {\"startsWith\": [\"Guitar\"]}, \"name\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>address</td>\n    <td>Text</td>\n    <td>\"address\": {\"startsWith\": [\"South\"]}</td>\n  </tr>\n  <tr>\n    <td>address2</td>\n    <td>Text</td>\n    <td>\"address2\": {\"contains\": [\"Suite\"]}</td>\n  </tr>\n  <tr>\n    <td>city</td>\n    <td>Text</td>\n    <td>\"city\": {\"contains\": [\"Atlanta\"]}</td>\n  </tr>\n  <tr>\n    <td>state</td>\n    <td>Text</td>\n    <td>\"state\": {\"contains\": [\"AK\",\"VA\"]}</td>\n  </tr>\n  <tr>\n    <td>zip</td>\n    <td>Text</td>\n    <td>\"zip\": {\"contains\": [\"M5K 7QB\"]}</td>\n  </tr>\n  <tr>\n    <td>phones</td>\n    <td>Text</td>\n    <td>\"phones\": {\"startsWith\": [\"703\",\"571\"]}</td>\n  </tr>\n  <tr>\n    <td>specialOffer</td>\n    <td>Text</td>\n    <td>\"specialOffer\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>emails</td>\n    <td>Text</td>\n    <td>\"emails\": {\"doesNotContain\": [\"@yext.com\"]}</td>\n  </tr>\n  <tr>\n    <td>website</td>\n    <td>Text</td>\n    <td>\"website\": {\"equalTo\": [\"https://www.yext.com/\"]}</td>\n  </tr>\n  <tr>\n    <td>categories</td>\n    <td>Categories</td>\n    <td>\"categories\": {\"includes\": [23,755,34]}</td>\n  </tr>\n  <tr>\n    <td>closed</td>\n    <td>Bool</td>\n    <td>\"closed\": true</td>\n  </tr>\n  <tr>\n    <td>storeId</td>\n    <td>Text</td>\n    <td>\"storeId\": {\"equalTo\": [\"MCD0001\"]}</td>\n  </tr>\n  <tr>\n    <td>countryCode</td>\n    <td>Country</td>\n    <td>\"countryCode\": {\"notIncludes\": [\"US\"]}</td>\n  </tr>\n  <tr>\n    <td>products</td>\n    <td>Text</td>\n    <td>\"products\": {\"startsWith\": [\"Burger\",\"Fries\"]}</td>\n  </tr>\n  <tr>\n    <td>services</td>\n    <td>Text</td>\n    <td>\"services\": {\"contains\": [\"Manicures\"]}</td>\n  </tr>\n  <tr>\n    <td>specialities</td>\n    <td>Text</td>\n    <td>\"services\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>associations</td>\n    <td>Text</td>\n    <td>\"associations\": \"empty\"</td>\n  </tr>\n  <tr>\n    <td>brands</td>\n    <td>Text</td>\n    <td>\"brands\": {\"equalTo\": [\"North Face\"]}</td>\n  </tr>\n  <tr>\n    <td>languages</td>\n    <td>Text</td>\n    <td>\"languages\": {\"equalTo\": [\"English\",\"Spanish\"]}</td>\n  </tr>\n  <tr>\n    <td>keywords</td>\n    <td>Text</td>\n    <td>\"keywords\": {\"startsWith\": [\"Franchise\"]}</td>\n  </tr>\n  <tr>\n    <td>menuIds</td>\n    <td>IdList</td>\n    <td>\"menuIds\": {\"includes\": [\"m-23\",\"755\",\"menu34\"]}</td>\n  </tr>\n  <tr>\n    <td>productListIds</td>\n    <td>IdList</td>\n    <td>\"productListIds\": {\"notIncludes\": [\"pl-2\"]}</td>\n  </tr>\n  <tr>\n    <td>calendarIds</td>\n    <td>IdList</td>\n    <td>\"calendarIds\": {\"notIncludes\": [\"cal34\"]}</td>\n  </tr>\n  <tr>\n    <td>bioIds</td>\n    <td>IdList</td>\n    <td>\"bioIds\": {\"includes\": [\"b23\",\"34\"]}</td>\n  </tr>\n  <tr>\n    <td>custom###</td>\n    <td>Text (for Multiline Text, URL, Text List, and Text Custom Fields), Number, Date, Bool, or Option</td>\n    <td>\"custom123\": {\"equalTo\": [\"asdf\"]}</td>\n  </tr>\n  <tr>\n    <td>folder</td>\n    <td>Folder</td>\n    <td>\"folder\": 123, \"folder\": [123,456]</td>\n  </tr>\n  <tr>\n    <td>primary_language</td>\n    <td>PrimaryLanguage</td>\n    <td>\"primary_language\": {\"is\": \"fr_CA\"}</td>\n  </tr>\n  <tr>\n    <td>alternateProfileLanguage</td>\n    <td>AlternateLanguage</td>\n    <td>\"alternateProfileLanguage\": {\"includes\": [\"en\", \"fr\"]}</td>\n  </tr>\n  <tr>\n    <td>npi</td>\n    <td>StringSingle</td>\n    <td>\"npi\": {\"is\": [\"1234567890\", \"1111111111\"]}</td>\n  </tr>\n  <tr>\n    <td>conditionsTreated</td>\n    <td>Text</td>\n    <td>\"conditionsTreated\": {\"startsWith\": [\"Influenza\"]}, \"conditionsTreated\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>lastUpdated</td>\n    <td>Date</td>\n    <td>\"lastUpdated\": {\"eq\": \"2018-01-01\"}, \"lastUpdated\": {\"between\": [\"2017-01-01\", \"2018-01-01\"]}</td>\n  </tr>\n  <tr>\n    <td>fieldsWithData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithData\": [\"email\", \"hours\"]</td>\n  </tr>\n  <tr>\n    <td>fieldsWithoutData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithoutData\": [\"logo\", \"video\"]</td>\n  </tr>\n  <tr>\n    <td>reviewCount</td>\n    <td>Number</td>\n    <td>\"review_count\": {\"gt\": 1}, \"review_count \": {\"lt\": 10}</td>\n  </tr>\n  <tr>\n    <td>averageRating</td>\n    <td>Number</td>\n    <td>\"averageRating\": {\"lt\": 3}</td>\n  </tr>\n  <tr>\n    <td>locationType</td>\n    <td>LocationType</td>\n    <td>\"locationType\": {\"is\": [1]}, \"locationType\": {\"isNot\": [123]}</td>\n  </tr>\n  <tr>\n    <td>gender</td>\n    <td>StringSingle</td>\n    <td>\"gender\": {\"is\": [\"FEMALE\"]}, \"gender\": {\"isNot\": [\"MALE\"]}</td>\n  </tr>\n  <tr>\n    <td>degrees</td>\n    <td>StringList</td>\n    <td>\"degrees\": {\"includes\": [\"MD\"]}, \"degrees\": {\"notIncludes\": [\"PHD\"]}</td>\n  </tr>\n  <tr>\n    <td>experiences</td>\n    <td>StringList</td>\n    <td>\"experiences\": {\"includes\": [\"FELLOWSHIP\"]}, \"experiences\": {\"notIncludes\":[\"INTERNSHIP\"]}</td>\n  </tr>\n  <tr>\n    <td>yearCompleted</td>\n    <td>Number</td>\n    <td>\"yearCompleted\": {\"gt\": 2000}, \"yearCompleted\": {\"lt\": 2015}</td>\n  </tr>\n  <tr>\n    <td>acceptingNewPatients</td>\n    <td>Bool</td>\n    <td>\"acceptingNewPatients\": true</td>\n  </tr>\n  <tr>\n    <td>firstName</td>\n    <td>Text</td>\n    <td>\"firstName\": {\"startsWith\": [\"David\"]}, \"firstName\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>middleName</td>\n    <td>Text</td>\n    <td>\"middleName\": {\"startsWith\": [\"P\"]}, \"middleName\": {\"contains\": [\"N\",\"E\"]}</td>\n  </tr>\n  <tr>\n    <td>lastName</td>\n    <td>Text</td>\n    <td>\"lastName\": {\"startsWith\": [\"Sm\"]}, \"lastName\": {\"contains\": [\"Y\",\"Z\"]}</td>\n  </tr>\n  <tr>\n    <td>officeName</td>\n    <td>Text</td>\n    <td>\"officeName\": {\"startsWith\": [\"Chiropractic\"]}, \"officeName\": {\"contains\":[\"Center\",\"P\"]}</td>\n  </tr>\n  <tr>\n    <td>certifications</td>\n    <td>Text</td>\n    <td>\"certifications\": {\"contains\": [\"Radiation Oncology\"]}</td>\n  </tr>\n  <tr>\n    <td>institutionName</td>\n    <td>Text</td>\n    <td>\"institutionName\": {\"startsWith\": [\"New York\"]}</td>\n  </tr>\n  <tr>\n    <td>insuranceAccepted</td>\n    <td>Text</td>\n    <td>\"insuranceAccepted\": {\"startsWith\": [\"United\"]}, \"insuranceAccepted\":{\"contains\": [\"C\",\"Health\"]}</td>\n  </tr>\n  <tr>\n    <td>admittingHospitals</td>\n    <td>Text</td>\n    <td>\"admittingHospitals\": {\"startsWith\": [\"Children's\"]}, \"admittingHospitals\":{\"contains\": [\"Medical\",\"University\"]}</td>\n  </tr>\n  <tr>\n    <td>subscriptions</td>\n    <td>IdList</td>\n    <td>\"subscriptions\": {\"notIncludes\": [\"123\"]}</td>\n  </tr>\n  <tr>\n    <td>facebookAccounts</td>\n    <td>IdList</td>\n    <td>\"facebookAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>foursquareAccounts</td>\n    <td>IdList</td>\n    <td>\"foursquareAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>googleplusAccounts</td>\n    <td>IdList</td>\n    <td>\"googleplusAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>labels</td>\n    <td>Labels</td>\n    <td>\"labels\": {\"includes\": [1, 100]}</td>\n  </tr>\n</table>\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the fields and direction by which the output should be sorted. Should be provided as a URL-encoded string containing a JSON array of `sortDefinition` objects. A `sortDefinition` object consists of a `sortField` and a `sortDirection` field. The `sortField` is the name of the field you are sorting by (e.g., `firstName` or `custom###` for a custom field, where \"###\" is the custom field’s **`id`**). The `sortDirection` indicates whether the sort is ascending (`ASCENDING`) or descending (`DESCENDING`).\n\nFor example, to sort by last name ascending and first name descending, this parameter would be `[{\"sortField\":\"lastName\",\"sortDirection\":\"ASCENDING\"},{\"sortField\":\"firstName\", \"sortDirection\":\"DESCENDING\"}]`, which, when URL-encoded, would be `%5B%7B%22sortField%22%3A%22lastName%22%2C%22sortDirection%22%3A%22ASCENDING%22%7D%2C%7B%22sortField%22%3A%22firstName%22%2C%22sortDirection%22%3A%22DESCENDING%22%7D%5D`.\n\n**NOTE:** Currently, we support sorting by **`firstName`**, **`lastName`**, and text custom fields.\n"
+              }
+            ]
+          },
+          "docs": "Gets multiple Locations (primary profile only) near a given location, ordered by proximity to the location (if no other sort criteria are given) and restricted to a radius. Searches through all language profiles, including the primary profile.\n\n**NOTE:** Responses will contain resolved values for embedded fields\n"
+        },
+        {
+          "info": {
+            "name": "Question: Create\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/createQuestion",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Question."
+        },
+        {
+          "info": {
+            "name": "Review: Create\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/reviewSubmission",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Review."
+        },
+        {
+          "info": {
+            "name": "Review: Update\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/reviewSubmission/:apiIdentifier",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "apiIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this review.\n\nOne of:\n* A UUID generated at the time the Review Creation request is accepted.\n* The invitationUid, if the review is associated with an invitation.\n\nThis ID will be returned in the response to any requests to the Review: Create Live API\nendpoint.\n\nThis ID will also be included in the Reviews Webhook, and the Review: Get/List Knowledge API\nendpoints.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Review."
+        },
+        {
+          "info": {
+            "name": "Review: Delete\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/reviewSubmission/:apiIdentifier",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "apiIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of this review.\n\nOne of:\n* A UUID generated at the time the Review Creation request is accepted.\n* The invitationUid, if the review is associated with an invitation.\n\nThis ID will be returned in the response to any requests to the Review: Create Live API\nendpoint.\n\nThis ID will also be included in the Reviews Webhook, and the Review: Get/List Knowledge API\nendpoints.\n"
+              }
+            ]
+          },
+          "docs": "Delete a Review."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

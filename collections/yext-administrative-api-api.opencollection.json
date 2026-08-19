@@ -1,0 +1,763 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Administrative API API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Administrative API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Available Services: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/availableservices",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Return list of services available to you under your agreements"
+        },
+        {
+          "info": {
+            "name": "Add Requests: Create (New Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/newlocationaddrequests",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request that a new location be added and services added to it. The location is created only if the \"status\" field returned is \"COMPLETE\". In most cases, the \"status\" returned in the Add Request: Create response will be \"SUBMITTED\". For a list and explanation of each possible \"status\", please see the [**Add Requests: Get (Location)**](#operation/getAddRequest) section.\n\nTo receive real-time updates on the status of your Add Request, we recommend that you configure the [**Add Request Update: Webho"
+        },
+        {
+          "info": {
+            "name": "Add Requests: Create (Existing Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/existinglocationaddrequests",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request that one or more available services be added to an existing location."
+        },
+        {
+          "info": {
+            "name": "Add Requests: Create (Existing Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/existingsubaccountaddrequests",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request that one or more available services be added (or increased in quantity) to an existing account."
+        },
+        {
+          "info": {
+            "name": "Services: Cancel (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/cancelservices",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account.\n\n**NOTE:** If you would like to cancel location services under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel one or more active services provisioned on the location.\n\n**NOTE:** If you have added location services under a sub-account, use this endpoint on your *main account* to cancel them.\n"
+        },
+        {
+          "info": {
+            "name": "Services: Cancel (Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/cancelsubaccountservices",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel services provisioned on the sub-account.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel (or decrease the quantity of) one or more active services provisioned on the account.\n\n**NOTE:** If you have added services to a sub-account, use this endpoint on your *main account* to cancel them.\n"
+        },
+        {
+          "info": {
+            "name": "Services: Cancel All (Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/cancelallsubaccountservices",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel all of the services provisioned on the sub-account.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel all active services (all quantities) provisioned on the account.\n\n**NOTE:** If you have added services to a sub-account, use this endpoint on your *main account* to cancel all of them.\n"
+        },
+        {
+          "info": {
+            "name": "Add Requests: Process (Sandbox API Only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/processaddrequest",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request that an add request in REVIEW be processed to COMPLETE, CANCELED, or FAILED. Only applicable for location add requests."
+        },
+        {
+          "info": {
+            "name": "Add Requests: List (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/addrequests",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters the list to add requests in a specific status."
+              },
+              {
+                "name": "submittedAfter",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "submittedBefore",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "agreementId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Get all of the add requests in the account that were created for locations. The response includes both New Location Add Requests and Existing Location Add Requests.\n\nPossible `status` values for each add request:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was succ"
+        },
+        {
+          "info": {
+            "name": "Add Requests: Get (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/addrequests/:addRequestId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "addRequestId",
+                "value": "",
+                "type": "path",
+                "description": "addRequestId returned from a previous call to **Add Requests: Create (New Location)**, **Add Requests: Create (Existing Location)**, or retrieved from **Add Requests: List (Location)**\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Get status information about an add request that was previously created for a location.\n\nPossible statuses:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services for the location.\n  "
+        },
+        {
+          "info": {
+            "name": "Add Requests: List (Sub-Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/subaccountaddrequests",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filters the list to add requests in a specific status."
+              },
+              {
+                "name": "submittedAfter",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "submittedBefore",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "",
+                "type": "query",
+                "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "agreementId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subAccountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Get all of the add requests in the account that were created for sub-accounts.\n\nPossible `status` values for each add request:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services f"
+        },
+        {
+          "info": {
+            "name": "Add Requests: Get (Sub-Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/subaccountaddrequests/:addRequestId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "addRequestId",
+                "value": "",
+                "type": "path",
+                "description": "addRequestId returned from a previous call to **Add Requests: Create (Existing Account)** or retrieved from **Add Requests: List (Sub-Account)**\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Get status information about an add request that was previously created for a sub-account.\n\nPossible statuses:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services for the sub-accou"
+        },
+        {
+          "info": {
+            "name": "Services: List (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/services",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a location under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "locationAccountId",
+                "value": "",
+                "type": "query",
+                "description": "*(Portal Mode only)* Filters on the account that the location receiving service is in.\n"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the service. By default, returns only Active services, not All services."
+              },
+              {
+                "name": "agreementId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all services provisioned on a location.\n\n**NOTE:** If you have added location services under sub-accounts, they will be returned from this endpoint on your *main account*.\n"
+        },
+        {
+          "info": {
+            "name": "Services: List (Sub-Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/subaccountservices",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subAccountId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the service. By default, returns only Active services, not All services."
+              },
+              {
+                "name": "agreementId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all services provisioned on a sub-account.\n\n**NOTE:** If you have added services to sub-accounts, they will be returned from this endpoint on your *main account*.\n"
+        },
+        {
+          "info": {
+            "name": "Accounts: Create Sub-Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/createsubaccount",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request to create a new empty sub-account under this account."
+        },
+        {
+          "info": {
+            "name": "Resources Apply Request: Create (Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/resourcesapplyrequests",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a request to asynchronously apply resources using the URL of a GitHub repository.\n"
+        },
+        {
+          "info": {
+            "name": "Resources Apply Request Status: Get (Account)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/resourcesapplyrequests/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "requestId returned from a previous call to **Resources Apply Requests: Create (Account)**\n"
+              },
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Make a request to get the status of the Resources Apply Request.\n"
+        },
+        {
+          "info": {
+            "name": "Accounts: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts",
+            "params": [
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Returns only accounts whose name contains the provided string"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "List all accounts that you have access to. Unless you are in Partner Portal mode, this will only be your own account."
+        },
+        {
+          "info": {
+            "name": "Accounts: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Get details for an account"
+        },
+        {
+          "info": {
+            "name": "Accounts: Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an account's name or ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

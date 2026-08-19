@@ -1,0 +1,571 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Accounts API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Universal Search: Autocomplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/search/autocomplete",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "experienceKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the Search experience."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code of the experience (e.g. `en_GB`)."
+              },
+              {
+                "name": "input",
+                "value": "",
+                "type": "query",
+                "description": "The partial search term from the user."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of autocomplete results to return."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of suggested queries across all verticals in the experience based on the characters already typed by the user. This API is meant to be hit after each keystroke."
+        },
+        {
+          "info": {
+            "name": "Universal Search: Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/search/query",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "experienceKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the Search experience."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale."
+              },
+              {
+                "name": "input",
+                "value": "",
+                "type": "query",
+                "description": "The search term of the user."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The user's location as a comma separated latitude and longitude (e.g. `\"40.740957,-73.987565\"`)."
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID used to track session state when cookies are blocked."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "JSON object specifying the limit for each vertical.  Each key is a vertical key and the value for each of those keys is a number 1-50 that denotes the limit for that vertical. This parameter should be provided as a URL-encoded string containing a JSON object."
+              },
+              {
+                "name": "queryTrigger",
+                "value": "",
+                "type": "query",
+                "description": "String value that is logged to analytics denoting the trigger for the query.\nOptions include:\n* `suggest`, sent if the query is triggered from a spelling correction.\n* `initialize`, sent if the query is being triggered by a default initial search (in other words, the user did not enter query).\n"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Context is an arbitrary JSON object that is passed to query rules to be used for triggering rules as well as passing data to those rules. This parameter should be provided as a URL-encoded string containing a JSON object."
+              },
+              {
+                "name": "referrerPageUrl",
+                "value": "",
+                "type": "query",
+                "description": "The URL of the webpage that directed to the page this request was made from."
+              },
+              {
+                "name": "skipSpellCheck",
+                "value": "",
+                "type": "query",
+                "description": "If true the query will skip spell checking."
+              },
+              {
+                "name": "restrictVerticals",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of verticals (e.g. `\"people,locations\"`). If specified, only results from these verticals will be returned."
+              },
+              {
+                "name": "ignoreQueryRules",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false."
+              },
+              {
+                "name": "queryId",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the query; recommended when moving through results, to associate multiple requests to the same query."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Indicates where the query is coming from (e.g. `\"HOME_HEADER\"` or `\"TICKET_FORM\"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `\"STANDARD\"`."
+              },
+              {
+                "name": "jsLibVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Search UI used for this request. Deprecated."
+              }
+            ]
+          },
+          "docs": "Search for entities across all verticals within a Search experience.  Modules are returned for all verticals with relevant entities. Further fine tuning and filtering of the results can then be done using the vertical query endpoint. A maximum of 50 verticals can be queried with this endpoint.\n\nIn order prevent bot traffic from using Search API Capacity, you must integrate with the Search API from the front end of your application.  The Search API's Bot Detection feature requires the API to be c"
+        },
+        {
+          "info": {
+            "name": "Vertical Search: Autocomplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/search/vertical/autocomplete",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "experienceKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the Search experience."
+              },
+              {
+                "name": "verticalKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the vertical."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code of the experience (e.g. `en_GB`)."
+              },
+              {
+                "name": "input",
+                "value": "",
+                "type": "query",
+                "description": "The partial search term from the user."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of autocomplete results to return."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of suggested queries for the selected vertical based on the characters already typed by the user or the most popular queries when no user input is given."
+        },
+        {
+          "info": {
+            "name": "Vertical Search: Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/search/vertical/query",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "experienceKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the Search experience."
+              },
+              {
+                "name": "verticalKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the vertical."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale."
+              },
+              {
+                "name": "input",
+                "value": "",
+                "type": "query",
+                "description": "The search term of the user."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "The user's location as a comma separated latitude and longitude (e.g. `\"40.740957,-73.987565\"`)."
+              },
+              {
+                "name": "locationRadius",
+                "value": "",
+                "type": "query",
+                "description": "Radius (in meters) that should be applied to any location filter that does not already have an explicit radius."
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID used to track session state when cookies are blocked."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip. Used to move through results."
+              },
+              {
+                "name": "queryTrigger",
+                "value": "",
+                "type": "query",
+                "description": "String value that is logged to analytics denoting the trigger for the query.\nOptions include:\n* `suggest`, sent if the query is triggered from a spelling correction.\n* `initialize`, sent if the query is being triggered by a default initial search (in other words, the user did not enter query).\n"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Context is an arbitrary JSON object that is passed to query rules to be used for triggering rules as well as passing data to those rules. This parameter should be provided as a URL-encoded string containing a JSON object."
+              },
+              {
+                "name": "referrerPageUrl",
+                "value": "",
+                "type": "query",
+                "description": "The URL of the webpage that directed to the page this request was made from."
+              },
+              {
+                "name": "skipSpellCheck",
+                "value": "",
+                "type": "query",
+                "description": "If true the query will skip spell checking."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filters param after URL-encoding will be: `filters=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined to form a conjunction (AND) of disjunctions (ORs) using the *combinators* `$and` and `$or`.  For example:\n```\n{\n  \"$and\": [\n    {\n      \"$or\": [\n        {\n          \"firstName\": {\n            \"$eq\": \"Jane\"\n          }\n        },\n        {\n          \"firstName\": {\n            \"$eq\": \"John\"\n          }\n        }\n      ]\n    },\n    {\n      \"lastName\": {\n        \"$eq\": \"Smith\"\n      }\n    }\n  ]\n}\n```\nAny filter that is the only item in its respective combinator may omit the combinator as is done with the lastName above.\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for option custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$between</th>\n    <th>\n\n  An array that must contain exactly two elements with which the result is between.\n\n    {\n      \"time.end\": {\n        \"$between\":  [\"2018-08-28T05:56\", \"2018-08-29T05:56\"]\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  In addition to between, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue\" : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n"
+              },
+              {
+                "name": "facetFilters",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents the state of the currently checked facet options. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nThe JSON object contains a key for each facet category that has a checked facet option.  The value for each of these keys is an array of Filter objects that describe the filter that is applied by the facet option.\n\nAt the moment, facet options only support `$eq`.\n\nFor example, if `Engineering` was checked under the `Category` facet and `Chicago` and `New York` are checked under the `Job Location` facet, the `facetFilters` would look like:\n```\n{\n  \"c_jobCategory\": [\n    {\n      \"c_jobCategory\": {\n        \"$eq\": \"Engineering\"\n      }\n    }\n  ],\n  \"c_jobLocation\": [\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"Chicago\"\n      }\n    },\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"New York\"\n      }\n    }\n  ]\n}\n```\n"
+              },
+              {
+                "name": "retrieveFacets",
+                "value": "",
+                "type": "query",
+                "description": "Whether facets should be computed for this vertical query."
+              },
+              {
+                "name": "sortBys",
+                "value": "",
+                "type": "query",
+                "description": "This parameter overrides the sort options that are configured on the experience configuration.  This parameter should be provided as a URL-encoded string containing a JSON array.\n\nThe input is a JSON array containing each of the sort options in the order in which they should be applied.\n\nEach sort options must contain a `type`\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Type</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>RELEVANCE</th>\n    <th>Sorts based on relevance according to the algorithm and, when relevant, location bias</th>\n  </tr>\n  <tr>\n    <th>ENTITY_DISTANCE</th>\n    <th>Sorts based on entity distance alone</th>\n  </tr>\n  <tr>\n    <th>FIELD</th>\n    <th>sorts based on a field with the direction specified</th>\n  </tr>\n</table>\n\n</br>\n\nIf the `type` is `FIELD` the sort options must also specify `field` which is the api name of the field to sort on.\n\nFinally, if the `type` is `FIELD` the sort options must also specify the `direction`.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Direction</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>ASC</th>\n    <th>Sorts in ascending order.  For numbers this is low to high. For text this is alphabetical.  For dates this is chronological order.</th>\n  </tr>\n  <tr>\n    <th>DESC</th>\n    <th>Sorts in ascending order.  For numbers this is high to low. For text this is reverse alphabetical.  For dates this is reverse chronological order.</th>\n  </tr>\n</table>\n\n</br>\n\n**Examples**\n```\n[\n  {\n    \"type\": \"FIELD\",\n    \"direction\": \"ASC\",\n    \"field\": \"startDate\"\n  },\n  {\n    \"type\": \"RELEVANCE\",\n    \"direction\": \"ASC\"\n  }\n]\n```\n"
+              },
+              {
+                "name": "ignoreQueryRules",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false."
+              },
+              {
+                "name": "queryId",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the query; recommended when moving through results, to associate multiple requests to the same query."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Indicates where the query is coming from (e.g. `\"HOME_HEADER\"` or `\"TICKET_FORM\"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `\"STANDARD\"`."
+              },
+              {
+                "name": "jsLibVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the Search UI used for this request. Deprecated."
+              }
+            ]
+          },
+          "docs": "Search for entities within the selected vertical.  Vertical query allows for fine tuning of the search using filters, facets and sorts passed in through the API.\n\nIn order prevent bot traffic from using Search API Capacity, you must integrate with the Search API from the front end of your application.  The Search API's Bot Detection feature requires the API to be called directly from the end-user's web browser.  If you must integrate with the Search API via another mechanism, all traffic will be"
+        },
+        {
+          "info": {
+            "name": "Vertical Search: Filter Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/search/filtersearch",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "experienceKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the Search experience."
+              },
+              {
+                "name": "verticalKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the vertical to scope the filter search request to."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code of the experience (e.g. `en_GB`)."
+              },
+              {
+                "name": "input",
+                "value": "",
+                "type": "query",
+                "description": "The search term of the user."
+              },
+              {
+                "name": "search_parameters",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents the parameters that should be used for filter search. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFilter search uses the user's input string to find a set of existing filters that match the user's input query for the fields provided in the parameters.\n\nThe JSON object must have a `fields` property made up of a list of `FilterField` objects that have the following properties:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Property</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>fieldId</th>\n    <th>The api name of the field.</th>\n  </tr>\n  <tr>\n    <th>entityTypeId</th>\n    <th>The api name for the entity type the filter belongs to.</th>\n  </tr>\n  <tr>\n    <th>shouldFetchEntities</th>\n    <th>Optional boolean.  If true, entities matching each filter will be returned inline with the filter.</th>\n  </tr>\n</table>\n\n</br>\n\nAdditionally, there is an optional boolean property `sectioned`.  If set to true, the matching filters will be returned in a separate section per field.  By default, they are all returned in the same section.\n"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+              },
+              {
+                "name": "excluded",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents any values which should not be returned. This parameter should be provided as a URL-encoded string containing a JSON array, where each entry of the array is a JSON object representing a field and an excluded value for that field. For example:\n```\n[\n  {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  },\n  {\n    \"c_jobCategory\": {\n      \"$eq\": \"Engineering\"\n    }\n  }\n]\n```\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of potential filters that match the user's input up to that point.  This differs from query suggest by only returning the names of filters that can be searched rather than the broader corpus of suggested queries."
+        },
+        {
+          "info": {
+            "name": "Answer: Generate\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/search/generateAnswer",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "experienceKey",
+                "value": "",
+                "type": "query",
+                "description": "String key that uniquely identifies the Search experience."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Leverages large language models (LLMs) to deliver generated summaries based on search results.\n\nThis endpoint works with the Universal/Vertical Search endpoint, which provides the search results for the LLM to analyze and generate direct answers.\n"
+        },
+        {
+          "info": {
+            "name": "Chat: Message Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/chat/:botId/message",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "botId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the chatbot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send messages and receive responses from a Yext Chat bot."
+        },
+        {
+          "info": {
+            "name": "Analytics Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/me/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send user events from your Yext digital experiences to Yext Analytics in near real-time.\n\nThis documentation is for version `1.0.0` of the Events API. If you are still using version\n`0.6`, refer to the documentation in the yext/analytics Github repository \n[here](https://github.com/yext/analytics/blob/release/v0.6.8/src/models/EventPayload.ts).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,564 @@
+{
+  "item": [
+    {
+      "id": "971bc1f7-f48b-4f37-9b3d-8927c3c74276",
+      "name": "Publisher Disruptions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "29734bc1-0735-4af9-97af-2cb6b41f6ea7",
+          "name": "Publisher Disruptions: List",
+          "request": {
+            "name": "Publisher Disruptions: List",
+            "description": {
+              "content": "Retrieve disruptions for a publisher.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "publishers",
+                ":publisherSiteId",
+                "disruptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.severities",
+                  "value": "<string>",
+                  "description": "Only return disruptions with one of the provided severities.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.severities",
+                  "value": "<string>",
+                  "description": "Only return disruptions with one of the provided severities.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.statuses",
+                  "value": "<string>",
+                  "description": "Only return disruptions with one of the provided statuses.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.statuses",
+                  "value": "<string>",
+                  "description": "Only return disruptions with one of the provided statuses.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.startTime",
+                  "value": "<dateTime>",
+                  "description": "Inclusive lower bound on `lastEventTimestamp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.endTime",
+                  "value": "<dateTime>",
+                  "description": "Inclusive upper bound on `lastEventTimestamp`."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50",
+                  "description": "Number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained `meta.pagination.pageToken`, pass that\nfield's value as the `pageToken` parameter to retrieve the next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "languageCode",
+                  "value": "<string>",
+                  "description": "Locale code for translated disruption content, such as `en_US` or `fr_FR`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisherSiteId",
+                  "description": "(Required) Publisher site ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7e717a4-df60-4514-883e-5a3dc790640d",
+              "name": "List Publisher Disruptions Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publishers",
+                    ":publisherSiteId",
+                    "disruptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter.endTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "languageCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisherSiteId",
+                      "description": "(Required) Publisher site ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"pagination\": {\n      \"pageToken\": \"string\"\n    }\n  },\n  \"response\": {\n    \"disruptions\": [\n      {\n        \"externalId\": \"string\",\n        \"title\": \"string\",\n        \"severity\": \"HIGH\",\n        \"status\": \"MONITORING\",\n        \"affectedProducts\": [\n          \"LISTINGS\",\n          \"SOCIAL\"\n        ],\n        \"lastEventTimestamp\": \"2006-07-01T15:38:49.018Z\"\n      },\n      {\n        \"externalId\": \"string\",\n        \"title\": \"string\",\n        \"severity\": \"SEVERITY_UNSPECIFIED\",\n        \"status\": \"MONITORING\",\n        \"affectedProducts\": [\n          \"ANALYTICS\",\n          \"SOCIAL\"\n        ],\n        \"lastEventTimestamp\": \"1997-12-30T23:53:37.902Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfad500c-84ae-447b-afbf-2c29d018a598",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publishers",
+                    ":publisherSiteId",
+                    "disruptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.severities",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter.endTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "languageCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisherSiteId",
+                      "description": "(Required) Publisher site ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 1099,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 8760,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "589bf002-ad69-4deb-b541-5da2599d637e",
+          "name": "Publisher Disruptions: List Status Updates",
+          "request": {
+            "name": "Publisher Disruptions: List Status Updates",
+            "description": {
+              "content": "Retrieve status updates for a publisher disruption.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "publishers",
+                ":publisherSiteId",
+                "disruptions",
+                ":disruptionExternalId",
+                "statusUpdates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50",
+                  "description": "Number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained `meta.pagination.pageToken`, pass that\nfield's value as the `pageToken` parameter to retrieve the next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "languageCode",
+                  "value": "<string>",
+                  "description": "Locale code for translated status update content, such as `en_US` or `fr_FR`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publisherSiteId",
+                  "description": "(Required) Publisher site ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "disruptionExternalId",
+                  "description": "(Required) External ID of the disruption."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "debf229f-1c34-4dca-8fad-52d9e5644d7d",
+              "name": "List Publisher Disruption Status Updates Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publishers",
+                    ":publisherSiteId",
+                    "disruptions",
+                    ":disruptionExternalId",
+                    "statusUpdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "languageCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisherSiteId",
+                      "description": "(Required) Publisher site ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disruptionExternalId",
+                      "description": "(Required) External ID of the disruption."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"pagination\": {\n      \"pageToken\": \"string\"\n    }\n  },\n  \"response\": {\n    \"statusUpdates\": [\n      {\n        \"externalId\": \"string\",\n        \"status\": \"MONITORING\",\n        \"messageHtml\": \"string\",\n        \"eventTimestamp\": \"1954-09-20T13:13:09.717Z\"\n      },\n      {\n        \"externalId\": \"string\",\n        \"status\": \"RESOLVED\",\n        \"messageHtml\": \"string\",\n        \"eventTimestamp\": \"1986-06-08T21:46:54.170Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cba174a0-7fb6-466f-8157-893de5901ad6",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "publishers",
+                    ":publisherSiteId",
+                    "disruptions",
+                    ":disruptionExternalId",
+                    "statusUpdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "languageCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publisherSiteId",
+                      "description": "(Required) Publisher site ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disruptionExternalId",
+                      "description": "(Required) External ID of the disruption."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 773,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 2468,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4893da17-67ef-442c-90d2-612f566d2375",
+    "name": "Yext Admin Account Settings Publisher Disruptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

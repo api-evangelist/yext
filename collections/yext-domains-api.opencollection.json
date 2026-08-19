@@ -1,0 +1,584 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Domains API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Domain: List\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "hostname",
+                "value": "www.example.com,test.example.com",
+                "type": "query",
+                "description": "Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned."
+              },
+              {
+                "name": "hostname_search",
+                "value": "example",
+                "type": "query",
+                "description": "Case-insensitive substring used to filter by hostname."
+              },
+              {
+                "name": "show_deleted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page. Sizes above the maximum will be clamped at the maximum value."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token to retrieve the next page of results. If not provided, the first page of results will be returned."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+              }
+            ]
+          },
+          "docs": "Domain: List\n"
+        },
+        {
+          "info": {
+            "name": "Domain: Create\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Domain: Create\n"
+        },
+        {
+          "info": {
+            "name": "Domain: Get\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+              }
+            ]
+          },
+          "docs": "Domain: Get\n"
+        },
+        {
+          "info": {
+            "name": "Domain: Update\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "force_move",
+                "value": "",
+                "type": "query",
+                "description": "If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account."
+              },
+              {
+                "name": "update_mask",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of fields to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the configurations for the specified domain. Also triggers a check for Yext or SSL verification, if the Domain is not yet ACTIVE.\nSee the `update_mask` parameter for fields that can be updated, any other provided fields will be ignored.\n"
+        },
+        {
+          "info": {
+            "name": "Domain: Delete\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "If true, Domain Associations using this domain will also be deleted.\nIf not set or false, and if Domain Associations exist using this domain, an error will be returned.\n"
+              }
+            ]
+          },
+          "docs": "Domain: Delete\n"
+        },
+        {
+          "info": {
+            "name": "Migrate Legacy Pages Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/migratepagesdomain/:hostname",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "path",
+                "description": "The hostname of the legacy domain to migrate."
+              }
+            ]
+          },
+          "docs": "Migrates a legacy Pages domain to a Domains API domain resource."
+        },
+        {
+          "info": {
+            "name": "Domain Association: List\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId/associations",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "referenced_resources",
+                "value": "accounts/123456/sites/6789,accounts/98765/sites/5678",
+                "type": "query",
+                "description": "Comma-separated list of associated resources to filter by."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page. Sizes above the maximum will be clamped at the maximum value."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token to retrieve the next page of results. If not provided, the first page of results will be returned."
+              }
+            ]
+          },
+          "docs": "Domain Association: List\n"
+        },
+        {
+          "info": {
+            "name": "Domain Association: Create\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId/associations",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "force_move",
+                "value": "",
+                "type": "query",
+                "description": "If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creating a Domain Association will begin serving the contents of the associated resource at the Domain Association's `hostname` (given DNS for the hostname is already set up).\n"
+        },
+        {
+          "info": {
+            "name": "Domain Association: Get\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId/associations/:domainAssociationId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainAssociationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Domain Association: Get\n"
+        },
+        {
+          "info": {
+            "name": "Domain Association: Update\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId/associations/:domainAssociationId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainAssociationId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Domain Association: Update\n"
+        },
+        {
+          "info": {
+            "name": "Domain Association: Delete\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/domains/:domainId/associations/:domainAssociationId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainAssociationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deleting a Domain Association will stop serving the contents of the associated resource from the Domain Association's `hostname`.\n"
+        },
+        {
+          "info": {
+            "name": "Managed CSR: List\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/csrs",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page. Sizes above the maximum will be clamped at the maximum value."
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token to retrieve the next page of results. If not provided, the first page of results will be returned."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+              }
+            ]
+          },
+          "docs": "Managed CSR: List\n"
+        },
+        {
+          "info": {
+            "name": "Managed CSR: Create\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/csrs",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Certificate Signing Request (CSR) resource that can be used to provision SSL certificates.\nOnce created, this resource can be referenced by [Domains](#tag/Domains/operation/createDomain) with the `managed_csr` SSL integration to provision\ncertificates using this CSR and a public certificate.\n"
+        },
+        {
+          "info": {
+            "name": "Managed CSR: Get\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/csrs/:managedCsrId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "managedCsrId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+              }
+            ]
+          },
+          "docs": "Managed CSR: Get\n"
+        },
+        {
+          "info": {
+            "name": "Managed CSR: Delete\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/csrs/:managedCsrId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "managedCsrId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Managed CSR: Delete\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

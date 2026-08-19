@@ -1,0 +1,1223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Listings API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Publishers: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/publishers",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "subset",
+                "value": "",
+                "type": "query",
+                "description": "One of the following:\n- ALL - return all publishers\n- RELEVANT_ONLY - only return publishers based on available subscriptions and supported countries\n"
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "query",
+                "description": "When specified, only publishers that support the specified entity types will be returned\n\n**Example:** `LOCATION,EVENT`\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of publishers included in an account's subscription\n"
+        },
+        {
+          "info": {
+            "name": "Listings Accuracy: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/accuracy",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the entity to retrieve listing accuracy results for."
+              },
+              {
+                "name": "publisherIds",
+                "value": "MAPQUEST,FACEBOOK",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, the endpoint queries live publishers supported by Listings Accuracy and returns only publishers with a latest completed verifier result for the entity.\n\nIf a publisher ID is specified but is unknown or is not live and supported by Listings Accuracy, the request fails. If a specified publisher is valid but has no latest completed verifier data, that publisher is omitted from `listingAccuracy`.\n\nTo request multiple publishers, repeat this query parameter once per publisher.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve the latest completed listing accuracy comparison results for an entity.\n\nResults include field-level comparison data for each publisher with a latest completed verifier result. Requested publishers that are valid but have no latest completed verifier data are omitted from the response.\n"
+        },
+        {
+          "info": {
+            "name": "Listings: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/listings",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`pageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "When specified, only Listings with the provided statuses will be returned\n\n**Example:** `WAITING_ON_YEXT,WAITING_ON_CUSTOMER`\n"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "One of the language codes that we support:\n- cs - Czech\n- da - Danish\n- nl - Dutch\n- en - English\n- en_GB - English (UK)\n- fi - Finnish\n- fr - French (France)\n- de - German (Germany)\n- hu - Hungarian\n- it - Italian\n- ja - Japanese\n- no - Norwegian\n- pt - Portuguese (Portugal)\n- sk - Slovak\n- es - Spanish (Spain)\n- sv - Swedish\n- tr - Turkish\n- zh_Hans - Chinese (Simplified)\n- zh_Hant - Chinese (Traditional)\n"
+              }
+            ]
+          },
+          "docs": "Retrieve all Listings matching the given criteria including status and reasons why a Listing may be unavailable\n\nThe results will first be sorted by publisher and then by Location.\n\n**Support for `all` macro:** If you would like to use this endpoint to take action on your account and all of its sub-accounts, you can use the `all` macro in place of your account ID in your request URLs. For more information, see the \"Account ID\" section of \"Policies and Conventions\" at the top of this page.\n"
+        },
+        {
+          "info": {
+            "name": "Listings: Opt In",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/listings/optin",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              }
+            ]
+          },
+          "docs": "Opts designated locations into designated publishers\n\n**NOTE:** The number of Location IDs multiplied by the number of Publisher IDs is capped at 100. If you exceed this, you will receive a 400 error response.\n"
+        },
+        {
+          "info": {
+            "name": "Listings: Opt Out",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/listings/optout",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              }
+            ]
+          },
+          "docs": "Opts designated locations out of designated publishers\n\n**NOTE:** The number of Location IDs multiplied by the number of Publisher IDs is capped at 100. If you exceed this, you will receive a 400 error response.\n"
+        },
+        {
+          "info": {
+            "name": "Listings: Confirm Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/listings/confirmsync",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If the **`v`** param is after `20260401`, a **`pageToken`** will be returned if the result is over 1000 listings. This token can be used in the next request to process the next batch of listings.\n"
+              }
+            ]
+          },
+          "docs": "Approves designated locations to sync to designated publishers. See [here](https://hitchhikers.yext.com/docs/listings/confirm-sync/) for more details about confirm sync.\n\n**NOTE:** If the **`v`** param is after `20260401`, Yext will filter to all applicable listings in the provided filter. If the result is over 1000 listings, a **`pageToken`** will be provided to allow processing of the next batch.\n"
+        },
+        {
+          "info": {
+            "name": "Listings: Force Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/listings/forcesync",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              }
+            ]
+          },
+          "docs": "Trigger designated locations to sync to designated publishers. See [here](https://help.yext.com/hc/en-us/articles/360020003051-Force-Sync-a-Listing) for more details about force sync.\n\n**NOTE:** The number of Location IDs multiplied by the number of Publisher IDs is capped at 1000. If you exceed this, you will receive a 400 error response.\n"
+        },
+        {
+          "info": {
+            "name": "Publisher Suggestions: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/publishersuggestions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "When specified, only Publisher Suggestions with the provided statuses will be returned\n\n**Example:** WAITING_ON_CUSTOMER,EXPIRED\n"
+              }
+            ]
+          },
+          "docs": "Retrieve suggestions publishers have submitted for the Locations in an account"
+        },
+        {
+          "info": {
+            "name": "Publisher Suggestions: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/publishersuggestions/:suggestionId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "suggestionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetches details of a specific Publisher Suggestion"
+        },
+        {
+          "info": {
+            "name": "Publisher Suggestions: Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/publishersuggestions/:suggestionId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "suggestionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the Publisher Suggestion"
+              }
+            ]
+          },
+          "docs": "Accept or reject a Publisher Suggestion.\n\n**NOTE:** When sending requests to this endpoint, you must provide your Yext user ID in the **`Yext-User-Id`** header.\n"
+        },
+        {
+          "info": {
+            "name": "Duplicates: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/duplicates",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account locations with a Listings subscription.\n\n**Example:** loc123,loc456,loc789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** MAPQUEST,FACEBOOK\n"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "When specified, only Duplicates with the provided statuses will be returned\n\n**Example:** POSSIBLE_DUPLICATE,SUPPRESSION_REQUESTED\n"
+              }
+            ]
+          },
+          "docs": "Retrieve Duplicates for an account\n\nIf the **`v`** parameter is `20180802` or later: only duplicates of live listings (**`status`**: `LIVE`) will be included\n"
+        },
+        {
+          "info": {
+            "name": "Duplicates: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/duplicates",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "An account location ID with a Listings subscription."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "URL of the Duplicate listing"
+              }
+            ]
+          },
+          "docs": "Creates a new Duplicate with **`status`** `SUPPRESSION_REQUESTED`.\n\n**NOTE:** When sending requests to this endpoint, you must provide your Yext user ID in the **`Yext-User-Id`** header.\n"
+        },
+        {
+          "info": {
+            "name": "Duplicates: Suppress",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/duplicates/:duplicateId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "duplicateId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request suppression of a Duplicate.\n\n**NOTE:** When sending requests to this endpoint, you must provide your Yext user ID in the **`Yext-User-Id`** header.\n"
+        },
+        {
+          "info": {
+            "name": "Duplicates: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/duplicates/:duplicateId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "duplicateId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Indicates that a Duplicate should be ignored.\n\n**NOTE:** When sending requests to this endpoint, you must provide your Yext user ID in the **`Yext-User-Id`** header.\n"
+        },
+        {
+          "info": {
+            "name": "Verification Methods: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/verifications/:publisherId/:locale/methods",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "path",
+                "description": "Locale code."
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "\nA comma-separated list of Entity IDs.\nIf no IDs are specified, defaults to all entities with a listings subscription.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve verification methods for entities in an account\n"
+        },
+        {
+          "info": {
+            "name": "Verification Statuses: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/verifications/:publisherId/statuses",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "\nA comma-separated list of Entity IDs.\nIf no IDs are specified, defaults to all entities with a listings subscription.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve verification statuses for entities in an account\n"
+        },
+        {
+          "info": {
+            "name": "Verification: Initiate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/verifications/:publisherId/:locale/initiate",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "path",
+                "description": "Locale code."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate verification for entities in an account.\nThis request will trigger verification codes being sent to the specified addresses,\nphone numbers, or email addresses.\n"
+        },
+        {
+          "info": {
+            "name": "Verification: Complete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/verifications/:publisherId/complete",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides verification codes to complete the verification for entities in an account.\n"
+        },
+        {
+          "info": {
+            "name": "Listing Admins: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/admins/:publisherId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "\nA comma-separated list of Entity IDs.\nIf no IDs are specified, defaults to all entities with a listings subscription.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve listing admins for entities in an account.\n"
+        },
+        {
+          "info": {
+            "name": "Listing Admin: Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/admins/:publisherId/invite",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publisherId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends invitations to new listing admins for entities in an account.\nFor Google Business Profile listings, the admins will be given owner-level access.\n"
+        },
+        {
+          "info": {
+            "name": "Entity Listings: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/entitylistings",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account events with a subscription.\n\n**Example:** entity123,entity456,entity789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** FACEBOOKEVENTS,EVENTBRITE\n"
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all Listings whose **`status`** is not `DELETED` or `SYNC_STOPPED`.\n\nWhen specified, only Listings with the provided statuses will be returned.\n"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "One of the following language codes:\n- `cs` - Czech\n- `da` - Danish\n- `nl` - Dutch\n- `en` - English\n- `en_GB` - English (UK)\n- `fi` - Finnish\n- `fr` - French (France)\n- `de` - German (Germany)\n- `hu` - Hungarian\n- `it` - Italian\n- `ja` - Japanese\n- `no` - Norwegian\n- `pt` - Portuguese (Portugal)\n- `sk` - Slovak\n- `es` - Spanish (Spain)\n- `sv` - Swedish\n- `tr` - Turkish\n- `zh_Hans` - Chinese (Simplified)\n- `zh_Hant` - Chinese (Traditional)\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve all Entity Listings matching the given criteria. Includes the status of each Listing and reasons why a Listing may not be live. This endpoint currently only supports Event Listings.\n\nThe results will first be sorted by publisher and then by Entity.\n\n**Support for `all` macro:** If you would like to use this endpoint to take action on your account and all of its sub-accounts, you can use the `all` macro in place of your account ID in your request URLs. For more information, see the \"Acco"
+        },
+        {
+          "info": {
+            "name": "Entity Listings: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/listings/delete",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all account events with a subscription.\n\n**Example:** entity123,entity456,entity789\n"
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "List of publisher IDs. If no IDs are specified, defaults to all publishers subscribed by the account.\n\n**Example:** FACEBOOKEVENTS,EVENTBRITE\n"
+              }
+            ]
+          },
+          "docs": "Deletes event listings from publishers. If deletion is not supported by the publisher, then service is removed instead.\n\n**NOTE:** You can delete a maximum of 100 listings in a single request. If the number of Entity IDs multiplied by the number of Publisher IDs in your request exceeds 100, you will receive a 400 error response.\n\n**Support for `all` macro:** If you would like to use this endpoint to take action on your account and all of its sub-accounts, you can use the `all` macro in place of "
+        },
+        {
+          "info": {
+            "name": "Questions: List\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/questions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"entityId\":{\"$eq\":\"location123\"}}`, then the filter param after URL-encoding will be: `filter=%7B%22entityId%22%3A%7B%22%24eq%22%3A%22location123%22%7D%7D`\n\n**Supported filters**\n* **`id`**\n* **`entityId`**\n* **`publisherId`**\n* **`authorType`**\n* **`language`**\n* **`createTime`**\n* **`updateTime`**\n* **`answerCount`**\n* **`ownerAnswer`**\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"entityId\":{\n    \"$eq\":\"location123\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`entityId` is the *field* being filtered by, and\n\n`location123` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined into one object using *combinators*. For example, the following filter JSON combines multiple filters using the combinator `$and`. `$or` is also supported.\n```\n{\n  \"$and\":[\n    {\n      \"entityId\":{\n        \"$eq\":\"location123\"\n      }\n    },\n    {\n      \"authorType\":{\n        \"$in\":[\n          \"LOCAL_GUIDE\",\n          \"MERCHANT\"\n        ]\n      }\n    }\n  ]\n}\n```\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"entityId\": {\n      \"$eq\": \"location123\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"entityId\":{\n    \"!$eq\":\"location123\"\n  }\n}\n```\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`entityId`**, **`authorType`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"entityId\":{\n        \"$eq\":\"location123\"\n      }\n    },\n    {\n      \"authorType\":{\n        \"!$eq\":\"REGULAR_USER\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n</table>\n\n**BOOLEAN**\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"ownerAnswer\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"answerCount\": {\n        \"$eq\": 3\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"updateTime\": {\n        \"$lt\": 1579711121392\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"answerCount\": {\n        \"$gt\": 3\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"answerCount\": {\n        \"$le\": 3\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"answerCount\": {\n        \"$ge\": 3\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  While we do not support \"between\" in our filtering syntax, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"answerCount : {\n        \"$gt\" : 1,\n        \"$lt\": 3\n      }\n    }\n\n  </tr>\n</table>\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of Questions within an account.\n\n**NOTE**: The Google Q&A API was discontinued on November 3rd, 2025. This endpoint now only returns existing questions stored in Yext.\n"
+        },
+        {
+          "info": {
+            "name": "Question: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/questions/:questionId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "questionId",
+                "value": "",
+                "type": "path",
+                "description": "ID of this Question."
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieve information for a Question\n\n**NOTE**: The Google Q&A API was discontinued on November 3rd, 2025. This endpoint now only returns existing questions stored in Yext.\n"
+        },
+        {
+          "info": {
+            "name": "Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/listings/search",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Business name.\n\ne.g. `Yext`\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Street address, including house numbers, to search.\n\ne.g `75 9th Ave`, `Bismarckstraße 35`\n"
+              },
+              {
+                "name": "address2",
+                "value": "",
+                "type": "query",
+                "description": "Address line 2 to search.\n\ne.g. `7th floor`\n"
+              },
+              {
+                "name": "sublocality",
+                "value": "",
+                "type": "query",
+                "description": "Sublocality (e.g., neighborhood, ward or district) in which to search.\n\ne.g. `pos. Lesnoe` (Russia), `Saiwai-ku` (Japan)\n"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "City in which to search\n\ne.g. `New York`\n"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State, region, or province in which to search. Abbreviations are used for some countries.\n\ne.g. `NY`, `Kanagawa`\n"
+              },
+              {
+                "name": "zip",
+                "value": "",
+                "type": "query",
+                "description": "ZIP or postal code in which to search.\n\ne.g. `10011`, `212-0011`, `4841 EP`\n"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query",
+                "description": "The ISO 3166-1 alpha-2 code of the country in which to search.\n\ne.g. `GB`, `NL`, `GB`\n"
+              },
+              {
+                "name": "phone",
+                "value": "",
+                "type": "query",
+                "description": "Location's phone number.\nFor international numbers, this number reflects how the number is dialed within the country (i.e., no country code or punctuation).\n\ne.g. `2126518966`\n"
+              },
+              {
+                "name": "latlng",
+                "value": "",
+                "type": "query",
+                "description": "latitude and longitude coordinates, separated by a comma.\n\ne.g. `-27.1259105,-109.4789002`\n"
+              },
+              {
+                "name": "firstName",
+                "value": "",
+                "type": "query",
+                "description": "The first name of the healthcare professional whose records should be returned.\n\nNOTE: You only need to support this parameter if your site supports first/last name search.\n"
+              },
+              {
+                "name": "lastName",
+                "value": "",
+                "type": "query",
+                "description": "The last name of the healthcare professional whose records should be returned.\n\nNOTE: You only need to support this parameter if your site supports first/last name search.\n"
+              },
+              {
+                "name": "npi",
+                "value": "",
+                "type": "query",
+                "description": "National Provider Identifier (NPI) of the healthcare professional or facility whose records should be returned.\n\nNOTE: This parameter will only be used if you have NPI data.\n"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The kind of records that should be returned.\n\nNOTE: This parameter will only be used if you support more than just the `Location` type.\n"
+              }
+            ]
+          },
+          "docs": "Yext uses SEARCH to search your site for existing listings. We expect the SEARCH API response to match the search results on your website or mobile app.\nYou should support at least the following search requests:\n* Phone and Country Code\n* Name and Lat/Lng OR Name and Address\n"
+        },
+        {
+          "info": {
+            "name": "Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/listings/details",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of a listing on your site.\n"
+              }
+            ]
+          },
+          "docs": "Yext uses DETAILS to retrieve listings details from your site using a known existing listing ID. The Details API should be able to retrieve data for both Yext-powered listings and listings that are in your site’s native format.\n\n*NB* For any of the array fields, if there are no items, please default to an empty array, instead of omitting the field, or returning `null`.\n\nIf the `type` of the listing is `HealthcareProfessional` or `HealthcareFacility`, additional fields are required.\n"
+        },
+        {
+          "info": {
+            "name": "Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/listings/order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Yext uses ORDER to establish a relationship between an entity in our system with a listing in your system. By sending the ORDER request, Yext will either create a new Listing on your site or claim and update an existing listing that represents the entity. You should include all fields that we pass to you in your listing. Once Yext has successfully sent an ORDER request, the listing content should be “locked”, preventing non-Yext updates to the Yext-updated fields. \n* Like all of the other real-t"
+        },
+        {
+          "info": {
+            "name": "Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/listings/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of a listing on your site is known as the listingId.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Yext uses UPDATE to update existing Listings on your site.\n* For a full list of fields available, including those specific to healthcare and hotels, please reach out to your Yext partner manager or pubops-team@yext.com\n"
+        },
+        {
+          "info": {
+            "name": "Cancel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/listings/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of a listing on your site is known as the listingId.\n"
+              }
+            ]
+          },
+          "docs": "The CANCEL request is used to notify you when a business cancels their Yext subscription for a given location. This API call effectively undoes an ORDER request.\nWhen a listing is CANCELed, we expect you to remove all Yext-specific fields: e.g. Featured Message, attribution logo, Enhanced Content Lists, and pixel tracking from the SERP and profile page.\nTo the extent that the listing was locked for editing / claiming by other data sources, you should remove those restrictions and open the listin"
+        },
+        {
+          "info": {
+            "name": "Suppress",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/listings/suppress",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This call allows Yext to suppress duplicate or invalid listings. If a listing is SUPPRESSed, we expect you to exclude the listing from your site's search results. Going to the SUPPRESSed listing's URL should result in either a 404 error, redirect to the SERP, or a redirect to the listing specified in canonicalListingId. Only non-Yext listings are suppressed: We only suppress listings that are not powered by Yext. We do not suppress listings that we sync data to.\n* Yext will indicate to the publi"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

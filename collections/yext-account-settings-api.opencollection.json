@@ -1,0 +1,524 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Roles: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/roles",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of the roles that users can have within a customer’s account."
+        },
+        {
+          "info": {
+            "name": "Users: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/users",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "Lists all Users in an account.\n\n**NOTE**:\n\nIf the **`v`** parameter is before `20211115`: **`acl`** and **`externalIdentities`** will not be included in the response.\n\nThis endpoint does not support the **`all`** macro.\n"
+        },
+        {
+          "info": {
+            "name": "Users: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/users",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new User"
+        },
+        {
+          "info": {
+            "name": "Users: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/users/:userId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific User.\n\n**NOTE**:\n\nIf the **`v`** parameter is before `20211115`: **`acl`** and **`externalIdentities`** will not be included in the response.\n"
+        },
+        {
+          "info": {
+            "name": "Users: Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/users/:userId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing User."
+        },
+        {
+          "info": {
+            "name": "Users: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/users/:userId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an existing User."
+        },
+        {
+          "info": {
+            "name": "Users: Update Password",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/users/:userId/password",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a User's password."
+        },
+        {
+          "info": {
+            "name": "Accounts: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts",
+            "params": [
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Returns only accounts whose name contains the provided string"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              }
+            ]
+          },
+          "docs": "List all accounts that you have access to. Unless you are in Partner Portal mode, this will only be your own account."
+        },
+        {
+          "info": {
+            "name": "Accounts: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Get details for an account"
+        },
+        {
+          "info": {
+            "name": "Approval Groups: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/approvalgroups",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Lists all Approval Groups in the account."
+        },
+        {
+          "info": {
+            "name": "Approval Groups: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/approvalgroups",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an Approval Group."
+        },
+        {
+          "info": {
+            "name": "Approval Groups: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/approvalgroups/:approvalGroupId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "approvalGroupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Gets a single Approval Group."
+        },
+        {
+          "info": {
+            "name": "Approval Groups: Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/approvalgroups/:approvalGroupId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "approvalGroupId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a single Approval Group.\n\n**NOTE:** Despite using the PUT method, Approval Groups: Update only updates supplied fields. Omitted fields are not modified. However, the users list will be overwritten with what the user provides.\n"
+        },
+        {
+          "info": {
+            "name": "Approval Groups: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/approvalgroups/:approvalGroupId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "approvalGroupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an Approval Group."
+        },
+        {
+          "info": {
+            "name": "LinkedAccounts: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/linkedaccounts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "When provided, only linked accounts assigned to the specified entities will be returned."
+              },
+              {
+                "name": "publisherIds",
+                "value": "",
+                "type": "query",
+                "description": "When provided, only linked accounts for the specified sites will be returned."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to all statuses. When specified, only linked accounts with the provided statuses will be returned."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Lists all linked accounts in an account."
+        },
+        {
+          "info": {
+            "name": "LinkedAccounts: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/linkedaccounts/:linkedAccountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "linkedAccountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Get details for an linked account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

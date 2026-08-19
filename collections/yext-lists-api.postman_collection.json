@@ -1,0 +1,257 @@
+{
+  "item": [
+    {
+      "id": "f13f83c3-868c-44f8-bdc0-13ba098c8f13",
+      "name": "Lists",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c809ec3-ece3-40e8-bd2f-5585688b9b1b",
+          "name": "Get List",
+          "request": {
+            "name": "Get List",
+            "description": {
+              "content": "Use Get List to retrieve Enhanced Content List (ECL) content in the following use cases:\n1. Fetch the HTML for a specific type of List.\n  * **Use listingId, template**\n  * Response will be rendered into a template and returned for direct display to the user\n2. Fetch the structured data (JSON) for a specific List\n  * **Use listingId, listId**\n3. Fetch the structured data (JSON) for a specific type of List\n  * **Use listingId, type**\n4. Fetch the structured data (JSON) for all Lists associated with a listing\n  * **Use listingId**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pid",
+                  "value": "<string>",
+                  "description": "Publisher secure ID. This value will be provided to you.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "listingId",
+                  "value": "<string>",
+                  "description": "Publisher listing ID\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "yextId",
+                  "value": "<string>",
+                  "description": "The Yext listing ID\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "listId",
+                  "value": "<string>",
+                  "description": "ECL ID (Yext-assigned)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Type of lists to return\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "template",
+                  "value": "<string>",
+                  "description": "This parameter specifies the template to use when rendering the List content.\nYext will provide a list of your available templates. Yext configures each template with the type of data that it accepts -- for example, the template \"mobile-menu\" may be configured to render all Lists on a listing of type MENU.\n* If no template is specified, all List data will be rendered using a default template\n* Required if fetching HTML\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "An alternative way to specify the desired content type of the response\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "427a9a31-d392-4948-9207-2a825cfd12f6",
+              "name": "(JSON Format)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "listingId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "yextId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "listId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"type\": \"EVENTS\",\n    \"size\": 7750,\n    \"sourceUrl\": \"string\",\n    \"sections\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cce6ff92-8800-45af-a71a-304c799893db",
+              "name": "Bad request (Incorrect Format)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "listingId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "yextId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "listId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "template",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "622e5384-41cf-4163-8954-1977070d7e3c",
+    "name": "Yext Admin Account Settings Lists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2290 @@
+{
+  "item": [
+    {
+      "id": "91867a2a-337d-4b0e-8868-ec71a68e6898",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "27fb03c2-0a67-40fd-b409-fe7e4acf9b6d",
+          "name": "Universal Search: Autocomplete",
+          "request": {
+            "name": "Universal Search: Autocomplete",
+            "description": {
+              "content": "Retrieve a list of suggested queries across all verticals in the experience based on the characters already typed by the user. This API is meant to be hit after each keystroke.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "search",
+                "autocomplete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "experienceKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the Search experience."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) The locale code of the experience (e.g. `en_GB`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "input",
+                  "value": "<string>",
+                  "description": "The partial search term from the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of autocomplete results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd62e546-9c3e-4830-bc9f-add6dccc84db",
+              "name": "Autocomplete Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"input\": {\n      \"value\": \"yex\",\n      \"queryIntents\": []\n    },\n    \"results\": [\n      {\n        \"value\": \"Yext Listings\",\n        \"matchedSubstrings\": [\n          {\n            \"offset\": 0,\n            \"length\": 3\n          }\n        ],\n        \"verticalKeys\": [\n          \"products\"\n        ]\n      },\n      {\n        \"value\": \"Yext Search\",\n        \"matchedSubstrings\": [\n          {\n            \"offset\": 0,\n            \"length\": 3\n          }\n        ],\n        \"verticalKeys\": [\n          \"products\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98513135-7f2c-4a68-b023-bd0cc8205596",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 8918,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 9750,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07dedf9e-9722-4d54-ac19-d8a6ec596bf8",
+          "name": "Universal Search: Query",
+          "request": {
+            "name": "Universal Search: Query",
+            "description": {
+              "content": "Search for entities across all verticals within a Search experience.  Modules are returned for all verticals with relevant entities. Further fine tuning and filtering of the results can then be done using the vertical query endpoint. A maximum of 50 verticals can be queried with this endpoint.\n\nIn order prevent bot traffic from using Search API Capacity, you must integrate with the Search API from the front end of your application.  The Search API's Bot Detection feature requires the API to be called directly from the end-user's web browser.  If you must integrate with the Search API via another mechanism, all traffic will be charged against your search capacity and some features of Search Analytics, such as Search Terms and Search Term Clustering may not work.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "search",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "experienceKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the Search experience."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale."
+                },
+                {
+                  "disabled": false,
+                  "key": "input",
+                  "value": "<string>",
+                  "description": "(Required) The search term of the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "The user's location as a comma separated latitude and longitude (e.g. `\"40.740957,-73.987565\"`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "session_id",
+                  "value": "<string>",
+                  "description": "UUID used to track session state when cookies are blocked."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "JSON object specifying the limit for each vertical.  Each key is a vertical key and the value for each of those keys is a number 1-50 that denotes the limit for that vertical. This parameter should be provided as a URL-encoded string containing a JSON object."
+                },
+                {
+                  "disabled": false,
+                  "key": "queryTrigger",
+                  "value": "<string>",
+                  "description": "String value that is logged to analytics denoting the trigger for the query.\nOptions include:\n* `suggest`, sent if the query is triggered from a spelling correction.\n* `initialize`, sent if the query is being triggered by a default initial search (in other words, the user did not enter query).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "Context is an arbitrary JSON object that is passed to query rules to be used for triggering rules as well as passing data to those rules. This parameter should be provided as a URL-encoded string containing a JSON object."
+                },
+                {
+                  "disabled": false,
+                  "key": "referrerPageUrl",
+                  "value": "<string>",
+                  "description": "The URL of the webpage that directed to the page this request was made from."
+                },
+                {
+                  "disabled": false,
+                  "key": "skipSpellCheck",
+                  "value": "<boolean>",
+                  "description": "If true the query will skip spell checking."
+                },
+                {
+                  "disabled": false,
+                  "key": "restrictVerticals",
+                  "value": "<string>",
+                  "description": "A comma-separated list of verticals (e.g. `\"people,locations\"`). If specified, only results from these verticals will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "ignoreQueryRules",
+                  "value": "<boolean>",
+                  "description": "When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "queryId",
+                  "value": "<string>",
+                  "description": "UUID of the query; recommended when moving through results, to associate multiple requests to the same query."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Indicates where the query is coming from (e.g. `\"HOME_HEADER\"` or `\"TICKET_FORM\"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `\"STANDARD\"`."
+                },
+                {
+                  "disabled": false,
+                  "key": "jsLibVersion",
+                  "value": "<string>",
+                  "description": "The version of the Search UI used for this request. Deprecated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7b1cb2f-c6c2-4d18-bb00-3d430681c646",
+              "name": "Universal Query Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "queryTrigger",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerPageUrl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skipSpellCheck",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "restrictVerticals",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ignoreQueryRules",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jsLibVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"businessId\": 909,\n    \"queryId\": \"string\",\n    \"modules\": [\n      {\n        \"verticalConfigId\": \"string\",\n        \"resultCount\": 4111,\n        \"encodedState\": \"string\",\n        \"results\": [\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"highlightedFields\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distanceFromFilter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"highlightedFields\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distanceFromFilter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"appliedQueryFilters\": [\n          {\n            \"displayKey\": \"string\",\n            \"displayValue\": \"string\",\n            \"filter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"PLACE\",\n            \"details\": {}\n          },\n          {\n            \"displayKey\": \"string\",\n            \"displayValue\": \"string\",\n            \"filter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"INTENT\",\n            \"details\": {}\n          }\n        ]\n      },\n      {\n        \"verticalConfigId\": \"string\",\n        \"resultCount\": 5886,\n        \"encodedState\": \"string\",\n        \"results\": [\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"highlightedFields\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distanceFromFilter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"highlightedFields\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distance\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"distanceFromFilter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"appliedQueryFilters\": [\n          {\n            \"displayKey\": \"string\",\n            \"displayValue\": \"string\",\n            \"filter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"FIELD_VALUE\",\n            \"details\": {}\n          },\n          {\n            \"displayKey\": \"string\",\n            \"displayValue\": \"string\",\n            \"filter\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": \"PLACE\",\n            \"details\": {}\n          }\n        ]\n      }\n    ],\n    \"failedVerticals\": [\n      {\n        \"verticalConfigId\": \"string\",\n        \"errorType\": \"BACKEND_ERROR\",\n        \"details\": {\n          \"responseCode\": 2039,\n          \"description\": \"string\"\n        },\n        \"queryDurationMillis\": 6895\n      },\n      {\n        \"verticalConfigId\": \"string\",\n        \"errorType\": \"BACKEND_ERROR\",\n        \"details\": {\n          \"responseCode\": 9988,\n          \"description\": \"string\"\n        },\n        \"queryDurationMillis\": 2887\n      }\n    ],\n    \"directAnswer\": {\n      \"type\": \"string\",\n      \"answer\": {},\n      \"relatedItem\": {\n        \"verticalConfigId\": \"string\",\n        \"data\": {}\n      }\n    },\n    \"spellCheck\": {\n      \"originalQuery\": \"string\",\n      \"correctedQuery\": {\n        \"value\": \"string\",\n        \"matchedSubstrings\": [\n          {\n            \"offsets\": 5958,\n            \"length\": 8640\n          },\n          {\n            \"offsets\": 9783,\n            \"length\": 4195\n          }\n        ]\n      },\n      \"type\": \"AUTOCORRECT\"\n    },\n    \"locationBias\": {\n      \"latitude\": 41.7828,\n      \"longitude\": -87.8781,\n      \"locationDisplayName\": \"Countryside, Illinois, United States\",\n      \"accuracy\": \"IP\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0de05361-0821-4f1e-bfb4-116900dcbf00",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "queryTrigger",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerPageUrl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skipSpellCheck",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "restrictVerticals",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ignoreQueryRules",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jsLibVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6466,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4839,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b549e4b-a631-4035-8ec4-96a0f3152e67",
+          "name": "Vertical Search: Autocomplete",
+          "request": {
+            "name": "Vertical Search: Autocomplete",
+            "description": {
+              "content": "Retrieve a list of suggested queries for the selected vertical based on the characters already typed by the user or the most popular queries when no user input is given.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "search",
+                "vertical",
+                "autocomplete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "experienceKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the Search experience."
+                },
+                {
+                  "disabled": false,
+                  "key": "verticalKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the vertical."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) The locale code of the experience (e.g. `en_GB`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "input",
+                  "value": "<string>",
+                  "description": "The partial search term from the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of autocomplete results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff7bc4da-d778-417e-b403-3e55a1be023c",
+              "name": "Autocomplete Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "vertical",
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verticalKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"input\": {\n      \"value\": \"yex\",\n      \"queryIntents\": []\n    },\n    \"results\": [\n      {\n        \"value\": \"Yext Listings\",\n        \"matchedSubstrings\": [\n          {\n            \"offset\": 0,\n            \"length\": 3\n          }\n        ],\n        \"verticalKeys\": [\n          \"products\"\n        ]\n      },\n      {\n        \"value\": \"Yext Search\",\n        \"matchedSubstrings\": [\n          {\n            \"offset\": 0,\n            \"length\": 3\n          }\n        ],\n        \"verticalKeys\": [\n          \"products\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8952205a-83c9-41a2-8ec6-e2ada1e46caf",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "vertical",
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verticalKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6466,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4839,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc695e52-4971-4767-ae65-2be36bcd1514",
+          "name": "Vertical Search: Query",
+          "request": {
+            "name": "Vertical Search: Query",
+            "description": {
+              "content": "Search for entities within the selected vertical.  Vertical query allows for fine tuning of the search using filters, facets and sorts passed in through the API.\n\nIn order prevent bot traffic from using Search API Capacity, you must integrate with the Search API from the front end of your application.  The Search API's Bot Detection feature requires the API to be called directly from the end-user's web browser.  If you must integrate with the Search API via another mechanism, all traffic will be charged against your search capacity and some features of Search Analytics, such as Search Terms and Search Term Clustering may not work.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "search",
+                "vertical",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "experienceKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the Search experience."
+                },
+                {
+                  "disabled": false,
+                  "key": "verticalKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the vertical."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale."
+                },
+                {
+                  "disabled": false,
+                  "key": "input",
+                  "value": "<string>",
+                  "description": "The search term of the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "The user's location as a comma separated latitude and longitude (e.g. `\"40.740957,-73.987565\"`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "locationRadius",
+                  "value": "<string>",
+                  "description": "Radius (in meters) that should be applied to any location filter that does not already have an explicit radius."
+                },
+                {
+                  "disabled": false,
+                  "key": "session_id",
+                  "value": "<string>",
+                  "description": "UUID used to track session state when cookies are blocked."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of results to skip. Used to move through results."
+                },
+                {
+                  "disabled": false,
+                  "key": "queryTrigger",
+                  "value": "<string>",
+                  "description": "String value that is logged to analytics denoting the trigger for the query.\nOptions include:\n* `suggest`, sent if the query is triggered from a spelling correction.\n* `initialize`, sent if the query is being triggered by a default initial search (in other words, the user did not enter query).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "<string>",
+                  "description": "Context is an arbitrary JSON object that is passed to query rules to be used for triggering rules as well as passing data to those rules. This parameter should be provided as a URL-encoded string containing a JSON object."
+                },
+                {
+                  "disabled": false,
+                  "key": "referrerPageUrl",
+                  "value": "<string>",
+                  "description": "The URL of the webpage that directed to the page this request was made from."
+                },
+                {
+                  "disabled": false,
+                  "key": "skipSpellCheck",
+                  "value": "<boolean>",
+                  "description": "If true the query will skip spell checking."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filters param after URL-encoding will be: `filters=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined to form a conjunction (AND) of disjunctions (ORs) using the *combinators* `$and` and `$or`.  For example:\n```\n{\n  \"$and\": [\n    {\n      \"$or\": [\n        {\n          \"firstName\": {\n            \"$eq\": \"Jane\"\n          }\n        },\n        {\n          \"firstName\": {\n            \"$eq\": \"John\"\n          }\n        }\n      ]\n    },\n    {\n      \"lastName\": {\n        \"$eq\": \"Smith\"\n      }\n    }\n  ]\n}\n```\nAny filter that is the only item in its respective combinator may omit the combinator as is done with the lastName above.\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for option custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$between</th>\n    <th>\n\n  An array that must contain exactly two elements with which the result is between.\n\n    {\n      \"time.end\": {\n        \"$between\":  [\"2018-08-28T05:56\", \"2018-08-29T05:56\"]\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  In addition to between, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue\" : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "facetFilters",
+                  "value": "<string>",
+                  "description": "This parameter represents the state of the currently checked facet options. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nThe JSON object contains a key for each facet category that has a checked facet option.  The value for each of these keys is an array of Filter objects that describe the filter that is applied by the facet option.\n\nAt the moment, facet options only support `$eq`.\n\nFor example, if `Engineering` was checked under the `Category` facet and `Chicago` and `New York` are checked under the `Job Location` facet, the `facetFilters` would look like:\n```\n{\n  \"c_jobCategory\": [\n    {\n      \"c_jobCategory\": {\n        \"$eq\": \"Engineering\"\n      }\n    }\n  ],\n  \"c_jobLocation\": [\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"Chicago\"\n      }\n    },\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"New York\"\n      }\n    }\n  ]\n}\n```\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "retrieveFacets",
+                  "value": "<boolean>",
+                  "description": "Whether facets should be computed for this vertical query."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBys",
+                  "value": "<string>",
+                  "description": "This parameter overrides the sort options that are configured on the experience configuration.  This parameter should be provided as a URL-encoded string containing a JSON array.\n\nThe input is a JSON array containing each of the sort options in the order in which they should be applied.\n\nEach sort options must contain a `type`\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Type</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>RELEVANCE</th>\n    <th>Sorts based on relevance according to the algorithm and, when relevant, location bias</th>\n  </tr>\n  <tr>\n    <th>ENTITY_DISTANCE</th>\n    <th>Sorts based on entity distance alone</th>\n  </tr>\n  <tr>\n    <th>FIELD</th>\n    <th>sorts based on a field with the direction specified</th>\n  </tr>\n</table>\n\n</br>\n\nIf the `type` is `FIELD` the sort options must also specify `field` which is the api name of the field to sort on.\n\nFinally, if the `type` is `FIELD` the sort options must also specify the `direction`.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Direction</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>ASC</th>\n    <th>Sorts in ascending order.  For numbers this is low to high. For text this is alphabetical.  For dates this is chronological order.</th>\n  </tr>\n  <tr>\n    <th>DESC</th>\n    <th>Sorts in ascending order.  For numbers this is high to low. For text this is reverse alphabetical.  For dates this is reverse chronological order.</th>\n  </tr>\n</table>\n\n</br>\n\n**Examples**\n```\n[\n  {\n    \"type\": \"FIELD\",\n    \"direction\": \"ASC\",\n    \"field\": \"startDate\"\n  },\n  {\n    \"type\": \"RELEVANCE\",\n    \"direction\": \"ASC\"\n  }\n]\n```\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ignoreQueryRules",
+                  "value": "<boolean>",
+                  "description": "When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "queryId",
+                  "value": "<string>",
+                  "description": "UUID of the query; recommended when moving through results, to associate multiple requests to the same query."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Indicates where the query is coming from (e.g. `\"HOME_HEADER\"` or `\"TICKET_FORM\"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `\"STANDARD\"`."
+                },
+                {
+                  "disabled": false,
+                  "key": "jsLibVersion",
+                  "value": "<string>",
+                  "description": "The version of the Search UI used for this request. Deprecated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45c9ba92-f429-4f72-88e9-60b96f80f6ab",
+              "name": "Vertical Query Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "vertical",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verticalKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationRadius",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "queryTrigger",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerPageUrl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skipSpellCheck",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facetFilters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrieveFacets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sortBys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ignoreQueryRules",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jsLibVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"businessId\": 630,\n    \"queryId\": \"string\",\n    \"resultsCount\": 2651,\n    \"results\": [\n      {\n        \"data\": {},\n        \"highlightedFields\": {},\n        \"distance\": 6251,\n        \"distanceFromFilter\": 7038\n      },\n      {\n        \"data\": {},\n        \"highlightedFields\": {},\n        \"distance\": 4133,\n        \"distanceFromFilter\": 8218\n      }\n    ],\n    \"appliedQueryFilters\": [\n      {\n        \"displayKey\": \"string\",\n        \"displayValue\": \"string\",\n        \"filter\": {},\n        \"type\": \"INTENT\",\n        \"details\": {}\n      },\n      {\n        \"displayKey\": \"string\",\n        \"displayValue\": \"string\",\n        \"filter\": {},\n        \"type\": \"PLACE\",\n        \"details\": {}\n      }\n    ],\n    \"facets\": [\n      {\n        \"fieldId\": \"string\",\n        \"displayName\": \"string\",\n        \"options\": [\n          {\n            \"displayName\": \"string\",\n            \"count\": 4105,\n            \"isSelected\": false,\n            \"filter\": {}\n          },\n          {\n            \"displayName\": \"string\",\n            \"count\": 785,\n            \"isSelected\": false,\n            \"filter\": {}\n          }\n        ]\n      },\n      {\n        \"fieldId\": \"string\",\n        \"displayName\": \"string\",\n        \"options\": [\n          {\n            \"displayName\": \"string\",\n            \"count\": 7186,\n            \"isSelected\": false,\n            \"filter\": {}\n          },\n          {\n            \"displayName\": \"string\",\n            \"count\": 1489,\n            \"isSelected\": true,\n            \"filter\": {}\n          }\n        ]\n      }\n    ],\n    \"searchIntents\": [\n      \"string\",\n      \"string\"\n    ],\n    \"source\": \"KNOWLEDGE_MANAGER\",\n    \"directAnswer\": {\n      \"type\": \"string\",\n      \"answer\": {},\n      \"relatedItem\": {\n        \"verticalConfigId\": \"string\",\n        \"data\": {}\n      }\n    },\n    \"alternativeVerticals\": {\n      \"modules\": [\n        {\n          \"verticalConfigId\": \"string\",\n          \"resultCount\": 9458,\n          \"encodedState\": \"string\",\n          \"results\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"appliedQueryFilters\": [\n            {\n              \"displayKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"displayValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filter\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"displayKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"displayValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filter\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"verticalConfigId\": \"string\",\n          \"resultCount\": 7212,\n          \"encodedState\": \"string\",\n          \"results\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"appliedQueryFilters\": [\n            {\n              \"displayKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"displayValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filter\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"displayKey\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"displayValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"filter\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"failedVerticals\": [\n        {\n          \"verticalConfigId\": \"string\",\n          \"errorType\": \"INVALID_CONFIG\",\n          \"details\": {\n            \"responseCode\": 3710,\n            \"description\": \"string\"\n          },\n          \"queryDurationMillis\": 5953\n        },\n        {\n          \"verticalConfigId\": \"string\",\n          \"errorType\": \"INVALID_QUERY\",\n          \"details\": {\n            \"responseCode\": 632,\n            \"description\": \"string\"\n          },\n          \"queryDurationMillis\": 269\n        }\n      ]\n    },\n    \"spellCheck\": {\n      \"originalQuery\": \"string\",\n      \"correctedQuery\": {\n        \"value\": \"string\",\n        \"matchedSubstrings\": [\n          {\n            \"offsets\": 9386,\n            \"length\": 3927\n          },\n          {\n            \"offsets\": 1173,\n            \"length\": 7114\n          }\n        ]\n      },\n      \"type\": \"AUTOCORRECT\"\n    },\n    \"locationBias\": {\n      \"latitude\": 41.7828,\n      \"longitude\": -87.8781,\n      \"locationDisplayName\": \"Countryside, Illinois, United States\",\n      \"accuracy\": \"IP\"\n    },\n    \"allResultsForVertical\": {\n      \"businessId\": 1252,\n      \"queryId\": \"string\",\n      \"resultsCount\": 6268,\n      \"results\": [\n        {\n          \"data\": {},\n          \"highlightedFields\": {},\n          \"distance\": 6164,\n          \"distanceFromFilter\": 2696\n        },\n        {\n          \"data\": {},\n          \"highlightedFields\": {},\n          \"distance\": 2567,\n          \"distanceFromFilter\": 7342\n        }\n      ],\n      \"facets\": [\n        {\n          \"fieldId\": \"string\",\n          \"displayName\": \"string\",\n          \"options\": [\n            {\n              \"displayName\": \"string\",\n              \"count\": 5922,\n              \"isSelected\": true,\n              \"filter\": {}\n            },\n            {\n              \"displayName\": \"string\",\n              \"count\": 1726,\n              \"isSelected\": false,\n              \"filter\": {}\n            }\n          ]\n        },\n        {\n          \"fieldId\": \"string\",\n          \"displayName\": \"string\",\n          \"options\": [\n            {\n              \"displayName\": \"string\",\n              \"count\": 8727,\n              \"isSelected\": true,\n              \"filter\": {}\n            },\n            {\n              \"displayName\": \"string\",\n              \"count\": 1090,\n              \"isSelected\": true,\n              \"filter\": {}\n            }\n          ]\n        }\n      ],\n      \"searchIntents\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3bf5c3b-252d-4d84-845f-449ead2785d0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "vertical",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verticalKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationRadius",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "queryTrigger",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrerPageUrl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skipSpellCheck",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facetFilters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrieveFacets",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sortBys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ignoreQueryRules",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "queryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jsLibVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6466,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4839,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56f09fae-1788-456d-948c-8f4375c2fe30",
+          "name": "Vertical Search: Filter Search",
+          "request": {
+            "name": "Vertical Search: Filter Search",
+            "description": {
+              "content": "Retrieve a list of potential filters that match the user's input up to that point.  This differs from query suggest by only returning the names of filters that can be searched rather than the broader corpus of suggested queries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "search",
+                "filtersearch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "experienceKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the Search experience."
+                },
+                {
+                  "disabled": false,
+                  "key": "verticalKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the vertical to scope the filter search request to."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) The locale code of the experience (e.g. `en_GB`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "input",
+                  "value": "<string>",
+                  "description": "(Required) The search term of the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_parameters",
+                  "value": "<string>",
+                  "description": "(Required) This parameter represents the parameters that should be used for filter search. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFilter search uses the user's input string to find a set of existing filters that match the user's input query for the fields provided in the parameters.\n\nThe JSON object must have a `fields` property made up of a list of `FilterField` objects that have the following properties:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Property</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>fieldId</th>\n    <th>The api name of the field.</th>\n  </tr>\n  <tr>\n    <th>entityTypeId</th>\n    <th>The api name for the entity type the filter belongs to.</th>\n  </tr>\n  <tr>\n    <th>shouldFetchEntities</th>\n    <th>Optional boolean.  If true, entities matching each filter will be returned inline with the filter.</th>\n  </tr>\n</table>\n\n</br>\n\nAdditionally, there is an optional boolean property `sectioned`.  If set to true, the matching filters will be returned in a separate section per field.  By default, they are all returned in the same section.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "excluded",
+                  "value": "<string>",
+                  "description": "This parameter represents any values which should not be returned. This parameter should be provided as a URL-encoded string containing a JSON array, where each entry of the array is a JSON object representing a field and an excluded value for that field. For example:\n```\n[\n  {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  },\n  {\n    \"c_jobCategory\": {\n      \"$eq\": \"Engineering\"\n    }\n  }\n]\n```\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb836678-d443-45b4-be0e-e6c1da53a49a",
+              "name": "Filter Search Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "filtersearch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verticalKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluded",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"businessId\": 3200,\n    \"sections\": [\n      {\n        \"label\": \"string\",\n        \"results\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\",\n            \"filter\": {},\n            \"matchedSubstrings\": [\n              {\n                \"offset\": 5628,\n                \"length\": 762\n              },\n              {\n                \"offset\": 5681,\n                \"length\": 2413\n              }\n            ],\n            \"relatedItem\": {}\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\",\n            \"filter\": {},\n            \"matchedSubstrings\": [\n              {\n                \"offset\": 9998,\n                \"length\": 8536\n              },\n              {\n                \"offset\": 1345,\n                \"length\": 3829\n              }\n            ],\n            \"relatedItem\": {}\n          }\n        ]\n      },\n      {\n        \"label\": \"string\",\n        \"results\": [\n          {\n            \"key\": \"string\",\n            \"value\": \"string\",\n            \"filter\": {},\n            \"matchedSubstrings\": [\n              {\n                \"offset\": 252,\n                \"length\": 5228\n              },\n              {\n                \"offset\": 8018,\n                \"length\": 3075\n              }\n            ],\n            \"relatedItem\": {}\n          },\n          {\n            \"key\": \"string\",\n            \"value\": \"string\",\n            \"filter\": {},\n            \"matchedSubstrings\": [\n              {\n                \"offset\": 3507,\n                \"length\": 558\n              },\n              {\n                \"offset\": 242,\n                \"length\": 6114\n              }\n            ],\n            \"relatedItem\": {}\n          }\n        ]\n      }\n    ],\n    \"failedVerticals\": [\n      {\n        \"verticalConfigId\": \"string\",\n        \"errorType\": \"TIMEOUT\",\n        \"details\": {\n          \"responseCode\": 4247,\n          \"description\": \"string\"\n        },\n        \"queryDurationMillis\": 3575\n      },\n      {\n        \"verticalConfigId\": \"string\",\n        \"errorType\": \"INVALID_QUERY\",\n        \"details\": {\n          \"responseCode\": 5701,\n          \"description\": \"string\"\n        },\n        \"queryDurationMillis\": 2328\n      }\n    ],\n    \"queryId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2395312-d657-4792-b23b-6e9eb30d24ba",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "filtersearch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "verticalKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluded",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6466,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4839,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "68c7828b-7a3e-4042-b228-b4fdc1478df2",
+          "name": "Answer: Generate\n",
+          "request": {
+            "name": "Answer: Generate\n",
+            "description": {
+              "content": "Leverages large language models (LLMs) to deliver generated summaries based on search results.\n\nThis endpoint works with the Universal/Vertical Search endpoint, which provides the search results for the LLM to analyze and generate direct answers.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "search",
+                "generateAnswer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "experienceKey",
+                  "value": "<string>",
+                  "description": "(Required) String key that uniquely identifies the Search experience."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "(Required) The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchId\": \"<string>\",\n  \"searchTerm\": \"<string>\",\n  \"results\": {\n    \"verticalConfigId\": \"<string>\",\n    \"resultCount\": \"<integer>\",\n    \"encodedState\": \"<string>\",\n    \"results\": [\n      {\n        \"data\": \"<object>\",\n        \"highlightedFields\": \"<object>\",\n        \"distance\": \"<integer>\",\n        \"distanceFromFilter\": \"<integer>\"\n      },\n      {\n        \"data\": \"<object>\",\n        \"highlightedFields\": \"<object>\",\n        \"distance\": \"<integer>\",\n        \"distanceFromFilter\": \"<integer>\"\n      }\n    ],\n    \"appliedQueryFilters\": [\n      {\n        \"displayKey\": \"<string>\",\n        \"displayValue\": \"<string>\",\n        \"filter\": \"<object>\",\n        \"type\": \"<string>\",\n        \"details\": \"<object>\"\n      },\n      {\n        \"displayKey\": \"<string>\",\n        \"displayValue\": \"<string>\",\n        \"filter\": \"<object>\",\n        \"type\": \"<string>\",\n        \"details\": \"<object>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0f13d07-0de9-4d0f-bc97-8663ea063d28",
+              "name": "Generate Answer Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "generateAnswer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searchId\": \"<string>\",\n  \"searchTerm\": \"<string>\",\n  \"results\": {\n    \"verticalConfigId\": \"<string>\",\n    \"resultCount\": \"<integer>\",\n    \"encodedState\": \"<string>\",\n    \"results\": [\n      {\n        \"data\": \"<object>\",\n        \"highlightedFields\": \"<object>\",\n        \"distance\": \"<integer>\",\n        \"distanceFromFilter\": \"<integer>\"\n      },\n      {\n        \"data\": \"<object>\",\n        \"highlightedFields\": \"<object>\",\n        \"distance\": \"<integer>\",\n        \"distanceFromFilter\": \"<integer>\"\n      }\n    ],\n    \"appliedQueryFilters\": [\n      {\n        \"displayKey\": \"<string>\",\n        \"displayValue\": \"<string>\",\n        \"filter\": \"<object>\",\n        \"type\": \"<string>\",\n        \"details\": \"<object>\"\n      },\n      {\n        \"displayKey\": \"<string>\",\n        \"displayValue\": \"<string>\",\n        \"filter\": \"<object>\",\n        \"type\": \"<string>\",\n        \"details\": \"<object>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"directAnswer\": \"string\",\n    \"resultStatus\": \"string\",\n    \"citations\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e1ad293-69d2-4703-98d3-2db5c05b9617",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "search",
+                    "generateAnswer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "experienceKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searchId\": \"<string>\",\n  \"searchTerm\": \"<string>\",\n  \"results\": {\n    \"verticalConfigId\": \"<string>\",\n    \"resultCount\": \"<integer>\",\n    \"encodedState\": \"<string>\",\n    \"results\": [\n      {\n        \"data\": \"<object>\",\n        \"highlightedFields\": \"<object>\",\n        \"distance\": \"<integer>\",\n        \"distanceFromFilter\": \"<integer>\"\n      },\n      {\n        \"data\": \"<object>\",\n        \"highlightedFields\": \"<object>\",\n        \"distance\": \"<integer>\",\n        \"distanceFromFilter\": \"<integer>\"\n      }\n    ],\n    \"appliedQueryFilters\": [\n      {\n        \"displayKey\": \"<string>\",\n        \"displayValue\": \"<string>\",\n        \"filter\": \"<object>\",\n        \"type\": \"<string>\",\n        \"details\": \"<object>\"\n      },\n      {\n        \"displayKey\": \"<string>\",\n        \"displayValue\": \"<string>\",\n        \"filter\": \"<object>\",\n        \"type\": \"<string>\",\n        \"details\": \"<object>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6466,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4839,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "902327a6-a90e-4d02-bcae-882c68300ef1",
+          "name": "Chat: Message Endpoint",
+          "request": {
+            "name": "Chat: Message Endpoint",
+            "description": {
+              "content": "Send messages and receive responses from a Yext Chat bot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "chat",
+                ":botId",
+                "message"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "botId",
+                  "description": "(Required) The ID of the chatbot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ],\n  \"conversationId\": \"<string>\",\n  \"notes\": {\n    \"currentGoal\": \"<string>\",\n    \"currentStepIndices\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"collectedData\": \"<object>\",\n    \"searchQuery\": \"<string>\",\n    \"queryResult\": \"<object>\",\n    \"goalFirstMsgIndex\": \"<integer>\"\n  },\n  \"context\": \"<object>\",\n  \"version\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2106aba2-29b0-49ab-bd51-c0100c9bd820",
+              "name": "Message Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "chat",
+                    ":botId",
+                    "message"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "botId",
+                      "description": "(Required) The ID of the chatbot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ],\n  \"conversationId\": \"<string>\",\n  \"notes\": {\n    \"currentGoal\": \"<string>\",\n    \"currentStepIndices\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"collectedData\": \"<object>\",\n    \"searchQuery\": \"<string>\",\n    \"queryResult\": \"<object>\",\n    \"goalFirstMsgIndex\": \"<integer>\"\n  },\n  \"context\": \"<object>\",\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"conversationId\": \"<string>\",\n    \"message\": {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    \"notes\": {\n      \"currentGoal\": \"<string>\",\n      \"currentStepIndices\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"collectedData\": \"<object>\",\n      \"searchQuery\": \"<string>\",\n      \"queryResult\": \"<object>\",\n      \"goalFirstMsgIndex\": \"<integer>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3671063d-f560-44c2-8e60-51accc78b776",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "chat",
+                    ":botId",
+                    "message"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "botId",
+                      "description": "(Required) The ID of the chatbot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<string>\",\n      \"source\": \"<string>\",\n      \"text\": \"<string>\"\n    }\n  ],\n  \"conversationId\": \"<string>\",\n  \"notes\": {\n    \"currentGoal\": \"<string>\",\n    \"currentStepIndices\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"collectedData\": \"<object>\",\n    \"searchQuery\": \"<string>\",\n    \"queryResult\": \"<object>\",\n    \"goalFirstMsgIndex\": \"<integer>\"\n  },\n  \"context\": \"<object>\",\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"error\": [\n    {\n      \"code\": 7149,\n      \"type\": \"FATAL_ERROR\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 7583,\n      \"type\": \"WARNING\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ed77aed-01ef-4a9d-82cb-8538e2b5b2a3",
+          "name": "Analytics Events",
+          "request": {
+            "name": "Analytics Events",
+            "description": {
+              "content": "Send user events from your Yext digital experiences to Yext Analytics in near real-time.\n\nThis documentation is for version `1.0.0` of the Events API. If you are still using version\n`0.6`, refer to the documentation in the yext/analytics Github repository \n[here](https://github.com/yext/analytics/blob/release/v0.6.8/src/models/EventPayload.ts).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "me",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"<string>\",\n  \"authorization\": \"<string>\",\n  \"bot\": \"<boolean>\",\n  \"browserAgent\": {\n    \"browser\": \"$auto\",\n    \"browserVersion\": \"$auto\",\n    \"device\": \"$auto\",\n    \"deviceClass\": \"$auto\",\n    \"os\": \"$auto\",\n    \"osVersion\": \"$auto\",\n    \"userAgent\": \"$auto\"\n  },\n  \"chat\": {\n    \"botId\": \"<string>\",\n    \"conversationId\": \"<string>\",\n    \"responseId\": \"<string>\"\n  },\n  \"clientSdk\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"count\": 1,\n  \"customTags\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"customValues\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<number>\"\n  },\n  \"destinationUrl\": \"<uri>\",\n  \"entity\": \"<string>\",\n  \"internalUser\": false,\n  \"ip\": {\n    \"address\": \"<ipv4>\",\n    \"algorithm\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"location\": {\n    \"coordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"pages\": {\n    \"scope\": \"<string>\",\n    \"originalEventName\": \"<string>\",\n    \"siteUid\": \"<integer>\",\n    \"template\": \"<string>\"\n  },\n  \"pageUrl\": \"<uri>\",\n  \"referrerUrl\": \"<uri>\",\n  \"search\": {\n    \"experienceKey\": \"<string>\",\n    \"searchId\": \"<string>\",\n    \"queryId\": \"<string>\",\n    \"verticalKey\": \"<string>\",\n    \"isDirectAnswer\": \"<boolean>\",\n    \"versionLabel\": \"<string>\",\n    \"versionNumber\": \"<number>\",\n    \"isGenerativeDirectAnswer\": \"<boolean>\"\n  },\n  \"searchTerm\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"value\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"visitor\": {\n    \"^[a-zA-Z0-9_-]{1,16}$\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89f91180-1e0b-4e77-9591-83cd061c833a",
+              "name": "Successful request, return analytics event ID that related to this event",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "me",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"<string>\",\n  \"authorization\": \"<string>\",\n  \"bot\": \"<boolean>\",\n  \"browserAgent\": {\n    \"browser\": \"$auto\",\n    \"browserVersion\": \"$auto\",\n    \"device\": \"$auto\",\n    \"deviceClass\": \"$auto\",\n    \"os\": \"$auto\",\n    \"osVersion\": \"$auto\",\n    \"userAgent\": \"$auto\"\n  },\n  \"chat\": {\n    \"botId\": \"<string>\",\n    \"conversationId\": \"MDFIQjlKWkM5SlhaU0dEUjJNRFBCUFdLWTHeIqvURTeRr2EC\",\n    \"responseId\": \"<string>\"\n  },\n  \"clientSdk\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"count\": 1,\n  \"customTags\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"customValues\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<number>\"\n  },\n  \"destinationUrl\": \"<uri>\",\n  \"entity\": \"<string>\",\n  \"internalUser\": false,\n  \"ip\": {\n    \"address\": \"<ipv4>\",\n    \"algorithm\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"location\": {\n    \"coordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"pages\": {\n    \"scope\": \"<string>\",\n    \"originalEventName\": \"<string>\",\n    \"siteUid\": \"<integer>\",\n    \"template\": \"<string>\"\n  },\n  \"pageUrl\": \"<uri>\",\n  \"referrerUrl\": \"<uri>\",\n  \"search\": {\n    \"experienceKey\": \"<string>\",\n    \"searchId\": \"<string>\",\n    \"queryId\": \"<string>\",\n    \"verticalKey\": \"<string>\",\n    \"isDirectAnswer\": \"<boolean>\",\n    \"versionLabel\": \"<string>\",\n    \"versionNumber\": \"<number>\",\n    \"isGenerativeDirectAnswer\": \"<boolean>\"\n  },\n  \"searchTerm\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"value\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"visitor\": {\n    \"^[a-zA-Z0-9_-]{1,16}$\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5009714-af65-4178-b5bd-ad2c89c7685c",
+              "name": "Exceeded the limit of requests in the last minute",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "me",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"<string>\",\n  \"authorization\": \"<string>\",\n  \"bot\": \"<boolean>\",\n  \"browserAgent\": {\n    \"browser\": \"$auto\",\n    \"browserVersion\": \"$auto\",\n    \"device\": \"$auto\",\n    \"deviceClass\": \"$auto\",\n    \"os\": \"$auto\",\n    \"osVersion\": \"$auto\",\n    \"userAgent\": \"$auto\"\n  },\n  \"chat\": {\n    \"botId\": \"<string>\",\n    \"conversationId\": \"MDFIQjlKWkM5SlhaU0dEUjJNRFBCUFdLWTHeIqvURTeRr2EC\",\n    \"responseId\": \"<string>\"\n  },\n  \"clientSdk\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"count\": 1,\n  \"customTags\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"customValues\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<number>\"\n  },\n  \"destinationUrl\": \"<uri>\",\n  \"entity\": \"<string>\",\n  \"internalUser\": false,\n  \"ip\": {\n    \"address\": \"<ipv4>\",\n    \"algorithm\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"location\": {\n    \"coordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"pages\": {\n    \"scope\": \"<string>\",\n    \"originalEventName\": \"<string>\",\n    \"siteUid\": \"<integer>\",\n    \"template\": \"<string>\"\n  },\n  \"pageUrl\": \"<uri>\",\n  \"referrerUrl\": \"<uri>\",\n  \"search\": {\n    \"experienceKey\": \"<string>\",\n    \"searchId\": \"<string>\",\n    \"queryId\": \"<string>\",\n    \"verticalKey\": \"<string>\",\n    \"isDirectAnswer\": \"<boolean>\",\n    \"versionLabel\": \"<string>\",\n    \"versionNumber\": \"<number>\",\n    \"isGenerativeDirectAnswer\": \"<boolean>\"\n  },\n  \"searchTerm\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"value\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"visitor\": {\n    \"^[a-zA-Z0-9_-]{1,16}$\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a188e9ea-a0e0-46ca-a602-d62e5fa9fb84",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "me",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"<string>\",\n  \"authorization\": \"<string>\",\n  \"bot\": \"<boolean>\",\n  \"browserAgent\": {\n    \"browser\": \"$auto\",\n    \"browserVersion\": \"$auto\",\n    \"device\": \"$auto\",\n    \"deviceClass\": \"$auto\",\n    \"os\": \"$auto\",\n    \"osVersion\": \"$auto\",\n    \"userAgent\": \"$auto\"\n  },\n  \"chat\": {\n    \"botId\": \"<string>\",\n    \"conversationId\": \"MDFIQjlKWkM5SlhaU0dEUjJNRFBCUFdLWTHeIqvURTeRr2EC\",\n    \"responseId\": \"<string>\"\n  },\n  \"clientSdk\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"count\": 1,\n  \"customTags\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<string>\"\n  },\n  \"customValues\": {\n    \"^[a-zA-Z][a-zA-Z0-9_]{0,31}$\": \"<number>\"\n  },\n  \"destinationUrl\": \"<uri>\",\n  \"entity\": \"<string>\",\n  \"internalUser\": false,\n  \"ip\": {\n    \"address\": \"<ipv4>\",\n    \"algorithm\": \"<string>\"\n  },\n  \"label\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"location\": {\n    \"coordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"pages\": {\n    \"scope\": \"<string>\",\n    \"originalEventName\": \"<string>\",\n    \"siteUid\": \"<integer>\",\n    \"template\": \"<string>\"\n  },\n  \"pageUrl\": \"<uri>\",\n  \"referrerUrl\": \"<uri>\",\n  \"search\": {\n    \"experienceKey\": \"<string>\",\n    \"searchId\": \"<string>\",\n    \"queryId\": \"<string>\",\n    \"verticalKey\": \"<string>\",\n    \"isDirectAnswer\": \"<boolean>\",\n    \"versionLabel\": \"<string>\",\n    \"versionNumber\": \"<number>\",\n    \"isGenerativeDirectAnswer\": \"<boolean>\"\n  },\n  \"searchTerm\": \"<string>\",\n  \"sessionId\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"value\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"visitor\": {\n    \"^[a-zA-Z0-9_-]{1,16}$\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "becf0cd8-4a8f-4914-84b1-d5314af73bfd",
+    "name": "Yext Admin Account Settings Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

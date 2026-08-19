@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings LogsAPI API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LogsAPI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/logs/tables",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "API Key associated with your App that has access to Logs endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieve tables that can be queried in the POST Query endpoint of the Logs API."
+        },
+        {
+          "info": {
+            "name": "Table Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/logs/tables/:table",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "API Key associated with your App that has access to Logs endpoint."
+              },
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "Table to query"
+              }
+            ]
+          },
+          "docs": "Retrieve schema for table in the Logs API. Available tables can be found by querying the GET Tables endpoint of the Logs API."
+        },
+        {
+          "info": {
+            "name": "Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/logs/tables/:table/query",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "API Key associated with your App that has access to Logs endpoint."
+              },
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "Table to query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve data from table. Available tables can be found by querying the GET Tables endpoint of the Logs API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

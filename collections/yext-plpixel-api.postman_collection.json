@@ -1,0 +1,326 @@
+{
+  "item": [
+    {
+      "id": "89403a21-a18a-4bad-98a3-35f6f0f9feca",
+      "name": "Plpixel",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16f3a9d0-ddc6-415c-99e5-e68a53da7926",
+          "name": "Pixel",
+          "request": {
+            "name": "Pixel",
+            "description": {},
+            "url": {
+              "path": [
+                "plpixel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pid",
+                  "value": "<string>",
+                  "description": "(Required) Publisher secure ID. This value will be provided to you.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of Yext location Ids\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>",
+                  "description": "(Required) Type of event that took place\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.\n* Required if **source** is **serp**\n* The value of this field must be URL encoded\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "querylocation",
+                  "value": "<string>",
+                  "description": "Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in \"Find X near Y\", \"X\" should be provided as \"query\" and \"Y\" should be provided as **querylocation**.\n* Required if **source** is **serp**\n* The value of this field must be URL encoded\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "rank",
+                  "value": "<string>",
+                  "description": "The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).\n* Comma-separated list of integers, 1-indexed, parallel to ids.\n* A rank of '5' in the first index would indicate that the first listing in the list appeared fifth in the organic results\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "target",
+                  "value": "<string>",
+                  "description": "Indicates which part of the page the user clicked on. For clicks on the SERP that send the user to the details page, you may optionally report a target of moreinfo rather than specifying a particular field.\nIf no appropriate value is available, please contact us.\n* Required if **action** is **click**\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "property",
+                  "value": "<string>",
+                  "description": "Indicates the Internet property where the event took place.\nYou should always provide this value if your listings are available on multiple platforms or properties (e.g., website, iPhone app, and Android app or publisher.example.com and local.publisher.com).\n* This value does not have to be a domain name, but please choose something that’s likely to be unique.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "useragent",
+                  "value": "<string>",
+                  "description": "The user agent from the original web request.\n* Required  if and only if making a server-side call to report a web page view\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "userid",
+                  "value": "<string>",
+                  "description": "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageurl",
+                  "value": "<string>",
+                  "description": "The URL of the original web request\n* Required  if and only if making a server-side call to report a web page view\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "additional",
+                  "value": "<string>",
+                  "description": "Any additional data you wish to include\nFor example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions\n"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa780c3a-d18e-40fe-a073-28ff9c40e7c7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plpixel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "querylocation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rank",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "target",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "useragent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageurl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "additional",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f94604b-026e-4af8-9feb-6a5eb4e94371",
+              "name": "Bad request (Incorrect Format)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plpixel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "querylocation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rank",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "target",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "property",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "useragent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageurl",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "additional",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bfda075e-f3a1-4bfa-ba4e-a3f195e11003",
+    "name": "Yext Admin Account Settings Plpixel API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Licenses API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Licenses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "License Assignment: Create\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/license-packs/:licensePackId/assigned-entities/:entityId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "licensePackId",
+                "value": "",
+                "type": "path",
+                "description": "License Pack ID found on the Account Settings / License Packs page."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "\nThe external ID of the requested Entity.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests must be authenticated using an app's API key via the api_key query parameter. You can find this value in Developer Console / [App Name] / API Credentials.\n"
+              }
+            ]
+          },
+          "docs": "This is used to assign a license to an entity."
+        },
+        {
+          "info": {
+            "name": "License Assignment: Update\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/license-packs/:licensePackId/assigned-entities/:entityId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "licensePackId",
+                "value": "",
+                "type": "path",
+                "description": "License Pack ID found on the Account Settings / License Packs page."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "\nThe external ID of the requested Entity.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests must be authenticated using an app's API key via the api_key query parameter. You can find this value in Developer Console / [App Name] / API Credentials.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This is used to schedule future removal of a license from an entity by specifying an expiration date. A user can also omit an expiration date or specify an expiration date of null, which would cancel that future removal."
+        },
+        {
+          "info": {
+            "name": "License Assignment: Delete\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/license-packs/:licensePackId/assigned-entities/:entityId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "licensePackId",
+                "value": "",
+                "type": "path",
+                "description": "License Pack ID found on the Account Settings / License Packs page."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "\nThe external ID of the requested Entity.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests must be authenticated using an app's API key via the api_key query parameter. You can find this value in Developer Console / [App Name] / API Credentials.\n"
+              }
+            ]
+          },
+          "docs": "This is used to immediately remove a license from an entity."
+        },
+        {
+          "info": {
+            "name": "License Packs: List\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/license-packs",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests must be authenticated using an app's API key via the api_key query parameter. You can find this value in Developer Console / [App Name] / API Credentials.\n"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              }
+            ]
+          },
+          "docs": "This is used to list all active license packs on the account.\n"
+        },
+        {
+          "info": {
+            "name": "License Assignments: List\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/license-packs/:licensePackId/assigned-entities",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "licensePackId",
+                "value": "",
+                "type": "path",
+                "description": "License Pack ID found on the Account Settings / License Packs page."
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests must be authenticated using an app's API key via the api_key query parameter. You can find this value in Developer Console / [App Name] / API Credentials.\n"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "assignedEntity",
+                "value": "",
+                "type": "query",
+                "description": "If you want to list all of the license packs assigned to a specific entity, you can provide the entity's external ID as a parameter.\n"
+              }
+            ]
+          },
+          "docs": "This is used to list all licenses that have been assigned to an entity. Users can specify all license packs using a wildcard \"-\" as the licensePackId, which allows them to request all license assignments for that entity.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

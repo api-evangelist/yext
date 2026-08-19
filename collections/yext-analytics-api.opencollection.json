@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Analytics API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/analytics/catalog",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "List of all metrics for which reporting data is available, along with their completed dates."
+        },
+        {
+          "info": {
+            "name": "Max Dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/analytics/maxdates",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Fetch the completed date for Listings and Bing metrics. Fetching the completed date for individual metrics can be done using the catalog endpoint."
+        },
+        {
+          "info": {
+            "name": "Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/analytics/reports",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "async",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to false.  When true, the report’s ID will be returned immediately and the report results can be fetched later.  When false, the report results will be returned immediately, but an error may occur if the data requested is too large."
+              },
+              {
+                "name": "callback",
+                "value": "",
+                "type": "query",
+                "description": "Optional.  When async=true and callback is specified, the provided URL will be called when the report is ready.\nThe URL must be of the form:\n\n    POST https://[your domain]/[your path]\n\nIt must accept the following parameters:\n\n    id:         (string)  - The ID of the report request which completed.\n\n    status:     (string)  - One of [DONE, FAILED] indicating the result of the request.\n\n    statusCode: (int)     - An HTTP status code indicating the result of the request.\n\n    message:    (string)  - When status=FAILED, contains an error message.\n\n    url:        (string)  - When status=DONE, contains the URL to download the report data as a text file.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a report to retrieve analytics for each of your products using synchronous or asynchronous requests depending on the size of your data.\n\nFor more information available in the Reports API, check our documentation below:\n* [Metrics in Analytics](https://help.yext.com/hc/en-us/articles/360000001103-Metrics-in-Analytics)\n* [Dimensions in Analytics](https://help.yext.com/hc/en-us/articles/5901921968027-Dimensions-in-Analytics)\n"
+        },
+        {
+          "info": {
+            "name": "Report Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/analytics/standardreports/:reportId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Checks the status of a Report created with async=true."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

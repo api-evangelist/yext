@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Plpixel API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plpixel",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pixel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/plpixel",
+            "params": [
+              {
+                "name": "pid",
+                "value": "",
+                "type": "query",
+                "description": "Publisher secure ID. This value will be provided to you.\n"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Yext location Ids\n"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.\n"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "Type of event that took place\n"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.\n* Required if **source** is **serp**\n* The value of this field must be URL encoded\n"
+              },
+              {
+                "name": "querylocation",
+                "value": "",
+                "type": "query",
+                "description": "Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in \"Find X near Y\", \"X\" should be provided as \"query\" and \"Y\" should be provided as **querylocation**.\n* Required if **source** is **serp**\n* The value of this field must be URL encoded\n"
+              },
+              {
+                "name": "rank",
+                "value": "",
+                "type": "query",
+                "description": "The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).\n* Comma-separated list of integers, 1-indexed, parallel to ids.\n* A rank of '5' in the first index would indicate that the first listing in the list appeared fifth in the organic results\n"
+              },
+              {
+                "name": "target",
+                "value": "",
+                "type": "query",
+                "description": "Indicates which part of the page the user clicked on. For clicks on the SERP that send the user to the details page, you may optionally report a target of moreinfo rather than specifying a particular field.\nIf no appropriate value is available, please contact us.\n* Required if **action** is **click**\n"
+              },
+              {
+                "name": "property",
+                "value": "",
+                "type": "query",
+                "description": "Indicates the Internet property where the event took place.\nYou should always provide this value if your listings are available on multiple platforms or properties (e.g., website, iPhone app, and Android app or publisher.example.com and local.publisher.com).\n* This value does not have to be a domain name, but please choose something that’s likely to be unique.\n"
+              },
+              {
+                "name": "useragent",
+                "value": "",
+                "type": "query",
+                "description": "The user agent from the original web request.\n* Required  if and only if making a server-side call to report a web page view\n"
+              },
+              {
+                "name": "userid",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
+              },
+              {
+                "name": "pageurl",
+                "value": "",
+                "type": "query",
+                "description": "The URL of the original web request\n* Required  if and only if making a server-side call to report a web page view\n"
+              },
+              {
+                "name": "additional",
+                "value": "",
+                "type": "query",
+                "description": "Any additional data you wish to include\nFor example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions\n"
+              }
+            ]
+          },
+          "docs": "Pixel"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,4062 @@
+{
+  "item": [
+    {
+      "id": "8ad38de1-51c7-422c-82c9-c95903d785fb",
+      "name": "Administrative API",
+      "description": {
+        "content": "NOTE: You need a sandbox account to test your Administrative API integration. Contact your Account Manager to have one created for you.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3809094c-4612-4743-a99a-73a360262b25",
+          "name": "Available Services: List",
+          "request": {
+            "name": "Available Services: List",
+            "description": {
+              "content": "Return list of services available to you under your agreements",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "availableservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "033a47a2-f5c0-4d2a-b513-2440cee8dcc4",
+              "name": "Available Service Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "availableservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"availableServices\": [\n      {\n        \"sku\": \"SKU-00000167\",\n        \"serviceDescription\": \"Location Cloud Starter (Partner)\",\n        \"recipientType\": \"Location\",\n        \"agreementId\": 1588,\n        \"minimumUsage\": 1,\n        \"minimumUsageUnits\": \"MONTHS\"\n      },\n      {\n        \"sku\": \"SKU-00000168\",\n        \"serviceDescription\": \"Location Cloud Professional (Partner)\",\n        \"recipientType\": \"Location\",\n        \"agreementId\": 1588,\n        \"minimumUsage\": 1,\n        \"minimumUsageUnits\": \"MONTHS\"\n      },\n      {\n        \"sku\": \"SKU-00000170\",\n        \"serviceDescription\": \"Axciom Add-on (Partner)\",\n        \"recipientType\": \"Location\",\n        \"agreementId\": 1588,\n        \"addOnTo\": [\n          \"SKU-00000167\",\n          \"SKU-00000168\"\n        ]\n      },\n      {\n        \"sku\": \"SKU-00000195\",\n        \"serviceDescription\": \"Answers Experience\",\n        \"recipientType\": \"Sub-Account\",\n        \"agreementId\": 1588,\n        \"minimumUsage\": 1,\n        \"minimumUsageUnits\": \"MONTHS\"\n      }\n    ],\n    \"count\": 4\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6e82c41-df18-4639-9f93-379cf67110d0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "availableservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 3859,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 8500,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88048049-4495-40e7-91d9-5bc831ad0575",
+          "name": "Add Requests: Create (New Location)",
+          "request": {
+            "name": "Add Requests: Create (New Location)",
+            "description": {
+              "content": "Request that a new location be added and services added to it. The location is created only if the \"status\" field returned is \"COMPLETE\". In most cases, the \"status\" returned in the Add Request: Create response will be \"SUBMITTED\". For a list and explanation of each possible \"status\", please see the [**Add Requests: Get (Location)**](#operation/getAddRequest) section.\n\nTo receive real-time updates on the status of your Add Request, we recommend that you configure the [**Add Request Update: Webhook**](../webhooks/index.html#operation/addRequestWebhook) in the Developer Console (see the [**Configure Webhooks**](http://developer.yext.com/docs/guides/configure-webhooks/) guide for more information). Alternatively, use the [**Add Requests: Get (Location)**](#operation/getAddRequest) call to determine the current Add Request \"status\".\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "newlocationaddrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newLocationId\": \"<string>\",\n  \"newLocationData\": {\n    \"id\": \"<string>\",\n    \"accountId\": \"<string>\",\n    \"locationType\": \"<string>\",\n    \"locationName\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"officeName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"npi\": \"<string>\",\n    \"address\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"suppressAddress\": \"<boolean>\",\n    \"displayAddress\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"sublocality\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"serviceArea\": {\n      \"radius\": \"<double>\",\n      \"unit\": \"<string>\",\n      \"places\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"phone\": \"<string>\",\n    \"isPhoneTracked\": \"<boolean>\",\n    \"localPhone\": \"<string>\",\n    \"alternatePhone\": \"<string>\",\n    \"faxPhone\": \"<string>\",\n    \"mobilePhone\": \"<string>\",\n    \"tollFreePhone\": \"<string>\",\n    \"ttyPhone\": \"<string>\",\n    \"categoryIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"featuredMessage\": \"<string>\",\n    \"featuredMessageUrl\": \"<string>\",\n    \"websiteUrl\": \"<string>\",\n    \"displayWebsiteUrl\": \"<string>\",\n    \"reservationUrl\": \"<string>\",\n    \"displayReservationUrl\": \"<string>\",\n    \"menuUrl\": \"<string>\",\n    \"displayMenuUrl\": \"<string>\",\n    \"orderUrl\": \"<string>\",\n    \"displayOrderUrl\": \"<string>\",\n    \"hours\": \"<string>\",\n    \"additionalHoursText\": \"<string>\",\n    \"holidayHours\": [\n      {\n        \"hours\": \"<string>\",\n        \"date\": \"<date>\",\n        \"isRegularHours\": false\n      },\n      {\n        \"hours\": \"<string>\",\n        \"date\": \"<date>\",\n        \"isRegularHours\": false\n      }\n    ],\n    \"description\": \"<string>\",\n    \"conditionsTreated\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"certifications\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"educationList\": [\n      {\n        \"type\": \"<string>\",\n        \"institutionName\": \"<string>\",\n        \"yearCompleted\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"institutionName\": \"<string>\",\n        \"yearCompleted\": \"<string>\"\n      }\n    ],\n    \"degrees\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"admittingHospitals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"acceptingNewPatients\": \"<boolean>\",\n    \"closed\": {\n      \"isClosed\": \"<boolean>\"\n    },\n    \"paymentOptions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"insuranceAccepted\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"logo\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"photos\": [\n      {\n        \"url\": \"<string>\",\n        \"description\": \"<string>\",\n        \"details\": \"<string>\",\n        \"alternateText\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"description\": \"<string>\",\n        \"details\": \"<string>\",\n        \"alternateText\": \"<string>\"\n      }\n    ],\n    \"headshot\": \"<object>\",\n    \"videoUrls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"instagramHandle\": \"<string>\",\n    \"twitterHandle\": \"<string>\",\n    \"googleWebsiteOverride\": \"<string>\",\n    \"googleCoverPhoto\": \"<object>\",\n    \"googleProfilePhoto\": \"<object>\",\n    \"googleAttributes\": [\n      {\n        \"id\": \"<string>\",\n        \"optionIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"optionIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"facebookPageUrl\": \"<string>\",\n    \"facebookCallToAction\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"facebookCoverPhoto\": \"<object>\",\n    \"facebookProfilePicture\": \"<object>\",\n    \"uberLinkType\": \"<string>\",\n    \"uberLinkText\": \"<string>\",\n    \"uberTripBrandingText\": \"<string>\",\n    \"uberTripBrandingUrl\": \"<string>\",\n    \"uberTripBrandingDescription\": \"<string>\",\n    \"yearEstablished\": \"<string>\",\n    \"displayLat\": \"<double>\",\n    \"displayLng\": \"<double>\",\n    \"routableLat\": \"<double>\",\n    \"routableLng\": \"<double>\",\n    \"walkableLat\": \"<double>\",\n    \"walkableLng\": \"<double>\",\n    \"pickupLat\": \"<double>\",\n    \"pickupLng\": \"<double>\",\n    \"dropoffLat\": \"<double>\",\n    \"dropoffLng\": \"<double>\",\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"specialities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"associations\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"brands\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"language\": \"<string>\",\n    \"languages\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"keywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"menusLabel\": \"<string>\",\n    \"menuIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"bioListsLabel\": \"<string>\",\n    \"bioListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"productListsLabel\": \"<string>\",\n    \"productListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eventListsLabel\": \"<string>\",\n    \"eventListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folderId\": \"<string>\",\n    \"labelIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customFields\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\"\n    },\n    \"intelligentSearchTrackingEnabled\": \"<boolean>\",\n    \"intelligentSearchTrackingFrequency\": \"<string>\",\n    \"locationKeywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customKeywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"queryTemplates\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alternateNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alternateWebsites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"competitors\": [\n      {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\"\n      }\n    ],\n    \"trackingSites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"isClusterPrimary\": \"<boolean>\",\n    \"attire\": \"<string>\",\n    \"priceRange\": \"<string>\",\n    \"mealsServed\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"locatedIn\": \"<string>\",\n    \"primaryContact\": \"<string>\",\n    \"reviewResponseConversationEnabled\": \"<boolean>\",\n    \"holidayHoursConfirmationEnabled\": \"<boolean>\"\n  },\n  \"newEntityData\": {},\n  \"skus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"newLocationAccountId\": \"<string>\",\n  \"newLocationAccountName\": \"<string>\",\n  \"newAccountParentAccountId\": \"<string>\",\n  \"newEntityType\": \"location\",\n  \"agreementId\": \"<integer>\",\n  \"forceReview\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ea8051d-8a14-4ad8-ae1e-b25701fb3f4f",
+              "name": "Location Add Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "newlocationaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newLocationId\": \"<string>\",\n  \"newLocationData\": {\n    \"id\": \"<string>\",\n    \"accountId\": \"<string>\",\n    \"locationType\": \"<string>\",\n    \"locationName\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"officeName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"npi\": \"<string>\",\n    \"address\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"suppressAddress\": \"<boolean>\",\n    \"displayAddress\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"sublocality\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"serviceArea\": {\n      \"radius\": \"<double>\",\n      \"unit\": \"<string>\",\n      \"places\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"phone\": \"<string>\",\n    \"isPhoneTracked\": \"<boolean>\",\n    \"localPhone\": \"<string>\",\n    \"alternatePhone\": \"<string>\",\n    \"faxPhone\": \"<string>\",\n    \"mobilePhone\": \"<string>\",\n    \"tollFreePhone\": \"<string>\",\n    \"ttyPhone\": \"<string>\",\n    \"categoryIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"featuredMessage\": \"<string>\",\n    \"featuredMessageUrl\": \"<string>\",\n    \"websiteUrl\": \"<string>\",\n    \"displayWebsiteUrl\": \"<string>\",\n    \"reservationUrl\": \"<string>\",\n    \"displayReservationUrl\": \"<string>\",\n    \"menuUrl\": \"<string>\",\n    \"displayMenuUrl\": \"<string>\",\n    \"orderUrl\": \"<string>\",\n    \"displayOrderUrl\": \"<string>\",\n    \"hours\": \"<string>\",\n    \"additionalHoursText\": \"<string>\",\n    \"holidayHours\": [\n      {\n        \"hours\": \"<string>\",\n        \"date\": \"<date>\",\n        \"isRegularHours\": false\n      },\n      {\n        \"hours\": \"<string>\",\n        \"date\": \"<date>\",\n        \"isRegularHours\": false\n      }\n    ],\n    \"description\": \"<string>\",\n    \"conditionsTreated\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"certifications\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"educationList\": [\n      {\n        \"type\": \"<string>\",\n        \"institutionName\": \"<string>\",\n        \"yearCompleted\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"institutionName\": \"<string>\",\n        \"yearCompleted\": \"<string>\"\n      }\n    ],\n    \"degrees\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"admittingHospitals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"acceptingNewPatients\": \"<boolean>\",\n    \"closed\": {\n      \"isClosed\": \"<boolean>\"\n    },\n    \"paymentOptions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"insuranceAccepted\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"logo\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"photos\": [\n      {\n        \"url\": \"<string>\",\n        \"description\": \"<string>\",\n        \"details\": \"<string>\",\n        \"alternateText\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"description\": \"<string>\",\n        \"details\": \"<string>\",\n        \"alternateText\": \"<string>\"\n      }\n    ],\n    \"headshot\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"videoUrls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"instagramHandle\": \"<string>\",\n    \"twitterHandle\": \"<string>\",\n    \"googleWebsiteOverride\": \"<string>\",\n    \"googleCoverPhoto\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"googleProfilePhoto\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"googleAttributes\": [\n      {\n        \"id\": \"<string>\",\n        \"optionIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"optionIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"facebookPageUrl\": \"<string>\",\n    \"facebookCallToAction\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"facebookCoverPhoto\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"facebookProfilePicture\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"uberLinkType\": \"<string>\",\n    \"uberLinkText\": \"<string>\",\n    \"uberTripBrandingText\": \"<string>\",\n    \"uberTripBrandingUrl\": \"<string>\",\n    \"uberTripBrandingDescription\": \"<string>\",\n    \"yearEstablished\": \"<string>\",\n    \"displayLat\": \"<double>\",\n    \"displayLng\": \"<double>\",\n    \"routableLat\": \"<double>\",\n    \"routableLng\": \"<double>\",\n    \"walkableLat\": \"<double>\",\n    \"walkableLng\": \"<double>\",\n    \"pickupLat\": \"<double>\",\n    \"pickupLng\": \"<double>\",\n    \"dropoffLat\": \"<double>\",\n    \"dropoffLng\": \"<double>\",\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"specialities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"associations\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"brands\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"language\": \"<string>\",\n    \"languages\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"keywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"menusLabel\": \"<string>\",\n    \"menuIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"bioListsLabel\": \"<string>\",\n    \"bioListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"productListsLabel\": \"<string>\",\n    \"productListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eventListsLabel\": \"<string>\",\n    \"eventListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folderId\": \"<string>\",\n    \"labelIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customFields\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\"\n    },\n    \"intelligentSearchTrackingEnabled\": \"<boolean>\",\n    \"intelligentSearchTrackingFrequency\": \"<string>\",\n    \"locationKeywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customKeywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"queryTemplates\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alternateNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alternateWebsites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"competitors\": [\n      {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\"\n      }\n    ],\n    \"trackingSites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"isClusterPrimary\": \"<boolean>\",\n    \"attire\": \"<string>\",\n    \"priceRange\": \"<string>\",\n    \"mealsServed\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"locatedIn\": \"<string>\",\n    \"primaryContact\": \"<string>\",\n    \"reviewResponseConversationEnabled\": \"<boolean>\",\n    \"holidayHoursConfirmationEnabled\": \"<boolean>\"\n  },\n  \"newEntityData\": {},\n  \"skus\": [\n    \"SKU-00000167\",\n    \"SKU-00000168\"\n  ],\n  \"newLocationAccountId\": \"CST-43843\",\n  \"newLocationAccountName\": \"Bill's Auto Shop\",\n  \"newAccountParentAccountId\": \"PAR-001\",\n  \"newEntityType\": \"location\",\n  \"agreementId\": 1588,\n  \"forceReview\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 13046,\n    \"locationMode\": \"NEW\",\n    \"newLocationId\": \"LOC-123\",\n    \"newLocationData\": {\n      \"id\": \"LOC-123\",\n      \"locationName\": \"Yext\",\n      \"address\": \"1 Madison Avenue, 5th Floor\",\n      \"city\": \"New York\",\n      \"state\": \"NY\",\n      \"zip\": \"10010\",\n      \"countryCode\": \"US\",\n      \"language\": \"en\",\n      \"phone\": \"18884442988\",\n      \"categoryIds\": [\n        \"1\"\n      ],\n      \"locationType\": \"LOCATION\"\n    },\n    \"skus\": [\n      \"SKU-00000167\"\n    ],\n    \"agreementId\": 1588,\n    \"status\": \"SUBMITTED\",\n    \"dateSubmitted\": \"2017-05-12T16:08:25\",\n    \"statusDetail\": \"The request has been submitted for processing. Updated status should be available soon, usually within seconds.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "558df877-f647-415f-b93c-419c271fa4a3",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "newlocationaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newLocationId\": \"<string>\",\n  \"newLocationData\": {\n    \"id\": \"<string>\",\n    \"accountId\": \"<string>\",\n    \"locationType\": \"<string>\",\n    \"locationName\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"officeName\": \"<string>\",\n    \"gender\": \"<string>\",\n    \"npi\": \"<string>\",\n    \"address\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"suppressAddress\": \"<boolean>\",\n    \"displayAddress\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"sublocality\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"serviceArea\": {\n      \"radius\": \"<double>\",\n      \"unit\": \"<string>\",\n      \"places\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"phone\": \"<string>\",\n    \"isPhoneTracked\": \"<boolean>\",\n    \"localPhone\": \"<string>\",\n    \"alternatePhone\": \"<string>\",\n    \"faxPhone\": \"<string>\",\n    \"mobilePhone\": \"<string>\",\n    \"tollFreePhone\": \"<string>\",\n    \"ttyPhone\": \"<string>\",\n    \"categoryIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"featuredMessage\": \"<string>\",\n    \"featuredMessageUrl\": \"<string>\",\n    \"websiteUrl\": \"<string>\",\n    \"displayWebsiteUrl\": \"<string>\",\n    \"reservationUrl\": \"<string>\",\n    \"displayReservationUrl\": \"<string>\",\n    \"menuUrl\": \"<string>\",\n    \"displayMenuUrl\": \"<string>\",\n    \"orderUrl\": \"<string>\",\n    \"displayOrderUrl\": \"<string>\",\n    \"hours\": \"<string>\",\n    \"additionalHoursText\": \"<string>\",\n    \"holidayHours\": [\n      {\n        \"hours\": \"<string>\",\n        \"date\": \"<date>\",\n        \"isRegularHours\": false\n      },\n      {\n        \"hours\": \"<string>\",\n        \"date\": \"<date>\",\n        \"isRegularHours\": false\n      }\n    ],\n    \"description\": \"<string>\",\n    \"conditionsTreated\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"certifications\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"educationList\": [\n      {\n        \"type\": \"<string>\",\n        \"institutionName\": \"<string>\",\n        \"yearCompleted\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"institutionName\": \"<string>\",\n        \"yearCompleted\": \"<string>\"\n      }\n    ],\n    \"degrees\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"admittingHospitals\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"acceptingNewPatients\": \"<boolean>\",\n    \"closed\": {\n      \"isClosed\": \"<boolean>\"\n    },\n    \"paymentOptions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"insuranceAccepted\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"logo\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"photos\": [\n      {\n        \"url\": \"<string>\",\n        \"description\": \"<string>\",\n        \"details\": \"<string>\",\n        \"alternateText\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"description\": \"<string>\",\n        \"details\": \"<string>\",\n        \"alternateText\": \"<string>\"\n      }\n    ],\n    \"headshot\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"videoUrls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"instagramHandle\": \"<string>\",\n    \"twitterHandle\": \"<string>\",\n    \"googleWebsiteOverride\": \"<string>\",\n    \"googleCoverPhoto\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"googleProfilePhoto\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"googleAttributes\": [\n      {\n        \"id\": \"<string>\",\n        \"optionIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"optionIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ],\n    \"facebookPageUrl\": \"<string>\",\n    \"facebookCallToAction\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"facebookCoverPhoto\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"facebookProfilePicture\": {\n      \"url\": \"<string>\",\n      \"description\": \"<string>\",\n      \"details\": \"<string>\",\n      \"alternateText\": \"<string>\"\n    },\n    \"uberLinkType\": \"<string>\",\n    \"uberLinkText\": \"<string>\",\n    \"uberTripBrandingText\": \"<string>\",\n    \"uberTripBrandingUrl\": \"<string>\",\n    \"uberTripBrandingDescription\": \"<string>\",\n    \"yearEstablished\": \"<string>\",\n    \"displayLat\": \"<double>\",\n    \"displayLng\": \"<double>\",\n    \"routableLat\": \"<double>\",\n    \"routableLng\": \"<double>\",\n    \"walkableLat\": \"<double>\",\n    \"walkableLng\": \"<double>\",\n    \"pickupLat\": \"<double>\",\n    \"pickupLng\": \"<double>\",\n    \"dropoffLat\": \"<double>\",\n    \"dropoffLng\": \"<double>\",\n    \"emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"specialities\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"associations\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"products\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"services\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"brands\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"language\": \"<string>\",\n    \"languages\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"keywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"menusLabel\": \"<string>\",\n    \"menuIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"bioListsLabel\": \"<string>\",\n    \"bioListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"productListsLabel\": \"<string>\",\n    \"productListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eventListsLabel\": \"<string>\",\n    \"eventListIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folderId\": \"<string>\",\n    \"labelIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customFields\": {\n      \"key_0\": \"<object>\",\n      \"key_1\": \"<object>\"\n    },\n    \"intelligentSearchTrackingEnabled\": \"<boolean>\",\n    \"intelligentSearchTrackingFrequency\": \"<string>\",\n    \"locationKeywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"customKeywords\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"queryTemplates\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alternateNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"alternateWebsites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"competitors\": [\n      {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"website\": \"<string>\"\n      }\n    ],\n    \"trackingSites\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"isClusterPrimary\": \"<boolean>\",\n    \"attire\": \"<string>\",\n    \"priceRange\": \"<string>\",\n    \"mealsServed\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"locatedIn\": \"<string>\",\n    \"primaryContact\": \"<string>\",\n    \"reviewResponseConversationEnabled\": \"<boolean>\",\n    \"holidayHoursConfirmationEnabled\": \"<boolean>\"\n  },\n  \"newEntityData\": {},\n  \"skus\": [\n    \"SKU-00000167\",\n    \"SKU-00000168\"\n  ],\n  \"newLocationAccountId\": \"CST-43843\",\n  \"newLocationAccountName\": \"Bill's Auto Shop\",\n  \"newAccountParentAccountId\": \"PAR-001\",\n  \"newEntityType\": \"location\",\n  \"agreementId\": 1588,\n  \"forceReview\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c21fc94-2be2-427b-8fb0-ca023aea89e2",
+          "name": "Add Requests: Create (Existing Location)",
+          "request": {
+            "name": "Add Requests: Create (Existing Location)",
+            "description": {
+              "content": "Request that one or more available services be added to an existing location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "existinglocationaddrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"existingLocationId\": \"<string>\",\n  \"skus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"existingLocationAccountId\": \"<string>\",\n  \"agreementId\": \"<integer>\",\n  \"forceReview\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0b57e06-1cf2-489c-b4fc-69eba2970f79",
+              "name": "Location Add Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "existinglocationaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"existingLocationId\": \"A48934\",\n  \"skus\": [\n    \"SKU-00000167\",\n    \"SKU-00000168\"\n  ],\n  \"existingLocationAccountId\": \"B098329\",\n  \"agreementId\": 1588,\n  \"forceReview\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 13047,\n    \"existingLocationId\": \"A48934\",\n    \"locationMode\": \"EXISTING\",\n    \"skus\": [\n      \"SKU-00000170\"\n    ],\n    \"agreementId\": 1588,\n    \"status\": \"SUBMITTED\",\n    \"dateSubmitted\": \"2017-05-13T14:22:18\",\n    \"statusDetail\": \"The request has been submitted for processing. Updated status should be available soon, usually within seconds.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a25aa6d6-e30d-49cc-9fda-d4d32aa6a301",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "existinglocationaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"existingLocationId\": \"A48934\",\n  \"skus\": [\n    \"SKU-00000167\",\n    \"SKU-00000168\"\n  ],\n  \"existingLocationAccountId\": \"B098329\",\n  \"agreementId\": 1588,\n  \"forceReview\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a893231-abf9-4d24-b0d9-4fbff1e28713",
+          "name": "Add Requests: Create (Existing Account)",
+          "request": {
+            "name": "Add Requests: Create (Existing Account)",
+            "description": {
+              "content": "Request that one or more available services be added (or increased in quantity) to an existing account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "existingsubaccountaddrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subAccountId\": \"<string>\",\n  \"skuAdditions\": [\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ],\n  \"agreementId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ee6f5f9-a9d0-482d-8faa-a240db59635b",
+              "name": "Sub-Account Add Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "existingsubaccountaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subAccountId\": \"B093879\",\n  \"skuAdditions\": [\n    {\n      \"sku\": \"SKU-00000195\",\n      \"quantity\": 1\n    },\n    {\n      \"sku\": \"SKU-00000196\",\n      \"quantity\": 2\n    }\n  ],\n  \"agreementId\": 1588\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 15037,\n    \"subAccountId\": \"B093879\",\n    \"skuAdditions\": [\n      {\n        \"sku\": \"SKU-00000195\",\n        \"quantity\": 1\n      },\n      {\n        \"sku\": \"SKU-00000196\",\n        \"quantity\": 2\n      }\n    ],\n    \"agreementId\": 1588,\n    \"status\": \"SUBMITTED\",\n    \"dateSubmitted\": \"2021-02-26T14:22:18\",\n    \"statusDetail\": \"The request has been submitted for processing. Updated status should be available soon, usually within seconds.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdb3985b-326b-42b3-b80f-5bd6bcad0d16",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "existingsubaccountaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subAccountId\": \"B093879\",\n  \"skuAdditions\": [\n    {\n      \"sku\": \"SKU-00000195\",\n      \"quantity\": 1\n    },\n    {\n      \"sku\": \"SKU-00000196\",\n      \"quantity\": 2\n    }\n  ],\n  \"agreementId\": 1588\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a331937e-e749-4ed4-9a1c-480121415c69",
+          "name": "Services: Cancel (Location)",
+          "request": {
+            "name": "Services: Cancel (Location)",
+            "description": {
+              "content": "Cancel one or more active services provisioned on the location.\n\n**NOTE:** If you have added location services under a sub-account, use this endpoint on your *main account* to cancel them.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "cancelservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The ID of the account.\n\n**NOTE:** If you would like to cancel location services under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"locationId\": \"<string>\",\n  \"locationAccountId\": \"<string>\",\n  \"agreementId\": \"<integer>\",\n  \"skus\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86b23108-fccb-4413-8da3-208bf39845be",
+              "name": "Cancel Location Services Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "cancelservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** If you would like to cancel location services under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locationId\": \"L439843\",\n  \"locationAccountId\": \"C34833\",\n  \"agreementId\": 1588,\n  \"skus\": [\n    \"SKU-00000167\",\n    \"SKU-00000168\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": [\n    {\n      \"id\": 8018,\n      \"sku\": \"DEV-00010003\",\n      \"serviceDescription\": \"Axciom Add-on (Partner)\",\n      \"agreementId\": 1588,\n      \"locationId\": \"1775725677797917505\",\n      \"status\": \"STOPPED\",\n      \"started\": \"2017-02-10\",\n      \"stopped\": \"2017-05-14\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65d20b33-ee7c-4cc7-9895-2391a0513f3a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "cancelservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** If you would like to cancel location services under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locationId\": \"L439843\",\n  \"locationAccountId\": \"C34833\",\n  \"agreementId\": 1588,\n  \"skus\": [\n    \"SKU-00000167\",\n    \"SKU-00000168\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0aaf5474-c4eb-4ed2-aeb7-eca1abdd657b",
+          "name": "Services: Cancel (Account)",
+          "request": {
+            "name": "Services: Cancel (Account)",
+            "description": {
+              "content": "Cancel (or decrease the quantity of) one or more active services provisioned on the account.\n\n**NOTE:** If you have added services to a sub-account, use this endpoint on your *main account* to cancel them.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "cancelsubaccountservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel services provisioned on the sub-account.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subAccountId\": \"<string>\",\n  \"skuRemovals\": [\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"sku\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ],\n  \"agreementId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e900c74-fe53-44ce-9ef5-ac28440dac55",
+              "name": "Cancel Sub-Account Services Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "cancelsubaccountservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel services provisioned on the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subAccountId\": \"B093879\",\n  \"skuRemovals\": [\n    {\n      \"sku\": \"SKU-00000195\",\n      \"quantity\": 1\n    },\n    {\n      \"sku\": \"SKU-00000196\",\n      \"quantity\": 2\n    }\n  ],\n  \"agreementId\": 1588\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": [\n    {\n      \"id\": 9000,\n      \"subAccountId\": \"B093879\",\n      \"agreementId\": 1588,\n      \"sku\": \"SKU-00000195\",\n      \"serviceDescription\": \"Answers Experience\",\n      \"serviceQuantity\": 2,\n      \"started\": \"2021-01-10\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"id\": 9001,\n      \"subAccountId\": \"B093879\",\n      \"agreementId\": 1588,\n      \"sku\": \"SKU-00000196\",\n      \"serviceDescription\": \"Answers Experience 2\",\n      \"serviceQuantity\": 1,\n      \"started\": \"2021-01-10\",\n      \"stopped\": \"2021-03-01\",\n      \"status\": \"STOPPED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58d38e57-31bc-418a-9377-bb7407283421",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "cancelsubaccountservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel services provisioned on the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subAccountId\": \"B093879\",\n  \"skuRemovals\": [\n    {\n      \"sku\": \"SKU-00000195\",\n      \"quantity\": 1\n    },\n    {\n      \"sku\": \"SKU-00000196\",\n      \"quantity\": 2\n    }\n  ],\n  \"agreementId\": 1588\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e847c6bf-f275-42ad-a11a-af3c5cece5ed",
+          "name": "Services: Cancel All (Account)",
+          "request": {
+            "name": "Services: Cancel All (Account)",
+            "description": {
+              "content": "Cancel all active services (all quantities) provisioned on the account.\n\n**NOTE:** If you have added services to a sub-account, use this endpoint on your *main account* to cancel all of them.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "cancelallsubaccountservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel all of the services provisioned on the sub-account.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subAccountId\": \"<string>\",\n  \"agreementId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97330fae-b846-4a6d-b2ef-4b3a13f17755",
+              "name": "Cancel All Sub-Account Services Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "cancelallsubaccountservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel all of the services provisioned on the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subAccountId\": \"B093879\",\n  \"agreementId\": 1588\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": [\n    {\n      \"id\": 9000,\n      \"subAccountId\": \"B093879\",\n      \"agreementId\": 1588,\n      \"sku\": \"SKU-00000195\",\n      \"serviceDescription\": \"Answers Experience\",\n      \"serviceQuantity\": 1,\n      \"started\": \"2021-01-10\",\n      \"stopped\": \"2021-03-01\",\n      \"status\": \"STOPPED\"\n    },\n    {\n      \"id\": 9001,\n      \"subAccountId\": \"B093879\",\n      \"agreementId\": 1588,\n      \"sku\": \"SKU-00000196\",\n      \"serviceDescription\": \"Answers Experience 2\",\n      \"serviceQuantity\": 3,\n      \"started\": \"2021-01-10\",\n      \"stopped\": \"2021-03-01\",\n      \"status\": \"STOPPED\"\n    },\n    {\n      \"id\": 9002,\n      \"subAccountId\": \"B093879\",\n      \"agreementId\": 1588,\n      \"sku\": \"SKU-00000197\",\n      \"serviceDescription\": \"Answers Experience 3\",\n      \"serviceQuantity\": 1,\n      \"started\": \"2021-01-11\",\n      \"stopped\": \"2021-03-01\",\n      \"status\": \"STOPPED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8866f7b-ec46-4415-8aad-8274392ce580",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "cancelallsubaccountservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** Enter the ID of the *main account* rather than the sub-account to cancel all of the services provisioned on the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subAccountId\": \"B093879\",\n  \"agreementId\": 1588\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efe9ead6-66e0-44cd-8d93-f79c88c2cd24",
+          "name": "Add Requests: Process (Sandbox API Only)",
+          "request": {
+            "name": "Add Requests: Process (Sandbox API Only)",
+            "description": {
+              "content": "Request that an add request in REVIEW be processed to COMPLETE, CANCELED, or FAILED. Only applicable for location add requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "processaddrequest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addRequestId\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bfb0b1f3-cd31-41be-8ac2-fd7e4a4c02d4",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "processaddrequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addRequestId\": \"<integer>\",\n  \"status\": \"COMPLETE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff18b71d-97cf-4e57-8131-594bfaaa5a83",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "processaddrequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addRequestId\": \"<integer>\",\n  \"status\": \"COMPLETE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "616de038-d694-4b5e-a9a9-d6cf247af8b7",
+          "name": "Add Requests: List (Location)",
+          "request": {
+            "name": "Add Requests: List (Location)",
+            "description": {
+              "content": "Get all of the add requests in the account that were created for locations. The response includes both New Location Add Requests and Existing Location Add Requests.\n\nPossible `status` values for each add request:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services for the location.\n  * CANCELED - The request was purposefully canceled by Yext and was not processed. Details are available in the *results* field.\n  * REVIEW - The request is being reviewed by Yext, most likely because this location may be a duplicate of another location already\n    receiving this service through Yext. Once the review is complete, *status* will be updated to either CANCELED or COMPLETE.\n  * FAILED - Processing the request failed due to a technical issue. Details may be available in the *statusDetail* field. No changes were made to your account, so you can\n    try the request again.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "addrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters the list to add requests in a specific status."
+                },
+                {
+                  "disabled": false,
+                  "key": "submittedAfter",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "submittedBefore",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAfter",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedBefore",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sku",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "agreementId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a698c998-194d-4241-9bef-895e58f345fd",
+              "name": "Location Add Requests Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "addrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "submittedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "submittedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"addRequests\": [\n      {\n        \"id\": 13027,\n        \"locationMode\": \"NEW\",\n        \"newLocationId\": \"LOC-001\",\n        \"skus\": [\n          \"SKU-00000167\"\n        ],\n        \"agreementId\": 1588,\n        \"status\": \"COMPLETE\",\n        \"dateSubmitted\": \"2017-05-10T19:23:07\",\n        \"dateCompleted\": \"2017-05-10T19:31:29\",\n        \"statusDetail\": \"The request was completed and the specified services were started. Location ID LOC-123 was created in this request.\"\n      },\n      {\n        \"id\": 13026,\n        \"locationMode\": \"NEW\",\n        \"newLocationId\": \"LOC-003\",\n        \"skus\": [\n          \"SKU-00000167\"\n        ],\n        \"agreementId\": 1588,\n        \"status\": \"REVIEW\",\n        \"dateSubmitted\": \"2017-05-10T19:23:07\",\n        \"dateCompleted\": \"\",\n        \"statusDetail\": \"Yext is reviewing this request to ensure that the specified location does not already have incompatible service in another account. You do not need to take any action.\"\n      },\n      {\n        \"id\": 13025,\n        \"locationMode\": \"EXISTING\",\n        \"existingLocationId\": \"Yext NYC\",\n        \"skus\": [\n          \"SKU-00000167\"\n        ],\n        \"agreementId\": 1588,\n        \"status\": \"COMPLETE\",\n        \"dateSubmitted\": \"2017-05-10T18:36:52\",\n        \"dateCompleted\": \"2017-05-10T18:36:53\",\n        \"statusDetail\": \"The request was completed and the specified services were started.\"\n      }\n    ],\n    \"count\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb869bf6-b0cf-4218-b132-d3bb9707791c",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "addrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "submittedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "submittedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f311d9e8-e58a-45d5-b9f3-41196d840333",
+          "name": "Add Requests: Get (Location)",
+          "request": {
+            "name": "Add Requests: Get (Location)",
+            "description": {
+              "content": "Get status information about an add request that was previously created for a location.\n\nPossible statuses:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services for the location.\n  * CANCELED - The request was purposefully canceled by Yext and was not processed. Details are available in the *results* field.\n  * REVIEW - The request is being reviewed by Yext, most likely because this location may be a duplicate of another location already\n    receiving this service through Yext. Once the review is complete, *status* will be updated to either CANCELED or COMPLETE.\n  * FAILED - Processing the request failed due to a technical issue. Details may be available in the *statusDetail* field. No changes were made to your account, so you can\n    try the request again.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "addrequests",
+                ":addRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "addRequestId",
+                  "description": "(Required) addRequestId returned from a previous call to **Add Requests: Create (New Location)**, **Add Requests: Create (Existing Location)**, or retrieved from **Add Requests: List (Location)**\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79bd596f-8244-4146-8334-b0821d97654d",
+              "name": "Location Add Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "addrequests",
+                    ":addRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "addRequestId",
+                      "description": "(Required) addRequestId returned from a previous call to **Add Requests: Create (New Location)**, **Add Requests: Create (Existing Location)**, or retrieved from **Add Requests: List (Location)**\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 13027,\n    \"locationMode\": \"NEW\",\n    \"skus\": [\n      \"SKU-00000167\"\n    ],\n    \"agreementId\": 1588,\n    \"status\": \"COMPLETE\",\n    \"dateSubmitted\": \"2017-05-10T19:23:07\",\n    \"dateCompleted\": \"2017-05-10T19:31:29\",\n    \"statusDetail\": \"The request was completed and the specified services were started. Location ID LOC-123 was created in this request.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81f218bb-da1b-4d69-a18b-461b17903b80",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "addrequests",
+                    ":addRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "addRequestId",
+                      "description": "(Required) addRequestId returned from a previous call to **Add Requests: Create (New Location)**, **Add Requests: Create (Existing Location)**, or retrieved from **Add Requests: List (Location)**\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cfb9ec5-b324-491e-88da-cca164df62b0",
+          "name": "Add Requests: List (Sub-Account)",
+          "request": {
+            "name": "Add Requests: List (Sub-Account)",
+            "description": {
+              "content": "Get all of the add requests in the account that were created for sub-accounts.\n\nPossible `status` values for each add request:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services for the sub-account.\n  * CANCELED - The request was purposefully canceled by Yext and was not processed. Details are available in the *results* field.\n  * FAILED - Processing the request failed due to a technical issue. Details may be available in the *statusDetail* field. No changes were made to your account, so you can\n    try the request again.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "subaccountaddrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filters the list to add requests in a specific status."
+                },
+                {
+                  "disabled": false,
+                  "key": "submittedAfter",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "submittedBefore",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAfter",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedBefore",
+                  "value": "<date>",
+                  "description": "(`YYYY-MM-DDThh:mm:ss` format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sku",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "agreementId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "subAccountId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64649ccc-0c7d-4602-9280-4c79a20a02af",
+              "name": "Sub-Account Add Requests Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "subaccountaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "submittedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "submittedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "subAccountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"addRequests\": [\n      {\n        \"id\": 15037,\n        \"subAccountId\": \"B093879\",\n        \"skuAdditions\": [\n          {\n            \"sku\": \"SKU-00000195\",\n            \"quantity\": 1\n          },\n          {\n            \"sku\": \"SKU-00000196\",\n            \"quantity\": 2\n          }\n        ],\n        \"agreementId\": 1588,\n        \"status\": \"COMPLETE\",\n        \"dateSubmitted\": \"2021-02-26T14:22:48\",\n        \"dateCompleted\": \"2021-02-26T14:23:05\",\n        \"statusDetail\": \"The request was completed and the specified services were started/updated.\"\n      },\n      {\n        \"id\": 15038,\n        \"subAccountId\": \"B093879\",\n        \"skuAdditions\": [\n          {\n            \"sku\": \"SKU-00000195\",\n            \"quantity\": 1\n          },\n          {\n            \"sku\": \"SKU-00000196\",\n            \"quantity\": 2\n          }\n        ],\n        \"agreementId\": 1588,\n        \"status\": \"COMPLETE\",\n        \"dateSubmitted\": \"2021-02-27T15:22:48\",\n        \"dateCompleted\": \"2021-02-27T15:23:05\",\n        \"statusDetail\": \"The request was completed and the specified services were started/updated.\"\n      },\n      {\n        \"id\": 15039,\n        \"subAccountId\": \"B093879\",\n        \"skuAdditions\": [\n          {\n            \"sku\": \"SKU-00000195\",\n            \"quantity\": 1\n          }\n        ],\n        \"agreementId\": 1588,\n        \"status\": \"COMPLETE\",\n        \"dateSubmitted\": \"2021-02-27T15:42:47\",\n        \"dateCompleted\": \"2021-02-27T15:43:01\",\n        \"statusDetail\": \"The request was completed and the specified services were started/updated.\"\n      }\n    ],\n    \"count\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df366187-2edf-42b8-b81b-d177c60fa837",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "subaccountaddrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "submittedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "submittedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedAfter",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "updatedBefore",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "subAccountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23ac54cb-096f-4a00-8725-38a25ad4a655",
+          "name": "Add Requests: Get (Sub-Account)",
+          "request": {
+            "name": "Add Requests: Get (Sub-Account)",
+            "description": {
+              "content": "Get status information about an add request that was previously created for a sub-account.\n\nPossible statuses:\n  * SUBMITTED - The request has been submitted for processing. Updated status should be available soon, usually within seconds.\n  * PROCESSING - The request is currently being processed. Updated status should be available soon, usually within seconds.\n  * COMPLETE - The request was successfully processed and service was added. You can verify this by retrieving services for the sub-account.\n  * CANCELED - The request was purposefully canceled by Yext and was not processed. Details are available in the *results* field.\n  * FAILED - Processing the request failed due to a technical issue. Details may be available in the *statusDetail* field. No changes were made to your account, so you can\n    try the request again.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "subaccountaddrequests",
+                ":addRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "addRequestId",
+                  "description": "(Required) addRequestId returned from a previous call to **Add Requests: Create (Existing Account)** or retrieved from **Add Requests: List (Sub-Account)**\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d40795a-0172-45a2-a321-cfec295fd189",
+              "name": "Sub-Account Add Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "subaccountaddrequests",
+                    ":addRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "addRequestId",
+                      "description": "(Required) addRequestId returned from a previous call to **Add Requests: Create (Existing Account)** or retrieved from **Add Requests: List (Sub-Account)**\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 15037,\n    \"subAccountId\": \"B093879\",\n    \"skuAdditions\": [\n      {\n        \"sku\": \"SKU-00000195\",\n        \"quantity\": 1\n      },\n      {\n        \"sku\": \"SKU-00000196\",\n        \"quantity\": 2\n      }\n    ],\n    \"agreementId\": 1588,\n    \"status\": \"COMPLETE\",\n    \"dateSubmitted\": \"2021-02-26T14:22:48\",\n    \"dateCompleted\": \"2021-02-26T14:23:05\",\n    \"statusDetail\": \"The request was completed and the specified services were started/updated.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "755e3375-46f7-4491-870d-7a927b96656f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "subaccountaddrequests",
+                    ":addRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "addRequestId",
+                      "description": "(Required) addRequestId returned from a previous call to **Add Requests: Create (Existing Account)** or retrieved from **Add Requests: List (Sub-Account)**\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfaa30cc-bcb5-48ff-baa3-4f9c7d2ca247",
+          "name": "Services: List (Location)",
+          "request": {
+            "name": "Services: List (Location)",
+            "description": {
+              "content": "Retrieve a list of all services provisioned on a location.\n\n**NOTE:** If you have added location services under sub-accounts, they will be returned from this endpoint on your *main account*.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sku",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationAccountId",
+                  "value": "<string>",
+                  "description": "*(Portal Mode only)* Filters on the account that the location receiving service is in.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of the service. By default, returns only Active services, not All services."
+                },
+                {
+                  "disabled": false,
+                  "key": "agreementId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a location under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41f171dd-2122-4944-a348-0e1f93b09dc5",
+              "name": "Location Services Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationAccountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a location under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"count\": 3,\n    \"services\": [\n      {\n        \"id\": 8000,\n        \"sku\": \"SKU-00000170\",\n        \"serviceDescription\": \"Axciom Add-on (Partner)\",\n        \"agreementId\": 1588,\n        \"locationId\": \"LOC-123\",\n        \"status\": \"ACTIVE\",\n        \"started\": \"2017-05-13\"\n      },\n      {\n        \"id\": 8001,\n        \"sku\": \"SKU-00000167\",\n        \"serviceDescription\": \"Location Cloud Starter (Partner)\",\n        \"agreementId\": 1588,\n        \"locationId\": \"LOC-123\",\n        \"status\": \"ACTIVE\",\n        \"started\": \"2017-05-10\"\n      },\n      {\n        \"id\": 8002,\n        \"sku\": \"SKU-00000167\",\n        \"serviceDescription\": \"Location Cloud Starter (Partner)\",\n        \"agreementId\": 1588,\n        \"locationId\": \"LOC-267\",\n        \"status\": \"STOPPED\",\n        \"started\": \"2017-05-10\",\n        \"stopped\": \"2017-05-15\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd8bd668-5eae-4f9b-a850-ae70761b7fb0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locationAccountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a location under a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d26039d-d821-4ec2-90e3-9377cb905373",
+          "name": "Services: List (Sub-Account)",
+          "request": {
+            "name": "Services: List (Sub-Account)",
+            "description": {
+              "content": "Retrieve a list of all services provisioned on a sub-account.\n\n**NOTE:** If you have added services to sub-accounts, they will be returned from this endpoint on your *main account*.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "subaccountservices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sku",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "subAccountId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of the service. By default, returns only Active services, not All services."
+                },
+                {
+                  "disabled": false,
+                  "key": "agreementId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fbaf24a-01e6-4e37-a3c4-097363d8c027",
+              "name": "Sub-Account Services Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "subaccountservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subAccountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"count\": 3,\n    \"services\": [\n      {\n        \"id\": 8000,\n        \"subAccountId\": \"B093879\",\n        \"agreementId\": 1588,\n        \"sku\": \"SKU-00000195\",\n        \"serviceDescription\": \"Answers Experience\",\n        \"serviceQuantity\": 3,\n        \"started\": \"2021-02-03\",\n        \"status\": \"ACTIVE\"\n      },\n      {\n        \"id\": 8001,\n        \"subAccountId\": \"B093879\",\n        \"agreementId\": 1588,\n        \"sku\": \"SKU-00000196\",\n        \"serviceDescription\": \"Answers Experience 2\",\n        \"serviceQuantity\": 1,\n        \"started\": \"2021-02-25\",\n        \"status\": \"ACTIVE\"\n      },\n      {\n        \"id\": 8002,\n        \"subAccountId\": \"B093879\",\n        \"agreementId\": 1588,\n        \"sku\": \"SKU-00000197\",\n        \"serviceDescription\": \"Answers Experience 3\",\n        \"serviceQuantity\": 1,\n        \"started\": \"2021-02-26\",\n        \"status\": \"ACTIVE\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "144d64f7-a473-482f-943d-3e503fe2b9d7",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "subaccountservices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subAccountId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agreementId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) The ID of the account.\n\n**NOTE:** To retrieve information about services provisioned on a sub-account, enter the ID of the *main account* rather than the sub-account.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65a1b1b7-329c-4d48-b4da-7eb489f228fa",
+          "name": "Accounts: Create Sub-Account",
+          "request": {
+            "name": "Accounts: Create Sub-Account",
+            "description": {
+              "content": "Request to create a new empty sub-account under this account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "createsubaccount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newSubAccountId\": \"<string>\",\n  \"newSubAccountName\": \"<string>\",\n  \"countryCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c97288e0-ed90-4414-aeeb-d6174cd62ae9",
+              "name": "Create Sub-Account Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "createsubaccount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newSubAccountId\": \"B093879\",\n  \"newSubAccountName\": \"Yext Sub-Account\",\n  \"countryCode\": \"US\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"newSubAccountId\": \"B093879\",\n    \"newSubAccountName\": \"Yext Sub-Account\",\n    \"countryCode\": \"US\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ab54912-1fd1-4620-84ec-79775fb11af3",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "createsubaccount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newSubAccountId\": \"B093879\",\n  \"newSubAccountName\": \"Yext Sub-Account\",\n  \"countryCode\": \"US\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d69d8f1-4571-4638-a84c-9e8978ff0d7b",
+          "name": "Resources Apply Request: Create (Account)",
+          "request": {
+            "name": "Resources Apply Request: Create (Account)",
+            "description": {
+              "content": "Create a request to asynchronously apply resources using the URL of a GitHub repository.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "resourcesapplyrequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetAccountId\": \"<string>\",\n  \"source\": {\n    \"type\": \"<string>\",\n    \"url\": \"<string>\",\n    \"variables\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "66aaab3e-be9c-4b68-8c34-faf8b6c194dc",
+              "name": "Resources Apply Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "resourcesapplyrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetAccountId\": \"B093879\",\n  \"source\": {\n    \"type\": \"GitHub\",\n    \"url\": \"https://github.com/YextSolutions/basic-free-trial\",\n    \"variables\": {\n      \"title\": \"Yext source\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 13027,\n    \"targetAccountId\": \"B093879\",\n    \"status\": \"COMPLETE\",\n    \"dateSubmitted\": \"2017-05-10T19:23:07\",\n    \"dateCompleted\": \"2017-05-10T19:31:29\",\n    \"source\": {\n      \"type\": \"GITHUB\",\n      \"url\": \"https://github.com/YextSolutions/basic-free-trial\",\n      \"variables\": {\n        \"title\": \"Yext source\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c40ada41-87e3-4924-9ca5-57e12fb76c3c",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "resourcesapplyrequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetAccountId\": \"B093879\",\n  \"source\": {\n    \"type\": \"GitHub\",\n    \"url\": \"https://github.com/YextSolutions/basic-free-trial\",\n    \"variables\": {\n      \"title\": \"Yext source\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eaf6feea-fbc4-4287-b6af-c75ee54c0474",
+          "name": "Resources Apply Request Status: Get (Account)",
+          "request": {
+            "name": "Resources Apply Request Status: Get (Account)",
+            "description": {
+              "content": "Make a request to get the status of the Resources Apply Request.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "resourcesapplyrequests",
+                ":requestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "requestId",
+                  "description": "(Required) requestId returned from a previous call to **Resources Apply Requests: Create (Account)**\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "577045e8-c05f-4ef8-8f98-0c8558a06f3a",
+              "name": "Resources Apply Request Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "resourcesapplyrequests",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "requestId",
+                      "description": "(Required) requestId returned from a previous call to **Resources Apply Requests: Create (Account)**\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"id\": 13027,\n    \"targetAccountId\": \"B093879\",\n    \"status\": \"COMPLETE\",\n    \"dateSubmitted\": \"2017-05-10T19:23:07\",\n    \"dateCompleted\": \"2017-05-10T19:31:29\",\n    \"source\": {\n      \"type\": \"GITHUB\",\n      \"url\": \"https://github.com/YextSolutions/basic-free-trial\",\n      \"variables\": {\n        \"title\": \"Yext source\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "596f3eb1-9565-4f4d-a3c8-023f93c393b5",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "resourcesapplyrequests",
+                    ":requestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "requestId",
+                      "description": "(Required) requestId returned from a previous call to **Resources Apply Requests: Create (Account)**\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9224ecb6-d6fb-49de-b487-d7eff40318e3",
+          "name": "Accounts: List",
+          "request": {
+            "name": "Accounts: List",
+            "description": {
+              "content": "List all accounts that you have access to. Unless you are in Partner Portal mode, this will only be your own account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Returns only accounts whose name contains the provided string"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "\nNumber of results to skip. Used to page through results.\nCannot be used together with **`pageToken`**.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c42f47f-be37-444a-a617-a835e3a61654",
+              "name": "Accounts Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"count\": 1,\n    \"accounts\": [\n      {\n        \"accountId\": \"1264805\",\n        \"locationCount\": 11,\n        \"subAccountCount\": 0,\n        \"accountName\": \"Yext Demo Account\",\n        \"contactFirstName\": \"John\",\n        \"contactLastName\": \"Doe\",\n        \"contactPhone\": \"1234567890\",\n        \"contactEmail\": \"johndoe@email.com\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21b679d2-25a2-4a96-a2be-866d79165909",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "848cabe2-8ae6-49ee-9f72-2abd9de42b37",
+          "name": "Accounts: Get",
+          "request": {
+            "name": "Accounts: Get",
+            "description": {
+              "content": "Get details for an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8dbbdad0-0009-46ef-b130-073ec479b7d1",
+              "name": "Account Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": []\n  },\n  \"response\": {\n    \"accountId\": 1264805,\n    \"locationCount\": 11,\n    \"subAccountCount\": 0,\n    \"accountName\": \"Yext Demo Account\",\n    \"contactFirstName\": \"John\",\n    \"contactLastName\": \"Doe\",\n    \"contactPhone\": \"1234567890\",\n    \"contactEmail\": \"johndoe@email.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbd61fef-a230-434c-8226-3f57651ca868",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed8a991d-528c-472c-bf0d-377991146eeb",
+          "name": "Accounts: Update",
+          "request": {
+            "name": "Accounts: Update",
+            "description": {
+              "content": "Update an account's name or ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f41f7720-9a8e-41a1-b897-f4d124466282",
+              "name": "ID Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98b455f7-b34d-467d-bf7c-23c672c72806",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": \"<string>\",\n  \"accountName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 4938,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1511,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d27da8c4-1697-4331-a441-103219cc9eb9",
+    "name": "Yext Admin Account Settings Administrative API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "NOTE: You need a sandbox account to test your Administrative API integration. Contact your Account Manager to have one created for you.",
+      "type": "text/plain"
+    }
+  }
+}

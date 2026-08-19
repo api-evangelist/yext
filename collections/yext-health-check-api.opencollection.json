@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Health Check API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/healthy"
+          },
+          "docs": "The Health Check endpoint allows you to monitor the status of Yext's systems.\n\nA response with a status code other than 200 OK indicates that our systems are not operational.\n\nThe body of the response may contain information about the status. However, no part of your Yext integration should depend on the content of the response.\n\n**NOTE:** This call does not require authentication.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Computations API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Computations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Computations: List Operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/computations",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value\nin Developer Console / [App Name] / API Credentials.\n"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Max Page Size = 1000 and unspecified defaults to 100.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the `pageToken` field,\npass that field's value as the `pageToken` parameter to retrieve\nthe next page of data.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of computation operations.\n"
+        },
+        {
+          "info": {
+            "name": "Computations: Create Operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/computations",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value\nin Developer Console / [App Name] / API Credentials.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a single computation operation.\n"
+        },
+        {
+          "info": {
+            "name": "Computations: Get Operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/computations/:operationUid",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "operationUid",
+                "value": "",
+                "type": "path",
+                "description": "The Yext-generated unique identifier for the computation operation."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value in\nDeveloper Console / [App Name] / API Credentials.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a single computation operation.\n"
+        },
+        {
+          "info": {
+            "name": "Computations: Cancel Operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/computations/:operationUid",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "operationUid",
+                "value": "",
+                "type": "path",
+                "description": "The Yext-generated unique identifier for the computation operation."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "All requests will be authenticated using an app's API key\nvia the api_key query parameter. You can find this value in\nDeveloper Console / [App Name] / API Credentials.\n"
+              }
+            ]
+          },
+          "docs": "Cancels a computation operation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

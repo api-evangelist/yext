@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Optimization Tasks API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Optimization Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Optimization Tasks: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/optimizationtasks",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "taskIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Optimization Task IDs corresponding to Optimization Tasks that should be included in the response.\n\nIf no IDs are provided, defaults to all available Optimization Tasks in the account.\n"
+              },
+              {
+                "name": "locationIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Location IDs to be used as a filter.\n\nIf no IDs are provided, defaults to all Locations in the account.\n"
+              }
+            ]
+          },
+          "docs": "List Optimization Tasks for the account, optionally filtered by task and location."
+        },
+        {
+          "info": {
+            "name": "Optimization Tasks: Get Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/optimizationlink",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "taskIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of Optimization Task IDs corresponding to Optimization Tasks that should be included in the response.\n\nIf no IDs are provided, defaults to all available Optimization Tasks in the account.\n"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "Location ID to be used as a filter.\n\nIf no ID is provided, defaults to all Locations in the account.\n"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "When mode is `PENDING_ONLY`, the resulting link will only ask the user to complete tasks that are pending or in progress (that have not been completed before).\n\nWhen mode is `ALL_TASKS`, the resulting link will show the user all specified tasks for all specified locations, regardless of their status. If a task has been completed, the user is given the option to update the content they entered when completing the task.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a link to perform any pending Optimization Tasks given a set of Optimization Tasks and a location"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Configuration API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resource Names: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/config/resourcenames/:resourceGroup/:resourceSubType",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "resourceGroup",
+                "value": "",
+                "type": "path",
+                "description": "Group of the resource\n\nFor example, for `km/entity`, the resourceGroup is `km`\n"
+              },
+              {
+                "name": "resourceSubType",
+                "value": "",
+                "type": "path",
+                "description": "Subtype of the resource\n\nFor example, for `km/entity`, the resourceSubType is `entity`\n"
+              }
+            ]
+          },
+          "docs": "Get a list of resource names for an account for a given resource type.\n\n`resourceGroup` and `resourceSubType` combine to describe the type of resource to query.\n\nExamples: `km/entity`, `platform/account-features`.\n"
+        },
+        {
+          "info": {
+            "name": "Resource Configuration: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/config/resources/:resourceGroup/:resourceSubType/:resourceId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "$id (name) of the resource"
+              },
+              {
+                "name": "resourceGroup",
+                "value": "",
+                "type": "path",
+                "description": "Group of the resource\n\nFor example, for `km/entity`, the resourceGroup is `km`\n"
+              },
+              {
+                "name": "resourceSubType",
+                "value": "",
+                "type": "path",
+                "description": "Subtype of the resource\n\nFor example, for `km/entity`, the resourceSubType is `entity`\n"
+              }
+            ]
+          },
+          "docs": "Get a resource configuration.\n\n`resourceGroup` and `resourceSubType` combine to describe the type of resource to return.\n\nExamples: `km/entity`, `platform/account-features`.\n\n`resourceId` describes the specific resource to return, matching the `$id` field of the resource configuration.\n\nTo return the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.\n\nExample: `platform/account-f"
+        },
+        {
+          "info": {
+            "name": "Resource Configuration: Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/config/resources/:resourceGroup/:resourceSubType/:resourceId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "$id (name) of the resource"
+              },
+              {
+                "name": "resourceGroup",
+                "value": "",
+                "type": "path",
+                "description": "Group of the resource\n\nFor example, for `km/entity`, the resourceGroup is `km`\n"
+              },
+              {
+                "name": "resourceSubType",
+                "value": "",
+                "type": "path",
+                "description": "Subtype of the resource\n\nFor example, for `km/entity`, the resourceSubType is `entity`\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a resource configuration. It overwrites the existing resource entirely.\n\n`resourceGroup` and `resourceSubType` combine to describe the type of resource to return.\n\nExamples: `km/entity`, `platform/account-features`.\n\n`resourceId` describes the specific resource to return, matching the `$id` field of the resource configuration.\n\nTo update the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` a"
+        },
+        {
+          "info": {
+            "name": "Resource Configuration: Patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/config/resources/:resourceGroup/:resourceSubType/:resourceId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "resourceId",
+                "value": "",
+                "type": "path",
+                "description": "$id (name) of the resource"
+              },
+              {
+                "name": "resourceGroup",
+                "value": "",
+                "type": "path",
+                "description": "Group of the resource\n\nFor example, for `km/entity`, the resourceGroup is `km`\n"
+              },
+              {
+                "name": "resourceSubType",
+                "value": "",
+                "type": "path",
+                "description": "Subtype of the resource\n\nFor example, for `km/entity`, the resourceSubType is `entity`\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Patch a resource configuration. It only updates the provided attributes and keeps the existing attributes intact.\n\n`resourceGroup` and `resourceSubType` combine to describe the type of resource to return.\n\nExamples: `km/entity`, `platform/account-features`.\n\n`resourceId` describes the specific resource to return, matching the `$id` field of the resource configuration.\n\nTo patch the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/acco"
+        },
+        {
+          "info": {
+            "name": "Resource Configuration: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/config/resources/:resourceGroup/:resourceSubType",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "resourceGroup",
+                "value": "",
+                "type": "path",
+                "description": "Group of the resource\n\nFor example, for `km/entity`, the resourceGroup is `km`\n"
+              },
+              {
+                "name": "resourceSubType",
+                "value": "",
+                "type": "path",
+                "description": "Subtype of the resource\n\nFor example, for `km/entity`, the resourceSubType is `entity`\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new resource for a given resource type.\n\n`resourceGroup` and `resourceSubType` combine to describe the type of resource to create.\n\nExamples: `km/entity`, `platform/account-features`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

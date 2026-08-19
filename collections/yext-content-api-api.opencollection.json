@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Content API API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Content: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/content/:endpoint/:ids",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpoint",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Content Endpoint to query."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "The Content records to get. Multiple record IDs can be provided separated by commas.\n"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ]
+          },
+          "docs": "Retrieve records by ID from a Content Endpoint"
+        },
+        {
+          "info": {
+            "name": "Content: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/content/:endpoint",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpoint",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Content Endpoint to query."
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              }
+            ]
+          },
+          "docs": "List records from a Content Endpoint\n\nContent API provides the ability for a user to filter and sort records\nby the contents of an indexed field. The filters and sorting parameters can\nbe provided as query parameters, in addition to the query parameters\ndocumented here. If no filters are provided, the API returns all the records\n(with pagination).\n\nFor example, with the parameter **`name=Alice`**, only records where the\nfield **`name`** has value **`Alice`** will be returned.\n\nSimilarly, adding "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

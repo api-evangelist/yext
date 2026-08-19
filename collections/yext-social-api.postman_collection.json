@@ -1,0 +1,3324 @@
+{
+  "item": [
+    {
+      "id": "5d8b36ac-462a-4f79-8c95-be3989a166d7",
+      "name": "Social",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a95262a1-e658-499d-a344-14e822f3bf4f",
+          "name": "Posts: List",
+          "request": {
+            "name": "Posts: List",
+            "description": {
+              "content": "Retrieve Social Posts matching the given criteria.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the nextPageToken field,\npass that field's value as the pageToken parameter to retrieve the next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "postIds",
+                  "value": "<string>",
+                  "description": "Only return posts with the postIDs in the specified list."
+                },
+                {
+                  "disabled": false,
+                  "key": "postIds",
+                  "value": "<string>",
+                  "description": "Only return posts with the postIDs in the specified list."
+                },
+                {
+                  "disabled": false,
+                  "key": "entityPostIds",
+                  "value": "<string>",
+                  "description": "Only return entityPosts with entityPostIds in the specified list."
+                },
+                {
+                  "disabled": false,
+                  "key": "entityPostIds",
+                  "value": "<string>",
+                  "description": "Only return entityPosts with entityPostIds in the specified list."
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Only return posts for the specified entities."
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "Only return posts for the specified entities."
+                },
+                {
+                  "disabled": false,
+                  "key": "publishers",
+                  "value": "<string>",
+                  "description": "Only return posts on the specified publishers.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "publishers",
+                  "value": "<string>",
+                  "description": "Only return posts on the specified publishers.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "Only return posts with the specified text."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Only include posts which match one of the specified statuses:\n  * `POST_SCHEDULED`\n  * `POST_AWAITING_APPROVAL`\n  * `POST_SUCCEEDED`\n  * `POST_PROCESSING`\n  * `DELETE_PROCESSING`\n  * `POST_FAILED`\n  * `DELETE_FAILED`\n  * `REJECTED_BY_APPROVER`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Only include posts which match one of the specified statuses:\n  * `POST_SCHEDULED`\n  * `POST_AWAITING_APPROVAL`\n  * `POST_SUCCEEDED`\n  * `POST_PROCESSING`\n  * `DELETE_PROCESSING`\n  * `POST_FAILED`\n  * `DELETE_FAILED`\n  * `REJECTED_BY_APPROVER`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5baeb9b6-9fa5-42b6-bc6f-dc5b60c12681",
+              "name": "Posts Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityPostIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityPostIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"posts\": [\n      {\n        \"postId\": \"string\",\n        \"entityId\": [\n          \"string\",\n          \"string\"\n        ],\n        \"publishers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"postTitle\": \"string\",\n        \"text\": \"string\",\n        \"photoUrls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"videos\": [\n          {\n            \"videoUrl\": \"string\",\n            \"videoPostType\": \"REEL\",\n            \"coverImageUrl\": \"string\",\n            \"videoTitle\": \"string\"\n          },\n          {\n            \"videoUrl\": \"string\",\n            \"videoPostType\": \"REEL\",\n            \"coverImageUrl\": \"string\",\n            \"videoTitle\": \"string\"\n          }\n        ],\n        \"topicType\": \"string\",\n        \"alertType\": \"string\",\n        \"offer\": {\n          \"couponCode\": \"string\",\n          \"redeemOnlineUrl\": \"string\",\n          \"termsConditions\": \"string\"\n        },\n        \"clickthroughUrl\": \"string\",\n        \"callToActionType\": \"string\",\n        \"eventInfo\": {\n          \"title\": \"string\",\n          \"startTime\": \"string\",\n          \"endTime\": \"string\"\n        },\n        \"createdDate\": \"string\",\n        \"postDate\": \"string\",\n        \"postCreatedInYext\": false,\n        \"entityPosts\": [\n          {\n            \"entityPostId\": \"string\",\n            \"entity\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"publisher\": \"LINKEDIN\",\n            \"status\": {\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"postUrl\": \"string\",\n            \"metrics\": {\n              \"viewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uniqueViewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"clickCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"likeCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"loveCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"wowCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hahaCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sadCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"angerCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"comments\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"entityPostId\": \"string\",\n            \"entity\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"publisher\": \"FACEBOOK\",\n            \"status\": {\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"postUrl\": \"string\",\n            \"metrics\": {\n              \"viewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uniqueViewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"clickCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"likeCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"loveCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"wowCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hahaCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sadCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"angerCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"comments\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"postId\": \"string\",\n        \"entityId\": [\n          \"string\",\n          \"string\"\n        ],\n        \"publishers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"postTitle\": \"string\",\n        \"text\": \"string\",\n        \"photoUrls\": [\n          \"string\",\n          \"string\"\n        ],\n        \"videos\": [\n          {\n            \"videoUrl\": \"string\",\n            \"videoPostType\": \"REEL\",\n            \"coverImageUrl\": \"string\",\n            \"videoTitle\": \"string\"\n          },\n          {\n            \"videoUrl\": \"string\",\n            \"videoPostType\": \"VIDEO\",\n            \"coverImageUrl\": \"string\",\n            \"videoTitle\": \"string\"\n          }\n        ],\n        \"topicType\": \"string\",\n        \"alertType\": \"string\",\n        \"offer\": {\n          \"couponCode\": \"string\",\n          \"redeemOnlineUrl\": \"string\",\n          \"termsConditions\": \"string\"\n        },\n        \"clickthroughUrl\": \"string\",\n        \"callToActionType\": \"string\",\n        \"eventInfo\": {\n          \"title\": \"string\",\n          \"startTime\": \"string\",\n          \"endTime\": \"string\"\n        },\n        \"createdDate\": \"string\",\n        \"postDate\": \"string\",\n        \"postCreatedInYext\": false,\n        \"entityPosts\": [\n          {\n            \"entityPostId\": \"string\",\n            \"entity\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"publisher\": \"GOOGLEMYBUSINESS\",\n            \"status\": {\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"postUrl\": \"string\",\n            \"metrics\": {\n              \"viewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uniqueViewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"clickCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"likeCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"loveCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"wowCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hahaCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sadCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"angerCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"comments\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"entityPostId\": \"string\",\n            \"entity\": {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"publisher\": \"FIRSTPARTY\",\n            \"status\": {\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"details\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"postUrl\": \"string\",\n            \"metrics\": {\n              \"viewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"uniqueViewCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"clickCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"likeCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"loveCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"wowCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hahaCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sadCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"angerCount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"comments\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    \"nextPageToken\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53660789-2705-4a90-9b36-3d51b020fee3",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityPostIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityPostIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 8905,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 1547,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f2cacd0-8b6a-4006-a676-c94a3599414d",
+          "name": "Post: Create",
+          "request": {
+            "name": "Post: Create",
+            "description": {
+              "content": "Create a new social post.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"publisher\": \"<string>\",\n  \"postTitle\": \"<string>\",\n  \"text\": \"<string>\",\n  \"clickthroughUrl\": \"<string>\",\n  \"photoUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"videos\": [\n    {\n      \"videoUrl\": \"<string>\",\n      \"videoPostType\": \"<string>\",\n      \"coverImageUrl\": \"<string>\",\n      \"videoTitle\": \"<string>\"\n    },\n    {\n      \"videoUrl\": \"<string>\",\n      \"videoPostType\": \"<string>\",\n      \"coverImageUrl\": \"<string>\",\n      \"videoTitle\": \"<string>\"\n    }\n  ],\n  \"tikTokPostFields\": {\n    \"privacyLevel\": \"<string>\",\n    \"enableComment\": \"<boolean>\",\n    \"isBrandedContent\": \"<boolean>\",\n    \"isOrganicContent\": \"<boolean>\",\n    \"enableDuet\": \"<boolean>\",\n    \"enableStitch\": \"<boolean>\",\n    \"photoCoverIndex\": \"<integer>\",\n    \"multiPhotoTitle\": \"<string>\",\n    \"complianceSetting\": \"<boolean>\"\n  },\n  \"postDate\": \"<string>\",\n  \"topicType\": \"<string>\",\n  \"alertType\": \"<string>\",\n  \"offer\": {\n    \"couponCode\": \"<string>\",\n    \"redeemOnlineUrl\": \"<string>\",\n    \"termsConditions\": \"<string>\"\n  },\n  \"callToActionType\": \"<string>\",\n  \"eventInfo\": {\n    \"title\": \"<string>\",\n    \"startTime\": \"<string>\",\n    \"endTime\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47b7cd5e-3d9a-4d76-890b-b1c4e5fe8750",
+              "name": "Post Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"publisher\": \"<string>\",\n  \"postTitle\": \"<string>\",\n  \"text\": \"<string>\",\n  \"clickthroughUrl\": \"<string>\",\n  \"photoUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"videos\": [\n    {\n      \"videoUrl\": \"<string>\",\n      \"videoPostType\": \"<string>\",\n      \"coverImageUrl\": \"<string>\",\n      \"videoTitle\": \"<string>\"\n    },\n    {\n      \"videoUrl\": \"<string>\",\n      \"videoPostType\": \"<string>\",\n      \"coverImageUrl\": \"<string>\",\n      \"videoTitle\": \"<string>\"\n    }\n  ],\n  \"tikTokPostFields\": {\n    \"privacyLevel\": \"<string>\",\n    \"enableComment\": \"<boolean>\",\n    \"isBrandedContent\": \"<boolean>\",\n    \"isOrganicContent\": \"<boolean>\",\n    \"enableDuet\": \"<boolean>\",\n    \"enableStitch\": \"<boolean>\",\n    \"photoCoverIndex\": \"<integer>\",\n    \"multiPhotoTitle\": \"<string>\",\n    \"complianceSetting\": \"<boolean>\"\n  },\n  \"postDate\": \"<string>\",\n  \"topicType\": \"<string>\",\n  \"alertType\": \"<string>\",\n  \"offer\": {\n    \"couponCode\": \"<string>\",\n    \"redeemOnlineUrl\": \"<string>\",\n    \"termsConditions\": \"<string>\"\n  },\n  \"callToActionType\": \"<string>\",\n  \"eventInfo\": {\n    \"title\": \"<string>\",\n    \"startTime\": \"<string>\",\n    \"endTime\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"postId\": \"string\",\n    \"entityId\": [\n      \"string\",\n      \"string\"\n    ],\n    \"publishers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"postTitle\": \"string\",\n    \"text\": \"string\",\n    \"photoUrls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"videos\": [\n      {\n        \"videoUrl\": \"string\",\n        \"videoPostType\": \"REEL\",\n        \"coverImageUrl\": \"string\",\n        \"videoTitle\": \"string\"\n      },\n      {\n        \"videoUrl\": \"string\",\n        \"videoPostType\": \"REEL\",\n        \"coverImageUrl\": \"string\",\n        \"videoTitle\": \"string\"\n      }\n    ],\n    \"topicType\": \"string\",\n    \"alertType\": \"string\",\n    \"offer\": {\n      \"couponCode\": \"<string>\",\n      \"redeemOnlineUrl\": \"<string>\",\n      \"termsConditions\": \"<string>\"\n    },\n    \"clickthroughUrl\": \"string\",\n    \"callToActionType\": \"string\",\n    \"eventInfo\": {\n      \"title\": \"<string>\",\n      \"startTime\": \"<string>\",\n      \"endTime\": \"<string>\"\n    },\n    \"createdDate\": \"string\",\n    \"postDate\": \"string\",\n    \"postCreatedInYext\": false,\n    \"entityPosts\": [\n      {\n        \"entityPostId\": \"string\",\n        \"entity\": {\n          \"id\": \"string\"\n        },\n        \"publisher\": \"INSTAGRAM\",\n        \"status\": {\n          \"status\": \"POST_PROCESSING\",\n          \"details\": \"string\"\n        },\n        \"postUrl\": \"string\",\n        \"metrics\": {\n          \"viewCount\": 5206.981397173944,\n          \"uniqueViewCount\": 3886.0353277810977,\n          \"clickCount\": 1784.5652875864337,\n          \"likeCount\": 2922.7471705980224,\n          \"loveCount\": 8842.431155901233,\n          \"wowCount\": 6491.817295316571,\n          \"hahaCount\": 7413.131018912595,\n          \"sadCount\": 1200.776315665474,\n          \"angerCount\": 8569.705385082245\n        },\n        \"comments\": [\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"entityPostId\": \"string\",\n        \"entity\": {\n          \"id\": \"string\"\n        },\n        \"publisher\": \"LINKEDIN\",\n        \"status\": {\n          \"status\": \"POST_FAILED\",\n          \"details\": \"string\"\n        },\n        \"postUrl\": \"string\",\n        \"metrics\": {\n          \"viewCount\": 4802.558413525363,\n          \"uniqueViewCount\": 5559.661080702378,\n          \"clickCount\": 7006.691086150277,\n          \"likeCount\": 1336.9127888150367,\n          \"loveCount\": 9268.7516620036,\n          \"wowCount\": 8669.111174693035,\n          \"hahaCount\": 9065.654533445608,\n          \"sadCount\": 880.6094326788227,\n          \"angerCount\": 5841.650362653867\n        },\n        \"comments\": [\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "888ff586-73ea-4d08-a19b-ada6d52039d7",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"publisher\": \"<string>\",\n  \"postTitle\": \"<string>\",\n  \"text\": \"<string>\",\n  \"clickthroughUrl\": \"<string>\",\n  \"photoUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"videos\": [\n    {\n      \"videoUrl\": \"<string>\",\n      \"videoPostType\": \"<string>\",\n      \"coverImageUrl\": \"<string>\",\n      \"videoTitle\": \"<string>\"\n    },\n    {\n      \"videoUrl\": \"<string>\",\n      \"videoPostType\": \"<string>\",\n      \"coverImageUrl\": \"<string>\",\n      \"videoTitle\": \"<string>\"\n    }\n  ],\n  \"tikTokPostFields\": {\n    \"privacyLevel\": \"<string>\",\n    \"enableComment\": \"<boolean>\",\n    \"isBrandedContent\": \"<boolean>\",\n    \"isOrganicContent\": \"<boolean>\",\n    \"enableDuet\": \"<boolean>\",\n    \"enableStitch\": \"<boolean>\",\n    \"photoCoverIndex\": \"<integer>\",\n    \"multiPhotoTitle\": \"<string>\",\n    \"complianceSetting\": \"<boolean>\"\n  },\n  \"postDate\": \"<string>\",\n  \"topicType\": \"<string>\",\n  \"alertType\": \"<string>\",\n  \"offer\": {\n    \"couponCode\": \"<string>\",\n    \"redeemOnlineUrl\": \"<string>\",\n    \"termsConditions\": \"<string>\"\n  },\n  \"callToActionType\": \"<string>\",\n  \"eventInfo\": {\n    \"title\": \"<string>\",\n    \"startTime\": \"<string>\",\n    \"endTime\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9ddd838-1a5f-4856-a8a1-c7e18b518a46",
+          "name": "Post: Get",
+          "request": {
+            "name": "Post: Get",
+            "description": {
+              "content": "Retrieve a specific social post.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "posts",
+                ":postId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "postId",
+                  "description": "(Required) The ID of a specific post."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc7c3582-2f2c-4913-8a19-27d607ec2ace",
+              "name": "Post Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) The ID of a specific post."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"postId\": \"string\",\n    \"entityId\": [\n      \"string\",\n      \"string\"\n    ],\n    \"publishers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"postTitle\": \"string\",\n    \"text\": \"string\",\n    \"photoUrls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"videos\": [\n      {\n        \"videoUrl\": \"string\",\n        \"videoPostType\": \"REEL\",\n        \"coverImageUrl\": \"string\",\n        \"videoTitle\": \"string\"\n      },\n      {\n        \"videoUrl\": \"string\",\n        \"videoPostType\": \"REEL\",\n        \"coverImageUrl\": \"string\",\n        \"videoTitle\": \"string\"\n      }\n    ],\n    \"topicType\": \"string\",\n    \"alertType\": \"string\",\n    \"offer\": {\n      \"couponCode\": \"<string>\",\n      \"redeemOnlineUrl\": \"<string>\",\n      \"termsConditions\": \"<string>\"\n    },\n    \"clickthroughUrl\": \"string\",\n    \"callToActionType\": \"string\",\n    \"eventInfo\": {\n      \"title\": \"<string>\",\n      \"startTime\": \"<string>\",\n      \"endTime\": \"<string>\"\n    },\n    \"createdDate\": \"string\",\n    \"postDate\": \"string\",\n    \"postCreatedInYext\": false,\n    \"entityPosts\": [\n      {\n        \"entityPostId\": \"string\",\n        \"entity\": {\n          \"id\": \"string\"\n        },\n        \"publisher\": \"INSTAGRAM\",\n        \"status\": {\n          \"status\": \"POST_PROCESSING\",\n          \"details\": \"string\"\n        },\n        \"postUrl\": \"string\",\n        \"metrics\": {\n          \"viewCount\": 5206.981397173944,\n          \"uniqueViewCount\": 3886.0353277810977,\n          \"clickCount\": 1784.5652875864337,\n          \"likeCount\": 2922.7471705980224,\n          \"loveCount\": 8842.431155901233,\n          \"wowCount\": 6491.817295316571,\n          \"hahaCount\": 7413.131018912595,\n          \"sadCount\": 1200.776315665474,\n          \"angerCount\": 8569.705385082245\n        },\n        \"comments\": [\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"entityPostId\": \"string\",\n        \"entity\": {\n          \"id\": \"string\"\n        },\n        \"publisher\": \"LINKEDIN\",\n        \"status\": {\n          \"status\": \"POST_FAILED\",\n          \"details\": \"string\"\n        },\n        \"postUrl\": \"string\",\n        \"metrics\": {\n          \"viewCount\": 4802.558413525363,\n          \"uniqueViewCount\": 5559.661080702378,\n          \"clickCount\": 7006.691086150277,\n          \"likeCount\": 1336.9127888150367,\n          \"loveCount\": 9268.7516620036,\n          \"wowCount\": 8669.111174693035,\n          \"hahaCount\": 9065.654533445608,\n          \"sadCount\": 880.6094326788227,\n          \"angerCount\": 5841.650362653867\n        },\n        \"comments\": [\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6697c99-beab-4b34-8985-00be60b4389f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) The ID of a specific post."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64b5f371-7167-479e-b0ae-f1774e70ad2e",
+          "name": "Post: Update",
+          "request": {
+            "name": "Post: Update",
+            "description": {
+              "content": "Update a social post.\n\n**NOTE:** Updates are only allowed for posts with no entity posts currently processing.\nEntity posts that failed to publish will not be updated by subsequent requests to the update endpoint.\nUpdates to Google Posts may not be reflected immediately.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "posts",
+                ":postId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "postId",
+                  "description": "(Required) The ID of a specific post.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"photoUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"alertType\": \"<string>\",\n  \"offer\": {\n    \"couponCode\": \"<string>\",\n    \"redeemOnlineUrl\": \"<string>\",\n    \"termsConditions\": \"<string>\"\n  },\n  \"callToActionType\": \"<string>\",\n  \"clickthroughUrl\": \"<string>\",\n  \"eventInfo\": {\n    \"title\": \"<string>\",\n    \"startTime\": \"<string>\",\n    \"endTime\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "599ea4d2-af31-49d8-a75a-0d0fc4f5999c",
+              "name": "Post Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) The ID of a specific post.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"photoUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"alertType\": \"<string>\",\n  \"offer\": {\n    \"couponCode\": \"<string>\",\n    \"redeemOnlineUrl\": \"<string>\",\n    \"termsConditions\": \"<string>\"\n  },\n  \"callToActionType\": \"<string>\",\n  \"clickthroughUrl\": \"<string>\",\n  \"eventInfo\": {\n    \"title\": \"<string>\",\n    \"startTime\": \"<string>\",\n    \"endTime\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"postId\": \"string\",\n    \"entityId\": [\n      \"string\",\n      \"string\"\n    ],\n    \"publishers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"postTitle\": \"string\",\n    \"text\": \"string\",\n    \"photoUrls\": [\n      \"string\",\n      \"string\"\n    ],\n    \"videos\": [\n      {\n        \"videoUrl\": \"string\",\n        \"videoPostType\": \"REEL\",\n        \"coverImageUrl\": \"string\",\n        \"videoTitle\": \"string\"\n      },\n      {\n        \"videoUrl\": \"string\",\n        \"videoPostType\": \"REEL\",\n        \"coverImageUrl\": \"string\",\n        \"videoTitle\": \"string\"\n      }\n    ],\n    \"topicType\": \"string\",\n    \"alertType\": \"string\",\n    \"offer\": {\n      \"couponCode\": \"<string>\",\n      \"redeemOnlineUrl\": \"<string>\",\n      \"termsConditions\": \"<string>\"\n    },\n    \"clickthroughUrl\": \"string\",\n    \"callToActionType\": \"string\",\n    \"eventInfo\": {\n      \"title\": \"<string>\",\n      \"startTime\": \"<string>\",\n      \"endTime\": \"<string>\"\n    },\n    \"createdDate\": \"string\",\n    \"postDate\": \"string\",\n    \"postCreatedInYext\": false,\n    \"entityPosts\": [\n      {\n        \"entityPostId\": \"string\",\n        \"entity\": {\n          \"id\": \"string\"\n        },\n        \"publisher\": \"INSTAGRAM\",\n        \"status\": {\n          \"status\": \"POST_PROCESSING\",\n          \"details\": \"string\"\n        },\n        \"postUrl\": \"string\",\n        \"metrics\": {\n          \"viewCount\": 5206.981397173944,\n          \"uniqueViewCount\": 3886.0353277810977,\n          \"clickCount\": 1784.5652875864337,\n          \"likeCount\": 2922.7471705980224,\n          \"loveCount\": 8842.431155901233,\n          \"wowCount\": 6491.817295316571,\n          \"hahaCount\": 7413.131018912595,\n          \"sadCount\": 1200.776315665474,\n          \"angerCount\": 8569.705385082245\n        },\n        \"comments\": [\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"entityPostId\": \"string\",\n        \"entity\": {\n          \"id\": \"string\"\n        },\n        \"publisher\": \"LINKEDIN\",\n        \"status\": {\n          \"status\": \"POST_FAILED\",\n          \"details\": \"string\"\n        },\n        \"postUrl\": \"string\",\n        \"metrics\": {\n          \"viewCount\": 4802.558413525363,\n          \"uniqueViewCount\": 5559.661080702378,\n          \"clickCount\": 7006.691086150277,\n          \"likeCount\": 1336.9127888150367,\n          \"loveCount\": 9268.7516620036,\n          \"wowCount\": 8669.111174693035,\n          \"hahaCount\": 9065.654533445608,\n          \"sadCount\": 880.6094326788227,\n          \"angerCount\": 5841.650362653867\n        },\n        \"comments\": [\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"replies\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0c4ef14-4403-4720-967f-c9197179e8c2",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) The ID of a specific post.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"photoUrls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"alertType\": \"<string>\",\n  \"offer\": {\n    \"couponCode\": \"<string>\",\n    \"redeemOnlineUrl\": \"<string>\",\n    \"termsConditions\": \"<string>\"\n  },\n  \"callToActionType\": \"<string>\",\n  \"clickthroughUrl\": \"<string>\",\n  \"eventInfo\": {\n    \"title\": \"<string>\",\n    \"startTime\": \"<string>\",\n    \"endTime\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16e20e93-f4f0-4c34-9c26-11f85f99c521",
+          "name": "Post: Delete",
+          "request": {
+            "name": "Post: Delete",
+            "description": {
+              "content": "Delete a social post.\n\n**NOTE:** Posts that have status `POST_PROCESSING` may not be deleted.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "posts",
+                ":postId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "postId",
+                  "description": "(Required) The ID of a specific post.\n\nTo delete individual entity posts, please use the\n[**Entity Post: Delete**](#operation/deleteEntityPost) endpoint.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "865028c8-4975-4988-ba41-58d0f27fbe8b",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) The ID of a specific post.\n\nTo delete individual entity posts, please use the\n[**Entity Post: Delete**](#operation/deleteEntityPost) endpoint.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3a3dd13-e7c1-4862-b02e-164765a27077",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) The ID of a specific post.\n\nTo delete individual entity posts, please use the\n[**Entity Post: Delete**](#operation/deleteEntityPost) endpoint.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0697db6-e140-4a5f-8e81-13431cd343f7",
+          "name": "Post: Generate Text",
+          "request": {
+            "name": "Post: Generate Text",
+            "description": {
+              "content": "Generates caption, by using API, based on a set of criteria. The generated caption should then\nbe provided as a value against the `text` field in the Post: Create call.\n\nPlease note that this endpoint returns embedded fields using double brackets. You MUST use a\n**`v`** parameter of`20250514` or greater in the Post: Create call in order for the embedded\nfields to resolve correctly.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "posts",
+                "generatePostText"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"textPrompt\": \"<string>\",\n  \"publishers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tone\": \"<string>\",\n  \"postType\": \"<string>\",\n  \"audience\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"language\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "291a9181-730f-4f26-975b-1bf9cd993489",
+              "name": "Generate Post Text Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    "generatePostText"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"textPrompt\": \"<string>\",\n  \"publishers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tone\": \"<string>\",\n  \"postType\": \"<string>\",\n  \"audience\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"language\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"postText\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9663443-211a-49ab-8fa3-25ce34879e2c",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "posts",
+                    "generatePostText"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"textPrompt\": \"<string>\",\n  \"publishers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tone\": \"<string>\",\n  \"postType\": \"<string>\",\n  \"audience\": \"<string>\",\n  \"keywords\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"language\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21f8e2a6-71bc-4f4a-bcb0-6d97f4dfb553",
+          "name": "Entity Post: Delete",
+          "request": {
+            "name": "Entity Post: Delete",
+            "description": {
+              "content": "Delete a specific entity post\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "entityPosts",
+                ":entityPostId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entityPostId",
+                  "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6314934-1920-4fe7-9e59-4f796e658da7",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cea4faea-126d-4022-a887-259814b05917",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "768c289b-f5c6-4876-89fb-3732389245db",
+          "name": "Comment: Create",
+          "request": {
+            "name": "Comment: Create",
+            "description": {
+              "content": "Comment on a specific entity post.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "entityPosts",
+                ":entityPostId",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entityPostId",
+                  "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"parentCommentId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0036b1d0-83e5-4cad-8f8c-f864c9053e0f",
+              "name": "Create Comment Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"parentCommentId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"commentId\": \"string\",\n    \"text\": \"string\",\n    \"parentCommentId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91c81fa1-66ab-43c5-856f-71c748f29cb2",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"parentCommentId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66f96828-013b-422f-a83c-feffda2ede9e",
+          "name": "Entity Post: Comments",
+          "request": {
+            "name": "Entity Post: Comments",
+            "description": {
+              "content": "Provided an entityPostId, returns a list of comments with pagination support.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "entityPosts",
+                ":entityPostId",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the nextPageToken field,\npass that field's value as the pageToken parameter to retrieve the next page of data.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entityPostId",
+                  "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "786871f5-cff7-463b-bd34-bdf52e9c18e3",
+              "name": "Entity Post Comments Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"comments\": [\n      {\n        \"commentId\": \"string\",\n        \"parentCommentId\": \"string\",\n        \"authorName\": \"string\",\n        \"text\": \"string\",\n        \"hidden\": false,\n        \"likes\": 7116,\n        \"createdTimestamp\": true,\n        \"replies\": [\n          {\n            \"commentId\": \"string\",\n            \"parentCommentId\": \"string\",\n            \"authorName\": \"string\",\n            \"text\": \"string\",\n            \"hidden\": false,\n            \"likes\": 9843,\n            \"createdTimestamp\": false\n          },\n          {\n            \"commentId\": \"string\",\n            \"parentCommentId\": \"string\",\n            \"authorName\": \"string\",\n            \"text\": \"string\",\n            \"hidden\": true,\n            \"likes\": 7495,\n            \"createdTimestamp\": true\n          }\n        ]\n      },\n      {\n        \"commentId\": \"string\",\n        \"parentCommentId\": \"string\",\n        \"authorName\": \"string\",\n        \"text\": \"string\",\n        \"hidden\": false,\n        \"likes\": 2705,\n        \"createdTimestamp\": false,\n        \"replies\": [\n          {\n            \"commentId\": \"string\",\n            \"parentCommentId\": \"string\",\n            \"authorName\": \"string\",\n            \"text\": \"string\",\n            \"hidden\": false,\n            \"likes\": 9257,\n            \"createdTimestamp\": false\n          },\n          {\n            \"commentId\": \"string\",\n            \"parentCommentId\": \"string\",\n            \"authorName\": \"string\",\n            \"text\": \"string\",\n            \"hidden\": false,\n            \"likes\": 5606,\n            \"createdTimestamp\": false\n          }\n        ]\n      }\n    ],\n    \"nextPageToken\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd94863a-4ae6-4206-acdf-ad13214aa91f",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5d047ba-8a21-45fd-a60d-ddf4e34f8fad",
+          "name": "Comment: Delete",
+          "request": {
+            "name": "Comment: Delete",
+            "description": {
+              "content": "Delete a comment on a specific entity post.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "entityPosts",
+                ":entityPostId",
+                "comments",
+                ":commentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entityPostId",
+                  "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "commentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb22504f-464d-4da4-b5e8-eefaf39859bb",
+              "name": "Empty Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19b19322-6481-4744-999f-6bc68446e9b0",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "entityPosts",
+                    ":entityPostId",
+                    "comments",
+                    ":commentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityPostId",
+                      "description": "(Required) The ID of an individual post created for a given entity on a given publisher.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "commentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f08037e-d028-4d8c-b14a-ee737e764400",
+          "name": "Video: Upload",
+          "request": {
+            "name": "Video: Upload",
+            "description": {
+              "content": "Upload a video to be used in a post.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "social",
+                "video"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publisher\": \"<string>\",\n  \"videoUrl\": \"<string>\",\n  \"videoPostType\": \"<string>\",\n  \"uploadType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b1ba18b-c215-4b59-9934-93764da3c0f1",
+              "name": "Upload Video Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "video"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publisher\": \"<string>\",\n  \"videoUrl\": \"<string>\",\n  \"videoPostType\": \"<string>\",\n  \"uploadType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"videoUrl\": \"string\",\n    \"fileByteSize\": 4354.293625883067,\n    \"mimeType\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1002db1-fdfa-4e9d-947f-658e266674c1",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "video"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"publisher\": \"<string>\",\n  \"videoUrl\": \"<string>\",\n  \"videoPostType\": \"<string>\",\n  \"uploadType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8cd0258-25e5-4a91-bc4e-f62a82cdbc25",
+          "name": "Eligibility: Get",
+          "request": {
+            "name": "Eligibility: Get",
+            "description": {
+              "content": "Fetch publisher eligibility for a given set of entities. If a publisher is ELIGIBLE for an entity, that means it can be posted to. If a publisher is INELIGIBLE for an entity, that means that it cannot be posted to.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "social",
+                "eligibility"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "publishers",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "publishers",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b9166e2-b6a7-4b9c-aa4d-a5da12965b47",
+              "name": "Social Eligibility Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"entities\": [\n      {\n        \"entityId\": \"string\",\n        \"publisher\": \"string\",\n        \"status\": \"INELIGIBLE\",\n        \"statusDetails\": [\n          {\n            \"message\": \"string\"\n          },\n          {\n            \"message\": \"string\"\n          }\n        ]\n      },\n      {\n        \"entityId\": \"string\",\n        \"publisher\": \"string\",\n        \"status\": \"INELIGIBLE\",\n        \"statusDetails\": [\n          {\n            \"message\": \"string\"\n          },\n          {\n            \"message\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed1dfaf0-c174-45ba-8d97-6db38f31eb52",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "eligibility"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cd71fbf-ce0a-4c02-9f42-8b1926bb099d",
+          "name": "Conversation: Get",
+          "request": {
+            "name": "Conversation: Get",
+            "description": {
+              "content": "Fetches a full conversation for a `userId` \\ `entityId` \\ `publisher`. The `userId` can be retrieved from the\nMessages: List response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "social",
+                "conversation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the entity to fetch a conversation for."
+                },
+                {
+                  "disabled": false,
+                  "key": "publisher",
+                  "value": "<string>",
+                  "description": "(Required) The publisher(s) for which to fetch the conversation for"
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) ID of the user to fetch the conversation for"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f69c903-6ddf-4de5-9da3-8141daadac45",
+              "name": "Get Conversation Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "conversation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisher",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"nextPageToken\": \"string\",\n    \"deadline\": \"1974-02-12\",\n    \"user\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"conversation\": [\n      {\n        \"messageId\": \"string\",\n        \"messageText\": \"string\",\n        \"outbound\": false,\n        \"type\": \"EDITED_MESSAGE\",\n        \"reactions\": [\n          {\n            \"messageReaction\": {\n              \"reaction\": \"string\",\n              \"emoji\": \"string\",\n              \"outbound\": true\n            }\n          },\n          {\n            \"messageReaction\": {\n              \"reaction\": \"string\",\n              \"emoji\": \"string\",\n              \"outbound\": false\n            }\n          }\n        ],\n        \"sentTimestamp\": \"1986-01-02\",\n        \"editedTimestamp\": \"1957-08-12\",\n        \"unsent\": true,\n        \"parent\": {\n          \"messageId\": \"string\",\n          \"messageText\": \"string\",\n          \"attachments\": [\n            {\n              \"type\": \"string\",\n              \"url\": \"string\"\n            },\n            {\n              \"type\": \"string\",\n              \"url\": \"string\"\n            }\n          ],\n          \"outbound\": true,\n          \"type\": \"UNREACTION\",\n          \"reactions\": [\n            {\n              \"messageReaction\": {\n                \"reaction\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"emoji\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"outbound\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"messageReaction\": {\n                \"reaction\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"emoji\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"outbound\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ],\n          \"sentTimestamp\": \"1963-03-07\",\n          \"editedTimestamp\": \"2026-03-12\",\n          \"unsent\": true\n        },\n        \"attachments\": [\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          }\n        ]\n      },\n      {\n        \"messageId\": \"string\",\n        \"messageText\": \"string\",\n        \"outbound\": true,\n        \"type\": \"REPLY_MESSAGE\",\n        \"reactions\": [\n          {\n            \"messageReaction\": {\n              \"reaction\": \"string\",\n              \"emoji\": \"string\",\n              \"outbound\": true\n            }\n          },\n          {\n            \"messageReaction\": {\n              \"reaction\": \"string\",\n              \"emoji\": \"string\",\n              \"outbound\": true\n            }\n          }\n        ],\n        \"sentTimestamp\": \"1997-04-06\",\n        \"editedTimestamp\": \"1999-05-07\",\n        \"unsent\": true,\n        \"parent\": {\n          \"messageId\": \"string\",\n          \"messageText\": \"string\",\n          \"attachments\": [\n            {\n              \"type\": \"string\",\n              \"url\": \"string\"\n            },\n            {\n              \"type\": \"string\",\n              \"url\": \"string\"\n            }\n          ],\n          \"outbound\": false,\n          \"type\": \"BUMP_MESSAGE\",\n          \"reactions\": [\n            {\n              \"messageReaction\": {\n                \"reaction\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"emoji\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"outbound\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"messageReaction\": {\n                \"reaction\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"emoji\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"outbound\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ],\n          \"sentTimestamp\": \"2014-08-01\",\n          \"editedTimestamp\": \"1973-01-08\",\n          \"unsent\": true\n        },\n        \"attachments\": [\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6feb4222-f0cd-4e33-ba3a-5520471f5798",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "conversation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publisher",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c66855ed-f54f-4b5b-9f5a-5262195d54f8",
+          "name": "Messages: List",
+          "request": {
+            "name": "Messages: List",
+            "description": {
+              "content": "Fetches the latest message sent by a `user` on a `publisher` / `entityId`.\n\nTo fetch the whole conversation for a specific `user` / `publisher` / `entityId`, provide the\n`user.id` that's returned in the response against the Conversation: Get endpoint.\n\nTo send a message to a specific `user` / `publisher` / `entityId`, provide the `user.id` that's\nreturned in the response against the Messages: Create endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "social",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "entityIds",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "publishers",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "publishers",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "userName",
+                  "value": "<string>",
+                  "description": "Filters messages that match the user name (Facebook name or Instagram handle)"
+                },
+                {
+                  "disabled": false,
+                  "key": "messageText",
+                  "value": "<string>",
+                  "description": "Filters messages that match the specified text"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "readUnreadStatus",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "readUnreadStatus",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "minCreatedDate",
+                  "value": "<date>",
+                  "description": "Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxCreatedDate",
+                  "value": "<date>",
+                  "description": "Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12598729-f563-49fc-ae7a-524d49c91582",
+              "name": "List Messages Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "messageText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readUnreadStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readUnreadStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "minCreatedDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "maxCreatedDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"nextPageToken\": \"string\",\n    \"items\": [\n      {\n        \"messageId\": \"string\",\n        \"publisher\": \"string\",\n        \"entityId\": \"string\",\n        \"type\": \"EDITED_MESSAGE\",\n        \"messageText\": \"string\",\n        \"attachments\": [\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          }\n        ],\n        \"reaction\": {\n          \"reaction\": \"string\",\n          \"emoji\": \"string\",\n          \"outbound\": true\n        },\n        \"readUnreadStatus\": \"UNREAD\",\n        \"outbound\": false,\n        \"user\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"avatarUrl\": \"string\"\n        },\n        \"sentTimestamp\": \"1986-01-26\",\n        \"editedTimestamp\": \"1977-12-04\",\n        \"deadline\": \"2021-09-23\"\n      },\n      {\n        \"messageId\": \"string\",\n        \"publisher\": \"string\",\n        \"entityId\": \"string\",\n        \"type\": \"MESSAGE\",\n        \"messageText\": \"string\",\n        \"attachments\": [\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"url\": \"string\"\n          }\n        ],\n        \"reaction\": {\n          \"reaction\": \"string\",\n          \"emoji\": \"string\",\n          \"outbound\": false\n        },\n        \"readUnreadStatus\": \"READ\",\n        \"outbound\": true,\n        \"user\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"avatarUrl\": \"string\"\n        },\n        \"sentTimestamp\": \"1976-11-25\",\n        \"editedTimestamp\": \"1967-03-09\",\n        \"deadline\": \"2005-11-05\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd968ffc-9f58-44f5-b1c0-36875fa2e6c2",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entityIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "publishers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "messageText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readUnreadStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readUnreadStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "minCreatedDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "maxCreatedDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42666e5b-c19c-45b1-859c-f97a068acb54",
+          "name": "Messages: Create",
+          "request": {
+            "name": "Messages: Create",
+            "description": {
+              "content": "Sends a message to a specified `userId` \\ `publisher` \\ `entityId`. The `userId` can be retrieved from the\nMessages: List response.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "social",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityId\": \"<string>\",\n  \"publisher\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58ec2307-980d-4b0d-8a70-d5dc97b0b844",
+              "name": "Create Message Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityId\": \"<string>\",\n  \"publisher\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"message\": {\n      \"messageId\": \"string\",\n      \"publisher\": \"string\",\n      \"entityId\": \"string\",\n      \"type\": \"UNSENT_MESSAGE\",\n      \"messageText\": \"string\",\n      \"attachments\": [\n        {\n          \"type\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"type\": \"string\",\n          \"url\": \"string\"\n        }\n      ],\n      \"reaction\": {\n        \"reaction\": \"string\",\n        \"emoji\": \"string\",\n        \"outbound\": false\n      },\n      \"readUnreadStatus\": \"UNREAD\",\n      \"outbound\": true,\n      \"user\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"avatarUrl\": \"string\"\n      },\n      \"sentTimestamp\": \"1999-10-12\",\n      \"editedTimestamp\": \"1968-11-28\",\n      \"deadline\": \"1949-01-07\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfb954ec-726e-4d80-a8dd-c5a45d03680d",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "social",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entityId\": \"<string>\",\n  \"publisher\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 6686,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3150,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8353000f-7e8a-44dc-a311-c23b940c27ee",
+    "name": "Yext Admin Account Settings Social API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

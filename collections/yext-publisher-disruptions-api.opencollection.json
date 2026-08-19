@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Publisher Disruptions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Publisher Disruptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Publisher Disruptions: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/publishers/:publisherSiteId/disruptions",
+            "params": [
+              {
+                "name": "publisherSiteId",
+                "value": "",
+                "type": "path",
+                "description": "Publisher site ID."
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "filter.severities",
+                "value": "",
+                "type": "query",
+                "description": "Only return disruptions with one of the provided severities.\n"
+              },
+              {
+                "name": "filter.statuses",
+                "value": "",
+                "type": "query",
+                "description": "Only return disruptions with one of the provided statuses.\n"
+              },
+              {
+                "name": "filter.startTime",
+                "value": "",
+                "type": "query",
+                "description": "Inclusive lower bound on `lastEventTimestamp`."
+              },
+              {
+                "name": "filter.endTime",
+                "value": "",
+                "type": "query",
+                "description": "Inclusive upper bound on `lastEventTimestamp`."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained `meta.pagination.pageToken`, pass that\nfield's value as the `pageToken` parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "query",
+                "description": "Locale code for translated disruption content, such as `en_US` or `fr_FR`."
+              }
+            ]
+          },
+          "docs": "Retrieve disruptions for a publisher.\n"
+        },
+        {
+          "info": {
+            "name": "Publisher Disruptions: List Status Updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/publishers/:publisherSiteId/disruptions/:disruptionExternalId/statusUpdates",
+            "params": [
+              {
+                "name": "publisherSiteId",
+                "value": "",
+                "type": "path",
+                "description": "Publisher site ID."
+              },
+              {
+                "name": "disruptionExternalId",
+                "value": "",
+                "type": "path",
+                "description": "External ID of the disruption."
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained `meta.pagination.pageToken`, pass that\nfield's value as the `pageToken` parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "languageCode",
+                "value": "",
+                "type": "query",
+                "description": "Locale code for translated status update content, such as `en_US` or `fr_FR`."
+              }
+            ]
+          },
+          "docs": "Retrieve status updates for a publisher disruption.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

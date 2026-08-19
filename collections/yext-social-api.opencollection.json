@@ -1,0 +1,595 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yext Admin Account Settings Social API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Social",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Posts: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/posts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the nextPageToken field,\npass that field's value as the pageToken parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "postIds",
+                "value": "",
+                "type": "query",
+                "description": "Only return posts with the postIDs in the specified list."
+              },
+              {
+                "name": "entityPostIds",
+                "value": "",
+                "type": "query",
+                "description": "Only return entityPosts with entityPostIds in the specified list."
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "Only return posts for the specified entities."
+              },
+              {
+                "name": "publishers",
+                "value": "",
+                "type": "query",
+                "description": "Only return posts on the specified publishers.\n"
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Only return posts with the specified text."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Only include posts which match one of the specified statuses:\n  * `POST_SCHEDULED`\n  * `POST_AWAITING_APPROVAL`\n  * `POST_SUCCEEDED`\n  * `POST_PROCESSING`\n  * `DELETE_PROCESSING`\n  * `POST_FAILED`\n  * `DELETE_FAILED`\n  * `REJECTED_BY_APPROVER`\n"
+              }
+            ]
+          },
+          "docs": "Retrieve Social Posts matching the given criteria.\n"
+        },
+        {
+          "info": {
+            "name": "Post: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/posts",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new social post.\n"
+        },
+        {
+          "info": {
+            "name": "Post: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/posts/:postId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "postId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a specific post."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific social post.\n"
+        },
+        {
+          "info": {
+            "name": "Post: Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/posts/:postId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "postId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a specific post.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a social post.\n\n**NOTE:** Updates are only allowed for posts with no entity posts currently processing.\nEntity posts that failed to publish will not be updated by subsequent requests to the update endpoint.\nUpdates to Google Posts may not be reflected immediately.\n"
+        },
+        {
+          "info": {
+            "name": "Post: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/posts/:postId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "postId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a specific post.\n\nTo delete individual entity posts, please use the\n[**Entity Post: Delete**](#operation/deleteEntityPost) endpoint.\n"
+              }
+            ]
+          },
+          "docs": "Delete a social post.\n\n**NOTE:** Posts that have status `POST_PROCESSING` may not be deleted.\n"
+        },
+        {
+          "info": {
+            "name": "Post: Generate Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/posts/generatePostText",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates caption, by using API, based on a set of criteria. The generated caption should then\nbe provided as a value against the `text` field in the Post: Create call.\n\nPlease note that this endpoint returns embedded fields using double brackets. You MUST use a\n**`v`** parameter of`20250514` or greater in the Post: Create call in order for the embedded\nfields to resolve correctly.\n"
+        },
+        {
+          "info": {
+            "name": "Entity Post: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityPosts/:entityPostId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityPostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of an individual post created for a given entity on a given publisher.\n"
+              }
+            ]
+          },
+          "docs": "Delete a specific entity post\n"
+        },
+        {
+          "info": {
+            "name": "Entity Post: Comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityPosts/:entityPostId/comments",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityPostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of an individual post created for a given entity on a given publisher.\n"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the nextPageToken field,\npass that field's value as the pageToken parameter to retrieve the next page of data.\n"
+              }
+            ]
+          },
+          "docs": "Provided an entityPostId, returns a list of comments with pagination support.\n"
+        },
+        {
+          "info": {
+            "name": "Comment: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityPosts/:entityPostId/comments",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityPostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of an individual post created for a given entity on a given publisher.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Comment on a specific entity post.\n"
+        },
+        {
+          "info": {
+            "name": "Comment: Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/entityPosts/:entityPostId/comments/:commentId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "entityPostId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of an individual post created for a given entity on a given publisher.\n"
+              },
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a comment on a specific entity post.\n"
+        },
+        {
+          "info": {
+            "name": "Video: Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/social/video",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upload a video to be used in a post.\n"
+        },
+        {
+          "info": {
+            "name": "Eligibility: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/social/eligibility",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "publishers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch publisher eligibility for a given set of entities. If a publisher is ELIGIBLE for an entity, that means it can be posted to. If a publisher is INELIGIBLE for an entity, that means that it cannot be posted to.\n"
+        },
+        {
+          "info": {
+            "name": "Conversation: Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/social/conversation",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the entity to fetch a conversation for."
+              },
+              {
+                "name": "publisher",
+                "value": "",
+                "type": "query",
+                "description": "The publisher(s) for which to fetch the conversation for"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user to fetch the conversation for"
+              }
+            ]
+          },
+          "docs": "Fetches a full conversation for a `userId` \\ `entityId` \\ `publisher`. The `userId` can be retrieved from the\nMessages: List response.\n"
+        },
+        {
+          "info": {
+            "name": "Messages: List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/social/messages",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "publishers",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userName",
+                "value": "",
+                "type": "query",
+                "description": "Filters messages that match the user name (Facebook name or Instagram handle)"
+              },
+              {
+                "name": "messageText",
+                "value": "",
+                "type": "query",
+                "description": "Filters messages that match the specified text"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "readUnreadStatus",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "minCreatedDate",
+                "value": "",
+                "type": "query",
+                "description": "Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.\n"
+              },
+              {
+                "name": "maxCreatedDate",
+                "value": "",
+                "type": "query",
+                "description": "Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.\n"
+              }
+            ]
+          },
+          "docs": "Fetches the latest message sent by a `user` on a `publisher` / `entityId`.\n\nTo fetch the whole conversation for a specific `user` / `publisher` / `entityId`, provide the\n`user.id` that's returned in the response against the Conversation: Get endpoint.\n\nTo send a message to a specific `user` / `publisher` / `entityId`, provide the `user.id` that's\nreturned in the response against the Messages: Create endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Messages: Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.yextapis.com/v2/accounts/:accountId/social/messages",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "v",
+                "value": "",
+                "type": "query",
+                "description": "A date in `YYYYMMDD` format."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "If a response to a previous request contained the **`nextPageToken`** field, pass that field's value as the **`pageToken`** parameter to retrieve the next page of data.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a message to a specified `userId` \\ `publisher` \\ `entityId`. The `userId` can be retrieved from the\nMessages: List response.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

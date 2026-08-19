@@ -1,0 +1,3197 @@
+{
+  "item": [
+    {
+      "id": "564f0a59-73f2-4176-a352-8fb162fb1e6a",
+      "name": "Domains",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a62b098-32be-419d-ad4d-347a24473824",
+          "name": "Domain: Create\n",
+          "request": {
+            "name": "Domain: Create\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostname\": \"<string>\",\n  \"destination\": \"<string>\",\n  \"integration_type\": \"<string>\",\n  \"wildcard\": false,\n  \"managed_ssl\": {\n    \"certificate_authority\": \"GOOGLE_TRUST\",\n    \"validation_method\": \"<string>\"\n  },\n  \"managed_csr\": {\n    \"managed_csr_id\": \"<string>\",\n    \"custom_public_certificate\": \"<pem>\"\n  },\n  \"custom_ssl_certificate\": {\n    \"public_certificate\": \"<pem>\",\n    \"private_key\": \"<pem>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccf18f37-db11-473a-a786-dec1f1a2078e",
+              "name": "Domain created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"www.example.com\",\n  \"destination\": \"PAGES\",\n  \"integration_type\": \"USER_OWNED\",\n  \"wildcard\": false,\n  \"managed_ssl\": {\n    \"certificate_authority\": \"GOOGLE_TRUST\",\n    \"validation_method\": \"HTTP\"\n  },\n  \"managed_csr\": {\n    \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"custom_public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\"\n  },\n  \"custom_ssl_certificate\": {\n    \"public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\",\n    \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG\\n...\\n-----END PRIVATE KEY-----\\n\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"hostname\": \"www.example.com\",\n    \"wildcard\": false,\n    \"destination\": \"PAGES\",\n    \"integration_type\": \"USER_OWNED\",\n    \"state\": \"ACTIVE\",\n    \"ownership_verification\": {\n      \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n      \"txt_domain\": \"_yext-domain.www.example.com\",\n      \"txt_value\": \"eb6f3f52-c2d4-933c-c19c-5daf67efb869\",\n      \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n      \"http_body\": \"82556204-c351-6bb9-f5b3-c7e5156ccd23\"\n    },\n    \"managed_ssl\": {\n      \"certificate_authority\": \"GOOGLE_TRUST\",\n      \"validation_method\": \"HTTP\",\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"166da9da-9136-1367-eb97-75332c1785c7\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"58b0ed1d-aaf8-8f8f-f1ef-70d6fb80fb24\"\n      },\n      \"http_validation\": {\n        \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n        \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n      },\n      \"txt_validation\": {\n        \"delegated_dcv_domain\": \"string\",\n        \"delegated_dcv_cname_target\": \"string\",\n        \"txt_records\": [\n          {\n            \"domain\": \"_acme-challenge.www.example.com\",\n            \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n          },\n          {\n            \"domain\": \"_acme-challenge.www.example.com\",\n            \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n          }\n        ]\n      }\n    },\n    \"managed_csr\": {\n      \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"e4d4c20e-256e-67b2-7e90-7468815dee10\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"ed133701-abac-d0b9-83c2-425004aedfe5\"\n      }\n    },\n    \"custom_ssl_certificate\": {\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"6e0730d7-15f3-12cc-36b7-ea771383d349\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"7f3cffc3-13f5-d954-7216-ef94e5b2a236\"\n      }\n    },\n    \"serving_dns_targets\": {\n      \"a_records\": [\n        \"104.17.134.18\"\n      ],\n      \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n    },\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 861,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3515,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ],\n    \"create_time\": \"1996-08-30T19:01:32.157Z\",\n    \"update_time\": \"1952-12-22T16:15:53.054Z\",\n    \"delete_time\": \"1957-12-17T07:27:30.969Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c530337-a972-4aa0-82d8-b6a22294c6ea",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"www.example.com\",\n  \"destination\": \"PAGES\",\n  \"integration_type\": \"USER_OWNED\",\n  \"wildcard\": false,\n  \"managed_ssl\": {\n    \"certificate_authority\": \"GOOGLE_TRUST\",\n    \"validation_method\": \"HTTP\"\n  },\n  \"managed_csr\": {\n    \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"custom_public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\"\n  },\n  \"custom_ssl_certificate\": {\n    \"public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\",\n    \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG\\n...\\n-----END PRIVATE KEY-----\\n\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9827,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 7356,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66e12bb6-7055-4ab6-83f0-31e47fc84134",
+          "name": "Domain: List\n",
+          "request": {
+            "name": "Domain: List\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname_search",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring used to filter by hostname."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_deleted",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Number of results to return per page. Sizes above the maximum will be clamped at the maximum value."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token to retrieve the next page of results. If not provided, the first page of results will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "BASIC",
+                  "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9976ba00-77fb-4209-b992-11790d08e27d",
+              "name": "Paginated list of Domains matching request filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname_search",
+                      "value": "example"
+                    },
+                    {
+                      "key": "show_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "BASIC"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"domains\": [\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"wildcard\": false,\n        \"destination\": \"PAGES\",\n        \"integration_type\": \"USER_OWNED\",\n        \"state\": \"ACTIVE\",\n        \"ownership_verification\": {\n          \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n          \"txt_domain\": \"_yext-domain.www.example.com\",\n          \"txt_value\": \"4ede7def-68e4-c4a0-a35b-140e66cebc11\",\n          \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n          \"http_body\": \"7366459a-a3ea-0d66-0497-615360daebfb\"\n        },\n        \"managed_ssl\": {\n          \"certificate_authority\": \"GOOGLE_TRUST\",\n          \"validation_method\": \"HTTP\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"dfab9434-b21f-ddac-307d-7b79e6be9e45\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"a90683a6-d708-4e5a-78ee-00c086ca796f\"\n          },\n          \"http_validation\": {\n            \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n            \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n          },\n          \"txt_validation\": {\n            \"delegated_dcv_domain\": \"string\",\n            \"delegated_dcv_cname_target\": \"string\",\n            \"txt_records\": [\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              },\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              }\n            ]\n          }\n        },\n        \"managed_csr\": {\n          \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"8496ca6c-96d8-7420-57e0-a6241473a6e6\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"a358e4b1-1df6-09a1-4272-3b2be92eaf50\"\n          }\n        },\n        \"custom_ssl_certificate\": {\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"5168036d-9c1d-765a-cc60-f2bbe7c84e98\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"9633ccd3-82a5-340d-e2cd-ac0533180bc2\"\n          }\n        },\n        \"serving_dns_targets\": {\n          \"a_records\": [\n            \"104.17.134.18\"\n          ],\n          \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 7626,\n            \"type\": \"NON_FATAL_ERROR\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 6288,\n            \"type\": \"NON_FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"1984-10-13T04:49:55.997Z\",\n        \"update_time\": \"1979-04-27T02:58:54.454Z\",\n        \"delete_time\": \"1985-02-03T04:53:22.034Z\"\n      },\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"wildcard\": false,\n        \"destination\": \"PAGES\",\n        \"integration_type\": \"USER_OWNED\",\n        \"state\": \"ACTIVE\",\n        \"ownership_verification\": {\n          \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n          \"txt_domain\": \"_yext-domain.www.example.com\",\n          \"txt_value\": \"555c5a48-5287-9e0f-98b5-98ba5e9c6e2c\",\n          \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n          \"http_body\": \"8bedbbb6-ff2f-c222-6ce9-7ee0756de50e\"\n        },\n        \"managed_ssl\": {\n          \"certificate_authority\": \"GOOGLE_TRUST\",\n          \"validation_method\": \"HTTP\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"9aff316e-0324-323d-fffc-5affcaa87d1c\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"c20916b4-f174-3f38-26d0-c847d177eed1\"\n          },\n          \"http_validation\": {\n            \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n            \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n          },\n          \"txt_validation\": {\n            \"delegated_dcv_domain\": \"string\",\n            \"delegated_dcv_cname_target\": \"string\",\n            \"txt_records\": [\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              },\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              }\n            ]\n          }\n        },\n        \"managed_csr\": {\n          \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"72937f72-0f23-5cb7-6b21-e66c492eda1d\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"34d36763-9184-21e3-be9e-f61879760cfa\"\n          }\n        },\n        \"custom_ssl_certificate\": {\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"9704a1b7-97fd-417a-4ae2-4716c9577501\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"991abfcd-41b2-3b35-3f13-31a101986f18\"\n          }\n        },\n        \"serving_dns_targets\": {\n          \"a_records\": [\n            \"104.17.134.18\"\n          ],\n          \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 1692,\n            \"type\": \"WARNING\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 5241,\n            \"type\": \"FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"1965-12-16T13:52:13.930Z\",\n        \"update_time\": \"1952-09-26T10:06:23.562Z\",\n        \"delete_time\": \"1966-05-08T18:56:40.929Z\"\n      }\n    ],\n    \"next_page_token\": \"eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=\",\n    \"previous_page_token\": \"eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==\",\n    \"total_size\": 100\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a765cb3-af58-4c1a-a5b7-043c267aa67e",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname_search",
+                      "value": "example"
+                    },
+                    {
+                      "key": "show_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "BASIC"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c85cda3-4065-42a2-96bd-2fc448ac4867",
+          "name": "Domain: Get\n",
+          "request": {
+            "name": "Domain: Get\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "FULL",
+                  "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59e3a8a7-cb97-452f-971d-055abbd3ca26",
+              "name": "Domain found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"hostname\": \"www.example.com\",\n    \"wildcard\": false,\n    \"destination\": \"PAGES\",\n    \"integration_type\": \"USER_OWNED\",\n    \"state\": \"ACTIVE\",\n    \"ownership_verification\": {\n      \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n      \"txt_domain\": \"_yext-domain.www.example.com\",\n      \"txt_value\": \"eb6f3f52-c2d4-933c-c19c-5daf67efb869\",\n      \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n      \"http_body\": \"82556204-c351-6bb9-f5b3-c7e5156ccd23\"\n    },\n    \"managed_ssl\": {\n      \"certificate_authority\": \"GOOGLE_TRUST\",\n      \"validation_method\": \"HTTP\",\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"166da9da-9136-1367-eb97-75332c1785c7\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"58b0ed1d-aaf8-8f8f-f1ef-70d6fb80fb24\"\n      },\n      \"http_validation\": {\n        \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n        \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n      },\n      \"txt_validation\": {\n        \"delegated_dcv_domain\": \"string\",\n        \"delegated_dcv_cname_target\": \"string\",\n        \"txt_records\": [\n          {\n            \"domain\": \"_acme-challenge.www.example.com\",\n            \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n          },\n          {\n            \"domain\": \"_acme-challenge.www.example.com\",\n            \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n          }\n        ]\n      }\n    },\n    \"managed_csr\": {\n      \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"e4d4c20e-256e-67b2-7e90-7468815dee10\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"ed133701-abac-d0b9-83c2-425004aedfe5\"\n      }\n    },\n    \"custom_ssl_certificate\": {\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"6e0730d7-15f3-12cc-36b7-ea771383d349\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"7f3cffc3-13f5-d954-7216-ef94e5b2a236\"\n      }\n    },\n    \"serving_dns_targets\": {\n      \"a_records\": [\n        \"104.17.134.18\"\n      ],\n      \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n    },\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 861,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3515,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ],\n    \"create_time\": \"1996-08-30T19:01:32.157Z\",\n    \"update_time\": \"1952-12-22T16:15:53.054Z\",\n    \"delete_time\": \"1957-12-17T07:27:30.969Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04dbc655-5ba3-4a77-8142-00bd7675a631",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5837e62-2823-42a4-82aa-da423cc6aa76",
+          "name": "Domain: Update\n",
+          "request": {
+            "name": "Domain: Update\n",
+            "description": {
+              "content": "Update the configurations for the specified domain. Also triggers a check for Yext or SSL verification, if the Domain is not yet ACTIVE.\nSee the `update_mask` parameter for fields that can be updated, any other provided fields will be ignored.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force_move",
+                  "value": "false",
+                  "description": "If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account."
+                },
+                {
+                  "disabled": false,
+                  "key": "update_mask",
+                  "value": "*",
+                  "description": "A comma-separated list of fields to update."
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"managed_ssl\": {\n    \"certificate_authority\": \"GOOGLE_TRUST\"\n  },\n  \"managed_csr\": {\n    \"managed_csr_id\": \"<string>\",\n    \"custom_public_certificate\": \"<pem>\"\n  },\n  \"custom_ssl_certificate\": {\n    \"public_certificate\": \"<pem>\",\n    \"private_key\": \"<pem>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7fd98b43-2456-4abd-b2cc-767064da4d3f",
+              "name": "Domain updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force_move",
+                      "value": "false"
+                    },
+                    {
+                      "key": "update_mask",
+                      "value": "*"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"managed_ssl\": {\n    \"certificate_authority\": \"GOOGLE_TRUST\"\n  },\n  \"managed_csr\": {\n    \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"custom_public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\"\n  },\n  \"custom_ssl_certificate\": {\n    \"public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\",\n    \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG\\n...\\n-----END PRIVATE KEY-----\\n\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"hostname\": \"www.example.com\",\n    \"wildcard\": false,\n    \"destination\": \"PAGES\",\n    \"integration_type\": \"USER_OWNED\",\n    \"state\": \"ACTIVE\",\n    \"ownership_verification\": {\n      \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n      \"txt_domain\": \"_yext-domain.www.example.com\",\n      \"txt_value\": \"eb6f3f52-c2d4-933c-c19c-5daf67efb869\",\n      \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n      \"http_body\": \"82556204-c351-6bb9-f5b3-c7e5156ccd23\"\n    },\n    \"managed_ssl\": {\n      \"certificate_authority\": \"GOOGLE_TRUST\",\n      \"validation_method\": \"HTTP\",\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"166da9da-9136-1367-eb97-75332c1785c7\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"58b0ed1d-aaf8-8f8f-f1ef-70d6fb80fb24\"\n      },\n      \"http_validation\": {\n        \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n        \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n      },\n      \"txt_validation\": {\n        \"delegated_dcv_domain\": \"string\",\n        \"delegated_dcv_cname_target\": \"string\",\n        \"txt_records\": [\n          {\n            \"domain\": \"_acme-challenge.www.example.com\",\n            \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n          },\n          {\n            \"domain\": \"_acme-challenge.www.example.com\",\n            \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n          }\n        ]\n      }\n    },\n    \"managed_csr\": {\n      \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"e4d4c20e-256e-67b2-7e90-7468815dee10\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"ed133701-abac-d0b9-83c2-425004aedfe5\"\n      }\n    },\n    \"custom_ssl_certificate\": {\n      \"hostname_validation\": {\n        \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n        \"txt_domain\": \"_yext-domain.www.example.com\",\n        \"txt_value\": \"6e0730d7-15f3-12cc-36b7-ea771383d349\",\n        \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n        \"http_body\": \"7f3cffc3-13f5-d954-7216-ef94e5b2a236\"\n      }\n    },\n    \"serving_dns_targets\": {\n      \"a_records\": [\n        \"104.17.134.18\"\n      ],\n      \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n    },\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 861,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3515,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      }\n    ],\n    \"create_time\": \"1996-08-30T19:01:32.157Z\",\n    \"update_time\": \"1952-12-22T16:15:53.054Z\",\n    \"delete_time\": \"1957-12-17T07:27:30.969Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47cdbac9-3924-45ef-ac28-15fe8992e91b",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force_move",
+                      "value": "false"
+                    },
+                    {
+                      "key": "update_mask",
+                      "value": "*"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"managed_ssl\": {\n    \"certificate_authority\": \"GOOGLE_TRUST\"\n  },\n  \"managed_csr\": {\n    \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"custom_public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\"\n  },\n  \"custom_ssl_certificate\": {\n    \"public_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE-----\\n\",\n    \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBj08sp5++4anG\\n...\\n-----END PRIVATE KEY-----\\n\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adc8dd50-1ff4-4fb2-a3fc-328ce3caa351",
+          "name": "Domain: Delete\n",
+          "request": {
+            "name": "Domain: Delete\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "false",
+                  "description": "If true, Domain Associations using this domain will also be deleted.\nIf not set or false, and if Domain Associations exist using this domain, an error will be returned.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4b22f64-9beb-499e-b3f8-bb7798b49745",
+              "name": "Domain deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed91081c-f991-4f66-9e8f-3524e54a86b1",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8323ce18-51bf-4d82-b800-df366c5e62e9",
+          "name": "Migrate Legacy Pages Domain",
+          "request": {
+            "name": "Migrate Legacy Pages Domain",
+            "description": {
+              "content": "Migrates a legacy Pages domain to a Domains API domain resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                "migratepagesdomain",
+                ":hostname"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostname",
+                  "description": "(Required) The hostname of the legacy domain to migrate."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "adeee2d7-beed-42af-9f77-50017a206b80",
+              "name": "Legacy domain migrated to Domains API successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    "migratepagesdomain",
+                    ":hostname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostname",
+                      "description": "(Required) The hostname of the legacy domain to migrate."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"domains\": [\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"wildcard\": false,\n        \"destination\": \"PAGES\",\n        \"integration_type\": \"USER_OWNED\",\n        \"state\": \"ACTIVE\",\n        \"ownership_verification\": {\n          \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n          \"txt_domain\": \"_yext-domain.www.example.com\",\n          \"txt_value\": \"ab8accbc-ddf7-c3e0-63f0-7361f6978c68\",\n          \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n          \"http_body\": \"2b84e2da-d5a7-33b5-b7cb-0c304a083d9f\"\n        },\n        \"managed_ssl\": {\n          \"certificate_authority\": \"GOOGLE_TRUST\",\n          \"validation_method\": \"HTTP\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"da2b6714-aa7f-d56a-033b-0d488651c070\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"fd2dbb33-22e9-11f5-52e7-484c8c0e37fb\"\n          },\n          \"http_validation\": {\n            \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n            \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n          },\n          \"txt_validation\": {\n            \"delegated_dcv_domain\": \"string\",\n            \"delegated_dcv_cname_target\": \"string\",\n            \"txt_records\": [\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              },\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              }\n            ]\n          }\n        },\n        \"managed_csr\": {\n          \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"6b182dfa-8f7a-5e48-5e68-c0adc1129e8d\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"34e84759-93d7-5bea-ec25-83d40aacdf5a\"\n          }\n        },\n        \"custom_ssl_certificate\": {\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"9d4f4dd2-2f43-7687-d1b6-5b151d8d6ec6\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"d3258f2a-44ac-f01d-758b-6fc8e0265dae\"\n          }\n        },\n        \"serving_dns_targets\": {\n          \"a_records\": [\n            \"104.17.134.18\"\n          ],\n          \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 4686,\n            \"type\": \"WARNING\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 8447,\n            \"type\": \"NON_FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"1968-12-22T15:47:13.189Z\",\n        \"update_time\": \"1951-03-17T19:44:44.131Z\",\n        \"delete_time\": \"1952-11-11T14:23:09.267Z\"\n      },\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"wildcard\": false,\n        \"destination\": \"PAGES\",\n        \"integration_type\": \"USER_OWNED\",\n        \"state\": \"ACTIVE\",\n        \"ownership_verification\": {\n          \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n          \"txt_domain\": \"_yext-domain.www.example.com\",\n          \"txt_value\": \"eccf31d9-7bd2-891b-989b-33faa81010c5\",\n          \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n          \"http_body\": \"de52dcd1-5d06-e4d5-8322-be6dbea09950\"\n        },\n        \"managed_ssl\": {\n          \"certificate_authority\": \"GOOGLE_TRUST\",\n          \"validation_method\": \"HTTP\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"9f107e8b-c67b-093c-a301-b76fd6c9f2b8\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"9e4cd26e-b518-3466-bda6-2df5889e1ad6\"\n          },\n          \"http_validation\": {\n            \"uri\": \"http://www.example.com/.well-known/acme-challenge/0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr\",\n            \"body\": \"0NW3MkWCrnT_5dwos0fKtwrPAqMygpcUqLqDNibb0xLXH3Zjag6wSqPfcvWTGkRr.r54qAqCZSs4xyyeamMffaxyR1FWYVb5OvwUh8EcrhpI\"\n          },\n          \"txt_validation\": {\n            \"delegated_dcv_domain\": \"string\",\n            \"delegated_dcv_cname_target\": \"string\",\n            \"txt_records\": [\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              },\n              {\n                \"domain\": \"_acme-challenge.www.example.com\",\n                \"value\": \"-sXIiCspHlmE7GU-vV-6oBR-M6BU-4d1A4Ak3O1cGos\"\n              }\n            ]\n          }\n        },\n        \"managed_csr\": {\n          \"managed_csr_id\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"6a5638ee-1c8a-d713-6769-aadddf5284d4\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"10cabea2-0e39-fc1b-6a37-a89b6781f732\"\n          }\n        },\n        \"custom_ssl_certificate\": {\n          \"hostname_validation\": {\n            \"cname_target\": \"idzm5s34j5.yext.pgscdncf.com.\",\n            \"txt_domain\": \"_yext-domain.www.example.com\",\n            \"txt_value\": \"16d529e1-b772-a824-9cb9-a6e32a29621d\",\n            \"http_uri\": \"http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac\",\n            \"http_body\": \"f760356a-be4d-b1f7-1a19-da30dc7d5532\"\n          }\n        },\n        \"serving_dns_targets\": {\n          \"a_records\": [\n            \"104.17.134.18\"\n          ],\n          \"cname\": \"93bpo083jheeb.yext.pagescdn.com\"\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 5847,\n            \"type\": \"FATAL_ERROR\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 190,\n            \"type\": \"WARNING\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"2002-07-20T11:00:45.317Z\",\n        \"update_time\": \"1963-08-16T20:10:29.410Z\",\n        \"delete_time\": \"1956-08-21T20:43:34.933Z\"\n      }\n    ],\n    \"domain_associations\": [\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"site\": {\n          \"name\": \"accounts/123456/sites/6789\",\n          \"primary\": false\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 195,\n            \"type\": \"FATAL_ERROR\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 3919,\n            \"type\": \"NON_FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"2016-09-15T17:22:07.392Z\",\n        \"update_time\": \"1978-02-10T10:19:07.487Z\"\n      },\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"site\": {\n          \"name\": \"accounts/123456/sites/6789\",\n          \"primary\": false\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 539,\n            \"type\": \"WARNING\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 247,\n            \"type\": \"FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"1975-06-21T10:42:13.422Z\",\n        \"update_time\": \"1955-01-29T09:53:33.842Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1c6cc60-9568-4f2c-8b21-51d5e4f25a21",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    "migratepagesdomain",
+                    ":hostname"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostname",
+                      "description": "(Required) The hostname of the legacy domain to migrate."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "142d931c-7cfc-423a-a38e-478654e119d1",
+          "name": "Domain Association: Create\n",
+          "request": {
+            "name": "Domain Association: Create\n",
+            "description": {
+              "content": "Creating a Domain Association will begin serving the contents of the associated resource at the Domain Association's `hostname` (given DNS for the hostname is already set up).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId",
+                "associations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force_move",
+                  "value": "false",
+                  "description": "If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account."
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostname\": \"<string>\",\n  \"site\": {\n    \"name\": \"<string>\",\n    \"primary\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c504f5d-c60f-4d5f-af60-e9a591e77c39",
+              "name": "Domain Association created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force_move",
+                      "value": "false"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"www.example.com\",\n  \"site\": {\n    \"name\": \"accounts/123456/sites/6789\",\n    \"primary\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"hostname\": \"www.example.com\",\n    \"site\": {\n      \"name\": \"accounts/123456/sites/6789\",\n      \"primary\": false\n    },\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 8791,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4806,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ],\n    \"create_time\": \"1960-05-06T02:16:53.594Z\",\n    \"update_time\": \"1994-09-08T04:15:30.730Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e2f1e60-0230-42b0-81ef-ff068c102261",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force_move",
+                      "value": "false"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"www.example.com\",\n  \"site\": {\n    \"name\": \"accounts/123456/sites/6789\",\n    \"primary\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "927dcd49-2c55-4bf0-9df8-ccf80f43170a",
+          "name": "Domain Association: List\n",
+          "request": {
+            "name": "Domain Association: List\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId",
+                "associations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "referenced_resources",
+                  "value": "<string>",
+                  "description": "Comma-separated list of associated resources to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "referenced_resources",
+                  "value": "<string>",
+                  "description": "Comma-separated list of associated resources to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Number of results to return per page. Sizes above the maximum will be clamped at the maximum value."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token to retrieve the next page of results. If not provided, the first page of results will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) Set to \"-\" to reference Domain Associations from all domains in this account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0bc56370-fca4-4e99-93b0-5c99cc095d32",
+              "name": "Paginated list of Domains Associations matching request filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referenced_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referenced_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) Set to \"-\" to reference Domain Associations from all domains in this account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"domain_associations\": [\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"site\": {\n          \"name\": \"accounts/123456/sites/6789\",\n          \"primary\": false\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 5473,\n            \"type\": \"WARNING\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 9529,\n            \"type\": \"NON_FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"1974-05-19T02:23:01.561Z\",\n        \"update_time\": \"1982-07-13T22:19:32.489Z\"\n      },\n      {\n        \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"hostname\": \"www.example.com\",\n        \"site\": {\n          \"name\": \"accounts/123456/sites/6789\",\n          \"primary\": false\n        },\n        \"errors\": [\n          {\n            \"name\": \"string\",\n            \"code\": 4897,\n            \"type\": \"FATAL_ERROR\",\n            \"message\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"code\": 8225,\n            \"type\": \"NON_FATAL_ERROR\",\n            \"message\": \"string\"\n          }\n        ],\n        \"create_time\": \"2011-04-06T09:20:51.980Z\",\n        \"update_time\": \"1982-07-29T19:56:31.843Z\"\n      }\n    ],\n    \"next_page_token\": \"eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=\",\n    \"previous_page_token\": \"eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==\",\n    \"total_size\": 100\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "536c458c-5447-42db-9603-34a75a0abaa4",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "referenced_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referenced_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) Set to \"-\" to reference Domain Associations from all domains in this account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e487b1ff-3499-45e0-80cf-ded5e2ebc3e1",
+          "name": "Domain Association: Get\n",
+          "request": {
+            "name": "Domain Association: Get\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId",
+                "associations",
+                ":domainAssociationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainAssociationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7202427a-a998-4833-b5c4-700c14578d5c",
+              "name": "Domain Association found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations",
+                    ":domainAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainAssociationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"hostname\": \"www.example.com\",\n    \"site\": {\n      \"name\": \"accounts/123456/sites/6789\",\n      \"primary\": false\n    },\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 8791,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4806,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ],\n    \"create_time\": \"1960-05-06T02:16:53.594Z\",\n    \"update_time\": \"1994-09-08T04:15:30.730Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a18275f-b865-4be1-9697-73479da900c2",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations",
+                    ":domainAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainAssociationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be89bff3-bee9-4ada-a66a-0736f206eff7",
+          "name": "Domain Association: Update\n",
+          "request": {
+            "name": "Domain Association: Update\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId",
+                "associations",
+                ":domainAssociationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainAssociationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"site\": {\n    \"name\": \"<string>\",\n    \"primary\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "699a9873-f85e-460a-a457-0f1c16433837",
+              "name": "Domain Association updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations",
+                    ":domainAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainAssociationId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site\": {\n    \"name\": \"accounts/123456/sites/6789\",\n    \"primary\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/domains/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0/associations/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"hostname\": \"www.example.com\",\n    \"site\": {\n      \"name\": \"accounts/123456/sites/6789\",\n      \"primary\": false\n    },\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 8791,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 4806,\n        \"type\": \"FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ],\n    \"create_time\": \"1960-05-06T02:16:53.594Z\",\n    \"update_time\": \"1994-09-08T04:15:30.730Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b41ef42-2951-4d62-89c9-e568414778a3",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations",
+                    ":domainAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainAssociationId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"site\": {\n    \"name\": \"accounts/123456/sites/6789\",\n    \"primary\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17e55399-ab32-496f-999a-bb19fff0331a",
+          "name": "Domain Association: Delete\n",
+          "request": {
+            "name": "Domain Association: Delete\n",
+            "description": {
+              "content": "Deleting a Domain Association will stop serving the contents of the associated resource from the Domain Association's `hostname`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "domains",
+                ":domainId",
+                "associations",
+                ":domainAssociationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "domainAssociationId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "662326a7-dfa9-40f1-a802-9e1c3691355f",
+              "name": "Domain Association deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations",
+                    ":domainAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainAssociationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd129c09-830a-4023-a4a3-1c169910dc70",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "domains",
+                    ":domainId",
+                    "associations",
+                    ":domainAssociationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "domainAssociationId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2bfd740-4674-4375-87d0-33acaa72eaec",
+          "name": "Managed CSR: Create\n",
+          "request": {
+            "name": "Managed CSR: Create\n",
+            "description": {
+              "content": "Creates a Certificate Signing Request (CSR) resource that can be used to provision SSL certificates.\nOnce created, this resource can be referenced by [Domains](#tag/Domains/operation/createDomain) with the `managed_csr` SSL integration to provision\ncertificates using this CSR and a public certificate.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "csrs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"csr_payload\": {\n    \"common_name\": \"<string>\",\n    \"sans\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"organization\": \"<string>\",\n    \"organizational_unit\": \"<string>\",\n    \"key_type\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"state\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5e2dbee-6b04-41d8-9ed4-a8cb20ae5009",
+              "name": "Managed CSR created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"csr_payload\": {\n    \"common_name\": \"www.example.com\",\n    \"sans\": [\n      \"test.example.com\",\n      \"other.example.net\"\n    ],\n    \"organization\": \"Example Inc.\",\n    \"organizational_unit\": \"IT Department\",\n    \"key_type\": \"<string>\",\n    \"locality\": \"San Francisco\",\n    \"state\": \"California\",\n    \"country\": \"US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"csr_payload\": {\n      \"common_name\": \"www.example.com\",\n      \"sans\": [\n        \"test.example.com\",\n        \"other.example.net\"\n      ],\n      \"organization\": \"Example Inc.\",\n      \"organizational_unit\": \"IT Department\",\n      \"key_type\": \"rsa2048\",\n      \"locality\": \"San Francisco\",\n      \"state\": \"California\",\n      \"country\": \"US\"\n    },\n    \"csr\": \"-----BEGIN CERTIFICATE REQUEST-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE REQUEST-----\\n\",\n    \"created_time\": \"1983-08-05T16:25:45.380Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed1992e3-32c1-49a1-b294-28c8fcbf919a",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"csr_payload\": {\n    \"common_name\": \"www.example.com\",\n    \"sans\": [\n      \"test.example.com\",\n      \"other.example.net\"\n    ],\n    \"organization\": \"Example Inc.\",\n    \"organizational_unit\": \"IT Department\",\n    \"key_type\": \"<string>\",\n    \"locality\": \"San Francisco\",\n    \"state\": \"California\",\n    \"country\": \"US\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25dd5c5f-e8d2-4325-8553-8d79b00ff9a0",
+          "name": "Managed CSR: List\n",
+          "request": {
+            "name": "Managed CSR: List\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "csrs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Number of results to return per page. Sizes above the maximum will be clamped at the maximum value."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token to retrieve the next page of results. If not provided, the first page of results will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "BASIC",
+                  "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4392f3fe-505c-40dd-b096-ed8cd23e9734",
+              "name": "Paginated list of Managed CSRs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "BASIC"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"managed_csrs\": [\n      {\n        \"name\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"csr_payload\": {\n          \"common_name\": \"www.example.com\",\n          \"sans\": [\n            \"test.example.com\",\n            \"other.example.net\"\n          ],\n          \"organization\": \"Example Inc.\",\n          \"organizational_unit\": \"IT Department\",\n          \"key_type\": \"p256v1\",\n          \"locality\": \"San Francisco\",\n          \"state\": \"California\",\n          \"country\": \"US\"\n        },\n        \"csr\": \"-----BEGIN CERTIFICATE REQUEST-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE REQUEST-----\\n\",\n        \"created_time\": \"2004-03-28T11:14:01.297Z\"\n      },\n      {\n        \"name\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n        \"csr_payload\": {\n          \"common_name\": \"www.example.com\",\n          \"sans\": [\n            \"test.example.com\",\n            \"other.example.net\"\n          ],\n          \"organization\": \"Example Inc.\",\n          \"organizational_unit\": \"IT Department\",\n          \"key_type\": \"rsa2048\",\n          \"locality\": \"San Francisco\",\n          \"state\": \"California\",\n          \"country\": \"US\"\n        },\n        \"csr\": \"-----BEGIN CERTIFICATE REQUEST-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE REQUEST-----\\n\",\n        \"created_time\": \"1991-09-20T20:58:55.141Z\"\n      }\n    ],\n    \"next_page_token\": \"eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=\",\n    \"previous_page_token\": \"eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==\",\n    \"total_size\": 100\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58631f08-c41d-423c-88eb-f288c00443d3",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "view",
+                      "value": "BASIC"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0370c7ac-f1df-4b94-b3bc-f0fe4fde1641",
+          "name": "Managed CSR: Get\n",
+          "request": {
+            "name": "Managed CSR: Get\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "csrs",
+                ":managedCsrId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "FULL",
+                  "description": "`FULL` returns all details, while `BASIC` omits certain SSL information.\nUsing `BASIC` will also usually result in a lower response latency relative to using `FULL`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "managedCsrId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d381f06c-03b7-4770-8518-cf1e92f8f666",
+              "name": "Managed CSR found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs",
+                    ":managedCsrId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "managedCsrId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  },\n  \"response\": {\n    \"name\": \"accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"csr_payload\": {\n      \"common_name\": \"www.example.com\",\n      \"sans\": [\n        \"test.example.com\",\n        \"other.example.net\"\n      ],\n      \"organization\": \"Example Inc.\",\n      \"organizational_unit\": \"IT Department\",\n      \"key_type\": \"rsa2048\",\n      \"locality\": \"San Francisco\",\n      \"state\": \"California\",\n      \"country\": \"US\"\n    },\n    \"csr\": \"-----BEGIN CERTIFICATE REQUEST-----\\nMIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh\\n...\\n-----END CERTIFICATE REQUEST-----\\n\",\n    \"created_time\": \"1983-08-05T16:25:45.380Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffedb0ae-6307-42ba-b6fb-4c58915217f2",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs",
+                    ":managedCsrId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "view",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "managedCsrId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d4aab8e-0d76-4051-a3d7-1b572c1d7617",
+          "name": "Managed CSR: Delete\n",
+          "request": {
+            "name": "Managed CSR: Delete\n",
+            "description": {},
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "csrs",
+                ":managedCsrId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "v",
+                  "value": "<string>",
+                  "description": "(Required) A date in `YYYYMMDD` format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "managedCsrId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d100fc5-35b3-4a17-af76-edb42cc979e7",
+              "name": "Managed CSR deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs",
+                    ":managedCsrId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "managedCsrId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c26956e3-fb79-498a-9af4-e5a817b765e7",
+              "name": "Error Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "csrs",
+                    ":managedCsrId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "v",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "managedCsrId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"uuid\": \"4f72b877-e2d0-4de4-9324-b9cf2c03e1a0\",\n    \"errors\": [\n      {\n        \"name\": \"string\",\n        \"code\": 9980,\n        \"type\": \"WARNING\",\n        \"message\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"code\": 3644,\n        \"type\": \"NON_FATAL_ERROR\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"response\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.yextapis.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0696bfd8-ceb9-4b02-bd5a-79201dc1d098",
+    "name": "Yext Admin Account Settings Domains API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
