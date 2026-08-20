@@ -56,6 +56,8 @@ apis:
   humanURL: https://hitchhikers.yext.com/docs/managementapis/
   baseURL: https://api.yextapis.com/v2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -190,6 +192,8 @@ apis:
   humanURL: https://hitchhikers.yext.com/docs/managementapis/
   baseURL: https://api.yextapis.com/v2
   tags:
+  - content-api
+  tags_raw:
   - Content API
   properties:
   - type: OpenAPI
@@ -322,6 +326,8 @@ apis:
   humanURL: https://hitchhikers.yext.com/docs/managementapis/
   baseURL: https://api.yextapis.com/v2
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -454,6 +460,8 @@ apis:
   humanURL: https://hitchhikers.yext.com/docs/managementapis/
   baseURL: https://api.yextapis.com/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
