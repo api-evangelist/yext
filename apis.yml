@@ -544,14 +544,6 @@ apis:
     url: https://hitchhikers.yext.com/publisherapis/
   - type: Documentation
     url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
-- aid: yext:yext-webhooks-openapi
-  name: Yext Webhooks
-  description: Yext Webhooks from Yext, described in OpenAPI.
-  humanURL: https://hitchhikers.yext.com/docs/managementapis/
-  baseURL: https://api.yextapis.com/v2
-  properties:
-  - type: OpenAPI
-    url: openapi/yext-webhooks-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/yext-agentic-access.yml
