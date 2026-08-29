@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Computations API
+  title: Yext Computations API
   version: '2.0'
 servers:
 - url: https://api.yextapis.com/v2
@@ -122,162 +122,39 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  parameters:
+    computationOperationUid:
+      name: operationUid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The Yext-generated unique identifier for the computation operation.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   schemas:
-    EntityProfileScope:
+    OperationDefinitionOptions:
       oneOf:
-      - $ref: '#/components/schemas/TargetFields'
-      - $ref: '#/components/schemas/TriggerFields'
-      allOf:
-      - type: object
-        properties:
-          blankFieldBehavior:
-            $ref: '#/components/schemas/FieldBehavior'
-          populatedFieldBehavior:
-            $ref: '#/components/schemas/FieldBehavior'
-          entityProfileScope:
-            type: object
-            description: The exact entity profiles to trigger a computation for.
-            properties:
-              entityProfileIds:
-                type: array
-                description: 'For requests either IDs or UIDs must be provided, but not both.
-
-                  Responses will always return both.
-
-
-                  **NOTE**:
-
-
-                  An unset locale field will default to the primary locale of the entity.
-
-                  '
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      example: customEntity
-                    uid:
-                      type: integer
-                      example: 123456
-                    locale:
-                      type: string
-                      example: en
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    SavedFilterScope:
-      oneOf:
-      - $ref: '#/components/schemas/TargetFields'
-      - $ref: '#/components/schemas/TriggerFields'
-      allOf:
-      - type: object
-        properties:
-          blankFieldBehavior:
-            $ref: '#/components/schemas/FieldBehavior'
-          populatedFieldBehavior:
-            $ref: '#/components/schemas/FieldBehavior'
-          savedFilterScope:
-            type: object
-            description: 'The set of entities that match a given set of saved filters.
-
-
-              **NOTE**:
-
-
-              An empty or unset locales field will default to the primary locale of the entity.
-
-              '
-            properties:
-              locales:
-                type: array
-                items:
-                  type: string
-                  example: en
-                description: The list of locales to compute a computation for.
-              savedFilterIds:
-                type: object
-                description: 'For requests either IDs or UIDs must be provided, but not both.
-
-                  Responses will always return both.
-
-                  '
-                properties:
-                  ids:
-                    type: array
-                    items:
-                      type: string
-                      example: 1268765
-                    description: The external IDs of the saved filters.
-                  uids:
-                    type: array
-                    items:
-                      type: integer
-                      example: 235
-                    description: The internal IDs of the saved filters.
-    FieldBehavior:
-      type: string
-      description: 'Defines the field editing mode for a blank field or for a field
-
-        which has content. If `USE_AUTOMATIC_COMPUTATIONS_BEHAVIOR` is chosen,
-
-        the behavior will match that of the behavior set for
-
-        automated computations, if enabled.
-
-        '
-      example: WRITE_DIRECTLY
-      enum:
-      - SKIP
-      - USE_AUTOMATIC_COMPUTATIONS_BEHAVIOR
-      - CREATE_SUGGESTION
-      - WRITE_DIRECTLY
-    EntityProfileSearchScope:
-      oneOf:
-      - $ref: '#/components/schemas/TargetFields'
-      - $ref: '#/components/schemas/TriggerFields'
-      allOf:
-      - type: object
-        properties:
-          blankFieldBehavior:
-            $ref: '#/components/schemas/FieldBehavior'
-          populatedFieldBehavior:
-            $ref: '#/components/schemas/FieldBehavior'
-          searchScope:
-            type: object
-            description: 'The set of entities that match a given filter.
-
-              The filter itself is redacted on read.
-
-
-              **NOTE**: Search Scope operations cannot be created using the API
-
-
-              An empty or unset locales field will default to the primary locale of the entity.
-
-              '
-            properties:
-              locales:
-                type: array
-                items:
-                  type: string
-                  example: en
-                description: The list of locales to compute a computation for.
-              scopeRedacted:
-                type: boolean
-                example: true
-    TargetFields:
+      - $ref: '#/components/schemas/EntityScope'
+      - $ref: '#/components/schemas/EntityProfileScope'
+      - $ref: '#/components/schemas/SavedFilterScope'
+      - $ref: '#/components/schemas/EntityTypeScope'
+    TriggerFields:
       properties:
-        targetFields:
+        triggerFields:
           type: object
-          description: 'The collection of fields to compute a value for.
+          description: 'The list of updated fields that may be a trigger for a field computation.
 
             For requests either IDs or UIDs must be provided, but not both.
 
@@ -474,70 +351,16 @@ components:
                       type: integer
                       example: 1234
                     description: The internal IDs of the entity types.
-    OperationDefinitionResponseOptions:
-      oneOf:
-      - $ref: '#/components/schemas/EntityScope'
-      - $ref: '#/components/schemas/EntityProfileScope'
-      - $ref: '#/components/schemas/SavedFilterScope'
-      - $ref: '#/components/schemas/EntityTypeScope'
-      - $ref: '#/components/schemas/EntityProfileSearchScope'
-    CreateOperationRequest:
-      type: object
-      required:
-      - definition
-      properties:
-        definition:
-          $ref: '#/components/schemas/OperationDefinitionOptions'
-        languageCode:
-          type: string
-          description: 'Language code to be used to localize messages.
-
-            If no language code is specified, it will default to English.
-
-            '
-          example: en
-        details:
-          type: object
-          description: 'An arbitrary object that can hold any additional metadata
-
-            provided by the caller.
-
-            '
-          properties:
-            source:
-              type: string
-              example: API Test
-    TriggerFields:
-      properties:
-        triggerFields:
-          type: object
-          description: 'The list of updated fields that may be a trigger for a field computation.
-
-            For requests either IDs or UIDs must be provided, but not both.
-
-            Responses will always return both.
-
-            '
-          properties:
-            ids:
-              type: array
-              description: The external IDs of the fields.
-              items:
-                type: string
-                example: c_blogPost
-            uids:
-              type: array
-              description: The internal IDs of the fields.
-              items:
-                type: string
-                example: location.custom.123456.blogpost.0
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
     EntityScope:
       oneOf:
       - $ref: '#/components/schemas/TargetFields'
@@ -591,12 +414,39 @@ components:
                       type: integer
                       example: 1234
                     description: The internal IDs of the entities.
-    OperationDefinitionOptions:
+    OperationDefinitionResponseOptions:
       oneOf:
       - $ref: '#/components/schemas/EntityScope'
       - $ref: '#/components/schemas/EntityProfileScope'
       - $ref: '#/components/schemas/SavedFilterScope'
       - $ref: '#/components/schemas/EntityTypeScope'
+      - $ref: '#/components/schemas/EntityProfileSearchScope'
+    CreateOperationRequest:
+      type: object
+      required:
+      - definition
+      properties:
+        definition:
+          $ref: '#/components/schemas/OperationDefinitionOptions'
+        languageCode:
+          type: string
+          description: 'Language code to be used to localize messages.
+
+            If no language code is specified, it will default to English.
+
+            '
+          example: en
+        details:
+          type: object
+          description: 'An arbitrary object that can hold any additional metadata
+
+            provided by the caller.
+
+            '
+          properties:
+            source:
+              type: string
+              example: API Test
     ResponseError:
       type: object
       properties:
@@ -616,52 +466,178 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-  parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    computationOperationUid:
-      name: operationUid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The Yext-generated unique identifier for the computation operation.
-  responses:
-    OperationResponse:
-      description: Operation Response
-      content:
-        application/json:
-          schema:
-            title: OperationResponse
+    EntityProfileSearchScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          searchScope:
             type: object
+            description: 'The set of entities that match a given filter.
+
+              The filter itself is redacted on read.
+
+
+              **NOTE**: Search Scope operations cannot be created using the API
+
+
+              An empty or unset locales field will default to the primary locale of the entity.
+
+              '
             properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Operation'
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
+              locales:
+                type: array
+                items:
+                  type: string
+                  example: en
+                description: The list of locales to compute a computation for.
+              scopeRedacted:
+                type: boolean
+                example: true
+    TargetFields:
+      properties:
+        targetFields:
+          type: object
+          description: 'The collection of fields to compute a value for.
+
+            For requests either IDs or UIDs must be provided, but not both.
+
+            Responses will always return both.
+
+            '
+          properties:
+            ids:
+              type: array
+              description: The external IDs of the fields.
+              items:
+                type: string
+                example: c_blogPost
+            uids:
+              type: array
+              description: The internal IDs of the fields.
+              items:
+                type: string
+                example: location.custom.123456.blogpost.0
+    SavedFilterScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          savedFilterScope:
             type: object
+            description: 'The set of entities that match a given set of saved filters.
+
+
+              **NOTE**:
+
+
+              An empty or unset locales field will default to the primary locale of the entity.
+
+              '
             properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
+              locales:
+                type: array
+                items:
+                  type: string
+                  example: en
+                description: The list of locales to compute a computation for.
+              savedFilterIds:
                 type: object
+                description: 'For requests either IDs or UIDs must be provided, but not both.
+
+                  Responses will always return both.
+
+                  '
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: string
+                      example: 1268765
+                    description: The external IDs of the saved filters.
+                  uids:
+                    type: array
+                    items:
+                      type: integer
+                      example: 235
+                    description: The internal IDs of the saved filters.
+    EntityProfileScope:
+      oneOf:
+      - $ref: '#/components/schemas/TargetFields'
+      - $ref: '#/components/schemas/TriggerFields'
+      allOf:
+      - type: object
+        properties:
+          blankFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          populatedFieldBehavior:
+            $ref: '#/components/schemas/FieldBehavior'
+          entityProfileScope:
+            type: object
+            description: The exact entity profiles to trigger a computation for.
+            properties:
+              entityProfileIds:
+                type: array
+                description: 'For requests either IDs or UIDs must be provided, but not both.
+
+                  Responses will always return both.
+
+
+                  **NOTE**:
+
+
+                  An unset locale field will default to the primary locale of the entity.
+
+                  '
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: customEntity
+                    uid:
+                      type: integer
+                      example: 123456
+                    locale:
+                      type: string
+                      example: en
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    FieldBehavior:
+      type: string
+      description: 'Defines the field editing mode for a blank field or for a field
+
+        which has content. If `USE_AUTOMATIC_COMPUTATIONS_BEHAVIOR` is chosen,
+
+        the behavior will match that of the behavior set for
+
+        automated computations, if enabled.
+
+        '
+      example: WRITE_DIRECTLY
+      enum:
+      - SKIP
+      - USE_AUTOMATIC_COMPUTATIONS_BEHAVIOR
+      - CREATE_SUGGESTION
+      - WRITE_DIRECTLY
+  responses:
     ListOperationsResponse:
       description: List Operations Response
       content:
@@ -698,6 +674,30 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/Operation'
+    OperationResponse:
+      description: Operation Response
+      content:
+        application/json:
+          schema:
+            title: OperationResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Operation'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
   securitySchemes:
     api_key:
       type: apiKey

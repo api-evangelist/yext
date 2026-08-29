@@ -466,30 +466,6 @@ apis:
     url: https://hitchhikers.yext.com/publisherapis/
   - type: Documentation
     url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
-- aid: yext:yext-publisher-notify-review-api
-  name: Yext Webhooks API
-  description: The Webhooks API from Yext — 0 operation(s) for webhooks.
-  humanURL: https://hitchhikers.yext.com/docs/managementapis/
-  baseURL: https://api.yextapis.com/v2
-  tags:
-  - Webhook
-  tags_raw:
-  - Webhooks
-  properties:
-  - type: OpenAPI
-    url: openapi/yext-publisher-notify-review-api-openapi.yml
-  - type: Documentation
-    url: https://hitchhikers.yext.com/docs/managementapis/
-  - type: Documentation
-    url: https://hitchhikers.yext.com/docs/contentdeliveryapis/
-  - type: Documentation
-    url: https://hitchhikers.yext.com/docs/chat/
-  - type: Documentation
-    url: https://hitchhikers.yext.com/publisherapis/publisherlistingsapi
-  - type: Documentation
-    url: https://hitchhikers.yext.com/publisherapis/
-  - type: Documentation
-    url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
 - aid: yext:yext-reviews-api
   name: Yext Reviews API
   description: The Reviews API from Yext — 14 operation(s) for reviews.

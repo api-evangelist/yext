@@ -1,12 +1,18 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Accounts API
-  version: '2.0'
+  title: Yext Accounts API
+  version: '1.0'
+  description: 'Operations tagged Accounts across 3 of this provider''s published API definitions: yext-answers-api-openapi.yml, yext-chat-api-openapi.yml, yext-events-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.yextapis.com/v2
-security:
-- api_key: []
-- api-key: []
+- url: https://cdn.yextapis.com/v2
+- url: https://us.yextevents.com
+  description: Server for US production environment
+- url: https://aws.us.yextevents.com
+  description: Server for US production environment with AWS as cloud provider
+- url: https://eu.yextevents.com
+  description: Server for EU production environment
+- url: https://gcp.eu.yextevents.com
+  description: Server for EU production environment with GCP as cloud provider
 tags:
 - name: Accounts
 paths:
@@ -30,6 +36,11 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/{accountId}/search/query:
     get:
       operationId: query
@@ -66,6 +77,11 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/{accountId}/search/vertical/autocomplete:
     get:
       operationId: verticalAutocomplete
@@ -87,6 +103,11 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/{accountId}/search/vertical/query:
     get:
       operationId: verticalQuery
@@ -129,6 +150,11 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/{accountId}/search/filtersearch:
     get:
       operationId: filtersearch
@@ -151,6 +177,11 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/{accountId}/search/generateAnswer:
     post:
       operationId: generateAnswer
@@ -182,6 +213,11 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/{accountId}/chat/{botId}/message:
     post:
       operationId: message
@@ -251,6 +287,11 @@ paths:
                   description: The version of chatbot. Defaults to `LATEST`.
       tags:
       - Accounts
+      security:
+      - api_key: []
+      - api-key: []
+    servers:
+    - url: https://cdn.yextapis.com/v2
   /accounts/me/events:
     post:
       operationId: sendEvents
@@ -305,8 +346,83 @@ paths:
                     description: Array of error messages that occurred during the request.
       tags:
       - Accounts
+      security:
+      - api-key: []
+      - jwt: []
+    servers:
+    - url: https://us.yextevents.com
+      description: Server for US production environment
+    - url: https://aws.us.yextevents.com
+      description: Server for US production environment with AWS as cloud provider
+    - url: https://eu.yextevents.com
+      description: Server for EU production environment
+    - url: https://gcp.eu.yextevents.com
+      description: Server for EU production environment with GCP as cloud provider
 components:
   parameters:
+    Filters:
+      name: filters
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filters param after URL-encoding will be: `filters=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined to form a conjunction (AND) of disjunctions (ORs) using the *combinators* `$and` and `$or`.  For example:\n```\n{\n  \"$and\": [\n    {\n      \"$or\": [\n        {\n          \"firstName\": {\n            \"$eq\": \"Jane\"\n          }\n        },\n        {\n          \"firstName\": {\n            \"$eq\": \"John\"\n          }\n        }\n      ]\n    },\n    {\n      \"lastName\": {\n        \"$eq\": \"Smith\"\n      }\n    }\n  ]\n}\n```\nAny filter that is the only item in its respective combinator may omit the combinator as is done with the lastName above.\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for option custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$between</th>\n    <th>\n\n  An array that must contain exactly two elements with which the result is between.\n\n    {\n      \"time.end\": {\n        \"$between\":  [\"2018-08-28T05:56\", \"2018-08-29T05:56\"]\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  In addition to between, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue\" : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n"
+    autocompleteInput:
+      name: input
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The partial search term from the user.
+    excluded:
+      name: excluded
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter represents any values which should not be returned. This parameter should be provided as a URL-encoded string containing a JSON array, where each entry of the array is a JSON object representing a field and an excluded value for that field. For example:\n```\n[\n  {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  },\n  {\n    \"c_jobCategory\": {\n      \"$eq\": \"Engineering\"\n    }\n  }\n]\n```\n"
+    version:
+      name: version
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used.
+    SortBys:
+      name: sortBys
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter overrides the sort options that are configured on the experience configuration.  This parameter should be provided as a URL-encoded string containing a JSON array.\n\nThe input is a JSON array containing each of the sort options in the order in which they should be applied.\n\nEach sort options must contain a `type`\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Type</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>RELEVANCE</th>\n    <th>Sorts based on relevance according to the algorithm and, when relevant, location bias</th>\n  </tr>\n  <tr>\n    <th>ENTITY_DISTANCE</th>\n    <th>Sorts based on entity distance alone</th>\n  </tr>\n  <tr>\n    <th>FIELD</th>\n    <th>sorts based on a field with the direction specified</th>\n  </tr>\n</table>\n\n</br>\n\nIf the `type` is `FIELD` the sort options must also specify `field` which is the api name of the field to sort on.\n\nFinally, if the `type` is `FIELD` the sort options must also specify the `direction`.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Direction</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>ASC</th>\n    <th>Sorts in ascending order.  For numbers this is low to high. For text this is alphabetical.  For dates this is chronological order.</th>\n  </tr>\n  <tr>\n    <th>DESC</th>\n    <th>Sorts in ascending order.  For numbers this is high to low. For text this is reverse alphabetical.  For dates this is reverse chronological order.</th>\n  </tr>\n</table>\n\n</br>\n\n**Examples**\n```\n[\n  {\n    \"type\": \"FIELD\",\n    \"direction\": \"ASC\",\n    \"field\": \"startDate\"\n  },\n  {\n    \"type\": \"RELEVANCE\",\n    \"direction\": \"ASC\"\n  }\n]\n```\n"
+    restrictVerticals:
+      name: restrictVerticals
+      in: query
+      required: false
+      schema:
+        type: string
+      description: A comma-separated list of verticals (e.g. `"people,locations"`). If specified, only results from these verticals will be returned.
+    verticalKey:
+      name: verticalKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: String key that uniquely identifies the vertical.
+    retrieveFacets:
+      name: retrieveFacets
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: Whether facets should be computed for this vertical query.
+    ignoreQueryRules:
+      name: ignoreQueryRules
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false.
     context:
       name: context
       in: query
@@ -314,20 +430,123 @@ components:
       schema:
         type: string
       description: Context is an arbitrary JSON object that is passed to query rules to be used for triggering rules as well as passing data to those rules. This parameter should be provided as a URL-encoded string containing a JSON object.
-    jsLibVersion:
-      name: jsLibVersion
+    offset:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 9949
+        default: 0
+      description: Number of results to skip. Used to move through results.
+    verticalInput:
+      name: input
       in: query
       required: false
       schema:
         type: string
-      description: The version of the Search UI used for this request. Deprecated.
-    filterSearchVerticalKey:
-      name: verticalKey
+      description: The search term of the user.
+    location:
+      name: location
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The user's location as a comma separated latitude and longitude (e.g. `"40.740957,-73.987565"`).
+    experienceKey:
+      name: experienceKey
       in: query
       required: true
       schema:
         type: string
-      description: String key that uniquely identifies the vertical to scope the filter search request to.
+      description: String key that uniquely identifies the Search experience.
+    locationRadius:
+      name: locationRadius
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Radius (in meters) that should be applied to any location filter that does not already have an explicit radius.
+    locale:
+      name: locale
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The locale code of the experience (e.g. `en_GB`).
+    universalLimit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: string
+      description: JSON object specifying the limit for each vertical.  Each key is a vertical key and the value for each of those keys is a number 1-50 that denotes the limit for that vertical. This parameter should be provided as a URL-encoded string containing a JSON object.
+    source:
+      name: source
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Indicates where the query is coming from (e.g. `"HOME_HEADER"` or `"TICKET_FORM"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `"STANDARD"`.
+    skipSpellCheck:
+      name: skipSpellCheck
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: If true the query will skip spell checking.
+    autocompleteLimit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+        minimum: 1
+      description: Number of autocomplete results to return.
+    queryId:
+      name: queryId
+      in: query
+      required: false
+      schema:
+        type: string
+      description: UUID of the query; recommended when moving through results, to associate multiple requests to the same query.
+    FacetFilters:
+      name: facetFilters
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "This parameter represents the state of the currently checked facet options. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nThe JSON object contains a key for each facet category that has a checked facet option.  The value for each of these keys is an array of Filter objects that describe the filter that is applied by the facet option.\n\nAt the moment, facet options only support `$eq`.\n\nFor example, if `Engineering` was checked under the `Category` facet and `Chicago` and `New York` are checked under the `Job Location` facet, the `facetFilters` would look like:\n```\n{\n  \"c_jobCategory\": [\n    {\n      \"c_jobCategory\": {\n        \"$eq\": \"Engineering\"\n      }\n    }\n  ],\n  \"c_jobLocation\": [\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"Chicago\"\n      }\n    },\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"New York\"\n      }\n    }\n  ]\n}\n```\n"
+    requiredInput:
+      name: input
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The search term of the user.
+    SearchParameters:
+      name: search_parameters
+      in: query
+      required: true
+      schema:
+        type: string
+      description: "This parameter represents the parameters that should be used for filter search. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFilter search uses the user's input string to find a set of existing filters that match the user's input query for the fields provided in the parameters.\n\nThe JSON object must have a `fields` property made up of a list of `FilterField` objects that have the following properties:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Property</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>fieldId</th>\n    <th>The api name of the field.</th>\n  </tr>\n  <tr>\n    <th>entityTypeId</th>\n    <th>The api name for the entity type the filter belongs to.</th>\n  </tr>\n  <tr>\n    <th>shouldFetchEntities</th>\n    <th>Optional boolean.  If true, entities matching each filter will be returned inline with the filter.</th>\n  </tr>\n</table>\n\n</br>\n\nAdditionally, there is an optional boolean property `sectioned`.  If set to true, the matching filters will be returned in a separate section per field.  By default, they are all returned in the same section.\n"
+    queryLocale:
+      name: locale
+      in: query
+      required: true
+      schema:
+        type: string
+      description: The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     queryTrigger:
       name: queryTrigger
       in: query
@@ -343,6 +562,20 @@ components:
         * `initialize`, sent if the query is being triggered by a default initial search (in other words, the user did not enter query).
 
         '
+    jsLibVersion:
+      name: jsLibVersion
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The version of the Search UI used for this request. Deprecated.
+    filterSearchVerticalKey:
+      name: verticalKey
+      in: query
+      required: true
+      schema:
+        type: string
+      description: String key that uniquely identifies the vertical to scope the filter search request to.
     referrerPageUrl:
       name: referrerPageUrl
       in: query
@@ -350,103 +583,6 @@ components:
       schema:
         type: string
       description: The URL of the webpage that directed to the page this request was made from.
-    requiredInput:
-      name: input
-      in: query
-      required: true
-      schema:
-        type: string
-      description: The search term of the user.
-    SortBys:
-      name: sortBys
-      in: query
-      required: false
-      schema:
-        type: string
-      description: "This parameter overrides the sort options that are configured on the experience configuration.  This parameter should be provided as a URL-encoded string containing a JSON array.\n\nThe input is a JSON array containing each of the sort options in the order in which they should be applied.\n\nEach sort options must contain a `type`\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Type</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>RELEVANCE</th>\n    <th>Sorts based on relevance according to the algorithm and, when relevant, location bias</th>\n  </tr>\n  <tr>\n    <th>ENTITY_DISTANCE</th>\n    <th>Sorts based on entity distance alone</th>\n  </tr>\n  <tr>\n    <th>FIELD</th>\n    <th>sorts based on a field with the direction specified</th>\n  </tr>\n</table>\n\n</br>\n\nIf the `type` is `FIELD` the sort options must also specify `field` which is the api name of the field to sort on.\n\nFinally, if the `type` is `FIELD` the sort options must also specify the `direction`.\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Direction</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>ASC</th>\n    <th>Sorts in ascending order.  For numbers this is low to high. For text this is alphabetical.  For dates this is chronological order.</th>\n  </tr>\n  <tr>\n    <th>DESC</th>\n    <th>Sorts in ascending order.  For numbers this is high to low. For text this is reverse alphabetical.  For dates this is reverse chronological order.</th>\n  </tr>\n</table>\n\n</br>\n\n**Examples**\n```\n[\n  {\n    \"type\": \"FIELD\",\n    \"direction\": \"ASC\",\n    \"field\": \"startDate\"\n  },\n  {\n    \"type\": \"RELEVANCE\",\n    \"direction\": \"ASC\"\n  }\n]\n```\n"
-    experienceKey:
-      name: experienceKey
-      in: query
-      required: true
-      schema:
-        type: string
-      description: String key that uniquely identifies the Search experience.
-    locationRadius:
-      name: locationRadius
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Radius (in meters) that should be applied to any location filter that does not already have an explicit radius.
-    excluded:
-      name: excluded
-      in: query
-      required: false
-      schema:
-        type: string
-      description: "This parameter represents any values which should not be returned. This parameter should be provided as a URL-encoded string containing a JSON array, where each entry of the array is a JSON object representing a field and an excluded value for that field. For example:\n```\n[\n  {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  },\n  {\n    \"c_jobCategory\": {\n      \"$eq\": \"Engineering\"\n    }\n  }\n]\n```\n"
-    location:
-      name: location
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The user's location as a comma separated latitude and longitude (e.g. `"40.740957,-73.987565"`).
-    locale:
-      name: locale
-      in: query
-      required: true
-      schema:
-        type: string
-      description: The locale code of the experience (e.g. `en_GB`).
-    session_id:
-      name: session_id
-      in: query
-      required: false
-      schema:
-        type: string
-      description: UUID used to track session state when cookies are blocked.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    skipSpellCheck:
-      name: skipSpellCheck
-      in: query
-      required: false
-      schema:
-        type: boolean
-      description: If true the query will skip spell checking.
-    verticalKey:
-      name: verticalKey
-      in: query
-      required: true
-      schema:
-        type: string
-      description: String key that uniquely identifies the vertical.
-    source:
-      name: source
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Indicates where the query is coming from (e.g. `"HOME_HEADER"` or `"TICKET_FORM"`). Can be used in Analytics reports via the `Integration Source` dimension. Defaults to `"STANDARD"`.
-    universalLimit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: string
-      description: JSON object specifying the limit for each vertical.  Each key is a vertical key and the value for each of those keys is a number 1-50 that denotes the limit for that vertical. This parameter should be provided as a URL-encoded string containing a JSON object.
-    Filters:
-      name: filters
-      in: query
-      required: false
-      schema:
-        type: string
-      description: "This parameter represents one or more filtering conditions that are applied to the set of entities that would otherwise be returned. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFor example, if the filter JSON is `{\"name\":{\"$eq\":\"John\"}}`, then the filters param after URL-encoding will be: `filters=%7B%22name%22%3A%7B%22%24eq%22%3A%22John%22%7D%7D`\n\n**Basic Filter Structure**\n\nThe filter object at its core consists of a *matcher*, a *field*, and an *argument*.\n\nFor example, in the following filter JSON:\n\n```\n{\n  \"name\":{\n    \"$eq\":\"John\"\n  }\n}\n```\n\n`$eq` is the *matcher*, or filtering operation (equals, in this example),\n\n`name` is the *field* being filtered by, and\n\n`John` is *value* to be matched against.\n\n**Combining Multiple Filters**\n\nMultiple filters can be combined to form a conjunction (AND) of disjunctions (ORs) using the *combinators* `$and` and `$or`.  For example:\n```\n{\n  \"$and\": [\n    {\n      \"$or\": [\n        {\n          \"firstName\": {\n            \"$eq\": \"Jane\"\n          }\n        },\n        {\n          \"firstName\": {\n            \"$eq\": \"John\"\n          }\n        }\n      ]\n    },\n    {\n      \"lastName\": {\n        \"$eq\": \"Smith\"\n      }\n    }\n  ]\n}\n```\nAny filter that is the only item in its respective combinator may omit the combinator as is done with the lastName above.\n\n**Filter Negation**\n\nCertain filter types may be negated. For example:\n\n```\n{\n  \"$not\": {\n    \"name\": {\n      \"$eq\": \"John\"\n    }\n  }\n}\n```\n\nThis can also be written more simply with a `!` in the `$eq` parameter. The following filter would have the same effect:\n\n```\n{\n  \"name\":{\n    \"!$eq\":\"John\"\n  }\n}\n```\n\n**TEXT**\n\nThe `TEXT` filter type is supported for text fields. (e.g., **`name`**, **`countryCode`**)\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq (equals)</th>\n    <th>\n\n    {\n      \"countryCode\":{\n        \"$eq\":\"US\"\n      }\n    },\n    {\n      \"countryCode\":{\n        \"!$eq\":\"US\"\n      }\n    }\n\n  Supports negation. Case insensitive.\n  </tr>\n  <tr>\n</table>\n\n**BOOLEAN**\n\n\nThe BOOLEAN filter type is supported for boolean fields and Yes / No custom fields.\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n    {\n      \"isFreeEvent\": {\n        \"$eq\": true\n      }\n    }\n\n  For booleans, the filter takes a boolean value, not a string.\n  Supports negation.\n  </tr>\n</table>\n\n**OPTION**\n\nThe OPTION filter type is supported for option custom fields and fields that have a predetermined list of valid values.\n\n *e.g., **`eventStatus`**, **`gender`**, `SINGLE_OPTION` and `MULTI_OPTION` types of custom fields.*\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Matching is case insensitive and insensitive to consecutive whitespace.\n\n  e.g., \"XYZ 123\" matches \"xyz       123\"\n\n    {\n      \"eventStatus\": {\n        \"$eq\": \"SCHEDULED\"\n      }\n    }\n</table>\n\n**INTEGER, FLOAT, DATE, DATETIME, and TIME**\n\nThese filter types are strictly ordered -- therefore, they support the following matchers:\n- Equals\n- Less Than / Less Than or Equal To\n- Greater Than / Greater Than or Equal To\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Matcher</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>$eq</th>\n    <th>\n\n  Equals\n\n    {\n      \"ageRange.maxValue\": {\n        \"$eq\": \"80\"\n      }\n    }\n\n  Supports negation.\n\n  </tr>\n  <tr>\n    <th>$lt</th>\n    <th>\n\n  Less than\n\n    {\n      \"time.start\": {\n        \"$lt\": \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$gt</th>\n    <th>\n\n  Greater than\n\n    {\n      \"ageRange.maxValue\": {\n        \"$gt\": \"50\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$le</th>\n    <th>\n\n  Less than or equal to\n\n    {\n      \"ageRange.maxValue\": {\n        \"$le\": \"40\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$ge</th>\n    <th>\n\n  Greater than or equal to\n\n    {\n      \"time.end\": {\n        \"$ge\":  \"2018-08-28T05:56\"\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>$between</th>\n    <th>\n\n  An array that must contain exactly two elements with which the result is between.\n\n    {\n      \"time.end\": {\n        \"$between\":  [\"2018-08-28T05:56\", \"2018-08-29T05:56\"]\n      }\n    }\n\n  </tr>\n  <tr>\n    <th>Combinations</th>\n    <th>\n\n  In addition to between, it is possible to combine multiple matchers for a result similar to an \"and\" operation:\n\n    {\n      \"ageRange.maxValue\" : {\n        \"$gt\" : 10,\n        \"$lt\": 20\n      }\n    }\n\n  </tr>\n</table>\n"
     v:
       name: v
       in: query
@@ -454,96 +590,13 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
-    ignoreQueryRules:
-      name: ignoreQueryRules
-      in: query
-      required: false
-      schema:
-        type: boolean
-      description: When set to true, ignores any Query Rules that would otherwise affect the results. Defaults to false.
-    autocompleteLimit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 10
-        maximum: 100
-        minimum: 1
-      description: Number of autocomplete results to return.
-    queryLocale:
-      name: locale
-      in: query
-      required: true
-      schema:
-        type: string
-      description: The locale code of the experience (e.g. `en_GB`). Only returns entities that have an entity profile associated with this locale.
-    FacetFilters:
-      name: facetFilters
+    session_id:
+      name: session_id
       in: query
       required: false
       schema:
         type: string
-      description: "This parameter represents the state of the currently checked facet options. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nThe JSON object contains a key for each facet category that has a checked facet option.  The value for each of these keys is an array of Filter objects that describe the filter that is applied by the facet option.\n\nAt the moment, facet options only support `$eq`.\n\nFor example, if `Engineering` was checked under the `Category` facet and `Chicago` and `New York` are checked under the `Job Location` facet, the `facetFilters` would look like:\n```\n{\n  \"c_jobCategory\": [\n    {\n      \"c_jobCategory\": {\n        \"$eq\": \"Engineering\"\n      }\n    }\n  ],\n  \"c_jobLocation\": [\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"Chicago\"\n      }\n    },\n    {\n      \"c_jobLocation\": {\n        \"$eq\": \"New York\"\n      }\n    }\n  ]\n}\n```\n"
-    retrieveFacets:
-      name: retrieveFacets
-      in: query
-      required: false
-      schema:
-        type: boolean
-      description: Whether facets should be computed for this vertical query.
-    queryId:
-      name: queryId
-      in: query
-      required: false
-      schema:
-        type: string
-      description: UUID of the query; recommended when moving through results, to associate multiple requests to the same query.
-    botId:
-      name: botId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The ID of the chatbot.
-    SearchParameters:
-      name: search_parameters
-      in: query
-      required: true
-      schema:
-        type: string
-      description: "This parameter represents the parameters that should be used for filter search. This parameter should be provided as a URL-encoded string containing a JSON object.\n\nFilter search uses the user's input string to find a set of existing filters that match the user's input query for the fields provided in the parameters.\n\nThe JSON object must have a `fields` property made up of a list of `FilterField` objects that have the following properties:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Property</th>\n    <th>Details</th>\n  </tr>\n  <tr>\n    <th>fieldId</th>\n    <th>The api name of the field.</th>\n  </tr>\n  <tr>\n    <th>entityTypeId</th>\n    <th>The api name for the entity type the filter belongs to.</th>\n  </tr>\n  <tr>\n    <th>shouldFetchEntities</th>\n    <th>Optional boolean.  If true, entities matching each filter will be returned inline with the filter.</th>\n  </tr>\n</table>\n\n</br>\n\nAdditionally, there is an optional boolean property `sectioned`.  If set to true, the matching filters will be returned in a separate section per field.  By default, they are all returned in the same section.\n"
-    autocompleteInput:
-      name: input
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The partial search term from the user.
-    restrictVerticals:
-      name: restrictVerticals
-      in: query
-      required: false
-      schema:
-        type: string
-      description: A comma-separated list of verticals (e.g. `"people,locations"`). If specified, only results from these verticals will be returned.
-    version:
-      name: version
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The label or version number of the experience configuration to use. Label options are `STAGING` or `PRODUCTION`. `STAGING` uses the Latest version of the configuration. If omitted the `PRODUCTION` label will be used.
-    offset:
-      name: offset
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        maximum: 9949
-        default: 0
-      description: Number of results to skip. Used to move through results.
+      description: UUID used to track session state when cookies are blocked.
     limit:
       name: limit
       in: query
@@ -552,14 +605,37 @@ components:
         default: 10
         maximum: 50
       description: Number of results to return.
-    verticalInput:
-      name: input
-      in: query
-      required: false
+    botId:
+      name: botId
+      in: path
+      required: true
       schema:
         type: string
-      description: The search term of the user.
+      description: The ID of the chatbot.
   schemas:
+    GenerateAnswerRequest:
+      type: object
+      required:
+      - searchId
+      - searchTerm
+      - results
+      properties:
+        searchId:
+          type: string
+          description: ID of the search associated to the results.
+        searchTerm:
+          type: string
+          description: The search term that was used to generate results.
+        results:
+          oneOf:
+          - $ref: '#/components/schemas/Module'
+          - type: object
+            properties:
+              verticals:
+                $ref: '#/components/schemas/Modules'
+    verticalConfigId:
+      type: string
+      description: String key that uniquely identifies the vertical.
     Entity:
       type: object
       properties:
@@ -583,13 +659,6 @@ components:
           description: 'The distance in meters between the entity and the filter applied to the query.
 
             '
-    SearchIntents:
-      type: array
-      description: 'Items in array each represent a particular intent expressed in the user''s query. Example: `NEAR_ME`
-
-        '
-      items:
-        type: string
     Facets:
       type: object
       properties:
@@ -615,33 +684,6 @@ components:
                 description: A boolean indicator of whether this Facet option was used to filter results in the response.
               filter:
                 $ref: '#/components/schemas/filter'
-    filter:
-      type: object
-      description: 'The filter, in the filter format, that was applied.
-
-        <br><br>
-
-        For example: `"c_exampleFieldId": { $eq": "Search" }`
-
-        '
-      example: 'c_exampleFieldId: { $eq": "Search" }
-
-        '
-    Message:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp when the message was received, in ISO 8601 format.
-        source:
-          type: string
-          enum:
-          - USER
-          - BOT
-          description: Either `USER` if the message was sent by the human user, or `BOT` if the message was sent by the chatbot.
-        text:
-          type: string
-          description: The text of the message.
     ResponseMetaWithError:
       allOf:
       - $ref: '#/components/schemas/ResponseMeta'
@@ -652,6 +694,20 @@ components:
             description: List of errors and warnings.
             items:
               $ref: '#/components/schemas/ResponseError'
+    SearchIntents:
+      type: array
+      description: 'Items in array each represent a particular intent expressed in the user''s query. Example: `NEAR_ME`
+
+        '
+      items:
+        type: string
+    Results:
+      type: array
+      description: 'The individual entity results that contain metadata about the entity as well as the fully rendered profiles.
+
+        '
+      items:
+        $ref: '#/components/schemas/Entity'
     FailedVertical:
       type: object
       properties:
@@ -683,14 +739,25 @@ components:
           description: 'A measure of query duration, recorded in milliseconds.
 
             '
-    resultCount:
-      type: integer
-      description: 'The number of entities within the vertical that are relevant to the user''s query.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
 
-        '
-    verticalConfigId:
-      type: string
-      description: String key that uniquely identifies the vertical.
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
     AppliedQueryFilters:
       type: array
       description: A list of the filters that were inferred from the user's query and applied at search time.
@@ -716,135 +783,24 @@ components:
             description: 'Object containing additional details relevant to the filter such as additional details about the place for `PLACE` type filters. The format of the data is dependent on the filter type.
 
               '
-    conversationId:
-      type: string
-      description: A ULID representing the conversation between the user and the chatbot.
-    Notes:
+    Module:
       type: object
+      description: The results and metadata pertaining to a single vertical relevant to the user's query.
       properties:
-        currentGoal:
+        verticalConfigId:
+          $ref: '#/components/schemas/verticalConfigId'
+        resultCount:
+          $ref: '#/components/schemas/resultCount'
+        encodedState:
           type: string
-          description: The current goal the chatbot has detected the user is trying to achieve.
-        currentStepIndices:
-          type: array
-          items:
-            type: integer
-          description: 'The index of the step within the instructions of `currentGoal` that the chatbot is currently performing.
-
-            If the step is nested under a conditional `IF` step, it is represented with an array with multiple values.
-
-            E.g., if the `IF` step is the third step in the goal, and the bot is on the second step within the `IF` step, the value would be `[2, 1]`.
-
-            '
-        collectedData:
-          type: object
-          description: The data that the chatbot has collected from the user so far.
-        searchQuery:
-          type: string
-          description: The search query that the chatbot predicted and ran to retrieve the `queryResult`.
-        queryResult:
-          type: object
-          description: The results returned in the Search, REST API call, or FUNCTION call using the `searchQuery`.
-        goalFirstMsgIndex:
-          type: integer
-          description: 'The index of the message within `messages` when the `currentGoal` began.
-
-            This is important in some cases when the chatbot should not pull context from messages that are not part of the current goal.
-
-            '
-    HighlightedValue:
-      type: object
-      description: 'Highlighting instructions for a field value, containing the original value of the field and all sections of the value that should be highlighted.
-
-        '
-      properties:
-        value:
-          type: string
-          description: 'The original value of the field.
-
-            '
-        matchedSubstrings:
-          type: array
-          description: 'The list of matched substrings within the value to highlight.
-
-            '
-          items:
-            type: object
-            description: 'Highlight information for the string autocomplete value.
-
-              '
-            properties:
-              offsets:
-                type: integer
-                description: 'The zero indexed offset from the start of the value where the highlight starts.
-
-                  '
-              length:
-                type: integer
-                description: 'The length of the highlight.
-
-                  '
+          description: Deprecated.
+        results:
+          $ref: '#/components/schemas/Results'
+        appliedQueryFilters:
+          $ref: '#/components/schemas/AppliedQueryFilters'
     businessId:
       type: integer
       description: ID of the account associated with this Search experience
-    Error:
-      type: array
-      description: List of errors and warnings.
-      items:
-        type: object
-        properties:
-          code:
-            type: integer
-            description: Code that uniquely identifies the error or warning.
-          type:
-            type: string
-            description: Type of error.
-            enum:
-            - FATAL_ERROR
-            - NON_FATAL_ERROR
-            - WARNING
-          message:
-            type: string
-            description: Message explaining the problem.
-    Results:
-      type: array
-      description: 'The individual entity results that contain metadata about the entity as well as the fully rendered profiles.
-
-        '
-      items:
-        $ref: '#/components/schemas/Entity'
-    SpellCheck:
-      type: object
-      description: SpellCheck information that may correct the user's query.
-      properties:
-        originalQuery:
-          type: string
-          description: The unedited, original query from the request.
-        correctedQuery:
-          $ref: '#/components/schemas/HighlightedValue'
-        type:
-          type: string
-          description: 'The type of SpellCheck suggestion.
-
-            <br><br>
-
-            `SUGGEST` is often used for "Did you mean..."
-
-            <br>
-
-            `AUTOCORRECT` is often used for "Showing results for ... instead of ..."
-
-            <br>
-
-            `COMBINE` is often used for "Including results for ..."
-
-            <br><br>
-
-            '
-          enum:
-          - SUGGEST
-          - AUTOCORRECT
-          - COMBINE
     DirectAnswer:
       type: object
       description: 'Information that is estimated to directly answer the question of the query.
@@ -874,24 +830,6 @@ components:
               description: 'The data of the related item, which should be in the same shape (with possibly extra fields) as an item that appears in a section of results from the same vertical in universal search.
 
                 '
-    Module:
-      type: object
-      description: The results and metadata pertaining to a single vertical relevant to the user's query.
-      properties:
-        verticalConfigId:
-          $ref: '#/components/schemas/verticalConfigId'
-        resultCount:
-          $ref: '#/components/schemas/resultCount'
-        encodedState:
-          type: string
-          description: Deprecated.
-        results:
-          $ref: '#/components/schemas/Results'
-        appliedQueryFilters:
-          $ref: '#/components/schemas/AppliedQueryFilters'
-    queryId:
-      type: string
-      description: UUID for the query
     LocationBias:
       type: object
       description: Information about geographical location biases used in the search.
@@ -934,6 +872,172 @@ components:
         '
       items:
         $ref: '#/components/schemas/FailedVertical'
+    resultCount:
+      type: integer
+      description: 'The number of entities within the vertical that are relevant to the user''s query.
+
+        '
+    Modules:
+      type: array
+      description: List of results for each vertical that was relevant to the query, returned in the order of relevance.
+      items:
+        $ref: '#/components/schemas/Module'
+    queryId:
+      type: string
+      description: UUID for the query
+    filter:
+      type: object
+      description: 'The filter, in the filter format, that was applied.
+
+        <br><br>
+
+        For example: `"c_exampleFieldId": { $eq": "Search" }`
+
+        '
+      example: 'c_exampleFieldId: { $eq": "Search" }
+
+        '
+    SpellCheck:
+      type: object
+      description: SpellCheck information that may correct the user's query.
+      properties:
+        originalQuery:
+          type: string
+          description: The unedited, original query from the request.
+        correctedQuery:
+          $ref: '#/components/schemas/HighlightedValue'
+        type:
+          type: string
+          description: 'The type of SpellCheck suggestion.
+
+            <br><br>
+
+            `SUGGEST` is often used for "Did you mean..."
+
+            <br>
+
+            `AUTOCORRECT` is often used for "Showing results for ... instead of ..."
+
+            <br>
+
+            `COMBINE` is often used for "Including results for ..."
+
+            <br><br>
+
+            '
+          enum:
+          - SUGGEST
+          - AUTOCORRECT
+          - COMBINE
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    HighlightedValue:
+      type: object
+      description: 'Highlighting instructions for a field value, containing the original value of the field and all sections of the value that should be highlighted.
+
+        '
+      properties:
+        value:
+          type: string
+          description: 'The original value of the field.
+
+            '
+        matchedSubstrings:
+          type: array
+          description: 'The list of matched substrings within the value to highlight.
+
+            '
+          items:
+            type: object
+            description: 'Highlight information for the string autocomplete value.
+
+              '
+            properties:
+              offsets:
+                type: integer
+                description: 'The zero indexed offset from the start of the value where the highlight starts.
+
+                  '
+              length:
+                type: integer
+                description: 'The length of the highlight.
+
+                  '
+    Notes:
+      type: object
+      properties:
+        currentGoal:
+          type: string
+          description: The current goal the chatbot has detected the user is trying to achieve.
+        currentStepIndices:
+          type: array
+          items:
+            type: integer
+          description: 'The index of the step within the instructions of `currentGoal` that the chatbot is currently performing.
+
+            If the step is nested under a conditional `IF` step, it is represented with an array with multiple values.
+
+            E.g., if the `IF` step is the third step in the goal, and the bot is on the second step within the `IF` step, the value would be `[2, 1]`.
+
+            '
+        collectedData:
+          type: object
+          description: The data that the chatbot has collected from the user so far.
+        searchQuery:
+          type: string
+          description: The search query that the chatbot predicted and ran to retrieve the `queryResult`.
+        queryResult:
+          type: object
+          description: The results returned in the Search, REST API call, or FUNCTION call using the `searchQuery`.
+        goalFirstMsgIndex:
+          type: integer
+          description: 'The index of the message within `messages` when the `currentGoal` began.
+
+            This is important in some cases when the chatbot should not pull context from messages that are not part of the current goal.
+
+            '
+    conversationId:
+      type: string
+      description: A ULID representing the conversation between the user and the chatbot.
+    Error:
+      type: array
+      description: List of errors and warnings.
+      items:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: Code that uniquely identifies the error or warning.
+          type:
+            type: string
+            description: Type of error.
+            enum:
+            - FATAL_ERROR
+            - NON_FATAL_ERROR
+            - WARNING
+          message:
+            type: string
+            description: Message explaining the problem.
+    Message:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp when the message was received, in ISO 8601 format.
+        source:
+          type: string
+          enum:
+          - USER
+          - BOT
+          description: Either `USER` if the message was sent by the human user, or `BOT` if the message was sent by the chatbot.
+        text:
+          type: string
+          description: The text of the message.
     SendEventsRequestBody:
       type: object
       title: Analytics Event
@@ -1443,57 +1547,6 @@ components:
               type: string
               pattern: ^[\x20-\x7E]{1,64}$
           maxProperties: 100
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    Modules:
-      type: array
-      description: List of results for each vertical that was relevant to the query, returned in the order of relevance.
-      items:
-        $ref: '#/components/schemas/Module'
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    GenerateAnswerRequest:
-      type: object
-      required:
-      - searchId
-      - searchTerm
-      - results
-      properties:
-        searchId:
-          type: string
-          description: ID of the search associated to the results.
-        searchTerm:
-          type: string
-          description: The search term that was used to generate results.
-        results:
-          oneOf:
-          - $ref: '#/components/schemas/Module'
-          - type: object
-            properties:
-              verticals:
-                $ref: '#/components/schemas/Modules'
   responses:
     AutocompleteResponse:
       description: Autocomplete Request Response
@@ -1599,33 +1652,6 @@ components:
                   length: 3
                 verticalKeys:
                 - products
-    UniversalQueryResponse:
-      description: Universal Query Response
-      content:
-        application/json:
-          schema:
-            title: UniversalQueryResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  businessId:
-                    $ref: '#/components/schemas/businessId'
-                  queryId:
-                    $ref: '#/components/schemas/queryId'
-                  modules:
-                    $ref: '#/components/schemas/Modules'
-                  failedVerticals:
-                    $ref: '#/components/schemas/FailedVerticals'
-                  directAnswer:
-                    $ref: '#/components/schemas/DirectAnswer'
-                  spellCheck:
-                    $ref: '#/components/schemas/SpellCheck'
-                  locationBias:
-                    $ref: '#/components/schemas/LocationBias'
     FilterSearchResponse:
       description: Filter Search Response
       content:
@@ -1701,6 +1727,70 @@ components:
                     $ref: '#/components/schemas/FailedVerticals'
                   queryId:
                     $ref: '#/components/schemas/queryId'
+    UniversalQueryResponse:
+      description: Universal Query Response
+      content:
+        application/json:
+          schema:
+            title: UniversalQueryResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  businessId:
+                    $ref: '#/components/schemas/businessId'
+                  queryId:
+                    $ref: '#/components/schemas/queryId'
+                  modules:
+                    $ref: '#/components/schemas/Modules'
+                  failedVerticals:
+                    $ref: '#/components/schemas/FailedVerticals'
+                  directAnswer:
+                    $ref: '#/components/schemas/DirectAnswer'
+                  spellCheck:
+                    $ref: '#/components/schemas/SpellCheck'
+                  locationBias:
+                    $ref: '#/components/schemas/LocationBias'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    GenerateAnswerResponse:
+      description: Generate Answer Response
+      content:
+        application/json:
+          schema:
+            title: GenerateAnswerResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  directAnswer:
+                    type: string
+                    description: The direct answer for the query.
+                  resultStatus:
+                    type: string
+                    description: The status of the result.
+                  citations:
+                    type: array
+                    description: The list of entity IDs that were used to generate the answer.
+                    items:
+                      type: string
+                      description: An ID of an entity that was used to generate the answer.
     VerticalQueryResponse:
       description: Vertical Query Response
       content:
@@ -1768,43 +1858,6 @@ components:
                           $ref: '#/components/schemas/Facets'
                       searchIntents:
                         $ref: '#/components/schemas/SearchIntents'
-    GenerateAnswerResponse:
-      description: Generate Answer Response
-      content:
-        application/json:
-          schema:
-            title: GenerateAnswerResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  directAnswer:
-                    type: string
-                    description: The direct answer for the query.
-                  resultStatus:
-                    type: string
-                    description: The status of the result.
-                  citations:
-                    type: array
-                    description: The list of entity IDs that were used to generate the answer.
-                    items:
-                      type: string
-                      description: An ID of an entity that was used to generate the answer.
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
   securitySchemes:
     api_key:
       type: apiKey
@@ -1814,3 +1867,11 @@ components:
       type: apiKey
       name: api-key
       in: header
+    jwt:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
+x-refined-from:
+- yext-answers-api-openapi.yml
+- yext-chat-api-openapi.yml
+- yext-events-api-openapi.yml

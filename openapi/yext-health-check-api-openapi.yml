@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Health Check API
+  title: Yext Health Check API
   version: '2.0'
 servers:
 - url: https://api.yextapis.com/v2

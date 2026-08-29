@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Social API
+  title: Yext Social API
   version: '2.0'
 servers:
 - url: https://api.yextapis.com/v2
@@ -655,13 +655,6 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
-    Entity:
-      type: object
-      description: The entity which the post is for.
-      properties:
-        id:
-          type: string
-          description: The ID of the entity which the post is for.
     UploadVideo:
       type: object
       required:
@@ -692,286 +685,6 @@ components:
           description: The type of upload. Only `URL` is supported at this time.
           enum:
           - URL
-    Message:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: ID of the message that was created
-        publisher:
-          type: string
-          description: Publisher that the message was created on
-        entityId:
-          type: string
-          description: ID of the entity that the message was created on
-        type:
-          type: string
-          enum:
-          - MESSAGE
-          - EDITED_MESSAGE
-          - UNSENT_MESSAGE
-          - REPLY_MESSAGE
-          - BUMP_MESSAGE
-          - ATTACHMENT
-          - REACTION
-          - UNREACTION
-        messageText:
-          type: string
-          description: Text of the message
-        attachments:
-          type: array
-          items:
-            properties:
-              type:
-                type: string
-                description: Type of attachment
-              url:
-                type: string
-                description: URL of the attachment
-        reaction:
-          type: object
-          properties:
-            reaction:
-              type: string
-              description: The reaction sent in the message
-            emoji:
-              type: string
-              description: The type of emoji sent in the message
-            outbound:
-              type: boolean
-              description: true if the reaction was sent from you
-        readUnreadStatus:
-          type: string
-          description: The read status of the message
-          enum:
-          - READ
-          - UNREAD
-        outbound:
-          type: boolean
-          description: true if the message was sent from you
-        user:
-          type: object
-          properties:
-            id:
-              type: string
-              description: The user ID that the message was sent to
-            name:
-              type: string
-              description: The name of the user (Facebook name or Instagram handle)
-            avatarUrl:
-              type: string
-              description: The URL of the avatar of the user
-        sentTimestamp:
-          type: string
-          format: date
-          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
-
-            '
-        editedTimestamp:
-          type: string
-          format: date
-          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
-
-            '
-        deadline:
-          type: string
-          format: date
-          description: 'The latest time to which you can send a message to the user. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
-
-            '
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
-    ConversationMessage:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: ID of the message that was created
-        messageText:
-          type: string
-          description: Text of the message. A message can either have messageText or atachments.
-        attachments:
-          type: array
-          description: Attachments in the message. A message can either have messageText or atachments.
-          items:
-            properties:
-              type:
-                type: string
-                description: Type of attachment
-              url:
-                type: string
-                description: URL of the attachment
-        outbound:
-          type: boolean
-          description: true if the message was sent from you
-        type:
-          type: string
-          enum:
-          - MESSAGE
-          - EDITED_MESSAGE
-          - UNSENT_MESSAGE
-          - REPLY_MESSAGE
-          - BUMP_MESSAGE
-          - ATTACHMENT
-          - REACTION
-          - UNREACTION
-        reactions:
-          type: array
-          items:
-            properties:
-              messageReaction:
-                type: object
-                properties:
-                  reaction:
-                    type: string
-                    description: The reaction sent in the message
-                  emoji:
-                    type: string
-                    description: The type of emoji sent in the message
-                  outbound:
-                    type: boolean
-                    description: true if the reaction was sent from you
-        sentTimestamp:
-          type: string
-          format: date
-          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
-
-            '
-        editedTimestamp:
-          type: string
-          format: date
-          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
-
-            '
-        unsent:
-          type: boolean
-          description: true if the message was unsent
-    GeneratePostText:
-      type: object
-      oneOf:
-      - title: textPrompt
-        required:
-        - entityIds
-        - textPrompt
-        properties:
-          textPrompt:
-            type: string
-            description: 'The text input to guide the post text generation.
-
-              '
-          entityIds:
-            type: array
-            items:
-              type: string
-            description: ID(s) of the entities to generate post text for
-          publishers:
-            type: array
-            items:
-              enum:
-              - INSTAGRAM
-              - FACEBOOK
-              - FIRSTPARTY
-              - GOOGLEMYBUSINESS
-              - LINKEDIN
-              - HEROLD
-            description: 'Publishers that the post text should generated for
-
-              '
-          tone:
-            type: string
-            description: 'Desired tone for the post text (eg. professional, friendly, humorous)
-
-              '
-          postType:
-            type: string
-            description: 'Type of post (eg. advertisement, educational, industry news)
-
-              '
-          audience:
-            type: string
-            description: 'Target audience description
-
-              '
-          keywords:
-            type: array
-            items:
-              type: string
-            description: 'List of keywords to include in the post text
-
-              '
-          language:
-            type: string
-            description: 'Desired language for the post text
-
-              '
-      - title: imagePrompts
-        required:
-        - entityIds
-        - imagePrompts
-        properties:
-          imagePrompts:
-            type: array
-            items:
-              type: string
-            description: 'URL of the image(s) to guide the post text generation.
-
-              '
-          entityIds:
-            type: array
-            items:
-              type: string
-            description: ID(s) of the entities to generate post text for
-          publishers:
-            type: array
-            items:
-              enum:
-              - INSTAGRAM
-              - FACEBOOK
-              - FIRSTPARTY
-              - GOOGLEMYBUSINESS
-              - LINKEDIN
-              - HEROLD
-            description: 'Publishers that the post text should generated for
-
-              '
-          tone:
-            type: string
-            description: 'Desired tone for the post text (eg. professional, friendly, humorous)
-
-              '
-          postType:
-            type: string
-            description: 'Type of post (eg. advertisement, educational, industry news)
-
-              '
-          audience:
-            type: string
-            description: 'Target audience description
-
-              '
-          keywords:
-            type: array
-            items:
-              type: string
-            description: 'List of keywords to include in the post text
-
-              '
-          language:
-            type: string
-            description: 'Desired language for the post text
-
-              '
     CreatePost:
       type: object
       required:
@@ -1166,6 +879,96 @@ components:
             '
         eventInfo:
           $ref: '#/components/schemas/EventInfo'
+    Entity:
+      type: object
+      description: The entity which the post is for.
+      properties:
+        id:
+          type: string
+          description: The ID of the entity which the post is for.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    Offer:
+      type: object
+      description: 'Additional data for offer posts. Only supported on Google posts.
+
+        '
+      properties:
+        couponCode:
+          type: string
+          description: Offer code that is usable in store or online. Limit 58 characters.
+        redeemOnlineUrl:
+          type: string
+          description: Online link to redeem offer. Must be a valid URL.
+        termsConditions:
+          type: string
+          description: Offer terms and conditions. Limit 5000 characters.
+    Metrics:
+      type: object
+      description: The metrics for the entity post.
+      properties:
+        viewCount:
+          type: number
+          description: 'The number of times post was viewed.
+
+            '
+        uniqueViewCount:
+          type: number
+          description: 'The number of times the post was viewed by a unique user.
+
+            '
+        clickCount:
+          type: number
+          description: 'The number of times the post was clicked.
+
+            '
+        likeCount:
+          type: number
+          description: 'The number of times the post was liked.
+
+            '
+        loveCount:
+          type: number
+          description: Total "love" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        wowCount:
+          type: number
+          description: Total "wow" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        hahaCount:
+          type: number
+          description: Total "haha" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        sadCount:
+          type: number
+          description: Total "sad" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        angerCount:
+          type: number
+          description: Total "anger" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
     EntityPost:
       type: object
       properties:
@@ -1195,37 +998,6 @@ components:
           items:
             $ref: '#/components/schemas/CommentWithReplies'
           description: Any comments on the post.
-    CommentWithReplies:
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - type: object
-        properties:
-          replies:
-            type: array
-            items:
-              $ref: '#/components/schemas/Comment'
-            description: Replies to the comment. Only one level of replies is supported.
-    EntityPostStatus:
-      type: object
-      description: The status of the post.
-      properties:
-        status:
-          type: string
-          enum:
-          - POST_SCHEDULED
-          - POST_AWAITING_APPROVAL
-          - POST_SUCCEEDED
-          - POST_DELETED
-          - POST_PROCESSING
-          - POST_SAVING
-          - DELETE_PROCESSING
-          - POST_FAILED
-          - DELETE_FAILED
-          - REJECTED_BY_APPROVER
-          description: Status of the entity post
-        details:
-          type: string
-          description: Details about the status.
     ConversationMessageWithParent:
       type: object
       properties:
@@ -1336,76 +1108,6 @@ components:
           description: The clickthrough URL included with the post.
         eventInfo:
           $ref: '#/components/schemas/EventInfo'
-    Comment:
-      type: object
-      properties:
-        commentId:
-          type: string
-          description: The ID of a specific comment.
-        parentCommentId:
-          type: string
-          description: 'The ID of the parent comment if this comment was created as a reply to another comment.
-
-            **Instagram and Facebook only**
-
-            '
-        authorName:
-          type: string
-          description: The author of the comment.
-        text:
-          type: string
-          description: The text of the comment.
-        hidden:
-          type: boolean
-          description: Indicates if the comment is hidden or not. **Instagram only**
-        likes:
-          type: integer
-          description: Number of likes on the comment. **Instagram only**
-        createdTimestamp:
-          type: boolean
-          description: The timestamp the comment was created.
-    EventInfo:
-      type: object
-      required:
-      - title
-      - startTime
-      - endTime
-      description: 'Event information. Required for topicType `EVENT` and `OFFER`. Only supported on Google posts.
-
-        '
-      properties:
-        title:
-          type: string
-          description: The title of the event.
-        startTime:
-          type: string
-          description: 'The start time of the event. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`
-
-            Ex: 2021-04-06 08:45:00.
-
-            '
-        endTime:
-          type: string
-          description: 'The end time of the event. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`.
-
-            Ex: 2021-04-06 08:45:00.
-
-            '
-    Offer:
-      type: object
-      description: 'Additional data for offer posts. Only supported on Google posts.
-
-        '
-      properties:
-        couponCode:
-          type: string
-          description: Offer code that is usable in store or online. Limit 58 characters.
-        redeemOnlineUrl:
-          type: string
-          description: Online link to redeem offer. Must be a valid URL.
-        termsConditions:
-          type: string
-          description: Offer terms and conditions. Limit 5000 characters.
     Post:
       type: object
       properties:
@@ -1495,45 +1197,338 @@ components:
           items:
             $ref: '#/components/schemas/EntityPost'
           description: The individual posts created for a given entity.
-    Metrics:
+    Message:
       type: object
-      description: The metrics for the entity post.
       properties:
-        viewCount:
-          type: number
-          description: 'The number of times post was viewed.
+        messageId:
+          type: string
+          description: ID of the message that was created
+        publisher:
+          type: string
+          description: Publisher that the message was created on
+        entityId:
+          type: string
+          description: ID of the entity that the message was created on
+        type:
+          type: string
+          enum:
+          - MESSAGE
+          - EDITED_MESSAGE
+          - UNSENT_MESSAGE
+          - REPLY_MESSAGE
+          - BUMP_MESSAGE
+          - ATTACHMENT
+          - REACTION
+          - UNREACTION
+        messageText:
+          type: string
+          description: Text of the message
+        attachments:
+          type: array
+          items:
+            properties:
+              type:
+                type: string
+                description: Type of attachment
+              url:
+                type: string
+                description: URL of the attachment
+        reaction:
+          type: object
+          properties:
+            reaction:
+              type: string
+              description: The reaction sent in the message
+            emoji:
+              type: string
+              description: The type of emoji sent in the message
+            outbound:
+              type: boolean
+              description: true if the reaction was sent from you
+        readUnreadStatus:
+          type: string
+          description: The read status of the message
+          enum:
+          - READ
+          - UNREAD
+        outbound:
+          type: boolean
+          description: true if the message was sent from you
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The user ID that the message was sent to
+            name:
+              type: string
+              description: The name of the user (Facebook name or Instagram handle)
+            avatarUrl:
+              type: string
+              description: The URL of the avatar of the user
+        sentTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
 
             '
-        uniqueViewCount:
-          type: number
-          description: 'The number of times the post was viewed by a unique user.
+        editedTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
 
             '
-        clickCount:
-          type: number
-          description: 'The number of times the post was clicked.
+        deadline:
+          type: string
+          format: date
+          description: 'The latest time to which you can send a message to the user. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
 
             '
-        likeCount:
-          type: number
-          description: 'The number of times the post was liked.
+    Comment:
+      type: object
+      properties:
+        commentId:
+          type: string
+          description: The ID of a specific comment.
+        parentCommentId:
+          type: string
+          description: 'The ID of the parent comment if this comment was created as a reply to another comment.
+
+            **Instagram and Facebook only**
 
             '
-        loveCount:
-          type: number
-          description: Total "love" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
-        wowCount:
-          type: number
-          description: Total "wow" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
-        hahaCount:
-          type: number
-          description: Total "haha" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
-        sadCount:
-          type: number
-          description: Total "sad" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
-        angerCount:
-          type: number
-          description: Total "anger" reactions of a post. Facebook only. Only present if the **`v`** parameter is on or after `20220728`.
+        authorName:
+          type: string
+          description: The author of the comment.
+        text:
+          type: string
+          description: The text of the comment.
+        hidden:
+          type: boolean
+          description: Indicates if the comment is hidden or not. **Instagram only**
+        likes:
+          type: integer
+          description: Number of likes on the comment. **Instagram only**
+        createdTimestamp:
+          type: boolean
+          description: The timestamp the comment was created.
+    CommentWithReplies:
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - type: object
+        properties:
+          replies:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
+            description: Replies to the comment. Only one level of replies is supported.
+    GeneratePostText:
+      type: object
+      oneOf:
+      - title: textPrompt
+        required:
+        - entityIds
+        - textPrompt
+        properties:
+          textPrompt:
+            type: string
+            description: 'The text input to guide the post text generation.
+
+              '
+          entityIds:
+            type: array
+            items:
+              type: string
+            description: ID(s) of the entities to generate post text for
+          publishers:
+            type: array
+            items:
+              enum:
+              - INSTAGRAM
+              - FACEBOOK
+              - FIRSTPARTY
+              - GOOGLEMYBUSINESS
+              - LINKEDIN
+              - HEROLD
+            description: 'Publishers that the post text should generated for
+
+              '
+          tone:
+            type: string
+            description: 'Desired tone for the post text (eg. professional, friendly, humorous)
+
+              '
+          postType:
+            type: string
+            description: 'Type of post (eg. advertisement, educational, industry news)
+
+              '
+          audience:
+            type: string
+            description: 'Target audience description
+
+              '
+          keywords:
+            type: array
+            items:
+              type: string
+            description: 'List of keywords to include in the post text
+
+              '
+          language:
+            type: string
+            description: 'Desired language for the post text
+
+              '
+      - title: imagePrompts
+        required:
+        - entityIds
+        - imagePrompts
+        properties:
+          imagePrompts:
+            type: array
+            items:
+              type: string
+            description: 'URL of the image(s) to guide the post text generation.
+
+              '
+          entityIds:
+            type: array
+            items:
+              type: string
+            description: ID(s) of the entities to generate post text for
+          publishers:
+            type: array
+            items:
+              enum:
+              - INSTAGRAM
+              - FACEBOOK
+              - FIRSTPARTY
+              - GOOGLEMYBUSINESS
+              - LINKEDIN
+              - HEROLD
+            description: 'Publishers that the post text should generated for
+
+              '
+          tone:
+            type: string
+            description: 'Desired tone for the post text (eg. professional, friendly, humorous)
+
+              '
+          postType:
+            type: string
+            description: 'Type of post (eg. advertisement, educational, industry news)
+
+              '
+          audience:
+            type: string
+            description: 'Target audience description
+
+              '
+          keywords:
+            type: array
+            items:
+              type: string
+            description: 'List of keywords to include in the post text
+
+              '
+          language:
+            type: string
+            description: 'Desired language for the post text
+
+              '
+    EventInfo:
+      type: object
+      required:
+      - title
+      - startTime
+      - endTime
+      description: 'Event information. Required for topicType `EVENT` and `OFFER`. Only supported on Google posts.
+
+        '
+      properties:
+        title:
+          type: string
+          description: The title of the event.
+        startTime:
+          type: string
+          description: 'The start time of the event. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`
+
+            Ex: 2021-04-06 08:45:00.
+
+            '
+        endTime:
+          type: string
+          description: 'The end time of the event. Formatted as datetime in `YYYY-MM-DD HH:MM:SS`.
+
+            Ex: 2021-04-06 08:45:00.
+
+            '
+    ConversationMessage:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: ID of the message that was created
+        messageText:
+          type: string
+          description: Text of the message. A message can either have messageText or atachments.
+        attachments:
+          type: array
+          description: Attachments in the message. A message can either have messageText or atachments.
+          items:
+            properties:
+              type:
+                type: string
+                description: Type of attachment
+              url:
+                type: string
+                description: URL of the attachment
+        outbound:
+          type: boolean
+          description: true if the message was sent from you
+        type:
+          type: string
+          enum:
+          - MESSAGE
+          - EDITED_MESSAGE
+          - UNSENT_MESSAGE
+          - REPLY_MESSAGE
+          - BUMP_MESSAGE
+          - ATTACHMENT
+          - REACTION
+          - UNREACTION
+        reactions:
+          type: array
+          items:
+            properties:
+              messageReaction:
+                type: object
+                properties:
+                  reaction:
+                    type: string
+                    description: The reaction sent in the message
+                  emoji:
+                    type: string
+                    description: The type of emoji sent in the message
+                  outbound:
+                    type: boolean
+                    description: true if the reaction was sent from you
+        sentTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was sent. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        editedTimestamp:
+          type: string
+          format: date
+          description: 'The time the message was edited. Formatted as datetime in YYYY-MM-DD HH:MM:SS. Ex: 2021-04-06 08:45:00. The timezone for the provided datetime will be UTC.
+
+            '
+        unsent:
+          type: boolean
+          description: true if the message was unsent
     ResponseMeta:
       type: object
       properties:
@@ -1541,63 +1536,30 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
-    ResponseError:
+    EntityPostStatus:
       type: object
+      description: The status of the post.
       properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
+        status:
           type: string
           enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
+          - POST_SCHEDULED
+          - POST_AWAITING_APPROVAL
+          - POST_SUCCEEDED
+          - POST_DELETED
+          - POST_PROCESSING
+          - POST_SAVING
+          - DELETE_PROCESSING
+          - POST_FAILED
+          - DELETE_FAILED
+          - REJECTED_BY_APPROVER
+          description: Status of the entity post
+        details:
           type: string
-          description: Message explaining the problem.
-  parameters:
-    pageToken:
-      name: pageToken
-      in: query
-      schema:
-        type: string
-      required: false
-      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
-
-        '
-    commentId:
-      name: commentId
-      in: path
-      required: true
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    entityPostId:
-      name: entityPostId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: 'The ID of an individual post created for a given entity on a given publisher.
-
-        '
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
+          description: Details about the status.
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
   responses:
     UploadVideoResponse:
       description: Upload Video Response
@@ -1621,18 +1583,82 @@ components:
                   mimeType:
                     type: string
                     description: The mime type of the video.
-    PostResponse:
-      description: Post Response
+    CreateCommentResponse:
+      description: Create Comment Response
       content:
         application/json:
           schema:
-            title: PostResponse
+            title: CreateCommentResponse
             type: object
             properties:
               meta:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
-                $ref: '#/components/schemas/Post'
+                type: object
+                properties:
+                  commentId:
+                    type: string
+                    description: The ID of a specific comment.
+                  text:
+                    type: string
+                    description: The text of the comment.
+                  parentCommentId:
+                    type: string
+                    description: 'If the comment is in response to another comment, this is the ID of the parent
+
+                      comment.
+
+                      '
+    PostsResponse:
+      description: Posts Response
+      content:
+        application/json:
+          schema:
+            title: PostsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+                  nextPageToken:
+                    type: string
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    EntityPostCommentsResponse:
+      description: Entity Post Comments Response
+      content:
+        application/json:
+          schema:
+            title: EntityPostCommentsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  comments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CommentWithReplies'
+                  nextPageToken:
+                    type: string
     EmptyResponse:
       description: Empty Response.
       content:
@@ -1645,6 +1671,18 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 type: object
+    PostResponse:
+      description: Post Response
+      content:
+        application/json:
+          schema:
+            title: PostResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Post'
     SocialEligibilityResponse:
       description: Social Eligibility Response
       content:
@@ -1683,82 +1721,44 @@ components:
                               message:
                                 type: string
                                 description: A message indicating why the entityId is `INELIGIBLE` for a publisher
-    CreateCommentResponse:
-      description: Create Comment Response
-      content:
-        application/json:
-          schema:
-            title: CreateCommentResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  commentId:
-                    type: string
-                    description: The ID of a specific comment.
-                  text:
-                    type: string
-                    description: The text of the comment.
-                  parentCommentId:
-                    type: string
-                    description: 'If the comment is in response to another comment, this is the ID of the parent
+  parameters:
+    pageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
 
-                      comment.
+        '
+    entityPostId:
+      name: entityPostId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The ID of an individual post created for a given entity on a given publisher.
 
-                      '
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    PostsResponse:
-      description: Posts Response
-      content:
-        application/json:
-          schema:
-            title: PostsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  posts:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Post'
-                  nextPageToken:
-                    type: string
-    EntityPostCommentsResponse:
-      description: Entity Post Comments Response
-      content:
-        application/json:
-          schema:
-            title: EntityPostCommentsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  comments:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CommentWithReplies'
-                  nextPageToken:
-                    type: string
+        '
+    commentId:
+      name: commentId
+      in: path
+      required: true
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   securitySchemes:
     api_key:
       type: apiKey

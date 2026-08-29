@@ -1,12 +1,338 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Suggestions API
   version: '2.0'
+  title: 'Yext Listings: Partner Documentation Suggestions API'
+  description: '# Integration Overview
+
+    This section helps you understand how your site becomes integrated with Yext and what we need from you during the implementation process. Depending on the type of integration you are setting up, some sections may not apply.
+
+
+    ## Integration Process
+
+    When you decide to become a Yext Listings publisher, you can expect the implementation process to unfold as follows:
+
+    Yext sends you a pre-implementation questionnaire. After we receive your completed questionnaire, we set up a kick-off call with you to more thoroughly explain the implementation process and answer any questions you may have.
+
+
+    Your team builds the required APIs and delivers them to Yext one at time, along with other required materials, in this order:
+
+    * **Categories**
+
+    * **SEARCH API**
+
+    * **DETAILS API**
+
+    * **ORDER API**
+
+    * **UPDATE API**
+
+    * **CANCEL API**
+
+    * **SUPPRESS API**
+
+    * **REVIEWS API**
+
+    * **SUGGESTIONS API**
+
+    * **CSS Selectors**
+
+
+    Your team will also build around the following Yext APIs for accessing Enhanced Conent lists, sending webhook notifications, and providing analytics:
+
+    * **[GET LIST API](https://hitchhikers.yext.com/publisherapis/publishertrackingpixelapi)**
+
+    * **[NOTIFY API](https://hitchhikers.yext.com/publisherapis/publishernotifyreviewapi)**
+
+    * **[TRACKING PIXEL API](https://hitchhikers.yext.com/publisherapis/publishereclapi)**
+
+
+
+    After Yext receives each API, we test it and give you feedback as soon as possible.
+
+    * One of our engineers does cursory testing to determine if the API is functional.
+
+    * A member of our Operations team then conducts more thorough testing to ensure the API is working correctly.
+
+    * When all integration points are completed, Yext completes stress testing using real data, which helps to ensure that we can add many locations at once without issue.
+
+    * After each launch, we share any issues we encountered. These issues must be resolved before attempting the next launch.
+
+    * When all launches pass, we begin to add all Yext businesses to your site through the APIs.
+
+
+    For required API fields, please refer to the Data Formats section below.
+
+
+    ## Security Measures
+
+    To ensure the integrity of your integration, we have put the following security measures in place and are enforcing them for all API requests sent to or from Yext.
+
+
+    ### HTTPS
+
+    HTTPS connections are **required** when sending API requests or responses.
+
+
+    ### Secure IDs
+
+
+    **You must provide Yext with at least one of the following methods** to authenticate our connection to your system:
+
+    * Basic authentication with login credentials that you specify
+
+    * API keys
+
+
+    Authentication should be implemented so they can be easily updated/refreshed upon Yext’s request, as our team will refresh these credentials from time to time.
+
+
+    ### IP Filtering
+
+    Using IP address filtering as a security measure is **required** when integrating with Yext.
+
+    Yext uses a static set of IP addresses when sending API requests to your system that you can use to configure our access to your databases. The full list of IP addresses will be provided by your TPM.
+
+
+    ## Rate Limits
+
+    In order to ensure an optimal user experience for both businesses and consumers, we ask all publishers to meet the requirements outlined in the table below.
+
+
+    | Requirement      | Description |
+
+    | ----------- | ----------- |
+
+    | <p>You must allow Yext to issue 700,000 queries per day and up to 12 QPS.</p>      | <p>Three API endpoints in particular need to support high volume:</p> <p><ul><li>SEARCH and DETAILS</li><li>UPDATE, since large customers can generate many updates by bulk-editing their locations</li></ul></p>       |
+
+    | <p>You must not block Yext from scraping your property, including SERP and profile pages.</p>   | <p>Yext takes screenshots of listings when they go live, which can result in many thousands of page views per day. You may want to filter those page views from other purposes (e.g., in order to not charge advertisers for Yext page views). </p> <p>Our requests will always originate from the Yext IP addresses.</p>       |
+
+
+
+    ### Volume
+
+    Yext will generally not send more than the following for each endpoint:
+
+    * Search/Details/Reviews - 7 QPS or 500K requests per day collectively
+
+    * Order/Update/Cancel - 5 QPS or 200K requests per day collectively
+
+
+    Each API is designed for a particular set of users.
+
+
+    ## Design Guidelines
+
+
+    | Field Type                    | Specifications |
+
+    | -----------                   | ----------- |
+
+    | Business name                 | <p><ul><li>You should be able to accommodate at least 100 characters.</li><li>You should respect the spelling and capitalization that we pass to you (e.g., the first letter may not always be capitalized).</li></ul></p>|
+
+    | Business address              | <p><ul><li>The business address fields should be displayed in the correct order based on the country of the location.</li><li>If a `displayAddress` value is provided for the address, it should be shown after `address2` and before `city`.</li><li>If `address.visible` is `false`, hide only `address` and `address2` on the listing and on the SERP.</li></ul></p>       |
+
+    | Phone numbers                 | <p><ul><li>All phone numbers should be formatted according to local conventions, without the country code.</li><li>You should able to support all of the following types of phone numbers and label them as specified by Yext:</li><ul><li>Main Phone</li><li>Alternate Phone</li><li>Fax</li><li>Mobile</li><li>Toll-Free</li><li>TTY</li></ul><li>The Main Phone number must appear at the top of the listing and should not be repeated at the bottom of the listing in an "Additional Phone Numbers" section.</li><li>An "Additional Phone Numbers" section should only appear if we provide you with additional types of phone numbers (Alternate Phone, Fax, etc.).</li></ul></p>       |
+
+    | Map marker                    | <p><ul><li>The location''s map marker should be updated based on the latitude and longitude provided by Yext.</li><li>If `address.visible` is `false`, complete one of the following options both on the listing and on the SERP.</li><ul><li>completely remove the map from the listing or SERP</li><li>hide the map marker</li><li>move the map marker to the center of the location''s city</li></ul><li>You must also ensure that the location''s address is not in the listing page''s source code and is not visible to search engines.</li></ul></p>      |
+
+    | Featured Message              | <p><ul><li>The Featured Message text should be highlighted in some way (i.e., a box around it, shaded background, or both).</li><li>The text should be preceded by a special icon. Yext can provide you with examples, but we encourage you to create your own.</li><li>The Featured Message, with its special formatting, should appear on both in the listing and on the search engine results page (SERP) under or as close to the business name as possible.</li><li>You should be able to create new listings that do not contain Feature Messages. If we pass a blank Featured Message, the special icon should not appear in the listing or on the SERP.</li></ul></p>     |
+
+    | Featured Message URL          | <p><ul><li>The Featured Message should only be clickable in the listing and on the SERP when a Featured Message URL is provided.</li><li>The capitalization in the URL should be reflected in the listing and on the SERP.</li></ul></p>       |
+
+    | Website URLs                  | <p><ul><li>The capitalization in the URLs provided by Yext should be reflected in your listings.</li><li>You should be able to accommodate URLs of unlimited length.</li><li>You should be able display an unlimited number of websites in your listings.</li><li>The first URL that we pass you should be displayed as the "main" URL on the listing and appear at the top of the page.</li><li>If a `displayURL` is provided for a website, that URL should appear in the listing, but the link should redirect the consumer to the site specified by that URL''s `url`.</li><li>When displaying links to websites, you should show each website''s type followed by its clickable URL. For example:<ul><li>`Website: www.location.example.com`</li><li>`Reservation: www.location.example.com/reserve`</li><li>`Menu: www.location.example.com/menu`</li><li>`Order: www.location.example.com/order`</li></ul></li><li>You should be able to show more than one URL for each type of website.</li></ul></p>  |
+
+    | Description                   | <p><ul><li>You should be able to accommodate at least 5,000 characters.</li><li>You should be able to support newline characters (i.e., separate text into paragraphs).</li><li>You should be able to support non-Latin characters.</li></ul></p>     |
+
+    | Email addresses               | <p><ul><li>All email addresses should be clickable.</li><li>You should be able to display an unlimited number of email addresses in your listings.</li></ul></p>      |
+
+    | Hours                         | <p><ul><li>It is your choice whether to include the `:00` at the end of hours.</li><li>Hours should be shown with the day they apply to (e.g., `Friday: 8:00am - 5:00pm`).</li><li>You should be able to accommodate the following types of hours:<ul><li>Split hours (e.g., `Thursday: 8:00am - 1:30pm, 4:00pm - 9:30pm`)</li><li>Closed (e.g., `Monday: Closed`. If a business is closed on a certain day, do not omit that day from the listing.)</li><li>Open 24 hours (e.g., `Tuesday: Open 24 hours`. If is business is open all day on a certain day, do not list the day without any hours.)</li></ul></li><li>You should be able to support and display some indicator for “temporarily closed” businesses</li></ul></p>       |
+
+    | Business hours text           | <p><ul><li>It is your choice whether to include the :00 at the end of hours.</li><li>Hours should be shown with the day they apply to (e.g., `Friday: 8:00am - 5:00pm`).</li><li>You should be able to accommodate the following types of hours:<ul><li>Split hours (e.g., `Thursday: 8:00am - 1:30pm, 4:00pm - 9:30pm`)</li><li>Closed (e.g., `Monday: Closed`. If a business is closed on a certain day, do not omit that day from the listing.)</li><li>Open 24 hours (e.g., `Tuesday: Open 24 hours`. If is business is open all day on a certain day, do not list the day without any hours.)</li></ul></li><li>You should be able to support and display some indicator for “temporarily closed” businesses</li></ul></p>        |
+
+    | Logo                          | <p>If you have any special placement for a business''s logo in the listing or on the SERP, apply it to the image that has `type` set to `logo`.</p>       |
+
+    | Photos                        | <p><ul><li>The order of the photos in the listing should match the order given by Yext.</li><li>You should be able to support an up to 50 photos on your listings.</li><li>You must be able to remove outdated photos (i.e., those not included in the most recent update).</li></ul></p>       |
+
+    | Photo captions                | <p>Each photo caption should appear directly under the photo it describes.</p>       |
+
+    | Videos                        | <p><ul><li>Ideally, videos should be embedded in the listing page.</li><li>You should be able to support an unlimited number of videos in your listings.</li><li>We will sometimes provide a description and type for each video:<ul><li>description: a caption for the video</li><li>type: can be ignored</li></ul></li></ul></p>       |
+
+    | Categories                    | <p><ul><li>You should be able to support up to 10 categories on your listings.</li><li>You should be able to create a new listing without passing a category.</li><li>Listings should be searchable by all categories sent to you by Yext.</li><li>The category names in the listings should match those provided in the taxonomy you send to Yext.</li><li>The categories that Yext sends you must have the same functionality as the native categories on your site (e.g., if your category names are normally clickable and redirect the consumer to a "search by category" page, the categories that we send to you must have those same properties).</li></ul></p>       |
+
+    | Attribution                   | <p><ul><li>The attribution logo should appear toward the bottom of your listings.</li><li>The attribution logo should be clickable and linked to the URL provided by Yext.</li></ul></p>       |
+
+
+
+    ## Payment Options
+
+
+    The table below lists the possible values for paymentOptions in our Listing Format, along with the countryCode values for which they are valid.
+
+
+    | Payment Option                | Valid countryCode values |
+
+    | -----------                   | ----------- |
+
+    | Alipay                        | CN,DE,JP       |
+
+    | American Express              | **All**        |
+
+    | Apple Pay                     | AE,AT,AU,CA,CH,CN,DE,DK,ES,FI,GB,GG,GU,HK,IE,IM,IT,JE<br />JP,MO,NZ,PL,PR,RU,SE,SG,SM,TW,US,VI       |
+
+    | ATM                           | AT        |
+
+    | ATM Quick                     | AT       |
+
+    | BACS                          | GB,IE        |
+
+    | Bancontact                    | BE **only**       |
+
+    | Bank Deposit                  | MX **only**        |
+
+    | Banküberweisung               | CH,DE       |
+
+    | Bank/Giro Overschrijving      | NL **only**        |
+
+    | Bitcoin                       | **All**       |
+
+    | Bargeld                       | AT, CH, DE        |
+
+    | CartaSi                       | IT **only**       |
+
+    | Cash                          | **All**        |
+
+    | CCS                           | CZ **only**       |
+
+    | Check                         | **All except** BE **and** DE       |
+
+    | Contactloos betalen           | NL **only**       |
+
+    | Cadeaubon/VVV bon             | NL **only**        |
+
+    | Debit Note                    | AT **only**       |
+
+    | Diners Club                   | **All**        |
+
+    | Direct Debit                  | AU, GB, **and** IE **only**       |
+
+    | Discover                      | **All except** AT, BE        |
+
+    | Girokarte                     | AT,CH,DE,IT       |
+
+    | EcoCheque                     | BE **only**        |
+
+    | E-kena                        | BE **only**       |
+
+    | Elektronische Maaltijdcheques | BE **only**        |
+
+    | Financing                     | **All except** AT       |
+
+    | Google Pay                    | **All**        |
+
+    | GoPay                         | CZ **only**       |
+
+    | He-Bag                        | CN **only**         |
+
+    | iBOD                          | CZ **only**        |
+
+    | IC Cards                      | JP **only**         |
+
+    | ID                            | JP **only**       |
+
+    | iDeal                         | NL **only**         |
+
+    | Incasso                       | NL **only**        |
+
+    | Invoice                       | **All**        |
+
+    | JCB                           | AT,BE,IT,JP       |
+
+    | JKO Pay                       | JP **only**        |
+
+    | Klantenkaart                  | NL **only**       |
+
+    | Klarna                        | SE **only**        |
+
+    | LINE Pay                      | JP **only**       |
+
+    | Maestro                       | AT,BE,CH, DE, GB, HR, IT, NL, PL, SI        |
+
+    | MasterCard                    | **All**       |
+
+    | MI Pay                        | CN **only**        |
+
+    | Monizze                       | BE **only**       |
+
+    | Manuelle Lastschrift          | CH,DE        |
+
+    | nanaco                        | JP **only**       |
+
+    | Nexi                          | IT **only**        |
+
+    | Onder Rembours                | NL **only**       |
+
+    | Paybox Pay                    | DE **only**        |
+
+    | Paybox                        | AT **only**       |
+
+    | Payconiq                      | BE,NL        |
+
+    | PayPal                        | **All**       |
+
+    | PayPay                        | JP **only**       |
+
+    | PaySec                        | CZ **only**       |
+
+    | Postepay                      | IT **only**        |
+
+    | QR Code Payment               | JP **only**       |
+
+    | QUICPay                       | JP **only**        |
+
+    | Rakuten Edy                   | JP **only**       |
+
+    | Samsung Pay                   | CN, US        |
+
+    | Sodexo                        | AT, BE, CZ       |
+
+    | Swish                         | SE **only**        |
+
+    | Ticket Restaurant             | IT, BE       |
+
+    | Traveler''s Check              | **All except** AT **and** BE        |
+
+    | China UnionPay                | CN, JP       |
+
+    | Via een verzekering           | NL **only**       |
+
+    | Visa                          | **All**       |
+
+    | Visa Electron                 | BE **only**        |
+
+    | Vooruit betalen               | NL **only**       |
+
+    | Voucher                       | IT, MX        |
+
+    | V Pay                         | **European countries**       |
+
+    | WAON                          | JP **only**       |
+
+    | WeChat Pay                    | CN, JP       |
+
+    | Wire Transfer                 | MX **only**       |
+
+
+    ## CSS Selectors
+
+
+    After the integration process, we will need to periodically scan, or scrape, your listings to ensure that you are displaying the most up-to-date data.  In order for us to successfully scan your site''s listings, we ask that you assign specific CSS selector names to each field you support.
+
+
+    You may choose different names for each field, but please inform us of the selector names. In addition, you may use CSS selectors that already exist as long as they are unique. Please use the same set of CSS selector names for both Yext-powered listings and listings that are in your site’s default format.
+
+    '
 servers:
-- url: https://api.yextapis.com/v2
-security:
-- api_key: []
-- api-key: []
+- url: https://partner.example.com
 tags:
 - name: Suggestions
 paths:
@@ -69,6 +395,78 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  parameters:
+    listingId:
+      name: listingId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of a listing on your site is known as the listingId.
+
+        '
+    suggestionId:
+      name: suggestionId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of a suggestion on your site is known as the suggestionId.
+
+        '
+  responses:
+    ErrorResponseNew:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: ErrorResponseNew
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            title: ServerError
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    404NotFoundResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: 404NotFoundResponse
+            type: object
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                    description: Not Found
+                    example: Not Found
+    GetSingleSuggestionSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSingleSuggestionSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestion'
+    GetSuggestionsSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSuggestionsSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestionList'
+    EmptyResponseNew:
+      description: OK
   schemas:
     ResponseErrorNew:
       type: object
@@ -81,36 +479,6 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-    PartnerSuggestionList:
-      type: object
-      required:
-      - total
-      - suggestions
-      properties:
-        total:
-          type: integer
-          description: Total number of suggestions on the listing
-        suggestions:
-          type: array
-          description: A list of num Suggestion objects. Suggestions returned should only have status PENDING
-          items:
-            $ref: '#/components/schemas/PartnerSuggestion'
-    SuggestionAcceptBody:
-      type: object
-      description: The request body of a suggestion accept/reject
-      required:
-      - suggestionId
-      - accept
-      properties:
-        suggestionId:
-          type: string
-          description: The unique suggestion Id
-        accept:
-          type: string
-          description: ''
-          enum:
-          - ACTIVE
-          - SUPPRESSED
     PartnerSuggestion:
       type: object
       required:
@@ -156,84 +524,33 @@ components:
           type: string
           description: The content of the suggestion. The type of this value should match the type structure of the field
           example: Dee's Doughnuts
-  responses:
-    404NotFoundResponse:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            title: 404NotFoundResponse
-            type: object
-            properties:
-              error:
-                properties:
-                  message:
-                    type: string
-                    description: Not Found
-                    example: Not Found
-    EmptyResponseNew:
-      description: OK
-    ServerError:
-      description: Server Error
-      content:
-        application/json:
-          schema:
-            title: ServerError
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/ResponseErrorNew'
-    GetSingleSuggestionSuccess:
-      description: OK
-      content:
-        application/json:
-          schema:
-            title: GetSingleSuggestionSuccess
-            type: object
+    PartnerSuggestionList:
+      type: object
+      required:
+      - total
+      - suggestions
+      properties:
+        total:
+          type: integer
+          description: Total number of suggestions on the listing
+        suggestions:
+          type: array
+          description: A list of num Suggestion objects. Suggestions returned should only have status PENDING
+          items:
             $ref: '#/components/schemas/PartnerSuggestion'
-    ErrorResponseNew:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            title: ErrorResponseNew
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/ResponseErrorNew'
-    GetSuggestionsSuccess:
-      description: OK
-      content:
-        application/json:
-          schema:
-            title: GetSuggestionsSuccess
-            type: object
-            $ref: '#/components/schemas/PartnerSuggestionList'
-  parameters:
-    suggestionId:
-      name: suggestionId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: 'The unique identifier of a suggestion on your site is known as the suggestionId.
-
-        '
-    listingId:
-      name: listingId
-      in: query
-      required: true
-      schema:
-        type: string
-      description: 'The unique identifier of a listing on your site is known as the listingId.
-
-        '
-  securitySchemes:
-    api_key:
-      type: apiKey
-      name: api_key
-      in: query
-    api-key:
-      type: apiKey
-      name: api-key
-      in: header
+    SuggestionAcceptBody:
+      type: object
+      description: The request body of a suggestion accept/reject
+      required:
+      - suggestionId
+      - accept
+      properties:
+        suggestionId:
+          type: string
+          description: The unique suggestion Id
+        accept:
+          type: string
+          description: ''
+          enum:
+          - ACTIVE
+          - SUPPRESSED

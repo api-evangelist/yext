@@ -1,9 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Content API API
+  title: Live Content API
   version: '2.0'
 servers:
-- url: https://api.yextapis.com/v2
+- url: https://cdn.yextapis.com/v2
 security:
 - api_key: []
 - api-key: []
@@ -266,6 +266,18 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
     StreamsResponse:
       description: Content Response
       content:
@@ -295,45 +307,7 @@ components:
                       type: object
                   nextPageToken:
                     $ref: '#/components/schemas/NextPageToken'
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
   parameters:
-    contentDocIds:
-      name: ids
-      in: path
-      required: true
-      schema:
-        type: array
-        items:
-          type: string
-      style: simple
-      description: 'The Content records to get. Multiple record IDs can be provided separated by commas.
-
-        '
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    endpoint:
-      name: endpoint
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The ID of the Content Endpoint to query.
     accountId:
       name: accountId
       in: path
@@ -349,6 +323,13 @@ components:
       description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
 
         '
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
     limit:
       name: limit
       in: query
@@ -357,10 +338,26 @@ components:
         default: 10
         maximum: 50
       description: Number of results to return.
+    endpoint:
+      name: endpoint
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the Content Endpoint to query.
+    contentDocIds:
+      name: ids
+      in: path
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+      style: simple
+      description: 'The Content records to get. Multiple record IDs can be provided separated by commas.
+
+        '
   schemas:
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
     ResponseMeta:
       type: object
       properties:
@@ -397,6 +394,9 @@ components:
             description: List of errors and warnings.
             items:
               $ref: '#/components/schemas/ResponseError'
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
   securitySchemes:
     api_key:
       type: apiKey

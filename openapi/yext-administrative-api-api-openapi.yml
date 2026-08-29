@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Yext Admin Account Settings Administrative API API
+  title: Yext Admin Administrative API
   version: '2.0'
   description: 'NOTE: You need a sandbox account to test your Administrative API integration. Contact your Account Manager to have one created for you.'
 servers:
@@ -665,93 +665,198 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
-    Photo:
+    SubAccountService:
       type: object
       properties:
-        url:
+        id:
+          type: integer
+          example: 69072
+          description: Yext ID for the service.
+        subAccountId:
           type: string
-          description: 'Valid URL to image. Accepted formats: .jpg, .gif, .png.
-
-
-            While updating this field, if the image could not be downloaded, or if its URL is invalid, the image will be ignored. The success response will contain a warning message explaining why the image was not stored in the system.
+          example: B093879
+          description: The sub-account receiving service.
+        agreementId:
+          type: integer
+          description: The ID of your agreement with Yext under which this service is being delivered. This is important to you only in advanced scenarios where you have set up multiple active agreements with Yext.
+        sku:
+          type: string
+          example: SKU-00000195
+        serviceDescription:
+          type: string
+          example: Answers Experience
+        serviceQuantity:
+          type: integer
+          example: 2
+          description: The quantity of the SKU that the service currently has.
+        started:
+          type: string
+          format: date
+          description: The date that this service started.
+        stopped:
+          type: string
+          format: date
+          description: Optional. The date that this service stopped.
+        stopOnDate:
+          type: string
+          format: date
+          description: Optional. Future date on which the service should be stopped if it's still active when that date arrives.
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - STOPPED
+    Service:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 34983
+          description: Yext ID for the service.
+        locationId:
+          type: string
+          example: L439843
+          description: The location receiving service.
+        locationAccountId:
+          type: string
+          example: C34833
+          description: '*(Partner Portal mode only)* The account that the location receiving service is in.
 
             '
-        sourceUrl:
+        agreementId:
+          type: integer
+          description: The ID of your agreement with Yext under which this service is being delivered. This is important to you only in advanced scenarios where you have set up multiple active agreements with Yext.
+        sku:
           type: string
-          readOnly: true
-          description: 'The URL the image was uploaded from, if applicable. Note that this URL may not currently be valid.
+          example: SKU-00048343
+        serviceDescription:
+          type: string
+          example: Partner Location Cloud (Starter)
+        started:
+          type: string
+          format: date
+          description: The date that this service started.
+        stopped:
+          type: string
+          format: date
+          description: Optional. The date that this service stopped.
+        stopOnDate:
+          type: string
+          format: date
+          description: Optional. Future date on which the service should be stopped if it's still active when that date arrives.
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - STOPPED
+    NewLocationAddRequest:
+      type: object
+      discriminator:
+        propertyName: newEntityType
+        mapping:
+          atm: '#/components/schemas/NewLocationAddRequestATM'
+          healthcareFacility: '#/components/schemas/NewLocationAddRequestHealthcareFacility'
+          healthcareProfessional: '#/components/schemas/NewLocationAddRequestHealthcareProfessional'
+          hotel: '#/components/schemas/NewLocationAddRequestHotel'
+          location: '#/components/schemas/NewLocationAddRequestLocation'
+          restaurant: '#/components/schemas/NewLocationAddRequestRestaurant'
+      required:
+      - newLocationId
+      - newLocationData
+      - newEntityData
+      - skus
+      properties:
+        newLocationId:
+          maxLength: 128
+          type: string
+          description: Your ID for the location to be added.
+        newLocationAccountId:
+          maxLength: 50
+          type: string
+          example: CST-43843
+          description: '*(Partner Portal mode)* Supply your ID for the account that the new location should be created in. If this account is your main account or an existing sub-account, the location will be placed there. Otherwise, a new account will be created.
 
             '
-        description:
+        newLocationAccountName:
+          maxLength: 256
           type: string
-          description: Image description.
-        details:
+          example: Bill's Auto Shop
+          description: '*(Partner Portal mode)* If a new account is created, this field''s value will set the account''s name. If a new account is created, and a value for this field is not provided, the new account''s name will default to the location''s name.
+
+            '
+        newAccountParentAccountId:
+          maxLength: 50
           type: string
-          description: Image details.
-        alternateText:
+          example: PAR-001
+          description: '*(Partner Portal mode, advanced use only)* If you have a multi-layer account structure and want the new account created for this request to be under one of your sub-accounts, rather than directly under your main account, specify that sub-account''s ID in this field.
+
+            '
+        newLocationData:
+          description: 'If you set `newLocationId`, you must specify either `newLocationData` or `newEntityData`.
+
+
+            This field allows you to set the profile data for a location, using our legacy format.
+
+            Profile content is specified in the same format as when creating a location with the Locations: Create endpoint.
+
+
+            If the Add Request is processed successfully, this data will be used to create a new location in your account.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/Location'
+        newEntityType:
+          description: 'If you set `newEntityData`, this field specifies the type of entity to be created.
+
+            '
+          enum:
+          - atm
+          - healthcareFacility
+          - healthcareProfessional
+          - hotel
+          - location
+          - restaurant
           type: string
-          description: The alternate text to be used for accessibility purposes.
-        width:
-          type: integer
-          readOnly: true
-          description: Original photo width.
-        height:
-          type: integer
-          readOnly: true
-          description: Original photo height.
-        derivatives:
+          default: location
+        newEntityData:
+          description: 'If you set `newLocationId`, you must specify either `newLocationData` or `newEntityData`.
+
+
+            This field allows you to set the profile data for an entity.
+
+            Profile content is specified in the same format as when creating an entity with the Entities: Create endpoint.
+
+            You can only create entities of a type specified by `newEntityType`.
+
+
+            If the Add Request is processed successfully, this data will be used to create a new entity in your account.
+
+
+            **The dropdown will specify the profile content for `newEntityData`. Specify the entity type with `newEntityType` described above.**
+
+            '
+        skus:
           type: array
-          readOnly: true
-          items:
-            type: object
-            properties:
-              url:
-                type: string
-                readOnly: true
-                description: 'The URL to derivative image.
+          description: 'List of SKUs that you would like to sign the location up for, from among those listed in the **Available Services: List** response with Location recipientType.
 
-                  Derivative images are alternate versions of the original image (e.g., smaller versions used to improve page-load times on your site). They are primarily used with our Pages product.'
-              width:
-                type: integer
-                readOnly: true
-                description: Derivative photo width.
-              height:
-                type: integer
-                readOnly: true
-                description: Derivative photo height.
-            description: If no derivative photos are available, this attribute is omitted rather than empty.
-    Account:
-      type: object
-      properties:
-        accountId:
-          type: string
-          example: CUST-439843
-        locationCount:
+            '
+          items:
+            type: string
+          example:
+          - SKU-00000167
+          - SKU-00000168
+        agreementId:
           type: integer
-          readOnly: true
-          description: The number of locations in this account.
-        subAccountCount:
-          type: integer
-          readOnly: true
-          description: The number of sub-accounts directly under this account, if any.
-        parentAccountId:
-          type: string
-          description: Customer-provided ID of the account that this is a sub-account of, if any. Not provided if this is a top-level account.
-        accountName:
-          type: string
-          description: The name of this account.
-        contactFirstName:
-          type: string
-          description: First name of the contact user for this account.
-        contactLastName:
-          type: string
-          description: Last name of the contact user for this account.
-        contactPhone:
-          type: string
-          description: Phone number of the contact user for this account.
-        contactEmail:
-          type: string
-          description: Email address of the contact user for this account.
+          example: 1588
+          description: '*(Advanced field)* The Agreement ID of the agreement that services will be added under. This value is set automatically by Yext when you create the Add request. (You can specify it yourself, but should not do so unless you have intentionally set up multiple active agreements with Yext, since it could cause your integration to break when you renew or upgrade your agreement.)
+
+            '
+        forceReview:
+          type: boolean
+          example: false
+          description: '*(Sandbox API only)* Forces this Add request into the `REVIEW` status if it otherwise would have completed successfully.
+
+            '
     Entity:
       additionalProperties: false
       type: object
@@ -7978,146 +8083,62 @@ components:
           format: uri
           type: string
           description: "URL for your YouTube channel, format should be https://www.youtube.com/c/yourUsername\n\nFiltering Type: `text`\n\n```\nEligible For: \n   * contactCard\n   * financialProfessional\n   * healthcareFacility\n   * healthcareProfessional\n   * hotel\n   * location\n   * organization\n   * restaurant\n```"
-    AddRequest:
-      title: Location Add Request Response
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    SkuQuantity:
       type: object
       properties:
-        id:
+        sku:
+          type: string
+          example: SKU-00000195
+          description: The specified SKU.
+        quantity:
           type: integer
-          example: 39483
-          readOnly: true
-          description: The Yext ID of the created add request.
-        locationMode:
-          type: string
-          description: 'Whether the request is to add service for an existing location or to create a new location and add service to it.
-
-            '
-          enum:
-          - EXISTING
-          - NEW
-        existingLocationId:
-          type: string
-          description: 'The existing location ID to add service to.
-
-
-            This field is provided only when *locationMode* is EXISTING. Either this field or *newLocationId* will be provided.
-
-            '
-        newLocationId:
-          type: string
-          description: 'The new location ID to create and add service to.
-
-
-            This field is provided only when *locationMode* is NEW. Either this field or *existingLocationId* will be provided.
-
-            '
-        newLocationAccountId:
-          type: string
-          description: '*(Partner Portal mode)* The account ID to create a new location under.
-
-
-            This field is provided only for Partner Portal and when *locationMode* is NEW.
-
-            '
-        newLocationAccountName:
-          type: string
-          description: '*(Partner Portal mode)* The account name to create a new location under.
-
-
-            This field is provided only for Partner Portal and when *locationMode* is NEW and when *newLocationAccountName* was specified in the add request.
-
-            '
-        newAccountParentAccountId:
-          type: string
-          description: '*(Partner Portal mode)* The account ID to create a new account and location under.
-
-
-            This field is provided only for Partner Portal, when *locationMode* is NEW and *newAccountParentAccountId* was specified in the add request.
-
-            '
-        newLocationData:
-          description: 'The location profile data used in creating a new location for this add request.
-
-
-            Optional. Provided only for the **Add Requests: Create (New Location)** endpoint.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/Location'
-        newEntityData:
-          description: 'The entity profile data used in creating a new entity for this add request.
-
-
-            Optional. Provided only for the **Add Requests: Create (New Location)** endpoint.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/Entity'
-        skus:
-          type: array
-          description: 'List of SKUs to sign the location up for, from among those listed in the **Available Services: List** response with Location recipientType.
-
-            '
-          items:
-            type: string
-          example:
-          - SKU-00000167
-          - SKU-00000168
-        agreementId:
-          type: integer
-          description: 'The Agreement ID of the agreement that services will be added under.
-
-            '
-        status:
-          type: string
-          readOnly: true
-          description: The current status of the add request.
-          enum:
-          - SUBMITTED
-          - PROCESSING
-          - COMPLETE
-          - CANCELED
-          - REVIEW
-          - FAILED
-        dateSubmitted:
-          type: string
-          format: date-time
-          readOnly: true
-          description: The date the add request was submitted.
-        dateCompleted:
-          type: string
-          format: date-time
-          readOnly: true
-          description: The date the add request was completed. An empty string if the request has not been completed.
-        statusDetail:
-          type: string
-          readOnly: true
-          description: Results from processing.
-    CancelSubAccountServicesRequest:
+          example: 1
+          description: The quantity of the specified SKU.
+    ProcessReviewAddRequest:
       type: object
       required:
-      - subAccountId
-      - skuRemovals
+      - addRequestId
+      - status
       properties:
-        subAccountId:
-          type: string
-          example: B093879
-        skuRemovals:
-          type: array
-          description: 'List of objects representing the SKUs to be removed (or decreased in quantity) from the sub-account. The sub-account must have active services for at least one of the provided SKUs. If the decrease in quantity would result in 0 service quantity, the service will be STOPPED. The removed quantity will default to 1 for any SKU without a specified quantity. To cancel all active services provisioned on the account, use the **Services: Cancel All (Account)** endpoint.
-
-            '
-          items:
-            $ref: '#/components/schemas/SkuQuantity'
-          example:
-          - sku: SKU-00000195
-            quantity: 1
-          - sku: SKU-00000196
-            quantity: 2
-        agreementId:
+        addRequestId:
           type: integer
-          example: 1588
-          description: The ID of the agreement under which you want services canceled. You do not need to supply this except in advanced scenarios.
+          description: ID of the add request with REVIEW status
+        status:
+          type: string
+          description: Action to take on the add request.
+          example: COMPLETE
+    Source:
+      type: object
+      required:
+      - type
+      - url
+      description: 'This is an object containing the information about where the Resources are located. The attributes in this object include type, url and variables.
+
+        '
+      properties:
+        type:
+          type: string
+          description: Type of repository for resources
+          example: GitHub
+        url:
+          type: string
+          description: URL path for the CaC resources. It varies with the source type.
+          example: https://github.com/YextSolutions/basic-free-trial
+        variables:
+          type: object
+          description: This is an object containing any resources variables that should be passed to the applier.
+          example:
+            title: Yext source
     CreateSubAccount:
       title: Create Sub-Account Response
       type: object
@@ -8140,49 +8161,39 @@ components:
 
             '
           example: US
-    Service:
+    ExistingSubAccountAddRequest:
       type: object
+      required:
+      - subAccountId
+      - skuAdditions
       properties:
-        id:
-          type: integer
-          example: 34983
-          description: Yext ID for the service.
-        locationId:
+        subAccountId:
+          maxLength: 50
           type: string
-          example: L439843
-          description: The location receiving service.
-        locationAccountId:
-          type: string
-          example: C34833
-          description: '*(Partner Portal mode only)* The account that the location receiving service is in.
+          description: 'The existing account ID to add service to.
 
             '
+          example: B093879
+        skuAdditions:
+          type: array
+          description: 'List of objects representing the SKUs to be added (or increased in quantity) to the
+
+            account, from among those listed in the **Available Services: List** response with Sub-Account recipientType. If the sub-account already has an active service for a SKU, the service quantity will be increased. The added quantity will default to 1 for any SKU without a specified quantity.
+
+            '
+          items:
+            $ref: '#/components/schemas/SkuQuantity'
+          example:
+          - sku: SKU-00000195
+            quantity: 1
+          - sku: SKU-00000196
+            quantity: 2
         agreementId:
           type: integer
-          description: The ID of your agreement with Yext under which this service is being delivered. This is important to you only in advanced scenarios where you have set up multiple active agreements with Yext.
-        sku:
-          type: string
-          example: SKU-00048343
-        serviceDescription:
-          type: string
-          example: Partner Location Cloud (Starter)
-        started:
-          type: string
-          format: date
-          description: The date that this service started.
-        stopped:
-          type: string
-          format: date
-          description: Optional. The date that this service stopped.
-        stopOnDate:
-          type: string
-          format: date
-          description: Optional. Future date on which the service should be stopped if it's still active when that date arrives.
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - STOPPED
+          description: '*(Advanced field)* The Agreement ID of the agreement that services will be added under. This is set automatically by Yext when you create the add request. (You can specify it yourself, but should not do so unless you have intentionally set up multiple active agreements with Yext, since this could cause your integration to break when you renew or upgrade your agreement.).
+
+            '
+          example: 1588
     CancelServicesRequest:
       type: object
       required:
@@ -8209,102 +8220,24 @@ components:
           example:
           - SKU-00000167
           - SKU-00000168
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    NewLocationAddRequest:
+    ExistingLocationAddRequest:
       type: object
-      discriminator:
-        propertyName: newEntityType
-        mapping:
-          atm: '#/components/schemas/NewLocationAddRequestATM'
-          healthcareFacility: '#/components/schemas/NewLocationAddRequestHealthcareFacility'
-          healthcareProfessional: '#/components/schemas/NewLocationAddRequestHealthcareProfessional'
-          hotel: '#/components/schemas/NewLocationAddRequestHotel'
-          location: '#/components/schemas/NewLocationAddRequestLocation'
-          restaurant: '#/components/schemas/NewLocationAddRequestRestaurant'
       required:
-      - newLocationId
-      - newLocationData
-      - newEntityData
+      - existingLocationId
       - skus
       properties:
-        newLocationId:
+        existingLocationId:
           maxLength: 128
           type: string
-          description: Your ID for the location to be added.
-        newLocationAccountId:
+          description: ID of the location to add service for. It must already be in your account (or, if you use the Partner Portal, any of your sub-accounts).
+          example: A48934
+        existingLocationAccountId:
           maxLength: 50
           type: string
-          example: CST-43843
-          description: '*(Partner Portal mode)* Supply your ID for the account that the new location should be created in. If this account is your main account or an existing sub-account, the location will be placed there. Otherwise, a new account will be created.
+          description: '*(Partner Portal mode only)* If the *existingLocationId* you specified is not unique among your sub-accounts, use this to specify which account the existing location is in.
 
             '
-        newLocationAccountName:
-          maxLength: 256
-          type: string
-          example: Bill's Auto Shop
-          description: '*(Partner Portal mode)* If a new account is created, this field''s value will set the account''s name. If a new account is created, and a value for this field is not provided, the new account''s name will default to the location''s name.
-
-            '
-        newAccountParentAccountId:
-          maxLength: 50
-          type: string
-          example: PAR-001
-          description: '*(Partner Portal mode, advanced use only)* If you have a multi-layer account structure and want the new account created for this request to be under one of your sub-accounts, rather than directly under your main account, specify that sub-account''s ID in this field.
-
-            '
-        newLocationData:
-          description: 'If you set `newLocationId`, you must specify either `newLocationData` or `newEntityData`.
-
-
-            This field allows you to set the profile data for a location, using our legacy format.
-
-            Profile content is specified in the same format as when creating a location with the Locations: Create endpoint.
-
-
-            If the Add Request is processed successfully, this data will be used to create a new location in your account.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/Location'
-        newEntityType:
-          description: 'If you set `newEntityData`, this field specifies the type of entity to be created.
-
-            '
-          enum:
-          - atm
-          - healthcareFacility
-          - healthcareProfessional
-          - hotel
-          - location
-          - restaurant
-          type: string
-          default: location
-        newEntityData:
-          description: 'If you set `newLocationId`, you must specify either `newLocationData` or `newEntityData`.
-
-
-            This field allows you to set the profile data for an entity.
-
-            Profile content is specified in the same format as when creating an entity with the Entities: Create endpoint.
-
-            You can only create entities of a type specified by `newEntityType`.
-
-
-            If the Add Request is processed successfully, this data will be used to create a new entity in your account.
-
-
-            **The dropdown will specify the profile content for `newEntityData`. Specify the entity type with `newEntityType` described above.**
-
-            '
+          example: B098329
         skus:
           type: array
           description: 'List of SKUs that you would like to sign the location up for, from among those listed in the **Available Services: List** response with Location recipientType.
@@ -8317,16 +8250,231 @@ components:
           - SKU-00000168
         agreementId:
           type: integer
-          example: 1588
-          description: '*(Advanced field)* The Agreement ID of the agreement that services will be added under. This value is set automatically by Yext when you create the Add request. (You can specify it yourself, but should not do so unless you have intentionally set up multiple active agreements with Yext, since it could cause your integration to break when you renew or upgrade your agreement.)
+          description: '*(Advanced field)* The Agreement ID of the agreement that services will be added under. This is set automatically by Yext when you create the add request. (You can specify it yourself, but should not do so unless you have intentionally set up multiple active agreements with Yext, since this could cause your integration to break when you renew or upgrade your agreement.)
 
             '
+          example: 1588
         forceReview:
           type: boolean
-          example: false
-          description: '*(Sandbox API only)* Forces this Add request into the `REVIEW` status if it otherwise would have completed successfully.
+          description: '*(Sandbox API only)* Forces this add request into the REVIEW status if it otherwise would have completed successfully.
 
             '
+          example: false
+    Photo:
+      type: object
+      properties:
+        url:
+          type: string
+          description: 'Valid URL to image. Accepted formats: .jpg, .gif, .png.
+
+
+            While updating this field, if the image could not be downloaded, or if its URL is invalid, the image will be ignored. The success response will contain a warning message explaining why the image was not stored in the system.
+
+            '
+        sourceUrl:
+          type: string
+          readOnly: true
+          description: 'The URL the image was uploaded from, if applicable. Note that this URL may not currently be valid.
+
+            '
+        description:
+          type: string
+          description: Image description.
+        details:
+          type: string
+          description: Image details.
+        alternateText:
+          type: string
+          description: The alternate text to be used for accessibility purposes.
+        width:
+          type: integer
+          readOnly: true
+          description: Original photo width.
+        height:
+          type: integer
+          readOnly: true
+          description: Original photo height.
+        derivatives:
+          type: array
+          readOnly: true
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                readOnly: true
+                description: 'The URL to derivative image.
+
+                  Derivative images are alternate versions of the original image (e.g., smaller versions used to improve page-load times on your site). They are primarily used with our Pages product.'
+              width:
+                type: integer
+                readOnly: true
+                description: Derivative photo width.
+              height:
+                type: integer
+                readOnly: true
+                description: Derivative photo height.
+            description: If no derivative photos are available, this attribute is omitted rather than empty.
+    CreateSubAccountRequest:
+      type: object
+      required:
+      - newSubAccountId
+      - newSubAccountName
+      - countryCode
+      properties:
+        newSubAccountId:
+          maxLength: 50
+          type: string
+          description: 'The external sub-account ID for the new sub-account.
+
+            '
+          example: B093879
+        newSubAccountName:
+          maxLength: 256
+          type: string
+          description: 'The name for the new sub-account.
+
+            '
+          example: Yext Sub-Account
+        countryCode:
+          type: string
+          description: 'The country code for the new sub-account.
+
+            '
+          example: US
+    CancelAllSubAccountServicesRequest:
+      type: object
+      required:
+      - subAccountId
+      properties:
+        subAccountId:
+          type: string
+          example: B093879
+        agreementId:
+          type: integer
+          example: 1588
+          description: The ID of the agreement under which you want services canceled. You do not need to supply this except in advanced scenarios.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    CancelSubAccountServicesRequest:
+      type: object
+      required:
+      - subAccountId
+      - skuRemovals
+      properties:
+        subAccountId:
+          type: string
+          example: B093879
+        skuRemovals:
+          type: array
+          description: 'List of objects representing the SKUs to be removed (or decreased in quantity) from the sub-account. The sub-account must have active services for at least one of the provided SKUs. If the decrease in quantity would result in 0 service quantity, the service will be STOPPED. The removed quantity will default to 1 for any SKU without a specified quantity. To cancel all active services provisioned on the account, use the **Services: Cancel All (Account)** endpoint.
+
+            '
+          items:
+            $ref: '#/components/schemas/SkuQuantity'
+          example:
+          - sku: SKU-00000195
+            quantity: 1
+          - sku: SKU-00000196
+            quantity: 2
+        agreementId:
+          type: integer
+          example: 1588
+          description: The ID of the agreement under which you want services canceled. You do not need to supply this except in advanced scenarios.
+    ResourcesApplyRequestResponse:
+      title: Resources Apply Request Response
+      type: object
+      properties:
+        targetAccountId:
+          type: string
+          description: 'ID for the account which the resources were applied to.
+
+            '
+          example: B093879
+        source:
+          $ref: '#/components/schemas/Source'
+        status:
+          type: string
+          readOnly: true
+          description: The current status of the resources apply request.
+          enum:
+          - SUBMITTED
+          - PROCESSING
+          - COMPLETE
+          - CANCELED
+          - REVIEW
+          - FAILED
+        dateSubmitted:
+          type: string
+          format: date-time
+          readOnly: true
+          description: The date the resources apply request was submitted.
+        dateCompleted:
+          type: string
+          format: date-time
+          readOnly: true
+          description: The date the resources apply request was completed. An empty string if the request has not been completed.
+        statusDetail:
+          type: string
+          readOnly: true
+          description: Results from processing.
+    LocationType:
+      type: string
+      enum:
+      - LOCATION
+      - HEALTHCARE_PROFESSIONAL
+      - HEALTHCARE_FACILITY
+      - RESTAURANT
+      - ATM
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+          example: CUST-439843
+        locationCount:
+          type: integer
+          readOnly: true
+          description: The number of locations in this account.
+        subAccountCount:
+          type: integer
+          readOnly: true
+          description: The number of sub-accounts directly under this account, if any.
+        parentAccountId:
+          type: string
+          description: Customer-provided ID of the account that this is a sub-account of, if any. Not provided if this is a top-level account.
+        accountName:
+          type: string
+          description: The name of this account.
+        contactFirstName:
+          type: string
+          description: First name of the contact user for this account.
+        contactLastName:
+          type: string
+          description: Last name of the contact user for this account.
+        contactPhone:
+          type: string
+          description: Phone number of the contact user for this account.
+        contactEmail:
+          type: string
+          description: Email address of the contact user for this account.
     Location:
       type: object
       properties:
@@ -9739,14 +9887,6 @@ components:
           description: 'Indicates whether or not holiday hour confirmation alerts are enabled for the Yext Knowledge Assistant
 
             '
-    LocationType:
-      type: string
-      enum:
-      - LOCATION
-      - HEALTHCARE_PROFESSIONAL
-      - HEALTHCARE_FACILITY
-      - RESTAURANT
-      - ATM
     SubAccountAddRequest:
       title: Sub-Account Add Request Response
       type: object
@@ -9797,107 +9937,13 @@ components:
           type: string
           readOnly: true
           description: Results from processing.
-    Source:
-      type: object
-      required:
-      - type
-      - url
-      description: 'This is an object containing the information about where the Resources are located. The attributes in this object include type, url and variables.
-
-        '
-      properties:
-        type:
-          type: string
-          description: Type of repository for resources
-          example: GitHub
-        url:
-          type: string
-          description: URL path for the CaC resources. It varies with the source type.
-          example: https://github.com/YextSolutions/basic-free-trial
-        variables:
-          type: object
-          description: This is an object containing any resources variables that should be passed to the applier.
-          example:
-            title: Yext source
-    CreateSubAccountRequest:
-      type: object
-      required:
-      - newSubAccountId
-      - newSubAccountName
-      - countryCode
-      properties:
-        newSubAccountId:
-          maxLength: 50
-          type: string
-          description: 'The external sub-account ID for the new sub-account.
-
-            '
-          example: B093879
-        newSubAccountName:
-          maxLength: 256
-          type: string
-          description: 'The name for the new sub-account.
-
-            '
-          example: Yext Sub-Account
-        countryCode:
-          type: string
-          description: 'The country code for the new sub-account.
-
-            '
-          example: US
-    SubAccountService:
+    ResponseMeta:
       type: object
       properties:
-        id:
-          type: integer
-          example: 69072
-          description: Yext ID for the service.
-        subAccountId:
+        uuid:
           type: string
-          example: B093879
-          description: The sub-account receiving service.
-        agreementId:
-          type: integer
-          description: The ID of your agreement with Yext under which this service is being delivered. This is important to you only in advanced scenarios where you have set up multiple active agreements with Yext.
-        sku:
-          type: string
-          example: SKU-00000195
-        serviceDescription:
-          type: string
-          example: Answers Experience
-        serviceQuantity:
-          type: integer
-          example: 2
-          description: The quantity of the SKU that the service currently has.
-        started:
-          type: string
-          format: date
-          description: The date that this service started.
-        stopped:
-          type: string
-          format: date
-          description: Optional. The date that this service stopped.
-        stopOnDate:
-          type: string
-          format: date
-          description: Optional. Future date on which the service should be stopped if it's still active when that date arrives.
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - STOPPED
-    SkuQuantity:
-      type: object
-      properties:
-        sku:
-          type: string
-          example: SKU-00000195
-          description: The specified SKU.
-        quantity:
-          type: integer
-          example: 1
-          description: The quantity of the specified SKU.
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
     AvailableService:
       title: Available Service
       type: object
@@ -9956,111 +10002,6 @@ components:
           maxLength: 256
           type: string
           description: New name of the account
-    ProcessReviewAddRequest:
-      type: object
-      required:
-      - addRequestId
-      - status
-      properties:
-        addRequestId:
-          type: integer
-          description: ID of the add request with REVIEW status
-        status:
-          type: string
-          description: Action to take on the add request.
-          example: COMPLETE
-    ExistingSubAccountAddRequest:
-      type: object
-      required:
-      - subAccountId
-      - skuAdditions
-      properties:
-        subAccountId:
-          maxLength: 50
-          type: string
-          description: 'The existing account ID to add service to.
-
-            '
-          example: B093879
-        skuAdditions:
-          type: array
-          description: 'List of objects representing the SKUs to be added (or increased in quantity) to the
-
-            account, from among those listed in the **Available Services: List** response with Sub-Account recipientType. If the sub-account already has an active service for a SKU, the service quantity will be increased. The added quantity will default to 1 for any SKU without a specified quantity.
-
-            '
-          items:
-            $ref: '#/components/schemas/SkuQuantity'
-          example:
-          - sku: SKU-00000195
-            quantity: 1
-          - sku: SKU-00000196
-            quantity: 2
-        agreementId:
-          type: integer
-          description: '*(Advanced field)* The Agreement ID of the agreement that services will be added under. This is set automatically by Yext when you create the add request. (You can specify it yourself, but should not do so unless you have intentionally set up multiple active agreements with Yext, since this could cause your integration to break when you renew or upgrade your agreement.).
-
-            '
-          example: 1588
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    ExistingLocationAddRequest:
-      type: object
-      required:
-      - existingLocationId
-      - skus
-      properties:
-        existingLocationId:
-          maxLength: 128
-          type: string
-          description: ID of the location to add service for. It must already be in your account (or, if you use the Partner Portal, any of your sub-accounts).
-          example: A48934
-        existingLocationAccountId:
-          maxLength: 50
-          type: string
-          description: '*(Partner Portal mode only)* If the *existingLocationId* you specified is not unique among your sub-accounts, use this to specify which account the existing location is in.
-
-            '
-          example: B098329
-        skus:
-          type: array
-          description: 'List of SKUs that you would like to sign the location up for, from among those listed in the **Available Services: List** response with Location recipientType.
-
-            '
-          items:
-            type: string
-          example:
-          - SKU-00000167
-          - SKU-00000168
-        agreementId:
-          type: integer
-          description: '*(Advanced field)* The Agreement ID of the agreement that services will be added under. This is set automatically by Yext when you create the add request. (You can specify it yourself, but should not do so unless you have intentionally set up multiple active agreements with Yext, since this could cause your integration to break when you renew or upgrade your agreement.)
-
-            '
-          example: 1588
-        forceReview:
-          type: boolean
-          description: '*(Sandbox API only)* Forces this add request into the REVIEW status if it otherwise would have completed successfully.
-
-            '
-          example: false
-    CancelAllSubAccountServicesRequest:
-      type: object
-      required:
-      - subAccountId
-      properties:
-        subAccountId:
-          type: string
-          example: B093879
-        agreementId:
-          type: integer
-          example: 1588
-          description: The ID of the agreement under which you want services canceled. You do not need to supply this except in advanced scenarios.
     ResourcesApplyRequest:
       type: object
       required:
@@ -10075,41 +10016,100 @@ components:
           example: B093879
         source:
           $ref: '#/components/schemas/Source'
-    ResponseError:
+    AddRequest:
+      title: Location Add Request Response
       type: object
       properties:
-        name:
-          type: string
-        code:
+        id:
           type: integer
-          description: 'Code that uniquely identifies the error or warning.
+          example: 39483
+          readOnly: true
+          description: The Yext ID of the created add request.
+        locationMode:
+          type: string
+          description: 'Whether the request is to add service for an existing location or to create a new location and add service to it.
 
             '
-        type:
-          type: string
           enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
+          - EXISTING
+          - NEW
+        existingLocationId:
           type: string
-          description: Message explaining the problem.
-    ResourcesApplyRequestResponse:
-      title: Resources Apply Request Response
-      type: object
-      properties:
-        targetAccountId:
-          type: string
-          description: 'ID for the account which the resources were applied to.
+          description: 'The existing location ID to add service to.
+
+
+            This field is provided only when *locationMode* is EXISTING. Either this field or *newLocationId* will be provided.
 
             '
-          example: B093879
-        source:
-          $ref: '#/components/schemas/Source'
+        newLocationId:
+          type: string
+          description: 'The new location ID to create and add service to.
+
+
+            This field is provided only when *locationMode* is NEW. Either this field or *existingLocationId* will be provided.
+
+            '
+        newLocationAccountId:
+          type: string
+          description: '*(Partner Portal mode)* The account ID to create a new location under.
+
+
+            This field is provided only for Partner Portal and when *locationMode* is NEW.
+
+            '
+        newLocationAccountName:
+          type: string
+          description: '*(Partner Portal mode)* The account name to create a new location under.
+
+
+            This field is provided only for Partner Portal and when *locationMode* is NEW and when *newLocationAccountName* was specified in the add request.
+
+            '
+        newAccountParentAccountId:
+          type: string
+          description: '*(Partner Portal mode)* The account ID to create a new account and location under.
+
+
+            This field is provided only for Partner Portal, when *locationMode* is NEW and *newAccountParentAccountId* was specified in the add request.
+
+            '
+        newLocationData:
+          description: 'The location profile data used in creating a new location for this add request.
+
+
+            Optional. Provided only for the **Add Requests: Create (New Location)** endpoint.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/Location'
+        newEntityData:
+          description: 'The entity profile data used in creating a new entity for this add request.
+
+
+            Optional. Provided only for the **Add Requests: Create (New Location)** endpoint.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/Entity'
+        skus:
+          type: array
+          description: 'List of SKUs to sign the location up for, from among those listed in the **Available Services: List** response with Location recipientType.
+
+            '
+          items:
+            type: string
+          example:
+          - SKU-00000167
+          - SKU-00000168
+        agreementId:
+          type: integer
+          description: 'The Agreement ID of the agreement that services will be added under.
+
+            '
         status:
           type: string
           readOnly: true
-          description: The current status of the resources apply request.
+          description: The current status of the add request.
           enum:
           - SUBMITTED
           - PROCESSING
@@ -10121,105 +10121,23 @@ components:
           type: string
           format: date-time
           readOnly: true
-          description: The date the resources apply request was submitted.
+          description: The date the add request was submitted.
         dateCompleted:
           type: string
           format: date-time
           readOnly: true
-          description: The date the resources apply request was completed. An empty string if the request has not been completed.
+          description: The date the add request was completed. An empty string if the request has not been completed.
         statusDetail:
           type: string
           readOnly: true
           description: Results from processing.
   responses:
-    ResourcesApplyRequestResponse:
-      description: Resources Apply Request Response
+    AvailableServicesResponse:
+      description: Available Service Response
       content:
         application/json:
           schema:
-            title: ResourcesApplyRequestResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/ResourcesApplyRequestResponse'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              id: 13027
-              targetAccountId: B093879
-              status: COMPLETE
-              dateSubmitted: '2017-05-10T19:23:07'
-              dateCompleted: '2017-05-10T19:31:29'
-              source:
-                type: GITHUB
-                url: https://github.com/YextSolutions/basic-free-trial
-                variables:
-                  title: Yext source
-    ExistingSubAccountAddRequestsResponse:
-      description: Sub-Account Add Request Response
-      content:
-        application/json:
-          schema:
-            title: SubAccountAddRequestResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/SubAccountAddRequest'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              id: 15037
-              subAccountId: B093879
-              skuAdditions:
-              - sku: SKU-00000195
-                quantity: 1
-              - sku: SKU-00000196
-                quantity: 2
-              agreementId: 1588
-              status: SUBMITTED
-              dateSubmitted: '2021-02-26T14:22:18'
-              statusDetail: The request has been submitted for processing. Updated status should be available soon, usually within seconds.
-    CancelServicesResponse:
-      description: Cancel Location Services Response
-      content:
-        application/json:
-          schema:
-            title: CancelServicesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Service'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-            - id: 8018
-              sku: DEV-00010003
-              serviceDescription: Axciom Add-on (Partner)
-              agreementId: 1588
-              locationId: '1775725677797917505'
-              status: STOPPED
-              started: '2017-02-10'
-              stopped: '2017-05-14'
-    ServicesResponse:
-      description: Location Services Response
-      content:
-        application/json:
-          schema:
-            title: ServicesResponse
+            title: AvailableServiceResponse
             type: object
             properties:
               meta:
@@ -10227,175 +10145,44 @@ components:
               response:
                 type: object
                 properties:
-                  count:
-                    type: integer
-                  services:
+                  availableServices:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Service'
+                      $ref: '#/components/schemas/AvailableService'
+                  count:
+                    type: integer
           example:
             meta:
               uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
               errors: []
             response:
-              count: 3
-              services:
-              - id: 8000
-                sku: SKU-00000170
+              availableServices:
+              - sku: SKU-00000167
+                serviceDescription: Location Cloud Starter (Partner)
+                recipientType: Location
+                agreementId: 1588
+                minimumUsage: 1
+                minimumUsageUnits: MONTHS
+              - sku: SKU-00000168
+                serviceDescription: Location Cloud Professional (Partner)
+                recipientType: Location
+                agreementId: 1588
+                minimumUsage: 1
+                minimumUsageUnits: MONTHS
+              - sku: SKU-00000170
                 serviceDescription: Axciom Add-on (Partner)
+                recipientType: Location
                 agreementId: 1588
-                locationId: LOC-123
-                status: ACTIVE
-                started: '2017-05-13'
-              - id: 8001
-                sku: SKU-00000167
-                serviceDescription: Location Cloud Starter (Partner)
+                addOnTo:
+                - SKU-00000167
+                - SKU-00000168
+              - sku: SKU-00000195
+                serviceDescription: Answers Experience
+                recipientType: Sub-Account
                 agreementId: 1588
-                locationId: LOC-123
-                status: ACTIVE
-                started: '2017-05-10'
-              - id: 8002
-                sku: SKU-00000167
-                serviceDescription: Location Cloud Starter (Partner)
-                agreementId: 1588
-                locationId: LOC-267
-                status: STOPPED
-                started: '2017-05-10'
-                stopped: '2017-05-15'
-    SubAccountAddRequestsResponse:
-      description: Sub-Account Add Requests Response
-      content:
-        application/json:
-          schema:
-            title: SubAccountAddRequestsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  addRequests:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SubAccountAddRequest'
-                  count:
-                    type: integer
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              addRequests:
-              - id: 15037
-                subAccountId: B093879
-                skuAdditions:
-                - sku: SKU-00000195
-                  quantity: 1
-                - sku: SKU-00000196
-                  quantity: 2
-                agreementId: 1588
-                status: COMPLETE
-                dateSubmitted: '2021-02-26T14:22:48'
-                dateCompleted: '2021-02-26T14:23:05'
-                statusDetail: The request was completed and the specified services were started/updated.
-              - id: 15038
-                subAccountId: B093879
-                skuAdditions:
-                - sku: SKU-00000195
-                  quantity: 1
-                - sku: SKU-00000196
-                  quantity: 2
-                agreementId: 1588
-                status: COMPLETE
-                dateSubmitted: '2021-02-27T15:22:48'
-                dateCompleted: '2021-02-27T15:23:05'
-                statusDetail: The request was completed and the specified services were started/updated.
-              - id: 15039
-                subAccountId: B093879
-                skuAdditions:
-                - sku: SKU-00000195
-                  quantity: 1
-                agreementId: 1588
-                status: COMPLETE
-                dateSubmitted: '2021-02-27T15:42:47'
-                dateCompleted: '2021-02-27T15:43:01'
-                statusDetail: The request was completed and the specified services were started/updated.
-              count: 3
-    AccountsResponse:
-      description: Accounts Response
-      content:
-        application/json:
-          schema:
-            title: AccountsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                  accounts:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Account'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              count: 1
-              accounts:
-              - accountId: '1264805'
-                locationCount: 11
-                subAccountCount: 0
-                accountName: Yext Demo Account
-                contactFirstName: John
-                contactLastName: Doe
-                contactPhone: '1234567890'
-                contactEmail: johndoe@email.com
-    IdResponse:
-      description: ID Response.
-      content:
-        application/json:
-          schema:
-            title: IdResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  id:
-                    type: string
-    AccountResponse:
-      description: Account Response
-      content:
-        application/json:
-          schema:
-            title: AccountResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Account'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              accountId: 1264805
-              locationCount: 11
-              subAccountCount: 0
-              accountName: Yext Demo Account
-              contactFirstName: John
-              contactLastName: Doe
-              contactPhone: '1234567890'
-              contactEmail: johndoe@email.com
+                minimumUsage: 1
+                minimumUsageUnits: MONTHS
+              count: 4
     ExistingLocationAddRequestsResponse:
       description: Location Add Request Response
       content:
@@ -10468,112 +10255,12 @@ components:
               started: '2021-01-11'
               stopped: '2021-03-01'
               status: STOPPED
-    NewLocationAddRequestsResponse:
-      description: Location Add Request Response
+    ServicesResponse:
+      description: Location Services Response
       content:
         application/json:
           schema:
-            title: AddRequestResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/AddRequest'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              id: 13046
-              locationMode: NEW
-              newLocationId: LOC-123
-              newLocationData:
-                id: LOC-123
-                locationName: Yext
-                address: 1 Madison Avenue, 5th Floor
-                city: New York
-                state: NY
-                zip: '10010'
-                countryCode: US
-                language: en
-                phone: '18884442988'
-                categoryIds:
-                - '1'
-                locationType: LOCATION
-              skus:
-              - SKU-00000167
-              agreementId: 1588
-              status: SUBMITTED
-              dateSubmitted: '2017-05-12T16:08:25'
-              statusDetail: The request has been submitted for processing. Updated status should be available soon, usually within seconds.
-    EmptyResponse:
-      description: Empty Response.
-      content:
-        application/json:
-          schema:
-            title: EmptyResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-    SubAccountAddRequestResponse:
-      description: Sub-Account Add Request Response
-      content:
-        application/json:
-          schema:
-            title: SubAccountAddRequestResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/SubAccountAddRequest'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              id: 15037
-              subAccountId: B093879
-              skuAdditions:
-              - sku: SKU-00000195
-                quantity: 1
-              - sku: SKU-00000196
-                quantity: 2
-              agreementId: 1588
-              status: COMPLETE
-              dateSubmitted: '2021-02-26T14:22:48'
-              dateCompleted: '2021-02-26T14:23:05'
-              statusDetail: The request was completed and the specified services were started/updated.
-    CreateSubAccountResponse:
-      description: Create Sub-Account Response
-      content:
-        application/json:
-          schema:
-            title: CreateSubAccountResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/CreateSubAccount'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              newSubAccountId: B093879
-              newSubAccountName: Yext Sub-Account
-              countryCode: US
-    AvailableServicesResponse:
-      description: Available Service Response
-      content:
-        application/json:
-          schema:
-            title: AvailableServiceResponse
+            title: ServicesResponse
             type: object
             properties:
               meta:
@@ -10581,106 +10268,41 @@ components:
               response:
                 type: object
                 properties:
-                  availableServices:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/AvailableService'
                   count:
                     type: integer
+                  services:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Service'
           example:
             meta:
               uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
               errors: []
             response:
-              availableServices:
-              - sku: SKU-00000167
-                serviceDescription: Location Cloud Starter (Partner)
-                recipientType: Location
-                agreementId: 1588
-                minimumUsage: 1
-                minimumUsageUnits: MONTHS
-              - sku: SKU-00000168
-                serviceDescription: Location Cloud Professional (Partner)
-                recipientType: Location
-                agreementId: 1588
-                minimumUsage: 1
-                minimumUsageUnits: MONTHS
-              - sku: SKU-00000170
+              count: 3
+              services:
+              - id: 8000
+                sku: SKU-00000170
                 serviceDescription: Axciom Add-on (Partner)
-                recipientType: Location
                 agreementId: 1588
-                addOnTo:
-                - SKU-00000167
-                - SKU-00000168
-              - sku: SKU-00000195
-                serviceDescription: Answers Experience
-                recipientType: Sub-Account
+                locationId: LOC-123
+                status: ACTIVE
+                started: '2017-05-13'
+              - id: 8001
+                sku: SKU-00000167
+                serviceDescription: Location Cloud Starter (Partner)
                 agreementId: 1588
-                minimumUsage: 1
-                minimumUsageUnits: MONTHS
-              count: 4
-    AddRequestResponse:
-      description: Location Add Request Response
-      content:
-        application/json:
-          schema:
-            title: AddRequestResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/AddRequest'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              id: 13027
-              locationMode: NEW
-              skus:
-              - SKU-00000167
-              agreementId: 1588
-              status: COMPLETE
-              dateSubmitted: '2017-05-10T19:23:07'
-              dateCompleted: '2017-05-10T19:31:29'
-              statusDetail: The request was completed and the specified services were started. Location ID LOC-123 was created in this request.
-    CancelSubAccountServicesResponse:
-      description: Cancel Sub-Account Services Response
-      content:
-        application/json:
-          schema:
-            title: CancelSubAccountServicesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SubAccountService'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-            - id: 9000
-              subAccountId: B093879
-              agreementId: 1588
-              sku: SKU-00000195
-              serviceDescription: Answers Experience
-              serviceQuantity: 2
-              started: '2021-01-10'
-              status: ACTIVE
-            - id: 9001
-              subAccountId: B093879
-              agreementId: 1588
-              sku: SKU-00000196
-              serviceDescription: Answers Experience 2
-              serviceQuantity: 1
-              started: '2021-01-10'
-              stopped: '2021-03-01'
-              status: STOPPED
+                locationId: LOC-123
+                status: ACTIVE
+                started: '2017-05-10'
+              - id: 8002
+                sku: SKU-00000167
+                serviceDescription: Location Cloud Starter (Partner)
+                agreementId: 1588
+                locationId: LOC-267
+                status: STOPPED
+                started: '2017-05-10'
+                stopped: '2017-05-15'
     SubAccountServicesResponse:
       description: Sub-Account Services Response
       content:
@@ -10731,6 +10353,396 @@ components:
                 serviceQuantity: 1
                 started: '2021-02-26'
                 status: ACTIVE
+    IdResponse:
+      description: ID Response.
+      content:
+        application/json:
+          schema:
+            title: IdResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
+    CancelServicesResponse:
+      description: Cancel Location Services Response
+      content:
+        application/json:
+          schema:
+            title: CancelServicesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+            - id: 8018
+              sku: DEV-00010003
+              serviceDescription: Axciom Add-on (Partner)
+              agreementId: 1588
+              locationId: '1775725677797917505'
+              status: STOPPED
+              started: '2017-02-10'
+              stopped: '2017-05-14'
+    CreateSubAccountResponse:
+      description: Create Sub-Account Response
+      content:
+        application/json:
+          schema:
+            title: CreateSubAccountResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/CreateSubAccount'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              newSubAccountId: B093879
+              newSubAccountName: Yext Sub-Account
+              countryCode: US
+    AddRequestResponse:
+      description: Location Add Request Response
+      content:
+        application/json:
+          schema:
+            title: AddRequestResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/AddRequest'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 13027
+              locationMode: NEW
+              skus:
+              - SKU-00000167
+              agreementId: 1588
+              status: COMPLETE
+              dateSubmitted: '2017-05-10T19:23:07'
+              dateCompleted: '2017-05-10T19:31:29'
+              statusDetail: The request was completed and the specified services were started. Location ID LOC-123 was created in this request.
+    SubAccountAddRequestsResponse:
+      description: Sub-Account Add Requests Response
+      content:
+        application/json:
+          schema:
+            title: SubAccountAddRequestsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  addRequests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubAccountAddRequest'
+                  count:
+                    type: integer
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              addRequests:
+              - id: 15037
+                subAccountId: B093879
+                skuAdditions:
+                - sku: SKU-00000195
+                  quantity: 1
+                - sku: SKU-00000196
+                  quantity: 2
+                agreementId: 1588
+                status: COMPLETE
+                dateSubmitted: '2021-02-26T14:22:48'
+                dateCompleted: '2021-02-26T14:23:05'
+                statusDetail: The request was completed and the specified services were started/updated.
+              - id: 15038
+                subAccountId: B093879
+                skuAdditions:
+                - sku: SKU-00000195
+                  quantity: 1
+                - sku: SKU-00000196
+                  quantity: 2
+                agreementId: 1588
+                status: COMPLETE
+                dateSubmitted: '2021-02-27T15:22:48'
+                dateCompleted: '2021-02-27T15:23:05'
+                statusDetail: The request was completed and the specified services were started/updated.
+              - id: 15039
+                subAccountId: B093879
+                skuAdditions:
+                - sku: SKU-00000195
+                  quantity: 1
+                agreementId: 1588
+                status: COMPLETE
+                dateSubmitted: '2021-02-27T15:42:47'
+                dateCompleted: '2021-02-27T15:43:01'
+                statusDetail: The request was completed and the specified services were started/updated.
+              count: 3
+    CancelSubAccountServicesResponse:
+      description: Cancel Sub-Account Services Response
+      content:
+        application/json:
+          schema:
+            title: CancelSubAccountServicesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubAccountService'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+            - id: 9000
+              subAccountId: B093879
+              agreementId: 1588
+              sku: SKU-00000195
+              serviceDescription: Answers Experience
+              serviceQuantity: 2
+              started: '2021-01-10'
+              status: ACTIVE
+            - id: 9001
+              subAccountId: B093879
+              agreementId: 1588
+              sku: SKU-00000196
+              serviceDescription: Answers Experience 2
+              serviceQuantity: 1
+              started: '2021-01-10'
+              stopped: '2021-03-01'
+              status: STOPPED
+    ExistingSubAccountAddRequestsResponse:
+      description: Sub-Account Add Request Response
+      content:
+        application/json:
+          schema:
+            title: SubAccountAddRequestResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/SubAccountAddRequest'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 15037
+              subAccountId: B093879
+              skuAdditions:
+              - sku: SKU-00000195
+                quantity: 1
+              - sku: SKU-00000196
+                quantity: 2
+              agreementId: 1588
+              status: SUBMITTED
+              dateSubmitted: '2021-02-26T14:22:18'
+              statusDetail: The request has been submitted for processing. Updated status should be available soon, usually within seconds.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    AccountsResponse:
+      description: Accounts Response
+      content:
+        application/json:
+          schema:
+            title: AccountsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              count: 1
+              accounts:
+              - accountId: '1264805'
+                locationCount: 11
+                subAccountCount: 0
+                accountName: Yext Demo Account
+                contactFirstName: John
+                contactLastName: Doe
+                contactPhone: '1234567890'
+                contactEmail: johndoe@email.com
+    NewLocationAddRequestsResponse:
+      description: Location Add Request Response
+      content:
+        application/json:
+          schema:
+            title: AddRequestResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/AddRequest'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 13046
+              locationMode: NEW
+              newLocationId: LOC-123
+              newLocationData:
+                id: LOC-123
+                locationName: Yext
+                address: 1 Madison Avenue, 5th Floor
+                city: New York
+                state: NY
+                zip: '10010'
+                countryCode: US
+                language: en
+                phone: '18884442988'
+                categoryIds:
+                - '1'
+                locationType: LOCATION
+              skus:
+              - SKU-00000167
+              agreementId: 1588
+              status: SUBMITTED
+              dateSubmitted: '2017-05-12T16:08:25'
+              statusDetail: The request has been submitted for processing. Updated status should be available soon, usually within seconds.
+    ResourcesApplyRequestResponse:
+      description: Resources Apply Request Response
+      content:
+        application/json:
+          schema:
+            title: ResourcesApplyRequestResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/ResourcesApplyRequestResponse'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 13027
+              targetAccountId: B093879
+              status: COMPLETE
+              dateSubmitted: '2017-05-10T19:23:07'
+              dateCompleted: '2017-05-10T19:31:29'
+              source:
+                type: GITHUB
+                url: https://github.com/YextSolutions/basic-free-trial
+                variables:
+                  title: Yext source
+    SubAccountAddRequestResponse:
+      description: Sub-Account Add Request Response
+      content:
+        application/json:
+          schema:
+            title: SubAccountAddRequestResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/SubAccountAddRequest'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 15037
+              subAccountId: B093879
+              skuAdditions:
+              - sku: SKU-00000195
+                quantity: 1
+              - sku: SKU-00000196
+                quantity: 2
+              agreementId: 1588
+              status: COMPLETE
+              dateSubmitted: '2021-02-26T14:22:48'
+              dateCompleted: '2021-02-26T14:23:05'
+              statusDetail: The request was completed and the specified services were started/updated.
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    AccountResponse:
+      description: Account Response
+      content:
+        application/json:
+          schema:
+            title: AccountResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Account'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              accountId: 1264805
+              locationCount: 11
+              subAccountCount: 0
+              accountName: Yext Demo Account
+              contactFirstName: John
+              contactLastName: Doe
+              contactPhone: '1234567890'
+              contactEmail: johndoe@email.com
     AddRequestsResponse:
       description: Location Add Requests Response
       content:
@@ -10787,32 +10799,7 @@ components:
                 dateCompleted: '2017-05-10T18:36:53'
                 statusDetail: The request was completed and the specified services were started.
               count: 3
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
   parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
     offset:
       name: offset
       in: query
@@ -10827,6 +10814,19 @@ components:
         Cannot be used together with **`pageToken`**.
 
         '
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   securitySchemes:
     api_key:
       type: apiKey
