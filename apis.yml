@@ -1,6 +1,18 @@
 aid: yext
 name: Yext
 description: Yext is a digital presence platform that enables businesses to manage their listings across 200+ publishers, update location data, manage reviews, and power AI search experiences. Its REST APIs provide programmatic access to the Knowledge Graph, Listings, Reviews, Analytics, and Content Delivery capabilities.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
