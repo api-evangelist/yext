@@ -2,7 +2,9 @@ openapi: 3.2.0
 info:
   version: '1.0'
   title: Pixel Documentation Plpixel API
-  description: "# Overview\nIt’s important that we track listing impressions and clicks so that we can demonstrate the value of the Yext Listings product to our customers. To collect these statistics, you should embed a tracking pixel on any pages in your site that include Yext-powered listings.\n\n**Notes**\n* Performance statistics are not used to audit for billing purposes; they are simply for the customer’s benefit.\n* If the listing is being shown in a location where the pixel cannot be embedded (e.g., on a mobile device), then you can make a server-side call to the pixel and pass additional parameters that would usually be obtained from the pixel request.\n\n**Requirements**\n* The crucial tracking requisites are impressions (search results pages and business profile pages) and website clicks (search results pages and business profile pages).\n* Publishers must separate statistics across their different properties (e.g., mobile app stats vs web stats)\n\n## Examples\nYou can implement the click-tracking pixel by using JavaScript to add an img tag to the page's HTML:\n<pre><code>\nimg src=\"https://pixel.yext-pub.com/plpixel?source=detailspage&action=click&target=website&pid=*yourPID*&ids=113159\" width=1 height=1\n</code></pre>\n\nAnother example of how to implement website click-tracking appears below.\n\n<pre><code>\nfunction yext_track(target){\n    var track = new Image(); \n    track.src=\"https://pixel.yext-pub.com/plpixel?source=detailspage&action=click&pid=*yourPID*&ids=113159\" + \"&target=\" + target;\n}\n</code></pre>\n\nKeeping Page Loads Fast\n* The simplest way to add a tracking pixel to your site is to use an img tag, as shown above.\n* If you are concerned about any small latency this tag will add to your page load time, you can use JavaScript to add it to the DOM after the page is loaded.\n\nFor example:\n\n<pre><code>\n(function() {\n  var img = document.createElement('img');\n  img.setAttribute('src', 'https://pixel.yext-pub.com/plpixel?pid=yourPID&ids=80748,72094&source=serp&action=impression&query=therapy');\n  img.setAttribute('width', '1');\n  img.setAttribute('height', '1');\n  document.getElementsByTagName('body')[0].appendChild(img);\n})();\n</code></pre>\n"
+  description: '# Overview
+
+    It’s important that we track listing impressions and clicks so that we can demonstrate the value of the Yext Listings product to our customers.'
 servers:
 - url: https://pixel.yext-pub.com
 tags:
@@ -35,71 +37,13 @@ paths:
       - Plpixel
 components:
   parameters:
-    additional:
-      name: additional
-      in: query
-      schema:
-        type: string
-      description: 'Any additional data you wish to include
-
-        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
-
-        '
-    query:
-      name: query
-      in: query
-      schema:
-        type: string
-      description: 'The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.
-
-        * Required if **source** is **serp**
-
-        * The value of this field must be URL encoded
-
-        '
-    source:
-      name: source
-      in: query
-      schema:
-        type: string
-        enum:
-        - serp
-        - mapbubble
-        - detailspage
-        - drivingdirections
-      required: true
-      description: 'Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
-
-        '
-    useragent:
-      name: useragent
-      in: query
-      schema:
-        type: string
-      description: 'The user agent from the original web request.
-
-        * Required  if and only if making a server-side call to report a web page view
-
-        '
-    ids:
-      name: ids
+    pid:
+      name: pid
       in: query
       schema:
         type: string
       required: true
-      description: 'Comma-separated list of Yext location Ids
-
-        '
-    querylocation:
-      name: querylocation
-      in: query
-      schema:
-        type: string
-      description: 'Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in "Find X near Y", "X" should be provided as "query" and "Y" should be provided as **querylocation**.
-
-        * Required if **source** is **serp**
-
-        * The value of this field must be URL encoded
+      description: 'Publisher secure ID. This value will be provided to you.
 
         '
     target:
@@ -155,6 +99,18 @@ components:
         * This value does not have to be a domain name, but please choose something that’s likely to be unique.
 
         '
+    querylocation:
+      name: querylocation
+      in: query
+      schema:
+        type: string
+      description: 'Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in "Find X near Y", "X" should be provided as "query" and "Y" should be provided as **querylocation**.
+
+        * Required if **source** is **serp**
+
+        * The value of this field must be URL encoded
+
+        '
     pageurl:
       name: pageurl
       in: query
@@ -165,19 +121,14 @@ components:
         * Required  if and only if making a server-side call to report a web page view
 
         '
-    userid:
-      name: userid
+    useragent:
+      name: useragent
       in: query
       schema:
         type: string
-      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
-    pid:
-      name: pid
-      in: query
-      schema:
-        type: string
-      required: true
-      description: 'Publisher secure ID. This value will be provided to you.
+      description: 'The user agent from the original web request.
+
+        * Required  if and only if making a server-side call to report a web page view
 
         '
     action:
@@ -190,5 +141,56 @@ components:
         - click
       required: true
       description: 'Type of event that took place
+
+        '
+    userid:
+      name: userid
+      in: query
+      schema:
+        type: string
+      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
+    source:
+      name: source
+      in: query
+      schema:
+        type: string
+        enum:
+        - serp
+        - mapbubble
+        - detailspage
+        - drivingdirections
+      required: true
+      description: 'Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
+
+        '
+    additional:
+      name: additional
+      in: query
+      schema:
+        type: string
+      description: 'Any additional data you wish to include
+
+        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
+
+        '
+    query:
+      name: query
+      in: query
+      schema:
+        type: string
+      description: 'The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.
+
+        * Required if **source** is **serp**
+
+        * The value of this field must be URL encoded
+
+        '
+    ids:
+      name: ids
+      in: query
+      schema:
+        type: string
+      required: true
+      description: 'Comma-separated list of Yext location Ids
 
         '

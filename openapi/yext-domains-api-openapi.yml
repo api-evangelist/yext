@@ -18,9 +18,7 @@ paths:
       operationId: createDomain
       tags:
       - Domains
-      summary: 'Domain: Create
-
-        '
+      summary: 'Domain: Create'
       requestBody:
         description: Configuration for the domain to be created.
         required: true
@@ -679,9 +677,7 @@ paths:
       operationId: listDomains
       tags:
       - Domains
-      summary: 'Domain: List
-
-        '
+      summary: 'Domain: List'
       parameters:
       - $ref: '#/components/parameters/hostnameFilters'
       - $ref: '#/components/parameters/hostnameSearchFilter'
@@ -1038,9 +1034,7 @@ paths:
       operationId: getDomain
       tags:
       - Domains
-      summary: 'Domain: Get
-
-        '
+      summary: 'Domain: Get'
       parameters:
       - $ref: '#/components/parameters/viewDefaultFull'
       responses:
@@ -1376,14 +1370,10 @@ paths:
       operationId: updateDomain
       tags:
       - Domains
-      summary: 'Domain: Update
-
-        '
+      summary: 'Domain: Update'
       description: 'Update the configurations for the specified domain. Also triggers a check for Yext or SSL verification, if the Domain is not yet ACTIVE.
 
-        See the `update_mask` parameter for fields that can be updated, any other provided fields will be ignored.
-
-        '
+        See the `update_mask` parameter for fields that can be updated, any other provided fields will be ignored.'
       parameters:
       - $ref: '#/components/parameters/forceMove'
       - name: update_mask
@@ -1754,9 +1744,7 @@ paths:
       operationId: deleteDomain
       tags:
       - Domains
-      summary: 'Domain: Delete
-
-        '
+      summary: 'Domain: Delete'
       parameters:
       - name: force
         in: query
@@ -2195,12 +2183,8 @@ paths:
       operationId: createDomainAssociation
       tags:
       - Domains
-      summary: 'Domain Association: Create
-
-        '
-      description: 'Creating a Domain Association will begin serving the contents of the associated resource at the Domain Association''s `hostname` (given DNS for the hostname is already set up).
-
-        '
+      summary: 'Domain Association: Create'
+      description: Creating a Domain Association will begin serving the contents of the associated resource at the Domain Association's `hostname` (given DNS for the hostname is already set up).
       parameters:
       - $ref: '#/components/parameters/forceMove'
       requestBody:
@@ -2316,9 +2300,7 @@ paths:
       operationId: listDomainAssociations
       tags:
       - Domains
-      summary: 'Domain Association: List
-
-        '
+      summary: 'Domain Association: List'
       parameters:
       - $ref: '#/components/parameters/domainIdAllowAll'
       - name: referenced_resources
@@ -2411,9 +2393,7 @@ paths:
       operationId: getDomainAssociation
       tags:
       - Domains
-      summary: 'Domain Association: Get
-
-        '
+      summary: 'Domain Association: Get'
       responses:
         '200':
           description: Domain Association found.
@@ -2477,9 +2457,7 @@ paths:
       operationId: updateDomainAssociation
       tags:
       - Domains
-      summary: 'Domain Association: Update
-
-        '
+      summary: 'Domain Association: Update'
       parameters:
       - $ref: '#/components/parameters/domainId'
       - $ref: '#/components/parameters/domainAssociationId'
@@ -2554,12 +2532,8 @@ paths:
       operationId: deleteDomainAssociation
       tags:
       - Domains
-      summary: 'Domain Association: Delete
-
-        '
-      description: 'Deleting a Domain Association will stop serving the contents of the associated resource from the Domain Association''s `hostname`.
-
-        '
+      summary: 'Domain Association: Delete'
+      description: Deleting a Domain Association will stop serving the contents of the associated resource from the Domain Association's `hostname`.
       responses:
         '202':
           description: Domain Association deleted successfully.
@@ -2580,16 +2554,12 @@ paths:
       operationId: createManagedCsr
       tags:
       - Domains
-      summary: 'Managed CSR: Create
-
-        '
+      summary: 'Managed CSR: Create'
       description: 'Creates a Certificate Signing Request (CSR) resource that can be used to provision SSL certificates.
 
-        Once created, this resource can be referenced by [Domains](#tag/Domains/operation/createDomain) with the `managed_csr` SSL integration to provision
+        Once created, this resource can be referenced by Domains with the `managed_csr` SSL integration to provision
 
-        certificates using this CSR and a public certificate.
-
-        '
+        certificates using this CSR and a public certificate.'
       requestBody:
         required: true
         content:
@@ -2734,9 +2704,7 @@ paths:
       operationId: listManagedCsrs
       tags:
       - Domains
-      summary: 'Managed CSR: List
-
-        '
+      summary: 'Managed CSR: List'
       parameters:
       - $ref: '#/components/parameters/index_pageSize'
       - $ref: '#/components/parameters/index_pageToken'
@@ -2834,9 +2802,7 @@ paths:
       operationId: getManagedCsr
       tags:
       - Domains
-      summary: 'Managed CSR: Get
-
-        '
+      summary: 'Managed CSR: Get'
       parameters:
       - $ref: '#/components/parameters/viewDefaultFull'
       responses:
@@ -2916,9 +2882,7 @@ paths:
       operationId: deleteManagedCsr
       tags:
       - Domains
-      summary: 'Managed CSR: Delete
-
-        '
+      summary: 'Managed CSR: Delete'
       responses:
         '202':
           description: Managed CSR deleted successfully.
@@ -2932,138 +2896,23 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  parameters:
-    showDeleted:
-      name: show_deleted
-      in: query
-      schema:
-        type: boolean
-        default: false
-    managedCsrId:
-      name: managedCsrId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-    index_pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        default: 10
-        minimum: 0
-        maximum: 50
-      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
-    hostnameFilters:
-      name: hostname
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
-      example: www.example.com,test.example.com
-    index_pageToken:
-      name: page_token
-      in: query
-      schema:
-        type: string
-      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
-    viewDefaultFull:
-      name: view
-      in: query
-      schema:
-        type: string
-        enum:
-        - FULL
-        - BASIC
-        default: FULL
-      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
-
-        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
-
-        '
-    hostnameSearchFilter:
-      name: hostname_search
-      in: query
-      schema:
-        type: string
-      description: Case-insensitive substring used to filter by hostname.
-      example: example
-    domainIdAllowAll:
-      name: domainId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: Set to "-" to reference Domain Associations from all domains in this account.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    viewDefaultBasic:
-      name: view
-      in: query
-      schema:
-        type: string
-        enum:
-        - FULL
-        - BASIC
-        default: BASIC
-      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
-
-        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
-
-        '
-    forceMove:
-      name: force_move
-      in: query
-      schema:
-        type: boolean
-        default: false
-      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    domainId:
-      name: domainId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-    domainAssociationId:
-      name: domainAssociationId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
   schemas:
-    certificate_authority:
-      type: string
-      enum:
-      - GOOGLE_TRUST
-      - LETS_ENCRYPT
-      default: GOOGLE_TRUST
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
+    site:
+      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+      type: object
+      properties:
+        name:
+          description: Pages site resource name.
+          type: string
+          example: accounts/123456/sites/6789
+        primary:
+          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+            A Pages site can have at most one primary Domain.
+
+            '
+          type: boolean
+          default: false
     managed_csr:
       description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
 
@@ -3116,25 +2965,10 @@ components:
             http_body:
               type: string
               format: uuid
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
+    totalSize:
+      type: integer
+      description: The total number of items that match the filter criteria, ignoring pagination.
+      example: 100
     custom_ssl_certificate:
       description: 'The provided custom SSL certificate will be used for serving requests to the domain.
 
@@ -3194,30 +3028,39 @@ components:
             http_body:
               type: string
               format: uuid
-    site:
-      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
-      type: object
-      properties:
-        name:
-          description: Pages site resource name.
-          type: string
-          example: accounts/123456/sites/6789
-        primary:
-          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
-
-            A Pages site can have at most one primary Domain.
-
-            '
-          type: boolean
-          default: false
-    totalSize:
-      type: integer
-      description: The total number of items that match the filter criteria, ignoring pagination.
-      example: 100
     previousPageToken:
       type: string
       description: The token to use to retrieve the previous page of results. If empty, this is the first page.
       example: eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    certificate_authority:
+      type: string
+      enum:
+      - GOOGLE_TRUST
+      - LETS_ENCRYPT
+      default: GOOGLE_TRUST
+    nextPageToken:
+      type: string
+      description: The token to use to retrieve the next page of results. If empty, this is the last page.
+      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
     ResponseMeta:
       type: object
       properties:
@@ -3225,10 +3068,131 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
-    nextPageToken:
-      type: string
-      description: The token to use to retrieve the next page of results. If empty, this is the last page.
-      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  parameters:
+    domainIdAllowAll:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Set to "-" to reference Domain Associations from all domains in this account.
+    domainId:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    forceMove:
+      name: force_move
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
+    hostnameSearchFilter:
+      name: hostname_search
+      in: query
+      schema:
+        type: string
+      description: Case-insensitive substring used to filter by hostname.
+      example: example
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    domainAssociationId:
+      name: domainAssociationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    hostnameFilters:
+      name: hostname
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
+      example: www.example.com,test.example.com
+    viewDefaultBasic:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: BASIC
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
+    viewDefaultFull:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: FULL
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
+    showDeleted:
+      name: show_deleted
+      in: query
+      schema:
+        type: boolean
+        default: false
+    index_pageToken:
+      name: page_token
+      in: query
+      schema:
+        type: string
+      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
+    index_pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        default: 10
+        minimum: 0
+        maximum: 50
+      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
+    managedCsrId:
+      name: managedCsrId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     ErrorResponse:
       description: Error Response

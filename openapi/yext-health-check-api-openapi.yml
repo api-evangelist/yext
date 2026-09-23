@@ -25,9 +25,7 @@ paths:
         The body of the response may contain information about the status. However, no part of your Yext integration should depend on the content of the response.
 
 
-        **NOTE:** This call does not require authentication.
-
-        '
+        **NOTE:** This call does not require authentication.'
       responses:
         '200':
           description: Health Check Response.

@@ -143,9 +143,7 @@ paths:
       description: 'Retrieve a list of Entities within an account
 
 
-        **NOTE:** Responses will contain resolved values for embedded fields
-
-        '
+        **NOTE:** Responses will contain resolved values for embedded fields'
       responses:
         '200':
           description: Success Response
@@ -7510,9 +7508,7 @@ paths:
       description: 'Retrieve information for an Entity with a given ID
 
 
-        **NOTE:** Responses will contain resolved values for embedded fields
-
-        '
+        **NOTE:** Responses will contain resolved values for embedded fields'
       responses:
         '200':
           description: Success Response
@@ -14972,9 +14968,7 @@ paths:
         ordered by proximity to that point and restricted to a radius.
 
 
-        **NOTE:** Responses will contain resolved values for embedded fields
-
-        '
+        **NOTE:** Responses will contain resolved values for embedded fields'
       responses:
         '200':
           description: Success Response
@@ -22459,9 +22453,7 @@ paths:
 
         * If the `fields` parameter is unspecified, responses will contain the full
 
-        entity profile for the requested language
-
-        '
+        entity profile for the requested language'
       responses:
         '200':
           description: Success Response
@@ -29827,9 +29819,7 @@ paths:
 
         * If the `fields` parameter is unspecified, responses will contain the full
 
-        entity profile for the requested language
-
-        '
+        entity profile for the requested language'
       responses:
         '200':
           description: Success Response
@@ -37245,9 +37235,7 @@ paths:
 
         * If the `fields` parameter is unspecified, responses will contain the full
 
-        entity profile for the requested language
-
-        '
+        entity profile for the requested language'
       responses:
         '200':
           description: Success Response
@@ -44636,7 +44624,16 @@ paths:
       tags:
       - Live API
       summary: 'Language Profiles (Legacy): Get'
-      description: "Gets the requested Language Profile for a given Location\n\n**NOTE:**\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full \nentity profile for the requested language\n"
+      description: 'Gets the requested Language Profile for a given Location
+
+
+        **NOTE:**
+
+        * Responses will contain resolved values for embedded fields
+
+        * If the `fields` parameter is unspecified, responses will contain the full
+
+        entity profile for the requested language'
       responses:
         '200':
           $ref: '#/components/responses/LanguageProfileResponse'
@@ -44653,7 +44650,16 @@ paths:
       tags:
       - Live API
       summary: 'Language Profiles (Legacy): List'
-      description: "Gets all Language Profiles for a Location\n\n**NOTE:**\n* Responses will contain resolved values for embedded fields\n* If the `fields` parameter is unspecified, responses will contain the full \nentity profile for the requested language\n"
+      description: 'Gets all Language Profiles for a Location
+
+
+        **NOTE:**
+
+        * Responses will contain resolved values for embedded fields
+
+        * If the `fields` parameter is unspecified, responses will contain the full
+
+        entity profile for the requested language'
       responses:
         '200':
           $ref: '#/components/responses/LanguageProfilesResponse'
@@ -44690,9 +44696,7 @@ paths:
       description: 'Gets the primary profile for a single Location
 
 
-        **NOTE:** Responses will contain resolved values for embedded fields
-
-        '
+        **NOTE:** Responses will contain resolved values for embedded fields'
       responses:
         '200':
           $ref: '#/components/responses/LocationResponse'
@@ -44716,9 +44720,7 @@ paths:
       description: 'Get multiple Locations (primary profile only). Filters are evaluated against all language profiles as well as the primary profile.
 
 
-        **NOTE:** Responses will contain resolved values for embedded fields
-
-        '
+        **NOTE:** Responses will contain resolved values for embedded fields'
       responses:
         '200':
           $ref: '#/components/responses/LocationsResponse'
@@ -44762,9 +44764,7 @@ paths:
       description: 'Gets multiple Locations (primary profile only) near a given location, ordered by proximity to the location (if no other sort criteria are given) and restricted to a radius. Searches through all language profiles, including the primary profile.
 
 
-        **NOTE:** Responses will contain resolved values for embedded fields
-
-        '
+        **NOTE:** Responses will contain resolved values for embedded fields'
       responses:
         '200':
           $ref: '#/components/responses/GeoSearchResponse'
@@ -44775,9 +44775,7 @@ paths:
       operationId: createQuestion
       tags:
       - Live API
-      summary: 'Question: Create
-
-        '
+      summary: 'Question: Create'
       requestBody:
         $ref: '#/components/requestBodies/createQuestionRequest'
       parameters:
@@ -44795,9 +44793,7 @@ paths:
       tags:
       - Live API
       description: Create a new Review.
-      summary: 'Review: Create
-
-        '
+      summary: 'Review: Create'
       parameters:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
@@ -44818,9 +44814,7 @@ paths:
       tags:
       - Live API
       description: Update a Review.
-      summary: 'Review: Update
-
-        '
+      summary: 'Review: Update'
       parameters:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
@@ -44841,9 +44835,7 @@ paths:
       tags:
       - Live API
       description: Delete a Review.
-      summary: 'Review: Delete
-
-        '
+      summary: 'Review: Delete'
       parameters:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
@@ -44855,78 +44847,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
-    UpdateReview:
-      type: object
-      properties:
-        entity:
-          type: object
-          properties:
-            id:
-              type: string
-              description: ID of the entity associated with this review.
-        authorName:
-          type: string
-          description: The name of the person who wrote the review.
-        authorEmail:
-          type: string
-          description: The email address of the person who wrote the review.
-        title:
-          type: string
-          description: The title of the review.
-        rating:
-          type: number
-          format: double
-          description: Normalized rating out of 5.
-        content:
-          type: string
-          description: The content of the review.
-        status:
-          type: string
-          enum:
-          - LIVE
-          - QUARANTINED
-          - REMOVED
-          description: 'The status of the review. Defaults to `QUARANTINED` when creating.
-
-            '
-        reviewLabelNames:
-          type: array
-          items:
-            type: string
-          description: 'The names of the Review Labels which will be attached to the resulting review.
-
-
-            This is an _upsert_ operation, meaning the system will determine if a Review Label exists
-
-            already in your account, and create and append a new label if not.
-
-            '
-        reviewDate:
-          type: string
-          format: date
-          description: 'If provided, the date you received the review from the customer. Defaults to the date the
-
-            review was uploaded to Yext.
-
-
-            (`YYYY-MM-DD` format)
-
-            '
-        url:
-          type: string
-          description: 'The URL of the review, or the URL of the listing where the review can be found if there is no
-
-            specific URL for the review.
-
-            '
-        externalId:
-          type: string
-          description: 'The External ID of the review, typically assigned by the Publisher. Created External IDs must
-
-            be unique per account and publisher pair.
-
-            '
-    Section:
+    BioEcl_Section:
       allOf:
       - $ref: '#/components/schemas/BaseEclSection'
       - type: object
@@ -44935,66 +44856,94 @@ components:
             type: array
             description: Section Items.
             items:
-              $ref: '#/components/schemas/MenuItem'
-    BioItem:
-      allOf:
-      - $ref: '#/components/schemas/BaseEclItem'
-      - type: object
-        properties:
-          photo:
-            $ref: '#/components/schemas/Photo'
-          title:
-            type: string
-            description: Person's title.
-          phone:
-            type: string
-            description: Item Phone.
-          email:
-            type: string
-            description: Item Email.
-          education:
-            type: array
-            description: List of up to 10 strings.
-            items:
-              type: string
-          certifications:
-            type: array
-            description: List of up to 10 strings.
-            items:
-              type: string
-          services:
-            type: array
-            description: List of up to 100 strings.
-            items:
-              type: string
-          url:
-            type: string
-            description: Item URL.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    Photo:
+              $ref: '#/components/schemas/BioItem'
+    BaseEcl:
       type: object
       properties:
-        url:
+        id:
           type: string
-          description: URL of photo.
-        height:
-          type: integer
-          description: Dimension in pixels.
-        width:
-          type: integer
-          description: Dimension in pixels.
-        alternateText:
+          maxLength: 32
+          description: List ID.
+        accountId:
           type: string
-          description: The alternate text to be used for accessibility purposes.
+          readOnly: true
+          description: ID of account that owns this List.
+        name:
+          type: string
+          description: List name.
+        title:
+          type: string
+          description: List title that appears on listings.
+        size:
+          type: integer
+          readOnly: true
+          description: Number of items in the List.
+        publish:
+          type: boolean
+          description: Indicates whether the List should be shown on your listings.
+        language:
+          type: string
+          description: 'List language in ISO 639-1 format. An ISO 3166-1 alpha-2 country code can optionally be appended to the language.
+
+
+            **Examples:** en, en_GB, fr_CA
+
+            '
+    Menu:
+      allOf:
+      - $ref: '#/components/schemas/BaseEcl'
+      - type: object
+        properties:
+          currency:
+            type: string
+            description: The three-letter ISO 4217 currency code. Defaults to USD.
+          sourceUrl:
+            type: string
+            description: The URL of the source the menu's content is retrieved from.
+          sections:
+            type: array
+            description: A list of sections.
+            items:
+              $ref: '#/components/schemas/Section'
+    EntitySchema:
+      type: object
+      properties:
+        '@context':
+          type: string
+        '@type':
+          type: string
+        '@id':
+          type: string
+        Name:
+          type: string
+        Image:
+          type: string
+        Geo:
+          type: object
+          properties:
+            '@type':
+              type: string
+            Latitude:
+              type: number
+              format: double
+            Longitude:
+              type: number
+              format: double
+        Address:
+          type: object
+          properties:
+            '@type':
+              type: string
+            StreetAddress:
+              type: string
+            AddressLocality:
+              type: string
+            PostalCode:
+              type: string
+            AddressCountry:
+              type: string
+        Telephone:
+          type: string
     CreateReview:
       type: object
       required:
@@ -45088,17 +45037,37 @@ components:
             be unique per account and publisher pair.
 
             '
-    Bio:
-      allOf:
-      - $ref: '#/components/schemas/BaseEcl'
-      - type: object
-        properties:
-          sections:
-            type: array
-            description: A list of sections.
-            items:
-              $ref: '#/components/schemas/BioEcl_Section'
-    BioEcl_Section:
+    QuestionRequest:
+      type: object
+      required:
+      - entityId
+      - name
+      - email
+      - questionText
+      - questionLanguage
+      properties:
+        entityId:
+          type: string
+          description: ID of the entity associated to this question.
+        site:
+          type: string
+          description: Site on which to create this question.
+        name:
+          type: string
+          description: The name of the author of the question.
+        email:
+          type: string
+          description: The email of the author of the question.
+        questionText:
+          type: string
+          description: The question that is being asked.
+        questionDescription:
+          type: string
+          description: Additional details for this question.
+        questionLanguage:
+          type: string
+          description: The language code of the language that the question is being asked in.
+    Section:
       allOf:
       - $ref: '#/components/schemas/BaseEclSection'
       - type: object
@@ -45107,39 +45076,243 @@ components:
             type: array
             description: Section Items.
             items:
-              $ref: '#/components/schemas/BioItem'
-    BaseEcl:
+              $ref: '#/components/schemas/MenuItem'
+    BioItem:
+      allOf:
+      - $ref: '#/components/schemas/BaseEclItem'
+      - type: object
+        properties:
+          photo:
+            $ref: '#/components/schemas/Photo'
+          title:
+            type: string
+            description: Person's title.
+          phone:
+            type: string
+            description: Item Phone.
+          email:
+            type: string
+            description: Item Email.
+          education:
+            type: array
+            description: List of up to 10 strings.
+            items:
+              type: string
+          certifications:
+            type: array
+            description: List of up to 10 strings.
+            items:
+              type: string
+          services:
+            type: array
+            description: List of up to 100 strings.
+            items:
+              type: string
+          url:
+            type: string
+            description: Item URL.
+    MenuItem:
+      allOf:
+      - $ref: '#/components/schemas/BaseEclItem'
+      - type: object
+        properties:
+          photo:
+            $ref: '#/components/schemas/Photo'
+          calories:
+            $ref: '#/components/schemas/Calories'
+          cost:
+            $ref: '#/components/schemas/ContentListCost'
+          url:
+            type: string
+            description: The URL of the item's webpage.
+          allergens:
+            type: array
+            items:
+              type: string
+            description: 'A list of allergens associated with the menu item. Valid elements are:
+
+              * Peanuts
+
+              * Wheat
+
+              * Sesame
+
+              * Tree Nuts
+
+              * Gluten
+
+              * Soy
+
+              * Dairy
+
+              * Eggs
+
+              * Fish
+
+              * Shellfish
+
+              * Shrimp
+
+              * Crab
+
+              * Soba
+
+              '
+          featured:
+            type: boolean
+            description: Indicates whether the item is a featured item on the menu.
+          spiciness:
+            type: string
+            description: 'The spiciness level of a food item. Valid elements are:
+
+              * Mild
+
+              * Medium
+
+              * Hot
+
+              '
+          dietaryRestrictions:
+            type: array
+            items:
+              type: string
+            description: 'Dietary information of a food item. Valid elements are:
+
+              * Halal
+
+              * Kosher
+
+              * Organic
+
+              * Vegan
+
+              * Vegetarian
+
+              '
+          preparationMethods:
+            type: array
+            items:
+              type: string
+            description: 'Methods on how the food dish option is prepared. Valid elements are:
+
+              * Baked
+
+              * Barbecued
+
+              * Basted
+
+              * Blanched
+
+              * Boiled
+
+              * Braised
+
+              * Coddled
+
+              * Fermented
+
+              * Fried
+
+              * Grilled
+
+              * Kneaded
+
+              * Marinated
+
+              * Pan Fried
+
+              * Pickled
+
+              * Pressure Cooked
+
+              * Roasted
+
+              * Sauteed
+
+              * Seared
+
+              * Simmered
+
+              * Smoked
+
+              * Steamed
+
+              * Steeped
+
+              * Stir Fried
+
+              * Other Method
+
+              '
+    ProductEcl_Section:
+      allOf:
+      - $ref: '#/components/schemas/BaseEclSection'
+      - type: object
+        properties:
+          items:
+            type: array
+            description: Section Items.
+            items:
+              $ref: '#/components/schemas/ProductItem'
+    ProductItem:
+      allOf:
+      - $ref: '#/components/schemas/BaseEclItem'
+      - type: object
+        properties:
+          photos:
+            $ref: '#/components/schemas/Photos'
+          cost:
+            $ref: '#/components/schemas/ContentListCost'
+          idcode:
+            type: string
+            description: Displayed item ID.
+          url:
+            type: string
+            description: Product home page.
+          video:
+            type: string
+            description: Youtube URL.
+          duration:
+            $ref: '#/components/schemas/Duration'
+          ranking:
+            type: number
+            minimum: 0
+            description: Product ranking.
+    Photo:
       type: object
       properties:
-        id:
+        url:
           type: string
-          maxLength: 32
-          description: List ID.
-        accountId:
-          type: string
-          readOnly: true
-          description: ID of account that owns this List.
-        name:
-          type: string
-          description: List name.
-        title:
-          type: string
-          description: List title that appears on listings.
-        size:
+          description: URL of photo.
+        height:
           type: integer
-          readOnly: true
-          description: Number of items in the List.
-        publish:
-          type: boolean
-          description: Indicates whether the List should be shown on your listings.
-        language:
+          description: Dimension in pixels.
+        width:
+          type: integer
+          description: Dimension in pixels.
+        alternateText:
           type: string
-          description: 'List language in ISO 639-1 format. An ISO 3166-1 alpha-2 country code can optionally be appended to the language.
-
-
-            **Examples:** en, en_GB, fr_CA
-
-            '
+          description: The alternate text to be used for accessibility purposes.
+    Event:
+      allOf:
+      - $ref: '#/components/schemas/BaseEcl'
+      - type: object
+        properties:
+          sections:
+            type: array
+            description: A list of sections. However, Calendars cannot have more than one section.
+            items:
+              $ref: '#/components/schemas/EventEcl_Section'
+    EventEcl_Section:
+      allOf:
+      - $ref: '#/components/schemas/BaseEclSection'
+      - type: object
+        properties:
+          items:
+            type: array
+            description: Section Items.
+            items:
+              $ref: '#/components/schemas/EventItem'
     ResponseError:
       type: object
       properties:
@@ -45159,6 +45332,95 @@ components:
         message:
           type: string
           description: Message explaining the problem.
+    LocationType:
+      type: string
+      enum:
+      - LOCATION
+      - HEALTHCARE_PROFESSIONAL
+      - HEALTHCARE_FACILITY
+      - RESTAURANT
+      - ATM
+    ContentListCost:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - PRICE
+          - RANGE
+          - NONE
+          - OTHER
+        price:
+          type: string
+          description: Price in USD, e.g., 9.50. Must be greater than or equal to 0.0 and less than or equal to 1000000.00.
+        unit:
+          type: string
+          description: e.g., Per Gallon, Each.
+        rangeTo:
+          type: string
+          description: Specified only if `type` is `RANGE`. In that case, this Cost represents a `price` range from `price` to `rangeTo`. Must be greater than `price` and less than or equal to 1000000.00.
+        other:
+          type: string
+          description: Specified only if `type` is `OTHER`. User-entered text, e.g., Market Price.
+        options:
+          type: array
+          description: Add-ons or product variations that affect the price.
+          items:
+            $ref: '#/components/schemas/ContentListCostOption'
+    LocationSchema:
+      type: object
+      properties:
+        '@context':
+          type: string
+        '@type':
+          type: string
+        '@id':
+          type: string
+        Name:
+          type: string
+        Image:
+          type: string
+        Geo:
+          type: object
+          properties:
+            '@type':
+              type: string
+            Latitude:
+              type: number
+              format: double
+            Longitude:
+              type: number
+              format: double
+        Address:
+          type: object
+          properties:
+            '@type':
+              type: string
+            StreetAddress:
+              type: string
+            AddressLocality:
+              type: string
+            PostalCode:
+              type: string
+            AddressCountry:
+              type: string
+        Telephone:
+          type: string
+        OpeningHoursSpecification:
+          type: array
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+              DayOfWeek:
+                type: array
+                items:
+                  type: string
+              Opens:
+                type: string
+              Closes:
+                type: string
     LocationDistance:
       type: object
       properties:
@@ -45171,7 +45433,114 @@ components:
         distanceKilometers:
           type: number
           description: Distance in kilometers between the Location and the location specified in the Geo object.
-    Menu:
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    Photos:
+      type: array
+      description: List of up to 5 photos.
+      items:
+        $ref: '#/components/schemas/Photo'
+    UpdateReview:
+      type: object
+      properties:
+        entity:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the entity associated with this review.
+        authorName:
+          type: string
+          description: The name of the person who wrote the review.
+        authorEmail:
+          type: string
+          description: The email address of the person who wrote the review.
+        title:
+          type: string
+          description: The title of the review.
+        rating:
+          type: number
+          format: double
+          description: Normalized rating out of 5.
+        content:
+          type: string
+          description: The content of the review.
+        status:
+          type: string
+          enum:
+          - LIVE
+          - QUARANTINED
+          - REMOVED
+          description: 'The status of the review. Defaults to `QUARANTINED` when creating.
+
+            '
+        reviewLabelNames:
+          type: array
+          items:
+            type: string
+          description: 'The names of the Review Labels which will be attached to the resulting review.
+
+
+            This is an _upsert_ operation, meaning the system will determine if a Review Label exists
+
+            already in your account, and create and append a new label if not.
+
+            '
+        reviewDate:
+          type: string
+          format: date
+          description: 'If provided, the date you received the review from the customer. Defaults to the date the
+
+            review was uploaded to Yext.
+
+
+            (`YYYY-MM-DD` format)
+
+            '
+        url:
+          type: string
+          description: 'The URL of the review, or the URL of the listing where the review can be found if there is no
+
+            specific URL for the review.
+
+            '
+        externalId:
+          type: string
+          description: 'The External ID of the review, typically assigned by the Publisher. Created External IDs must
+
+            be unique per account and publisher pair.
+
+            '
+    BaseEclItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Item ID.
+        name:
+          type: string
+          description: Item name.
+        description:
+          type: string
+          description: Item description.
+    BaseEclSection:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Section ID.
+        name:
+          type: string
+          description: Section name.
+        description:
+          type: string
+          description: Section description.
+    Product:
       allOf:
       - $ref: '#/components/schemas/BaseEcl'
       - type: object
@@ -45179,14 +45548,45 @@ components:
           currency:
             type: string
             description: The three-letter ISO 4217 currency code. Defaults to USD.
-          sourceUrl:
-            type: string
-            description: The URL of the source the menu's content is retrieved from.
           sections:
             type: array
             description: A list of sections.
             items:
-              $ref: '#/components/schemas/Section'
+              $ref: '#/components/schemas/ProductEcl_Section'
+    Bio:
+      allOf:
+      - $ref: '#/components/schemas/BaseEcl'
+      - type: object
+        properties:
+          sections:
+            type: array
+            description: A list of sections.
+            items:
+              $ref: '#/components/schemas/BioEcl_Section'
+    EventItem:
+      allOf:
+      - $ref: '#/components/schemas/BaseEclItem'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: User-provided event type.
+          starts:
+            type: string
+            format: date
+            description: Start time in ISO 8601 format (yyyy-mm-ddThh:mm) (e.g., 2012-01-09T04:00).
+          ends:
+            type: string
+            format: date
+            description: End time in ISO 8601 format (yyyy-mm-ddThh:mm) (e.g., 2012-01-09T05:00).
+          photos:
+            $ref: '#/components/schemas/Photos'
+          url:
+            type: string
+            description: Item URL.
+          video:
+            type: string
+            description: Youtube URL.
     Photo-2:
       type: object
       properties:
@@ -45242,69 +45642,6 @@ components:
                 readOnly: true
                 description: Derivative photo height.
             description: If no derivative photos are available, this attribute is omitted rather than empty.
-    ContentListCost:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - PRICE
-          - RANGE
-          - NONE
-          - OTHER
-        price:
-          type: string
-          description: Price in USD, e.g., 9.50. Must be greater than or equal to 0.0 and less than or equal to 1000000.00.
-        unit:
-          type: string
-          description: e.g., Per Gallon, Each.
-        rangeTo:
-          type: string
-          description: Specified only if `type` is `RANGE`. In that case, this Cost represents a `price` range from `price` to `rangeTo`. Must be greater than `price` and less than or equal to 1000000.00.
-        other:
-          type: string
-          description: Specified only if `type` is `OTHER`. User-entered text, e.g., Market Price.
-        options:
-          type: array
-          description: Add-ons or product variations that affect the price.
-          items:
-            $ref: '#/components/schemas/ContentListCostOption'
-    BaseEclItem:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Item ID.
-        name:
-          type: string
-          description: Item name.
-        description:
-          type: string
-          description: Item description.
-    EventItem:
-      allOf:
-      - $ref: '#/components/schemas/BaseEclItem'
-      - type: object
-        properties:
-          type:
-            type: string
-            description: User-provided event type.
-          starts:
-            type: string
-            format: date
-            description: Start time in ISO 8601 format (yyyy-mm-ddThh:mm) (e.g., 2012-01-09T04:00).
-          ends:
-            type: string
-            format: date
-            description: End time in ISO 8601 format (yyyy-mm-ddThh:mm) (e.g., 2012-01-09T05:00).
-          photos:
-            $ref: '#/components/schemas/Photos'
-          url:
-            type: string
-            description: Item URL.
-          video:
-            type: string
-            description: Youtube URL.
     Calories:
       type: object
       properties:
@@ -45319,143 +45656,6 @@ components:
         rangeTo:
           type: integer
           description: Specified only if `name` is `RANGE`. In that case, this Calories represents a calorie count range from `calorie` to `rangeTo`. Must be greater than `calorie` and less than or equal to 1000000.
-    LocationType:
-      type: string
-      enum:
-      - LOCATION
-      - HEALTHCARE_PROFESSIONAL
-      - HEALTHCARE_FACILITY
-      - RESTAURANT
-      - ATM
-    Geo:
-      type: object
-      description: If location provided in geosearch cannot be geocoded, this field will be set to null.
-      properties:
-        latitude:
-          type: string
-          description: Latitude as returned by geocoder. If no value, returns ""
-        longitude:
-          type: string
-          description: Longitude as returned by geocoder. If no value, returns ""
-        address:
-          type: string
-          description: Address field as returned by geocoder. If no value, returns ""
-        address2:
-          type: string
-          description: Address2 field as returned by geocoder. If no value, returns ""
-        locality:
-          type: string
-          description: Locality (city) field as returned by geocoder. If no value, returns ""
-        region:
-          type: string
-          description: Region (state) field as returned by geocoder. If no value, returns ""
-        postalCode:
-          type: string
-          description: PostalCode (ZIP) field as returned by geocoder. If no value, returns ""
-        country:
-          type: string
-          description: Country field as returned by geocoder. If no value, returns ""
-        granularity:
-          type: string
-          enum:
-          - POINT
-          - ADDRESS
-          - STREET
-          - SUBLOCALITY
-          - LOCALITY
-          - POSTALCODE
-          - REGION
-          - COUNTRY
-          - UNKNOWN
-      required:
-      - latitude
-      - longitude
-      - address
-      - address2
-      - locality
-      - region
-      - postalCode
-      - country
-      - granularity
-    EntitySchema:
-      type: object
-      properties:
-        '@context':
-          type: string
-        '@type':
-          type: string
-        '@id':
-          type: string
-        Name:
-          type: string
-        Image:
-          type: string
-        Geo:
-          type: object
-          properties:
-            '@type':
-              type: string
-            Latitude:
-              type: number
-              format: double
-            Longitude:
-              type: number
-              format: double
-        Address:
-          type: object
-          properties:
-            '@type':
-              type: string
-            StreetAddress:
-              type: string
-            AddressLocality:
-              type: string
-            PostalCode:
-              type: string
-            AddressCountry:
-              type: string
-        Telephone:
-          type: string
-    EventEcl_Section:
-      allOf:
-      - $ref: '#/components/schemas/BaseEclSection'
-      - type: object
-        properties:
-          items:
-            type: array
-            description: Section Items.
-            items:
-              $ref: '#/components/schemas/EventItem'
-    Duration:
-      type: object
-      description: Product duration.
-      properties:
-        unit:
-          type: string
-          enum:
-          - MINUTES
-          - HOURS
-          - DAYS
-          description: Unit of time (i.e. minutes, hours, days).
-        value:
-          type: number
-          minimum: 1
-          description: Value of time.
-    Event:
-      allOf:
-      - $ref: '#/components/schemas/BaseEcl'
-      - type: object
-        properties:
-          sections:
-            type: array
-            description: A list of sections. However, Calendars cannot have more than one section.
-            items:
-              $ref: '#/components/schemas/EventEcl_Section'
-    Photos:
-      type: array
-      description: List of up to 5 photos.
-      items:
-        $ref: '#/components/schemas/Photo'
     Location:
       type: object
       properties:
@@ -46868,289 +47068,31 @@ components:
           description: 'Indicates whether or not holiday hour confirmation alerts are enabled for the Yext Knowledge Assistant
 
             '
-    BaseEclSection:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Section ID.
-        name:
-          type: string
-          description: Section name.
-        description:
-          type: string
-          description: Section description.
-    Product:
+    ResponseMetaWithError:
       allOf:
-      - $ref: '#/components/schemas/BaseEcl'
+      - $ref: '#/components/schemas/ResponseMeta'
       - type: object
         properties:
-          currency:
-            type: string
-            description: The three-letter ISO 4217 currency code. Defaults to USD.
-          sections:
+          errors:
             type: array
-            description: A list of sections.
+            description: List of errors and warnings.
             items:
-              $ref: '#/components/schemas/ProductEcl_Section'
-    ProductItem:
-      allOf:
-      - $ref: '#/components/schemas/BaseEclItem'
-      - type: object
-        properties:
-          photos:
-            $ref: '#/components/schemas/Photos'
-          cost:
-            $ref: '#/components/schemas/ContentListCost'
-          idcode:
-            type: string
-            description: Displayed item ID.
-          url:
-            type: string
-            description: Product home page.
-          video:
-            type: string
-            description: Youtube URL.
-          duration:
-            $ref: '#/components/schemas/Duration'
-          ranking:
-            type: number
-            minimum: 0
-            description: Product ranking.
-    MenuItem:
-      allOf:
-      - $ref: '#/components/schemas/BaseEclItem'
-      - type: object
-        properties:
-          photo:
-            $ref: '#/components/schemas/Photo'
-          calories:
-            $ref: '#/components/schemas/Calories'
-          cost:
-            $ref: '#/components/schemas/ContentListCost'
-          url:
-            type: string
-            description: The URL of the item's webpage.
-          allergens:
-            type: array
-            items:
-              type: string
-            description: 'A list of allergens associated with the menu item. Valid elements are:
-
-              * Peanuts
-
-              * Wheat
-
-              * Sesame
-
-              * Tree Nuts
-
-              * Gluten
-
-              * Soy
-
-              * Dairy
-
-              * Eggs
-
-              * Fish
-
-              * Shellfish
-
-              * Shrimp
-
-              * Crab
-
-              * Soba
-
-              '
-          featured:
-            type: boolean
-            description: Indicates whether the item is a featured item on the menu.
-          spiciness:
-            type: string
-            description: 'The spiciness level of a food item. Valid elements are:
-
-              * Mild
-
-              * Medium
-
-              * Hot
-
-              '
-          dietaryRestrictions:
-            type: array
-            items:
-              type: string
-            description: 'Dietary information of a food item. Valid elements are:
-
-              * Halal
-
-              * Kosher
-
-              * Organic
-
-              * Vegan
-
-              * Vegetarian
-
-              '
-          preparationMethods:
-            type: array
-            items:
-              type: string
-            description: 'Methods on how the food dish option is prepared. Valid elements are:
-
-              * Baked
-
-              * Barbecued
-
-              * Basted
-
-              * Blanched
-
-              * Boiled
-
-              * Braised
-
-              * Coddled
-
-              * Fermented
-
-              * Fried
-
-              * Grilled
-
-              * Kneaded
-
-              * Marinated
-
-              * Pan Fried
-
-              * Pickled
-
-              * Pressure Cooked
-
-              * Roasted
-
-              * Sauteed
-
-              * Seared
-
-              * Simmered
-
-              * Smoked
-
-              * Steamed
-
-              * Steeped
-
-              * Stir Fried
-
-              * Other Method
-
-              '
-    LocationSchema:
+              $ref: '#/components/schemas/ResponseError'
+    Duration:
       type: object
+      description: Product duration.
       properties:
-        '@context':
+        unit:
           type: string
-        '@type':
-          type: string
-        '@id':
-          type: string
-        Name:
-          type: string
-        Image:
-          type: string
-        Geo:
-          type: object
-          properties:
-            '@type':
-              type: string
-            Latitude:
-              type: number
-              format: double
-            Longitude:
-              type: number
-              format: double
-        Address:
-          type: object
-          properties:
-            '@type':
-              type: string
-            StreetAddress:
-              type: string
-            AddressLocality:
-              type: string
-            PostalCode:
-              type: string
-            AddressCountry:
-              type: string
-        Telephone:
-          type: string
-        OpeningHoursSpecification:
-          type: array
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-              DayOfWeek:
-                type: array
-                items:
-                  type: string
-              Opens:
-                type: string
-              Closes:
-                type: string
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    ProductEcl_Section:
-      allOf:
-      - $ref: '#/components/schemas/BaseEclSection'
-      - type: object
-        properties:
-          items:
-            type: array
-            description: Section Items.
-            items:
-              $ref: '#/components/schemas/ProductItem'
-    QuestionRequest:
-      type: object
-      required:
-      - entityId
-      - name
-      - email
-      - questionText
-      - questionLanguage
-      properties:
-        entityId:
-          type: string
-          description: ID of the entity associated to this question.
-        site:
-          type: string
-          description: Site on which to create this question.
-        name:
-          type: string
-          description: The name of the author of the question.
-        email:
-          type: string
-          description: The email of the author of the question.
-        questionText:
-          type: string
-          description: The question that is being asked.
-        questionDescription:
-          type: string
-          description: Additional details for this question.
-        questionLanguage:
-          type: string
-          description: The language code of the language that the question is being asked in.
+          enum:
+          - MINUTES
+          - HOURS
+          - DAYS
+          description: Unit of time (i.e. minutes, hours, days).
+        value:
+          type: number
+          minimum: 1
+          description: Value of time.
     ContentListCostOption:
       type: object
       properties:
@@ -47163,6 +47105,283 @@ components:
         calorie:
           type: integer
           description: How many calories this option adds. This field is for Menu items only.
+    Geo:
+      type: object
+      description: If location provided in geosearch cannot be geocoded, this field will be set to null.
+      properties:
+        latitude:
+          type: string
+          description: Latitude as returned by geocoder. If no value, returns ""
+        longitude:
+          type: string
+          description: Longitude as returned by geocoder. If no value, returns ""
+        address:
+          type: string
+          description: Address field as returned by geocoder. If no value, returns ""
+        address2:
+          type: string
+          description: Address2 field as returned by geocoder. If no value, returns ""
+        locality:
+          type: string
+          description: Locality (city) field as returned by geocoder. If no value, returns ""
+        region:
+          type: string
+          description: Region (state) field as returned by geocoder. If no value, returns ""
+        postalCode:
+          type: string
+          description: PostalCode (ZIP) field as returned by geocoder. If no value, returns ""
+        country:
+          type: string
+          description: Country field as returned by geocoder. If no value, returns ""
+        granularity:
+          type: string
+          enum:
+          - POINT
+          - ADDRESS
+          - STREET
+          - SUBLOCALITY
+          - LOCALITY
+          - POSTALCODE
+          - REGION
+          - COUNTRY
+          - UNKNOWN
+      required:
+      - latitude
+      - longitude
+      - address
+      - address2
+      - locality
+      - region
+      - postalCode
+      - country
+      - granularity
+  responses:
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    LocationResponse:
+      description: Location Response.
+      content:
+        application/json:
+          schema:
+            title: LocationResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Location'
+    ReviewsResponse:
+      description: Reviews Response
+      content:
+        application/json:
+          schema:
+            title: ReviewsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  apiIdentifier:
+                    type: string
+                    description: 'The unique identifier which will need to be included in any further requests to
+
+                      update or delete this review.
+
+
+                      One of:
+
+                      * A UUID generated at the time the Review Creation request is accepted.
+
+                      * The invitationUid, if the review is associated with an invitation.
+
+                      '
+    EntitySchemaResponse:
+      description: Entity Schema Response.
+      content:
+        application/json:
+          schema:
+            title: EntitySchemaResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/EntitySchema'
+    BioResponse:
+      description: Bio List Response.
+      content:
+        application/json:
+          schema:
+            title: BioListResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Bio'
+    LocationsResponse:
+      description: Locations Response.
+      content:
+        application/json:
+          schema:
+            title: LocationsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Locations (up to 10,000) that meet filter criteria (ignores limit / offset).
+                  locations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Location'
+    LanguageProfileSchemaResponse:
+      description: Language Profile Schema Response.
+      content:
+        application/json:
+          schema:
+            title: LanguageProfileSchemaResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/LocationSchema'
+    LanguageProfileResponse:
+      description: Language Profile Response.
+      content:
+        application/json:
+          schema:
+            title: LanguageProfileResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Location'
+    ProductResponse:
+      description: Product List Response.
+      content:
+        application/json:
+          schema:
+            title: ProductListResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Product'
+    MenuResponse:
+      description: Menu Response.
+      content:
+        application/json:
+          schema:
+            title: MenuListResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Menu'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    EventResponse:
+      description: Event List Response.
+      content:
+        application/json:
+          schema:
+            title: EventListResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Event'
+    GeoSearchResponse:
+      description: Geo Search Response
+      content:
+        application/json:
+          schema:
+            title: GeoSearchResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: '
+
+                      Total number of Locations (up to 10,000) that meet filter criteria (ignores **`limit`** / **`offset`** parameters)
+
+                      '
+                  geo:
+                    $ref: '#/components/schemas/Geo'
+                  locationDistances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocationDistance'
+                  locations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Location'
+    LanguageProfilesResponse:
+      description: Language Profiles Response.
+      content:
+        application/json:
+          schema:
+            title: LanguageProfilesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  languageProfiles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Location'
+    LocationSchemaResponse:
+      description: Location Schema Response.
+      content:
+        application/json:
+          schema:
+            title: LocationSchemaResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/LocationSchema'
   parameters:
     radius:
       name: radius
@@ -47178,57 +47397,40 @@ components:
         Indicates the search radius around the provided **`location`** in miles
 
         '
-    listId:
-      name: listId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: ID of this List.
-    locationId:
-      name: locationId
-      in: path
-      required: true
-      schema:
-        type: string
-    geocoderBias:
-      name: geocoderBias
+    limit:
+      name: limit
       in: query
-      required: false
-      schema:
-        type: string
-      description: 'The latitude, longitude, and approximate radius in miles, separated by commas, where the geocoder should be biased.
-
-        '
-    languages:
-      name: languages
-      in: query
-      required: false
-      schema:
-        type: string
-        default: 'false'
-      description: '
-
-        Comma-separated list of language codes. When present, the system will return Locations with one or more of the provided languages.  For each Location, only the first available language from the provided list will be returned. The keyword `"primary"` can be used to refer to a Location’s primary profile without providing a specific language code.
-
-        '
-    filters:
-      name: filters
-      in: query
-      required: false
-      schema:
-        type: string
-      description: "A set of filters that is applied to the set of locations that would otherwise be returned. Should be provided as a URL-encoded string containing a JSON array. The array should have one or more filter objects defined. All filter objects will apply as an intersection (i.e., AND). Field names reference Location fields, as well as custom fields using the format `custom###`, where \"###\" is the custom field’s **`id`**.\n\nFor example, to provide a filter that would match location names containing the word \"gourmet\", the filter parameter would be `[{\"name\":{\"contains\":[\"gourmet\"]}}]`, which URL-encoded would be `%5B%7B%22name%22%3A%7B%22contains%22%3A%5B%22gourmet%22%5D%7D%7D%5D`.\n\nNOTE: \"x\", \"xx\", and \"xxx\" are reserved keywords that, when passed in a `contains` matcher for a Full or Text filter, will cause that filter to match on all locations.\n\nThe filter types are the following. Note there may be multiple available specifications for a given filter type:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Filter Type</th>\n    <th>Syntax</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td>Full</td>\n    <td>fieldName: {contains: $search}</td>\n    <td>$search is the search string</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: {$type: [$search,...]}</td>\n    <td>$type is one of [contains,doesNotContain,startsWith,equalTo], $search is an array of search strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is the numeric value</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are numeric values</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is a string of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are strings of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Country</td>\n    <td>fieldName: {$type: [$country,...]}</td>\n    <td>$type is one of [includes,notIncludes], $country is an array of country code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>PrimaryLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [is,isNot], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>AlternateLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [includes, notIncludes], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringSingle</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [is,isNot], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringList</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [includes,notIncludes], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>LocationType</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [is,isNot], $id is an array of location type IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Bool</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [true,false]</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: $id}</td>\n    <td>$type is one of [is,isNot], $id is an option ID (For single option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of option IDs, combined with OR (For multi option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: [$id,...]</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: $id</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$id is a numeric folder ID, $type is one of ['isIn', 'isNotIn']</td>\n  </tr>\n  <tr>\n    <td>Labels</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of label IDs, combined with OR</td>\n  </tr>\n</table>\n\nThe following fields can be specified in the request (Field name/Filter Type/Example(s)):\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Field Name</th>\n    <th>Filter Type</th>\n    <th>Example(s)</th>\n  </tr>\n  <tr>\n    <td>location</td>\n    <td>Full</td>\n    <td>\"location\": {\"contains\": \"Atlanta\"}</td>\n  </tr>\n  <tr>\n    <td>name</td>\n    <td>Text</td>\n    <td>\"name\": {\"startsWith\": [\"Guitar\"]}, \"name\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>address</td>\n    <td>Text</td>\n    <td>\"address\": {\"startsWith\": [\"South\"]}</td>\n  </tr>\n  <tr>\n    <td>address2</td>\n    <td>Text</td>\n    <td>\"address2\": {\"contains\": [\"Suite\"]}</td>\n  </tr>\n  <tr>\n    <td>city</td>\n    <td>Text</td>\n    <td>\"city\": {\"contains\": [\"Atlanta\"]}</td>\n  </tr>\n  <tr>\n    <td>state</td>\n    <td>Text</td>\n    <td>\"state\": {\"contains\": [\"AK\",\"VA\"]}</td>\n  </tr>\n  <tr>\n    <td>zip</td>\n    <td>Text</td>\n    <td>\"zip\": {\"contains\": [\"M5K 7QB\"]}</td>\n  </tr>\n  <tr>\n    <td>phones</td>\n    <td>Text</td>\n    <td>\"phones\": {\"startsWith\": [\"703\",\"571\"]}</td>\n  </tr>\n  <tr>\n    <td>specialOffer</td>\n    <td>Text</td>\n    <td>\"specialOffer\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>emails</td>\n    <td>Text</td>\n    <td>\"emails\": {\"doesNotContain\": [\"@yext.com\"]}</td>\n  </tr>\n  <tr>\n    <td>website</td>\n    <td>Text</td>\n    <td>\"website\": {\"equalTo\": [\"https://www.yext.com/\"]}</td>\n  </tr>\n  <tr>\n    <td>categories</td>\n    <td>Categories</td>\n    <td>\"categories\": {\"includes\": [23,755,34]}</td>\n  </tr>\n  <tr>\n    <td>closed</td>\n    <td>Bool</td>\n    <td>\"closed\": true</td>\n  </tr>\n  <tr>\n    <td>storeId</td>\n    <td>Text</td>\n    <td>\"storeId\": {\"equalTo\": [\"MCD0001\"]}</td>\n  </tr>\n  <tr>\n    <td>countryCode</td>\n    <td>Country</td>\n    <td>\"countryCode\": {\"notIncludes\": [\"US\"]}</td>\n  </tr>\n  <tr>\n    <td>products</td>\n    <td>Text</td>\n    <td>\"products\": {\"startsWith\": [\"Burger\",\"Fries\"]}</td>\n  </tr>\n  <tr>\n    <td>services</td>\n    <td>Text</td>\n    <td>\"services\": {\"contains\": [\"Manicures\"]}</td>\n  </tr>\n  <tr>\n    <td>specialities</td>\n    <td>Text</td>\n    <td>\"services\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>associations</td>\n    <td>Text</td>\n    <td>\"associations\": \"empty\"</td>\n  </tr>\n  <tr>\n    <td>brands</td>\n    <td>Text</td>\n    <td>\"brands\": {\"equalTo\": [\"North Face\"]}</td>\n  </tr>\n  <tr>\n    <td>languages</td>\n    <td>Text</td>\n    <td>\"languages\": {\"equalTo\": [\"English\",\"Spanish\"]}</td>\n  </tr>\n  <tr>\n    <td>keywords</td>\n    <td>Text</td>\n    <td>\"keywords\": {\"startsWith\": [\"Franchise\"]}</td>\n  </tr>\n  <tr>\n    <td>menuIds</td>\n    <td>IdList</td>\n    <td>\"menuIds\": {\"includes\": [\"m-23\",\"755\",\"menu34\"]}</td>\n  </tr>\n  <tr>\n    <td>productListIds</td>\n    <td>IdList</td>\n    <td>\"productListIds\": {\"notIncludes\": [\"pl-2\"]}</td>\n  </tr>\n  <tr>\n    <td>calendarIds</td>\n    <td>IdList</td>\n    <td>\"calendarIds\": {\"notIncludes\": [\"cal34\"]}</td>\n  </tr>\n  <tr>\n    <td>bioIds</td>\n    <td>IdList</td>\n    <td>\"bioIds\": {\"includes\": [\"b23\",\"34\"]}</td>\n  </tr>\n  <tr>\n    <td>custom###</td>\n    <td>Text (for Multiline Text, URL, Text List, and Text Custom Fields), Number, Date, Bool, or Option</td>\n    <td>\"custom123\": {\"equalTo\": [\"asdf\"]}</td>\n  </tr>\n  <tr>\n    <td>folder</td>\n    <td>Folder</td>\n    <td>\"folder\": 123, \"folder\": [123,456]</td>\n  </tr>\n  <tr>\n    <td>primary_language</td>\n    <td>PrimaryLanguage</td>\n    <td>\"primary_language\": {\"is\": \"fr_CA\"}</td>\n  </tr>\n  <tr>\n    <td>alternateProfileLanguage</td>\n    <td>AlternateLanguage</td>\n    <td>\"alternateProfileLanguage\": {\"includes\": [\"en\", \"fr\"]}</td>\n  </tr>\n  <tr>\n    <td>npi</td>\n    <td>StringSingle</td>\n    <td>\"npi\": {\"is\": [\"1234567890\", \"1111111111\"]}</td>\n  </tr>\n  <tr>\n    <td>conditionsTreated</td>\n    <td>Text</td>\n    <td>\"conditionsTreated\": {\"startsWith\": [\"Influenza\"]}, \"conditionsTreated\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>lastUpdated</td>\n    <td>Date</td>\n    <td>\"lastUpdated\": {\"eq\": \"2018-01-01\"}, \"lastUpdated\": {\"between\": [\"2017-01-01\", \"2018-01-01\"]}</td>\n  </tr>\n  <tr>\n    <td>fieldsWithData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithData\": [\"email\", \"hours\"]</td>\n  </tr>\n  <tr>\n    <td>fieldsWithoutData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithoutData\": [\"logo\", \"video\"]</td>\n  </tr>\n  <tr>\n    <td>reviewCount</td>\n    <td>Number</td>\n    <td>\"review_count\": {\"gt\": 1}, \"review_count \": {\"lt\": 10}</td>\n  </tr>\n  <tr>\n    <td>averageRating</td>\n    <td>Number</td>\n    <td>\"averageRating\": {\"lt\": 3}</td>\n  </tr>\n  <tr>\n    <td>locationType</td>\n    <td>LocationType</td>\n    <td>\"locationType\": {\"is\": [1]}, \"locationType\": {\"isNot\": [123]}</td>\n  </tr>\n  <tr>\n    <td>gender</td>\n    <td>StringSingle</td>\n    <td>\"gender\": {\"is\": [\"FEMALE\"]}, \"gender\": {\"isNot\": [\"MALE\"]}</td>\n  </tr>\n  <tr>\n    <td>degrees</td>\n    <td>StringList</td>\n    <td>\"degrees\": {\"includes\": [\"MD\"]}, \"degrees\": {\"notIncludes\": [\"PHD\"]}</td>\n  </tr>\n  <tr>\n    <td>experiences</td>\n    <td>StringList</td>\n    <td>\"experiences\": {\"includes\": [\"FELLOWSHIP\"]}, \"experiences\": {\"notIncludes\":[\"INTERNSHIP\"]}</td>\n  </tr>\n  <tr>\n    <td>yearCompleted</td>\n    <td>Number</td>\n    <td>\"yearCompleted\": {\"gt\": 2000}, \"yearCompleted\": {\"lt\": 2015}</td>\n  </tr>\n  <tr>\n    <td>acceptingNewPatients</td>\n    <td>Bool</td>\n    <td>\"acceptingNewPatients\": true</td>\n  </tr>\n  <tr>\n    <td>firstName</td>\n    <td>Text</td>\n    <td>\"firstName\": {\"startsWith\": [\"David\"]}, \"firstName\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>middleName</td>\n    <td>Text</td>\n    <td>\"middleName\": {\"startsWith\": [\"P\"]}, \"middleName\": {\"contains\": [\"N\",\"E\"]}</td>\n  </tr>\n  <tr>\n    <td>lastName</td>\n    <td>Text</td>\n    <td>\"lastName\": {\"startsWith\": [\"Sm\"]}, \"lastName\": {\"contains\": [\"Y\",\"Z\"]}</td>\n  </tr>\n  <tr>\n    <td>officeName</td>\n    <td>Text</td>\n    <td>\"officeName\": {\"startsWith\": [\"Chiropractic\"]}, \"officeName\": {\"contains\":[\"Center\",\"P\"]}</td>\n  </tr>\n  <tr>\n    <td>certifications</td>\n    <td>Text</td>\n    <td>\"certifications\": {\"contains\": [\"Radiation Oncology\"]}</td>\n  </tr>\n  <tr>\n    <td>institutionName</td>\n    <td>Text</td>\n    <td>\"institutionName\": {\"startsWith\": [\"New York\"]}</td>\n  </tr>\n  <tr>\n    <td>insuranceAccepted</td>\n    <td>Text</td>\n    <td>\"insuranceAccepted\": {\"startsWith\": [\"United\"]}, \"insuranceAccepted\":{\"contains\": [\"C\",\"Health\"]}</td>\n  </tr>\n  <tr>\n    <td>admittingHospitals</td>\n    <td>Text</td>\n    <td>\"admittingHospitals\": {\"startsWith\": [\"Children's\"]}, \"admittingHospitals\":{\"contains\": [\"Medical\",\"University\"]}</td>\n  </tr>\n  <tr>\n    <td>subscriptions</td>\n    <td>IdList</td>\n    <td>\"subscriptions\": {\"notIncludes\": [\"123\"]}</td>\n  </tr>\n  <tr>\n    <td>facebookAccounts</td>\n    <td>IdList</td>\n    <td>\"facebookAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>foursquareAccounts</td>\n    <td>IdList</td>\n    <td>\"foursquareAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>googleplusAccounts</td>\n    <td>IdList</td>\n    <td>\"googleplusAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>labels</td>\n    <td>Labels</td>\n    <td>\"labels\": {\"includes\": [1, 100]}</td>\n  </tr>\n</table>\n"
-    offset:
-      name: offset
-      in: query
-      required: false
       schema:
         type: integer
-        minimum: 0
-        maximum: 9949
-        default: 0
-      description: Number of results to skip. Used to move through results
+        default: 10
+        maximum: 50
+      description: Number of results to return.
+    apiIdentifier:
+      name: apiIdentifier
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of this review.
+
+
+        One of:
+
+        * A UUID generated at the time the Review Creation request is accepted.
+
+        * The invitationUid, if the review is associated with an invitation.
+
+
+        This ID will be returned in the response to any requests to the Review: Create Live API
+
+        endpoint.
+
+
+        This ID will also be included in the Reviews Webhook, and the Review: Get/List Knowledge API
+
+        endpoints.
+
+        '
     location:
       name: location
       in: query
@@ -47247,58 +47449,6 @@ components:
 
 
         Note that providing an address that resolves to an area, like a city or a postal code, does not restrict the search to exactly that area; it simply centers the search circle on a point in that area.
-
-        '
-    entityId:
-      name: entityId
-      in: path
-      schema:
-        type: string
-      required: true
-      description: '
-
-        The external ID of the requested Entity.
-
-        '
-    sortBy:
-      name: sortBy
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'Specifies the fields and direction by which the output should be sorted. Should be provided as a URL-encoded string containing a JSON array of `sortDefinition` objects. A `sortDefinition` object consists of a `sortField` and a `sortDirection` field. The `sortField` is the name of the field you are sorting by (e.g., `firstName` or `custom###` for a custom field, where "###" is the custom field’s **`id`**). The `sortDirection` indicates whether the sort is ascending (`ASCENDING`) or descending (`DESCENDING`).
-
-
-        For example, to sort by last name ascending and first name descending, this parameter would be `[{"sortField":"lastName","sortDirection":"ASCENDING"},{"sortField":"firstName", "sortDirection":"DESCENDING"}]`, which, when URL-encoded, would be `%5B%7B%22sortField%22%3A%22lastName%22%2C%22sortDirection%22%3A%22ASCENDING%22%7D%2C%7B%22sortField%22%3A%22firstName%22%2C%22sortDirection%22%3A%22DESCENDING%22%7D%5D`.
-
-
-        **NOTE:** Currently, we support sorting by **`firstName`**, **`lastName`**, and text custom fields.
-
-        '
-    countryBias:
-      name: countryBias
-      in: query
-      schema:
-        type: string
-      required: false
-      description: '
-
-        The two-character ISO 3166-1 code of the country where the geocoder should be biased.
-
-
-        The value of the **`countryBias`** parameter influences the search results, but it does not guarantee that the geocoded location will be in the country provided.
-
-
-        If both **`countryBias`** and **`geocoderBias`** are provided, **`geocoderBias`** is given priority, but both values are considered in the search.
-
-        '
-    languageCode:
-      name: languageCode
-      in: path
-      required: true
-      schema:
-        type: string
-      description: 'The language code corresponding to the language of the profiles that the user wishes to retrieve
 
         '
     entityTypePath:
@@ -47331,32 +47481,13 @@ components:
         OR the API name of a custom entity type.
 
         '
-    apiIdentifier:
-      name: apiIdentifier
-      in: path
+    v:
+      name: v
+      in: query
       required: true
       schema:
         type: string
-      description: 'The unique identifier of this review.
-
-
-        One of:
-
-        * A UUID generated at the time the Review Creation request is accepted.
-
-        * The invitationUid, if the review is associated with an invitation.
-
-
-        This ID will be returned in the response to any requests to the Review: Create Live API
-
-        endpoint.
-
-
-        This ID will also be included in the Reviews Webhook, and the Review: Get/List Knowledge API
-
-        endpoints.
-
-        '
+      description: A date in `YYYYMMDD` format.
     fields:
       name: fields
       in: query
@@ -47366,254 +47497,115 @@ components:
       description: 'Comma-separated list of field names from the Location object. When present, only the fields listed will be returned. You can use dot notation to specify substructures (e.g., `"logo.url"`). To include a custom field, specify it as `custom###`, where "###" is the custom field''s **`id`**.
 
         '
+    languages:
+      name: languages
+      in: query
+      required: false
+      schema:
+        type: string
+        default: 'false'
+      description: '
+
+        Comma-separated list of language codes. When present, the system will return Locations with one or more of the provided languages.  For each Location, only the first available language from the provided list will be returned. The keyword `"primary"` can be used to refer to a Location’s primary profile without providing a specific language code.
+
+        '
+    offset:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 9949
+        default: 0
+      description: Number of results to skip. Used to move through results
     accountId:
       name: accountId
       in: path
       required: true
       schema:
         type: string
-    v:
-      name: v
+    entityId:
+      name: entityId
+      in: path
+      schema:
+        type: string
+      required: true
+      description: '
+
+        The external ID of the requested Entity.
+
+        '
+    filters:
+      name: filters
       in: query
+      required: false
+      schema:
+        type: string
+      description: "A set of filters that is applied to the set of locations that would otherwise be returned. Should be provided as a URL-encoded string containing a JSON array. The array should have one or more filter objects defined. All filter objects will apply as an intersection (i.e., AND). Field names reference Location fields, as well as custom fields using the format `custom###`, where \"###\" is the custom field’s **`id`**.\n\nFor example, to provide a filter that would match location names containing the word \"gourmet\", the filter parameter would be `[{\"name\":{\"contains\":[\"gourmet\"]}}]`, which URL-encoded would be `%5B%7B%22name%22%3A%7B%22contains%22%3A%5B%22gourmet%22%5D%7D%7D%5D`.\n\nNOTE: \"x\", \"xx\", and \"xxx\" are reserved keywords that, when passed in a `contains` matcher for a Full or Text filter, will cause that filter to match on all locations.\n\nThe filter types are the following. Note there may be multiple available specifications for a given filter type:\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Filter Type</th>\n    <th>Syntax</th>\n    <th>Description</th>\n  </tr>\n  <tr>\n    <td>Full</td>\n    <td>fieldName: {contains: $search}</td>\n    <td>$search is the search string</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: {$type: [$search,...]}</td>\n    <td>$type is one of [contains,doesNotContain,startsWith,equalTo], $search is an array of search strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Text</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is the numeric value</td>\n  </tr>\n  <tr>\n    <td>Number</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are numeric values</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: $value}</td>\n    <td>$type is one of [eq,lt,gt,le,ge], $value is a string of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [empty,notEmpty]</td>\n  </tr>\n  <tr>\n    <td>Date</td>\n    <td>fieldName: {$type: [$value1, $value2]}</td>\n    <td>$type is one of [between], $value1 and $value2 are strings of \"YYYY-MM-DD\" formatted date</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Categories</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of numeric category IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Assets</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [none]</td>\n  </tr>\n  <tr>\n    <td>Country</td>\n    <td>fieldName: {$type: [$country,...]}</td>\n    <td>$type is one of [includes,notIncludes], $country is an array of country code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>PrimaryLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [is,isNot], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>AlternateLanguage</td>\n    <td>fieldName: {$type: [$language,...]}</td>\n    <td>$type is one of [includes, notIncludes], $language is an array of language code strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringSingle</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [is,isNot], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>StringList</td>\n    <td>fieldName: {$type: [$string,...]}</td>\n    <td>$type is one of [includes,notIncludes], $string is an array of strings, combined with OR</td>\n  </tr>\n  <tr>\n    <td>LocationType</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [is,isNot], $id is an array of location type IDs, combined with OR</td>\n  </tr>\n  <tr>\n    <td>Bool</td>\n    <td>fieldName: $type</td>\n    <td>$type is one of [true,false]</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: $id}</td>\n    <td>$type is one of [is,isNot], $id is an option ID (For single option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Option</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of option IDs, combined with OR (For multi option custom fields)</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: [$id,...]</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: $id</td>\n    <td>$id is a numeric folder ID</td>\n  </tr>\n  <tr>\n    <td>Folder</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$id is a numeric folder ID, $type is one of ['isIn', 'isNotIn']</td>\n  </tr>\n  <tr>\n    <td>Labels</td>\n    <td>fieldName: {$type: [$id,...]}</td>\n    <td>$type is one of [includes,notIncludes], $id is an array of label IDs, combined with OR</td>\n  </tr>\n</table>\n\nThe following fields can be specified in the request (Field name/Filter Type/Example(s)):\n\n<table style=\"width:100%\">\n  <tr>\n    <th>Field Name</th>\n    <th>Filter Type</th>\n    <th>Example(s)</th>\n  </tr>\n  <tr>\n    <td>location</td>\n    <td>Full</td>\n    <td>\"location\": {\"contains\": \"Atlanta\"}</td>\n  </tr>\n  <tr>\n    <td>name</td>\n    <td>Text</td>\n    <td>\"name\": {\"startsWith\": [\"Guitar\"]}, \"name\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>address</td>\n    <td>Text</td>\n    <td>\"address\": {\"startsWith\": [\"South\"]}</td>\n  </tr>\n  <tr>\n    <td>address2</td>\n    <td>Text</td>\n    <td>\"address2\": {\"contains\": [\"Suite\"]}</td>\n  </tr>\n  <tr>\n    <td>city</td>\n    <td>Text</td>\n    <td>\"city\": {\"contains\": [\"Atlanta\"]}</td>\n  </tr>\n  <tr>\n    <td>state</td>\n    <td>Text</td>\n    <td>\"state\": {\"contains\": [\"AK\",\"VA\"]}</td>\n  </tr>\n  <tr>\n    <td>zip</td>\n    <td>Text</td>\n    <td>\"zip\": {\"contains\": [\"M5K 7QB\"]}</td>\n  </tr>\n  <tr>\n    <td>phones</td>\n    <td>Text</td>\n    <td>\"phones\": {\"startsWith\": [\"703\",\"571\"]}</td>\n  </tr>\n  <tr>\n    <td>specialOffer</td>\n    <td>Text</td>\n    <td>\"specialOffer\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>emails</td>\n    <td>Text</td>\n    <td>\"emails\": {\"doesNotContain\": [\"@yext.com\"]}</td>\n  </tr>\n  <tr>\n    <td>website</td>\n    <td>Text</td>\n    <td>\"website\": {\"equalTo\": [\"https://www.yext.com/\"]}</td>\n  </tr>\n  <tr>\n    <td>categories</td>\n    <td>Categories</td>\n    <td>\"categories\": {\"includes\": [23,755,34]}</td>\n  </tr>\n  <tr>\n    <td>closed</td>\n    <td>Bool</td>\n    <td>\"closed\": true</td>\n  </tr>\n  <tr>\n    <td>storeId</td>\n    <td>Text</td>\n    <td>\"storeId\": {\"equalTo\": [\"MCD0001\"]}</td>\n  </tr>\n  <tr>\n    <td>countryCode</td>\n    <td>Country</td>\n    <td>\"countryCode\": {\"notIncludes\": [\"US\"]}</td>\n  </tr>\n  <tr>\n    <td>products</td>\n    <td>Text</td>\n    <td>\"products\": {\"startsWith\": [\"Burger\",\"Fries\"]}</td>\n  </tr>\n  <tr>\n    <td>services</td>\n    <td>Text</td>\n    <td>\"services\": {\"contains\": [\"Manicures\"]}</td>\n  </tr>\n  <tr>\n    <td>specialities</td>\n    <td>Text</td>\n    <td>\"services\": \"notEmpty\"</td>\n  </tr>\n  <tr>\n    <td>associations</td>\n    <td>Text</td>\n    <td>\"associations\": \"empty\"</td>\n  </tr>\n  <tr>\n    <td>brands</td>\n    <td>Text</td>\n    <td>\"brands\": {\"equalTo\": [\"North Face\"]}</td>\n  </tr>\n  <tr>\n    <td>languages</td>\n    <td>Text</td>\n    <td>\"languages\": {\"equalTo\": [\"English\",\"Spanish\"]}</td>\n  </tr>\n  <tr>\n    <td>keywords</td>\n    <td>Text</td>\n    <td>\"keywords\": {\"startsWith\": [\"Franchise\"]}</td>\n  </tr>\n  <tr>\n    <td>menuIds</td>\n    <td>IdList</td>\n    <td>\"menuIds\": {\"includes\": [\"m-23\",\"755\",\"menu34\"]}</td>\n  </tr>\n  <tr>\n    <td>productListIds</td>\n    <td>IdList</td>\n    <td>\"productListIds\": {\"notIncludes\": [\"pl-2\"]}</td>\n  </tr>\n  <tr>\n    <td>calendarIds</td>\n    <td>IdList</td>\n    <td>\"calendarIds\": {\"notIncludes\": [\"cal34\"]}</td>\n  </tr>\n  <tr>\n    <td>bioIds</td>\n    <td>IdList</td>\n    <td>\"bioIds\": {\"includes\": [\"b23\",\"34\"]}</td>\n  </tr>\n  <tr>\n    <td>custom###</td>\n    <td>Text (for Multiline Text, URL, Text List, and Text Custom Fields), Number, Date, Bool, or Option</td>\n    <td>\"custom123\": {\"equalTo\": [\"asdf\"]}</td>\n  </tr>\n  <tr>\n    <td>folder</td>\n    <td>Folder</td>\n    <td>\"folder\": 123, \"folder\": [123,456]</td>\n  </tr>\n  <tr>\n    <td>primary_language</td>\n    <td>PrimaryLanguage</td>\n    <td>\"primary_language\": {\"is\": \"fr_CA\"}</td>\n  </tr>\n  <tr>\n    <td>alternateProfileLanguage</td>\n    <td>AlternateLanguage</td>\n    <td>\"alternateProfileLanguage\": {\"includes\": [\"en\", \"fr\"]}</td>\n  </tr>\n  <tr>\n    <td>npi</td>\n    <td>StringSingle</td>\n    <td>\"npi\": {\"is\": [\"1234567890\", \"1111111111\"]}</td>\n  </tr>\n  <tr>\n    <td>conditionsTreated</td>\n    <td>Text</td>\n    <td>\"conditionsTreated\": {\"startsWith\": [\"Influenza\"]}, \"conditionsTreated\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>lastUpdated</td>\n    <td>Date</td>\n    <td>\"lastUpdated\": {\"eq\": \"2018-01-01\"}, \"lastUpdated\": {\"between\": [\"2017-01-01\", \"2018-01-01\"]}</td>\n  </tr>\n  <tr>\n    <td>fieldsWithData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithData\": [\"email\", \"hours\"]</td>\n  </tr>\n  <tr>\n    <td>fieldsWithoutData</td>\n    <td>Fields</td>\n    <td>\"fieldsWithoutData\": [\"logo\", \"video\"]</td>\n  </tr>\n  <tr>\n    <td>reviewCount</td>\n    <td>Number</td>\n    <td>\"review_count\": {\"gt\": 1}, \"review_count \": {\"lt\": 10}</td>\n  </tr>\n  <tr>\n    <td>averageRating</td>\n    <td>Number</td>\n    <td>\"averageRating\": {\"lt\": 3}</td>\n  </tr>\n  <tr>\n    <td>locationType</td>\n    <td>LocationType</td>\n    <td>\"locationType\": {\"is\": [1]}, \"locationType\": {\"isNot\": [123]}</td>\n  </tr>\n  <tr>\n    <td>gender</td>\n    <td>StringSingle</td>\n    <td>\"gender\": {\"is\": [\"FEMALE\"]}, \"gender\": {\"isNot\": [\"MALE\"]}</td>\n  </tr>\n  <tr>\n    <td>degrees</td>\n    <td>StringList</td>\n    <td>\"degrees\": {\"includes\": [\"MD\"]}, \"degrees\": {\"notIncludes\": [\"PHD\"]}</td>\n  </tr>\n  <tr>\n    <td>experiences</td>\n    <td>StringList</td>\n    <td>\"experiences\": {\"includes\": [\"FELLOWSHIP\"]}, \"experiences\": {\"notIncludes\":[\"INTERNSHIP\"]}</td>\n  </tr>\n  <tr>\n    <td>yearCompleted</td>\n    <td>Number</td>\n    <td>\"yearCompleted\": {\"gt\": 2000}, \"yearCompleted\": {\"lt\": 2015}</td>\n  </tr>\n  <tr>\n    <td>acceptingNewPatients</td>\n    <td>Bool</td>\n    <td>\"acceptingNewPatients\": true</td>\n  </tr>\n  <tr>\n    <td>firstName</td>\n    <td>Text</td>\n    <td>\"firstName\": {\"startsWith\": [\"David\"]}, \"firstName\": {\"contains\": [\"A\",\"B\"]}</td>\n  </tr>\n  <tr>\n    <td>middleName</td>\n    <td>Text</td>\n    <td>\"middleName\": {\"startsWith\": [\"P\"]}, \"middleName\": {\"contains\": [\"N\",\"E\"]}</td>\n  </tr>\n  <tr>\n    <td>lastName</td>\n    <td>Text</td>\n    <td>\"lastName\": {\"startsWith\": [\"Sm\"]}, \"lastName\": {\"contains\": [\"Y\",\"Z\"]}</td>\n  </tr>\n  <tr>\n    <td>officeName</td>\n    <td>Text</td>\n    <td>\"officeName\": {\"startsWith\": [\"Chiropractic\"]}, \"officeName\": {\"contains\":[\"Center\",\"P\"]}</td>\n  </tr>\n  <tr>\n    <td>certifications</td>\n    <td>Text</td>\n    <td>\"certifications\": {\"contains\": [\"Radiation Oncology\"]}</td>\n  </tr>\n  <tr>\n    <td>institutionName</td>\n    <td>Text</td>\n    <td>\"institutionName\": {\"startsWith\": [\"New York\"]}</td>\n  </tr>\n  <tr>\n    <td>insuranceAccepted</td>\n    <td>Text</td>\n    <td>\"insuranceAccepted\": {\"startsWith\": [\"United\"]}, \"insuranceAccepted\":{\"contains\": [\"C\",\"Health\"]}</td>\n  </tr>\n  <tr>\n    <td>admittingHospitals</td>\n    <td>Text</td>\n    <td>\"admittingHospitals\": {\"startsWith\": [\"Children's\"]}, \"admittingHospitals\":{\"contains\": [\"Medical\",\"University\"]}</td>\n  </tr>\n  <tr>\n    <td>subscriptions</td>\n    <td>IdList</td>\n    <td>\"subscriptions\": {\"notIncludes\": [\"123\"]}</td>\n  </tr>\n  <tr>\n    <td>facebookAccounts</td>\n    <td>IdList</td>\n    <td>\"facebookAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>foursquareAccounts</td>\n    <td>IdList</td>\n    <td>\"foursquareAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>googleplusAccounts</td>\n    <td>IdList</td>\n    <td>\"googleplusAccounts\": {\"notIncludes\": [\"1111\"]}</td>\n  </tr>\n  <tr>\n    <td>labels</td>\n    <td>Labels</td>\n    <td>\"labels\": {\"includes\": [1, 100]}</td>\n  </tr>\n</table>\n"
+    countryBias:
+      name: countryBias
+      in: query
+      schema:
+        type: string
+      required: false
+      description: '
+
+        The two-character ISO 3166-1 code of the country where the geocoder should be biased.
+
+
+        The value of the **`countryBias`** parameter influences the search results, but it does not guarantee that the geocoded location will be in the country provided.
+
+
+        If both **`countryBias`** and **`geocoderBias`** are provided, **`geocoderBias`** is given priority, but both values are considered in the search.
+
+        '
+    sortBy:
+      name: sortBy
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies the fields and direction by which the output should be sorted. Should be provided as a URL-encoded string containing a JSON array of `sortDefinition` objects. A `sortDefinition` object consists of a `sortField` and a `sortDirection` field. The `sortField` is the name of the field you are sorting by (e.g., `firstName` or `custom###` for a custom field, where "###" is the custom field’s **`id`**). The `sortDirection` indicates whether the sort is ascending (`ASCENDING`) or descending (`DESCENDING`).
+
+
+        For example, to sort by last name ascending and first name descending, this parameter would be `[{"sortField":"lastName","sortDirection":"ASCENDING"},{"sortField":"firstName", "sortDirection":"DESCENDING"}]`, which, when URL-encoded, would be `%5B%7B%22sortField%22%3A%22lastName%22%2C%22sortDirection%22%3A%22ASCENDING%22%7D%2C%7B%22sortField%22%3A%22firstName%22%2C%22sortDirection%22%3A%22DESCENDING%22%7D%5D`.
+
+
+        **NOTE:** Currently, we support sorting by **`firstName`**, **`lastName`**, and text custom fields.
+
+        '
+    listId:
+      name: listId
+      in: path
       required: true
       schema:
         type: string
-      description: A date in `YYYYMMDD` format.
-    limit:
-      name: limit
-      in: query
+      description: ID of this List.
+    locationId:
+      name: locationId
+      in: path
+      required: true
       schema:
-        type: integer
-        default: 10
-        maximum: 50
-      description: Number of results to return.
-  responses:
-    ReviewsResponse:
-      description: Reviews Response
-      content:
-        application/json:
-          schema:
-            title: ReviewsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  apiIdentifier:
-                    type: string
-                    description: 'The unique identifier which will need to be included in any further requests to
+        type: string
+    languageCode:
+      name: languageCode
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The language code corresponding to the language of the profiles that the user wishes to retrieve
 
-                      update or delete this review.
+        '
+    geocoderBias:
+      name: geocoderBias
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The latitude, longitude, and approximate radius in miles, separated by commas, where the geocoder should be biased.
 
-
-                      One of:
-
-                      * A UUID generated at the time the Review Creation request is accepted.
-
-                      * The invitationUid, if the review is associated with an invitation.
-
-                      '
-    LocationSchemaResponse:
-      description: Location Schema Response.
-      content:
-        application/json:
-          schema:
-            title: LocationSchemaResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/LocationSchema'
-    LanguageProfilesResponse:
-      description: Language Profiles Response.
-      content:
-        application/json:
-          schema:
-            title: LanguageProfilesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  languageProfiles:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Location'
-    LocationResponse:
-      description: Location Response.
-      content:
-        application/json:
-          schema:
-            title: LocationResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Location'
-    ProductResponse:
-      description: Product List Response.
-      content:
-        application/json:
-          schema:
-            title: ProductListResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Product'
-    GeoSearchResponse:
-      description: Geo Search Response
-      content:
-        application/json:
-          schema:
-            title: GeoSearchResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: '
-
-                      Total number of Locations (up to 10,000) that meet filter criteria (ignores **`limit`** / **`offset`** parameters)
-
-                      '
-                  geo:
-                    $ref: '#/components/schemas/Geo'
-                  locationDistances:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/LocationDistance'
-                  locations:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Location'
-    EntitySchemaResponse:
-      description: Entity Schema Response.
-      content:
-        application/json:
-          schema:
-            title: EntitySchemaResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/EntitySchema'
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    LanguageProfileSchemaResponse:
-      description: Language Profile Schema Response.
-      content:
-        application/json:
-          schema:
-            title: LanguageProfileSchemaResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/LocationSchema'
-    EmptyResponse:
-      description: Empty Response.
-      content:
-        application/json:
-          schema:
-            title: EmptyResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-    MenuResponse:
-      description: Menu Response.
-      content:
-        application/json:
-          schema:
-            title: MenuListResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Menu'
-    BioResponse:
-      description: Bio List Response.
-      content:
-        application/json:
-          schema:
-            title: BioListResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Bio'
-    LanguageProfileResponse:
-      description: Language Profile Response.
-      content:
-        application/json:
-          schema:
-            title: LanguageProfileResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Location'
-    EventResponse:
-      description: Event List Response.
-      content:
-        application/json:
-          schema:
-            title: EventListResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Event'
-    LocationsResponse:
-      description: Locations Response.
-      content:
-        application/json:
-          schema:
-            title: LocationsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: Total number of Locations (up to 10,000) that meet filter criteria (ignores limit / offset).
-                  locations:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Location'
+        '
   requestBodies:
     createQuestionRequest:
       content:

@@ -20,9 +20,7 @@ paths:
       description: 'Retrieve all Reviews matching the given criteria.
 
 
-        **NOTE:** Not all publishers'' reviews will be included in the response. For more details, please contact your Account Manager.
-
-        '
+        **NOTE:** Not all publishers'' reviews will be included in the response. For more details, please contact your Account Manager.'
       parameters:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
@@ -334,9 +332,7 @@ paths:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
       summary: 'Reviews: Create'
-      description: 'Create a new External First Party Review.
-
-        '
+      description: Create a new External First Party Review.
       responses:
         '201':
           $ref: '#/components/responses/IdResponse'
@@ -386,13 +382,8 @@ paths:
       summary: 'Review: Update'
       description: 'Updates an External First Party Review or a First Party Review.
 
-        <br><br>
 
-        **NOTE:** Despite using the `PUT` method, Reviews: Update only updates supplied fields. Omitted fields are not modified.
-
-        <br><br>
-
-        '
+        **NOTE:** Despite using the `PUT` method, Reviews: Update only updates supplied fields. Omitted fields are not modified.'
       responses:
         '200':
           $ref: '#/components/responses/IdResponse'
@@ -412,7 +403,35 @@ paths:
       summary: 'Comment: Create'
       tags:
       - Reviews
-      description: "Creates a new Comment on a Review.\n\n**NOTE:** When the **Compliant Review Response** setting is enabled for your account and you are providing an `attestation`, you must include your Yext user ID in the **`Yext-User-Id`** header. The comment will be processed asynchronously for compliance review, and a **202 Accepted** response will be returned.\n<br><br>\n ## Required fields\n* **`content`**\n<br><br>\n ## Optional fields\n* **`parentId`**\n* **`visibility`**\n* **`date`**\n* **`suppressReviewerContact`**\n* **`attestation`** (only required when Compliant Review Response is enabled)\n<br><br>\n ## Response Behavior\n* When `attestation` is provided (Compliant Review Response enabled): Returns **202 Accepted** - comment will be published after compliance review\n* When `attestation` is not provided (Compliant Review Response disabled): Returns **201 Created** with comment ID, or **202 Accepted** if asynchronous processing is needed\n<br><br>\n"
+      description: 'Creates a new Comment on a Review.
+
+
+        **NOTE:** When the **Compliant Review Response** setting is enabled for your account and you are providing an `attestation`, you must include your Yext user ID in the **`Yext-User-Id`** header. The comment will be processed asynchronously for compliance review, and a **202 Accepted** response will be returned.
+
+
+        ## Required fields
+
+        * **`content`**
+
+
+        ## Optional fields
+
+        * **`parentId`**
+
+        * **`visibility`**
+
+        * **`date`**
+
+        * **`suppressReviewerContact`**
+
+        * **`attestation`** (only required when Compliant Review Response is enabled)
+
+
+        ## Response Behavior
+
+        * When `attestation` is provided (Compliant Review Response enabled): Returns **202 Accepted** - comment will be published after compliance review
+
+        * When `attestation` is not provided (Compliant Review Response disabled): Returns **201 Created** with comment ID, or **202 Accepted** if asynchronous processing is needed'
       requestBody:
         $ref: '#/components/requestBodies/commentRequest'
       parameters:
@@ -440,9 +459,7 @@ paths:
       summary: 'Comment: Generate'
       tags:
       - Reviews
-      description: 'Gets a content generated response for a particular review
-
-        '
+      description: Gets a content generated response for a particular review
       parameters:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
@@ -467,7 +484,14 @@ paths:
       summary: 'Comment: Update'
       tags:
       - Reviews
-      description: "Updates a Comment on a Review.\n<br><br>\n ## Optional fields\n* **`content`**\n* **`visibility`**\n<br><br>\n"
+      description: 'Updates a Comment on a Review.
+
+
+        ## Optional fields
+
+        * **`content`**
+
+        * **`visibility`**'
       requestBody:
         $ref: '#/components/requestBodies/commentUpdateRequest'
       parameters:
@@ -490,11 +514,7 @@ paths:
       summary: 'Comment: Delete'
       tags:
       - Reviews
-      description: 'Deletes a Comment on a Review.
-
-        <br><br>
-
-        '
+      description: Deletes a Comment on a Review.
       parameters:
       - $ref: '#/components/parameters/accountId'
       - $ref: '#/components/parameters/v'
@@ -636,7 +656,14 @@ paths:
       tags:
       - Reviews
       summary: 'Review Invitations: Create'
-      description: "Sends review invitations to one or more consumers.\n<br><br>\n ## Optional fields\n* **`templateId`**\n* **`transactionId`**\n<br><br>\n"
+      description: 'Sends review invitations to one or more consumers.
+
+
+        ## Optional fields
+
+        * **`templateId`**
+
+        * **`transactionId`**'
       requestBody:
         required: true
         content:
@@ -694,9 +721,7 @@ paths:
 
         for an existing review invitation. Any optional parameters which are excluded from the request
 
-        will simply be ignored.
-
-        '
+        will simply be ignored.'
       responses:
         '200':
           $ref: '#/components/responses/UpdateReviewInvitationResponse'
@@ -774,9 +799,7 @@ paths:
 
         Call may include any/all settings available to the account.
 
-        Settings not included will remain unchanged.
-
-        '
+        Settings not included will remain unchanged.'
       requestBody:
         $ref: '#/components/requestBodies/reviewGenerationSettingsRequest'
       parameters:
@@ -828,9 +851,7 @@ paths:
           **`assignee`**, **`type`**, and **`enabled`**.
 
           '
-      description: 'Retrieve the Review Workflow Rules configured for the account.
-
-        '
+      description: Retrieve the Review Workflow Rules configured for the account.
       responses:
         '200':
           $ref: '#/components/responses/workflowRulesResponse'
@@ -853,9 +874,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateWorkflowRule'
-      description: 'Creates a Review Workflow Rule.
-
-        '
+      description: Creates a Review Workflow Rule.
       responses:
         '200':
           $ref: '#/components/responses/workflowRuleResponse'
@@ -921,9 +940,7 @@ paths:
       description: 'Updates a single Review Workflow Rule.
 
 
-        **NOTE:** Review Workflow Rules: Update only updates supplied fields. Omitted fields are not modified.
-
-        '
+        **NOTE:** Review Workflow Rules: Update only updates supplied fields. Omitted fields are not modified.'
       responses:
         '200':
           $ref: '#/components/responses/workflowRuleResponse'
@@ -958,7 +975,23 @@ paths:
       tags:
       - Reviews
       summary: Review List
-      description: "Yext uses REVIEWS to retrieve review data for business owners. You should provide access to all organic reviews displayed on your properties (i.e., no third-party reviews).\n\n## **Requirements**\nWhen Yext customers sign in to their Listings dashboard, Yext shows them all their reviews from across the Yext Knowledge Network. In order to support this, we have the following requirements for any publisher that supports customer reviews on their listings.\n\n* Publisher must provide access to all review data.\n* Publisher’s system must notify Yext when new reviews are added, updated, or deleted from Yext-powered listings.\n* Publisher must provide a direct link to each individual review.\n* If the publisher allows users to respond to reviews, the publisher must allow Yext to do so (on behalf of the business owner).\n* If the publisher allows users to flag reviews as abuse, the publisher must allow Yext to do so (on behalf of the business owner).  \n"
+      description: 'Yext uses REVIEWS to retrieve review data for business owners. You should provide access to all organic reviews displayed on your properties (i.e., no third-party reviews).
+
+
+        ## **Requirements**
+
+        When Yext customers sign in to their Listings dashboard, Yext shows them all their reviews from across the Yext Knowledge Network. In order to support this, we have the following requirements for any publisher that supports customer reviews on their listings.
+
+
+        * Publisher must provide access to all review data.
+
+        * Publisher’s system must notify Yext when new reviews are added, updated, or deleted from Yext-powered listings.
+
+        * Publisher must provide a direct link to each individual review.
+
+        * If the publisher allows users to respond to reviews, the publisher must allow Yext to do so (on behalf of the business owner).
+
+        * If the publisher allows users to flag reviews as abuse, the publisher must allow Yext to do so (on behalf of the business owner).'
       responses:
         '200':
           $ref: '#/components/responses/GetReviewsSuccess'
@@ -978,9 +1011,7 @@ paths:
       tags:
       - Reviews
       summary: Get Review
-      description: 'Get the review object for a specific review ID.
-
-        '
+      description: Get the review object for a specific review ID.
       responses:
         '200':
           $ref: '#/components/responses/GetSingleReviewSuccess'
@@ -1000,7 +1031,20 @@ paths:
             schema:
               $ref: '#/components/schemas/PartnerReviewResponse'
       summary: Create Comment
-      description: "Yext uses RESPOND to allow business owners to interact with reviews left by consumers.\nThe endpoint supports review response by a business owner and the capability to flag reviews for inappropriate content. You should support any capabilities you already have on your site.\n\n# **Requirements**\n  Yext's customers would like to be able to manage all their reviews from one platform. To that end, they should be able to use the Yext platform to take advantage of the review-management features you have on your site.\n## Specifically:\n* Publishers who support review response from business owners must provide that capability via this endpoint.\n* Publishers who support flagging reviews for inappropriate content must provide that capability via this endpoint.\n"
+      description: 'Yext uses RESPOND to allow business owners to interact with reviews left by consumers.
+
+        The endpoint supports review response by a business owner and the capability to flag reviews for inappropriate content. You should support any capabilities you already have on your site.
+
+
+        # **Requirements**
+
+        Yext''s customers would like to be able to manage all their reviews from one platform. To that end, they should be able to use the Yext platform to take advantage of the review-management features you have on your site.
+
+        ## Specifically:
+
+        * Publishers who support review response from business owners must provide that capability via this endpoint.
+
+        * Publishers who support flagging reviews for inappropriate content must provide that capability via this endpoint.'
       responses:
         '200':
           $ref: '#/components/responses/NewCommentSuccess'
@@ -1026,9 +1070,7 @@ paths:
       tags:
       - Reviews
       summary: Update Comment
-      description: 'Yext uses the PUT operation to update a review comment from the business owner on a specific review.
-
-        '
+      description: Yext uses the PUT operation to update a review comment from the business owner on a specific review.
       responses:
         '200':
           $ref: '#/components/responses/EmptyResponseNew'
@@ -1043,9 +1085,7 @@ paths:
       tags:
       - Reviews
       summary: Delete Comment
-      description: 'Yext uses the DELETE operation to remove a review comment from the business owner on a specific review.
-
-        '
+      description: Yext uses the DELETE operation to remove a review comment from the business owner on a specific review.
       responses:
         '200':
           $ref: '#/components/responses/EmptyResponseNew'
@@ -1059,375 +1099,111 @@ paths:
     - url: https://partner.example.com
 components:
   schemas:
-    UpdateReviewLabelsRequest:
+    WorkflowRuleInput:
       type: object
       properties:
-        labelIds:
-          type: array
-          items:
-            type: integer
-          description: The IDs of the review labels added to the review.
-    UpdateWorkflowRule:
-      allOf:
-      - $ref: '#/components/schemas/WorkflowRuleInput'
-      - type: object
-        description: 'Fields that may be supplied when updating a workflow rule.
-
-
-          Updatable fields are `assignee`, `assigneeUserGroup`, `displayName`, `enabled`,
-
-          `domainConfiguration`, `ruleType`, and `dueDate`.
-
-
-          Output-only fields such as `createTime` are not part of this update schema.
-
-          '
-        properties:
-          name:
-            type: string
-            description: 'Resource name of the workflow rule to update.
-
-
-              Format: `accounts/{accountId}/workflowRules/{workflowRuleId}`
-
-              '
-    UpdateReview:
-      type: object
-      properties:
-        locationId:
+        assignee:
           type: string
-          description: ID of the location associated with this review
-        rating:
-          type: number
-          format: double
-          description: 'Normalized rating out of 5. Can only be specified for External First Party Reviews.
+          description: 'Resource name or email address of the user assigned to tasks created by this workflow rule.
+
+            Set only one of **`assignee`** or **`assigneeUserGroup`**. External email addresses that
+
+            don''t correspond to a user are only supported when **`ruleType`** is
+
+            `GENERATIVE_REVIEW_RESPONSE` and **`autoPublishGenerativeResponse`** is false.
+
+
+            Format: `accounts/{accountId}/users/{userId}`
 
             '
-        content:
+        assigneeUserGroup:
           type: string
-          description: 'Content of the review. Can only be specified for External First Party Reviews.
+          description: 'Resource name of the user group assigned to tasks created by this workflow rule. When this
+
+            is set, tasks are assigned to the user in the group with the fewest open tasks. Set only
+
+            one of **`assignee`** or **`assigneeUserGroup`**.
+
+
+            Format: `accounts/{accountId}/userGroups/{userGroup}`
 
             '
-        authorName:
+        displayName:
           type: string
-          description: 'The name of the person who wrote the review. Can only be specified for External First Party
+          description: The name of the workflow rule.
+        enabled:
+          type: boolean
+          description: Whether the workflow rule is enabled.
+        domainConfiguration:
+          type: object
+          description: 'Domain-specific configuration for the workflow rule. The supported keys depend on
 
-            Reviews.
+            **`ruleType`**.
+
+
+            Supported keys:
+
+            - `filterCriteria`
+
+            - `ruleApplication`
+
+            - `automaticResponseAssetIds`
+
+            - `autoPublishGenerativeResponse`
 
             '
-        authorEmail:
-          type: string
-          description: 'The email address of the person who wrote the review. Can only be specified for External
+          properties:
+            filterCriteria:
+              type: string
+              description: 'CEL expression used to filter which reviews match the workflow rule.
 
-            First Party Reviews.
+                '
+            ruleApplication:
+              type: string
+              description: 'Specifies when the workflow rule should be applied.
 
-            '
-        status:
+                '
+              enum:
+              - NEW_REVIEWS
+              - NEW_AND_UPDATED_REVIEWS
+              - LABEL_APPLICATION
+            automaticResponseAssetIds:
+              type: array
+              description: 'IDs of response assets used when **`ruleType`** is `AUTOMATIC_REVIEW_RESPONSE`.
+
+                '
+              items:
+                type: integer
+            autoPublishGenerativeResponse:
+              type: boolean
+              description: 'Whether generative responses can be published without human approval. This is only used
+
+                when **`ruleType`** is `GENERATIVE_REVIEW_RESPONSE`.
+
+                '
+        ruleType:
           type: string
+          description: The type of workflow rule.
           enum:
-          - LIVE
-          - QUARANTINED
-          - REMOVED
-          description: 'The current status of the review.
+          - REVIEW_RESPONSE
+          - AUTOMATIC_REVIEW_RESPONSE
+          - GENERATIVE_REVIEW_RESPONSE
+        dueDate:
+          type: object
+          description: 'Relative due date applied to tasks created by the workflow rule.
 
             '
-    ReviewCommentUpdate:
-      type: object
-      properties:
-        content:
-          type: string
-          description: Content of the comment.
-        visibility:
-          type: string
-          enum:
-          - PUBLIC
-          - PRIVATE
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    ReviewLabel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of this review label.
-          readOnly: true
-        name:
-          type: string
-          description: The name of this review label.
-          readOnly: true
-    ReviewInvitationDates:
-      type: object
-      properties:
-        sent:
-          type: integer
-          format: int64
-          description: 'The timestamp the invitation was sent (seconds since epoch), if the invitation was sent.
-
-            '
-        opened:
-          type: integer
-          format: int64
-          description: 'The timestamp the invitation was opened (seconds since epoch), if the invitation was opened.
-
-            This value will always be null for SMS type invitations.
-
-            '
-        clicked:
-          type: integer
-          format: int64
-          description: The timestamp the invitation was clicked (seconds since epoch).
-        reviewed:
-          type: integer
-          format: int64
-          description: 'The timestamp the review was generated as a result of this invitation (seconds since epoch).
-
-
-            If the **`v`** parameter is before `20210728`, please refer to **`responded`** as the
-
-            parameter name instead of **`reviewed`**.
-
-            '
-    UpdateReviewInvitationRequest:
-      allOf:
-      - $ref: '#/components/schemas/ReviewInvitationDates'
-      - type: object
-        properties:
-          firstName:
-            type: string
-            description: 'The first name of the person from whom a review is being requested.
-
-
-              The **`firstName`** parameter will only be respected for **`v`** parameters of `20210728`
-
-              or later.
-
-              '
-          lastName:
-            type: string
-            description: 'The last name of the person from whom a review is being requested
-
-
-              The **`lastName`** parameter will only be respected for **`v`** parameters of `20210728`
-
-              or later.
-
-              '
-          title:
-            type: string
-            description: 'The title of the person from whom a review is being requested (e.g., Mr., Mrs., Miss, etc.)
-
-
-              The **`title`** parameter will only be respected for **`v`** parameters of `20210728`
-
-              or later.
-
-              '
-          contact:
-            type: string
-            description: 'The email address or phone number of the person from whom a review is being requested.
-
-
-              Phone numbers should be formatted in one of the following ways:
-
-              * E.164 standard international format, with a leading "+"
-
-              * National format, according to the country of the corresponding location
-
-
-              The **`contact`** parameter will only be respected for **`v`** parameters of `20210728`
-
-              or later.
-
-              '
-          transactionId:
-            type: string
-            description: 'The ID of the transaction being reviewed in response to this invitation.
-
-
-              The **`transactionId`** parameter will only be respected for **`v`** parameters of
-
-              `20210728` or later.
-
-              '
-          additionalURLParameters:
-            type: string
-            description: 'A JSON object containing the key, value pairs for any additional URL parameters. These URL
-
-              parameters will be appended to the First-Party Review Collection URL.
-
-
-              The **`additionalURLParameters`** parameter will only be respected for **`v`** parameters
-
-              of `20210728` or later.
-
-              '
-          status:
-            type: string
-            enum:
-            - CANCELED
-            description: 'Cancel an existing review invitation with `PENDING` status by updating status to `CANCELED`
-
-              Please note that if the invitation status is not `PENDING`, attempting to set the status
-
-              to `CANCELED` will fail.
-
-              '
-          errorCode:
-            type: string
-            description: 'The error code of the invitation if applicable. Required if `errorReason` is specified.
-
-
-              The **`errorCode`** parameter will only be respected for **`v`** parameters of `20210727`
-
-              or earlier.
-
-              '
-          errorReason:
-            type: string
-            description: 'The error reason text of the invitation if applicable. Required if `errorCode` is specified.
-
-
-              The **`errorReason`** parameter will only be respected for **`v`** parameters of
-
-              `20210727` or earlier.
-
-              '
-    GetReviewInvitation:
-      allOf:
-      - $ref: '#/components/schemas/ReviewInvitationOptional'
-      - type: object
-        properties:
-          partnerId:
-            type: string
-            description: 'The determined sender of the invitation.
-
-
-              For invitations directed towards App Directory Partners, the ID of partner, otherwise this
-
-              will be FIRSTPARTY.
-
-              '
-          type:
-            type: string
-            enum:
-            - EMAIL
-            - SMS
-          requested:
-            type: integer
-            format: int64
-            description: The timestamp the invitation was requested.
-      - $ref: '#/components/schemas/ReviewInvitationDates'
-      - type: object
-        properties:
-          reviewId:
-            type: string
-            description: ID of the review if this invitation resulted in a review
-    CreateReview:
-      type: object
-      required:
-      - entityId
-      - authorName
-      - rating
-      properties:
-        entityId:
-          type: string
-          description: ID of the entity associated with this review.
-        authorName:
-          type: string
-          description: The name of the person who wrote the review.
-        rating:
-          type: number
-          format: double
-          description: 'Normalized rating out of 5.
-
-            '
-        content:
-          type: string
-          description: 'Content of the review.
-
-            '
-        authorEmail:
-          type: string
-          description: The email address of the person who wrote the review.
-        status:
-          type: string
-          enum:
-          - LIVE
-          - QUARANTINED
-          - REMOVED
-          description: 'The current status of the review; only returned for First Party and External First Party reviews. Defaults to `QUARANTINED` when creating.
-
-            '
-        date:
-          type: string
-          format: date
-          description: 'If the v parameter is before 20240515: (YYYY-MM-DD format) If provided, the date you received
-
-            the review from the customer. Defaults to the date the review was uploaded to Yext. Time
-
-            defaults to midnight ET.
-
-
-            If the v parameter is 20240515 or later: ISO-8601 format (YYYY-MM-DDThh:mm:ssTZD) if provided,
-
-            the date you received the review from the customer. Date defaults to the date the review was
-
-            uploaded to Yext. Time defaults to midnight and timezone defaults to UTC.
-
-
-            Examples: 2024-05-15, 2024-05-15T04:44:50, 2024-05-15T04:44:50-05:00
-
-            '
-        publisherId:
-          type: string
-          description: 'The ID of the publisher associated with the review.
-
-
-            If v parameter is after 20240515, defaults to `FIRSTPARTY`.
-
-
-            If v parameter is before 20240515, defaults to `EXTERNALFIRSTPARTY`.
-
-            '
-        externalId:
-          type: string
-          description: 'The External ID of the review, typically assigned by the Publisher. Created External IDs
-
-            must be unique per entity and publisher pair.
-
-            '
-        invitationUid:
-          type: string
-          description: 'The ID of the invitation which should be associated with this review.
-
-            '
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
+          properties:
+            value:
+              type: integer
+              description: Positive numeric value of the due date.
+            unit:
+              type: string
+              description: Unit of time for the due date.
+              enum:
+              - HOUR
+              - DAY
+              - WEEK
     UpdatedReviewInvitation:
       allOf:
       - type: object
@@ -1558,350 +1334,6 @@ components:
 
               '
       - $ref: '#/components/schemas/ReviewInvitationDates'
-    WorkflowRule:
-      allOf:
-      - $ref: '#/components/schemas/WorkflowRuleInput'
-      - type: object
-        properties:
-          name:
-            type: string
-            description: 'Resource name of the workflow rule.
-
-
-              Format: `accounts/{accountId}/workflowRules/{workflowRuleId}`
-
-              '
-          createTime:
-            type: string
-            description: Timestamp when the workflow rule was created.
-    ReviewInvitationOptional:
-      type: object
-      properties:
-        invitationUid:
-          type: string
-          readOnly: true
-          description: 'The UID of this Review Invitation. This UID can be included as part of Review Creation
-
-            requests for attribution.
-
-
-            If the **`v`** parameter is before `20210728`, please refer to **`id`** as the parameter
-
-            name instead of **`invitationUid`**.
-
-            '
-        entity:
-          type: object
-          properties:
-            id:
-              type: string
-              description: 'ID of the entity associated with this review.
-
-
-                If the **`v`** parameter is before `20210728`, please refer to **`locationId`** as the
-
-                parameter name instead of **`entity`**.
-
-                '
-        firstName:
-          type: string
-          description: The first name of the person from whom a review is being requested.
-        lastName:
-          type: string
-          description: The last name of the person from whom a review is being requested.
-        title:
-          type: string
-          description: 'The title of the person from whom a review is being requested
-
-            (e.g., Mr., Mrs., Miss, etc.).
-
-            '
-        contact:
-          type: string
-          description: 'The email address or phone number of the person from whom a review is being requested.
-
-
-            Phone numbers should be formatted in one of the following ways:
-
-            * E.164 standard international format, with a leading "+"
-
-            * National format, according to the country of the corresponding location
-
-            '
-        includeImage:
-          type: boolean
-          description: 'Only valid for SMS invitations.
-
-
-            If set to true, include the image provided in the relevant template in the SMS invitation.
-
-            Please note that an image counts as an SMS message towards your SMS capacity.
-
-
-            Otherwise, the SMS message will not include an image.
-
-
-            If the **`v`** parameter is before `20210728`, please refer to **`image`** as the parameter
-
-            name instead of **`includeImage`**.
-
-            '
-        templateId:
-          type: string
-          description: 'If specified, the ID of the template used to format the email.
-
-
-            If not specified, the entity’s default email template is used. If the entity has no default
-
-            template, the account’s default template is used.
-
-            '
-        transactionId:
-          type: string
-          description: 'The ID of the transaction being reviewed in response to this invitation.
-
-            '
-        status:
-          type: string
-          enum:
-          - ACCEPTED
-          - REJECTED
-          - PENDING
-          readOnly: true
-        details:
-          type: string
-          description: If status is REJECTED, describes why the invitation could not be processed.
-          readOnly: true
-        language:
-          type: string
-          description: "The ISO 639-1 code of the review invitation's language. Only valid for invitations created\nfrom built-in templates. Defaults to `en`.\n\nSupported languages:\n  * `en`\n  * `de`\n  * `fr`\n  * `es`\n  * `it`\n  * `nl`\n  * `ja`\n"
-        additionalURLParameters:
-          type: string
-          description: 'A JSON object containing the key, value pairs for any additional URL parameters. These URL
-
-            parameters will be appended to the First-Party Review Collection URL.
-
-
-            The **`additionalURLParameters`** parameter will only be respected with the inclusion of
-
-            a **`v`** parameter of `20210728` or later.
-
-            '
-        sendInvitationFromYext:
-          type: boolean
-          description: 'Defaults to true. If set to false, Yext will not fulfill the invitation and will simply
-
-            return the created invitation object.
-
-
-            The **`sendInvitationFromYext`** parameter will only be respected with the inclusion of a
-
-            **`v`** parameter of `20210728` or later.
-
-            '
-        feedbackURL:
-          type: string
-          readOnly: true
-          description: 'The created Feedback URL unique to this invitation.
-
-
-            The **`feedbackURL`** parameter will only be respected with the inclusion of a **`v`**
-
-            parameter of `20210728` or later.
-
-            '
-        reviewLabels:
-          type: array
-          readOnly: true
-          items:
-            type: object
-          description: 'Review Labels associated with the review.
-
-
-            The **`reviewLabels`** parameter will only be respected with the inclusion of a **`v`**
-
-            parameter of `20210728` or later.
-
-            '
-    CreateReviewInvitationRequest:
-      allOf:
-      - $ref: '#/components/schemas/ReviewInvitation'
-      - type: object
-        properties:
-          reviewLabelNames:
-            type: array
-            items:
-              type: string
-            description: 'The names of the Review Labels which will be attached to the resulting review.
-
-
-              This is an upsert operation, meaning the system will determine if a Review Label exists
-
-              already in your account, and create and append a new label if not.
-
-
-              The **`reviewLabelNames`** parameter will only be respected with the inclusion of a
-
-              **`v`** parameter of `20210728` or later.
-
-              '
-          delayTime:
-            type: integer
-            description: 'The amount of time to wait before sending the invitation after creation.
-
-
-              The **`delayTime`** parameter will only be respected with the inclusion of a
-
-              **`v`** parameter of `20241211` or later.
-
-              '
-          delayTimeUnit:
-            type: string
-            description: 'If **`delayTime`** is set, specify the unit of time. Accepted values: `hours`, `days`
-
-
-              The **`delayTimeUnit`** parameter will only be respected with the inclusion of a
-
-              **`v`** parameter of `20241211` or later.
-
-              '
-          sendTime:
-            type: string
-            description: 'To send invites at a later time, provide an ISO formatted date/time value, e.g.
-
-              `2024-09-04T12:00:00`. **`delayTime`** and **`sendTime`** cannot both be set on the
-
-              same invite.
-
-
-              The **`sendTime`** parameter will only be respected with the inclusion of a
-
-              **`v`** parameter of `20241211` or later.
-
-              '
-    ReviewGenerationSettings:
-      type: object
-      properties:
-        maxEmailsPerDay:
-          type: integer
-          minimum: 0
-          maximum: 200
-          description: 'Enables review invitations by email and indicates the maximum number of email invites our system will send on a per-location, per-day basis.
-
-
-            Must contain an integer value between 0 and 200. If 0 or null, review invitations by email will be disabled.
-
-            '
-        maxTextsPerMonth:
-          type: integer
-          minimum: 1
-          description: 'Indicates the maximum number of text invites our system will send on a per-location, per-month basis.
-
-            '
-        maxTextsPerDay:
-          type: integer
-          minimum: 1
-          maximum: 20
-          description: 'Enables review invitations by text and indicates the maximum number of text invites our system will send on a per-location, per-day basis.
-
-            We will send a maximum of 20 text invites per location per day.
-
-
-            If null, review invitations by text will be disabled.
-
-            '
-        maxContactsAllTime:
-          type: integer
-          enum:
-          - 1
-          description: 'When enabled, this setting will prevent you from contacting the same person more than once. This setting cannot be set when maxContactFrequency is enabled.
-
-
-            If null, this setting will be disabled.
-
-            '
-        maxContactFrequency:
-          type: integer
-          enum:
-          - 7
-          - 30
-          - 60
-          - 90
-          description: 'Indicates the minimum number of days that must pass before a given contact can be sent another review invitation.
-
-            This setting will prevent you from contacting the same person repeatedly in a short time period.
-
-
-            If null, no maximum contact frequency will be enforced.
-
-            '
-        reviewQuarantineDays:
-          type: integer
-          minimum: 0
-          maximum: 7
-          description: 'Prevents first-party reviews from immediately showing up on your website or wherever else you show your reviews.
-
-            During this quarantine period, you may respond to reviews, increasing the likelihood that your customers will revise or remove their negative reviews.
-
-            '
-        privacyPolicy:
-          type: string
-          description: 'Review-collection pages contain a link to the Yext privacy policy by default.
-
-            This field lets you replace that link with a link to your own privacy policy.
-
-
-            Update request must contain a URL or null. If null, the Yext privacy policy link will be used.
-
-
-            If the **`v`** parameter is before `20200910`, please refer to **`privacyPolicyOverride`** as
-
-            the parameter name instead of **`privacyPolicy`**.
-
-            '
-        balancingOptimization:
-          type: string
-          enum:
-          - DISTRIBUTION
-          - MORE_REVIEWS
-          - MUST_BE_LOGGED_IN
-          description: 'Defaults to **`DISTRIBUTION`**. Optionally configure the algorithm to prioritize sites where you have fewer reviews to generate more reviews
-
-            (**`MORE_REVIEWS`**), or prioritize sites where a user is already logged in on their device (**`MUST_BE_LOGGED_IN`**).
-
-            '
-        algorithmConfiguration:
-          type: array
-          description: 'Optionally prioritize the following issues to determine where to send review invites: **`WEBSITE`**: generate more first-party reviews if one
-
-            of the last 5 reviews has 1 star, **`RATING`**: prioritize sites that have the lower rating, **`RECENCY`**: prioritize sites that haven’t
-
-            received a review in the last month.
-
-            '
-          items:
-            type: string
-            enum:
-            - WEBSITE
-            - RECENCY
-            - RATING
-            uniqueItems: true
-            maxItems: 3
-        siteDistribution:
-          type: object
-          description: 'Configure the target distribution of reviews for each site by specifying the ratio as an integer for each site to generate reviews for. E.g.
-
-            **`GOOGLEMYBUSINESS: 1`** and **`FIRSTPARTY: 1`**,  would send half of the review invites to Google and half to your First Party site.
-
-            '
-          additionalProperties:
-            type: integer
-            minimum: 1
-          minProperties: 0
-          example:
-            FACEBOOK: 3
-            GOOGLEMYBUSINESS: 5
-            FIRSTPARTY: 1
     Review:
       type: object
       properties:
@@ -2077,72 +1509,55 @@ components:
             * The invitationUid, if the review is associated with an invitation.
 
             '
-    CreateWorkflowRule:
-      allOf:
-      - $ref: '#/components/schemas/WorkflowRuleInput'
-      - type: object
-        required:
-        - displayName
-        - domainConfiguration
-        - ruleType
-    ResponseMeta:
+    CreateReview:
       type: object
+      required:
+      - entityId
+      - authorName
+      - rating
       properties:
-        uuid:
+        entityId:
           type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    ReviewComment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID of this comment (assigned by Yext).
-          readOnly: true
-        parentId:
-          type: integer
-          description: If this comment is in response to another comment, this is the ID of the parent comment.
-        publisherDate:
-          type: integer
-          format: int64
-          description: The timestamp of the comment as reported by the publisher.  If edits impact the comment timestamp on the publisher, then this timestamp may change.  This timestamp always comes from the publisher and we respect whatever they have.
-          readOnly: true
+          description: ID of the entity associated with this review.
         authorName:
           type: string
-          description: The name of the person who wrote the comment (if we have it).
-          readOnly: true
-        authorEmail:
-          type: string
-          description: The email address of the person who wrote the comment (if we have it).
-          readOnly: true
-        authorRole:
-          type: string
-          enum:
-          - BUSINESS_OWNER
-          - CONSUMER
-          readOnly: true
+          description: The name of the person who wrote the review.
+        rating:
+          type: number
+          format: double
+          description: 'Normalized rating out of 5.
+
+            '
         content:
           type: string
-          description: Content of the comment.
-        visibility:
+          description: 'Content of the review.
+
+            '
+        authorEmail:
+          type: string
+          description: The email address of the person who wrote the review.
+        status:
           type: string
           enum:
-          - PUBLIC
-          - PRIVATE
-          description: Defaults to `PUBLIC` when creating a comment
+          - LIVE
+          - QUARANTINED
+          - REMOVED
+          description: 'The current status of the review; only returned for First Party and External First Party reviews. Defaults to `QUARANTINED` when creating.
+
+            '
         date:
           type: string
           format: date
-          description: 'If the v parameter is before 20240515: (YYYY-MM-DD format) If provided, the date the
+          description: 'If the v parameter is before 20240515: (YYYY-MM-DD format) If provided, the date you received
 
-            comment was posted. Date defaults to the date the comment was uploaded to Yext. Time
+            the review from the customer. Defaults to the date the review was uploaded to Yext. Time
 
             defaults to midnight ET.
 
 
-            If the v parameter is 20240515 or later: ISO-8601 format (YYYY-MM-DDThh:mm:ssTZD) if
+            If the v parameter is 20240515 or later: ISO-8601 format (YYYY-MM-DDThh:mm:ssTZD) if provided,
 
-            provided, the date the comment was posted. Date defaults to the date the comment was
+            the date you received the review from the customer. Date defaults to the date the review was
 
             uploaded to Yext. Time defaults to midnight and timezone defaults to UTC.
 
@@ -2150,137 +1565,29 @@ components:
             Examples: 2024-05-15, 2024-05-15T04:44:50, 2024-05-15T04:44:50-05:00
 
             '
-        suppressReviewerContact:
-          type: boolean
-          description: 'Indicates whether or not the reviewer receives an email notification when a comment is posted. Defaults to `false`.
-
-            '
-        attestation:
-          $ref: '#/components/schemas/Attestation'
-          description: 'SEC compliance attestation for the review response. This field is only relevant when the **Compliant Review Response**
-
-            setting is enabled for the account.
-
-
-            When the Compliant Review Response setting is enabled:
-
-            * The `attestation` field is **required**
-
-            * The `Yext-User-Id` header is **required** (must be the user ID of the person submitting the attestation)
-
-            * The response code for successful requests is **202 Accepted**
-
-
-            When the Compliant Review Response setting is disabled:
-
-            * The `attestation` field is ignored
-
-            '
-    WorkflowRuleInput:
-      type: object
-      properties:
-        assignee:
+        publisherId:
           type: string
-          description: 'Resource name or email address of the user assigned to tasks created by this workflow rule.
-
-            Set only one of **`assignee`** or **`assigneeUserGroup`**. External email addresses that
-
-            don''t correspond to a user are only supported when **`ruleType`** is
-
-            `GENERATIVE_REVIEW_RESPONSE` and **`autoPublishGenerativeResponse`** is false.
+          description: 'The ID of the publisher associated with the review.
 
 
-            Format: `accounts/{accountId}/users/{userId}`
+            If v parameter is after 20240515, defaults to `FIRSTPARTY`.
+
+
+            If v parameter is before 20240515, defaults to `EXTERNALFIRSTPARTY`.
 
             '
-        assigneeUserGroup:
+        externalId:
           type: string
-          description: 'Resource name of the user group assigned to tasks created by this workflow rule. When this
+          description: 'The External ID of the review, typically assigned by the Publisher. Created External IDs
 
-            is set, tasks are assigned to the user in the group with the fewest open tasks. Set only
-
-            one of **`assignee`** or **`assigneeUserGroup`**.
-
-
-            Format: `accounts/{accountId}/userGroups/{userGroup}`
+            must be unique per entity and publisher pair.
 
             '
-        displayName:
+        invitationUid:
           type: string
-          description: The name of the workflow rule.
-        enabled:
-          type: boolean
-          description: Whether the workflow rule is enabled.
-        domainConfiguration:
-          type: object
-          description: 'Domain-specific configuration for the workflow rule. The supported keys depend on
-
-            **`ruleType`**.
-
-
-            Supported keys:
-
-            - `filterCriteria`
-
-            - `ruleApplication`
-
-            - `automaticResponseAssetIds`
-
-            - `autoPublishGenerativeResponse`
+          description: 'The ID of the invitation which should be associated with this review.
 
             '
-          properties:
-            filterCriteria:
-              type: string
-              description: 'CEL expression used to filter which reviews match the workflow rule.
-
-                '
-            ruleApplication:
-              type: string
-              description: 'Specifies when the workflow rule should be applied.
-
-                '
-              enum:
-              - NEW_REVIEWS
-              - NEW_AND_UPDATED_REVIEWS
-              - LABEL_APPLICATION
-            automaticResponseAssetIds:
-              type: array
-              description: 'IDs of response assets used when **`ruleType`** is `AUTOMATIC_REVIEW_RESPONSE`.
-
-                '
-              items:
-                type: integer
-            autoPublishGenerativeResponse:
-              type: boolean
-              description: 'Whether generative responses can be published without human approval. This is only used
-
-                when **`ruleType`** is `GENERATIVE_REVIEW_RESPONSE`.
-
-                '
-        ruleType:
-          type: string
-          description: The type of workflow rule.
-          enum:
-          - REVIEW_RESPONSE
-          - AUTOMATIC_REVIEW_RESPONSE
-          - GENERATIVE_REVIEW_RESPONSE
-        dueDate:
-          type: object
-          description: 'Relative due date applied to tasks created by the workflow rule.
-
-            '
-          properties:
-            value:
-              type: integer
-              description: Positive numeric value of the due date.
-            unit:
-              type: string
-              description: Unit of time for the due date.
-              enum:
-              - HOUR
-              - DAY
-              - WEEK
     ReviewInvitation:
       type: object
       required:
@@ -2436,6 +1743,472 @@ components:
             parameter of `20210728` or later.
 
             '
+    UpdateWorkflowRule:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowRuleInput'
+      - type: object
+        description: 'Fields that may be supplied when updating a workflow rule.
+
+
+          Updatable fields are `assignee`, `assigneeUserGroup`, `displayName`, `enabled`,
+
+          `domainConfiguration`, `ruleType`, and `dueDate`.
+
+
+          Output-only fields such as `createTime` are not part of this update schema.
+
+          '
+        properties:
+          name:
+            type: string
+            description: 'Resource name of the workflow rule to update.
+
+
+              Format: `accounts/{accountId}/workflowRules/{workflowRuleId}`
+
+              '
+    CreateReviewInvitationRequest:
+      allOf:
+      - $ref: '#/components/schemas/ReviewInvitation'
+      - type: object
+        properties:
+          reviewLabelNames:
+            type: array
+            items:
+              type: string
+            description: 'The names of the Review Labels which will be attached to the resulting review.
+
+
+              This is an upsert operation, meaning the system will determine if a Review Label exists
+
+              already in your account, and create and append a new label if not.
+
+
+              The **`reviewLabelNames`** parameter will only be respected with the inclusion of a
+
+              **`v`** parameter of `20210728` or later.
+
+              '
+          delayTime:
+            type: integer
+            description: 'The amount of time to wait before sending the invitation after creation.
+
+
+              The **`delayTime`** parameter will only be respected with the inclusion of a
+
+              **`v`** parameter of `20241211` or later.
+
+              '
+          delayTimeUnit:
+            type: string
+            description: 'If **`delayTime`** is set, specify the unit of time. Accepted values: `hours`, `days`
+
+
+              The **`delayTimeUnit`** parameter will only be respected with the inclusion of a
+
+              **`v`** parameter of `20241211` or later.
+
+              '
+          sendTime:
+            type: string
+            description: 'To send invites at a later time, provide an ISO formatted date/time value, e.g.
+
+              `2024-09-04T12:00:00`. **`delayTime`** and **`sendTime`** cannot both be set on the
+
+              same invite.
+
+
+              The **`sendTime`** parameter will only be respected with the inclusion of a
+
+              **`v`** parameter of `20241211` or later.
+
+              '
+    ReviewInvitationDates:
+      type: object
+      properties:
+        sent:
+          type: integer
+          format: int64
+          description: 'The timestamp the invitation was sent (seconds since epoch), if the invitation was sent.
+
+            '
+        opened:
+          type: integer
+          format: int64
+          description: 'The timestamp the invitation was opened (seconds since epoch), if the invitation was opened.
+
+            This value will always be null for SMS type invitations.
+
+            '
+        clicked:
+          type: integer
+          format: int64
+          description: The timestamp the invitation was clicked (seconds since epoch).
+        reviewed:
+          type: integer
+          format: int64
+          description: 'The timestamp the review was generated as a result of this invitation (seconds since epoch).
+
+
+            If the **`v`** parameter is before `20210728`, please refer to **`responded`** as the
+
+            parameter name instead of **`reviewed`**.
+
+            '
+    ReviewGenerationSettings:
+      type: object
+      properties:
+        maxEmailsPerDay:
+          type: integer
+          minimum: 0
+          maximum: 200
+          description: 'Enables review invitations by email and indicates the maximum number of email invites our system will send on a per-location, per-day basis.
+
+
+            Must contain an integer value between 0 and 200. If 0 or null, review invitations by email will be disabled.
+
+            '
+        maxTextsPerMonth:
+          type: integer
+          minimum: 1
+          description: 'Indicates the maximum number of text invites our system will send on a per-location, per-month basis.
+
+            '
+        maxTextsPerDay:
+          type: integer
+          minimum: 1
+          maximum: 20
+          description: 'Enables review invitations by text and indicates the maximum number of text invites our system will send on a per-location, per-day basis.
+
+            We will send a maximum of 20 text invites per location per day.
+
+
+            If null, review invitations by text will be disabled.
+
+            '
+        maxContactsAllTime:
+          type: integer
+          enum:
+          - 1
+          description: 'When enabled, this setting will prevent you from contacting the same person more than once. This setting cannot be set when maxContactFrequency is enabled.
+
+
+            If null, this setting will be disabled.
+
+            '
+        maxContactFrequency:
+          type: integer
+          enum:
+          - 7
+          - 30
+          - 60
+          - 90
+          description: 'Indicates the minimum number of days that must pass before a given contact can be sent another review invitation.
+
+            This setting will prevent you from contacting the same person repeatedly in a short time period.
+
+
+            If null, no maximum contact frequency will be enforced.
+
+            '
+        reviewQuarantineDays:
+          type: integer
+          minimum: 0
+          maximum: 7
+          description: 'Prevents first-party reviews from immediately showing up on your website or wherever else you show your reviews.
+
+            During this quarantine period, you may respond to reviews, increasing the likelihood that your customers will revise or remove their negative reviews.
+
+            '
+        privacyPolicy:
+          type: string
+          description: 'Review-collection pages contain a link to the Yext privacy policy by default.
+
+            This field lets you replace that link with a link to your own privacy policy.
+
+
+            Update request must contain a URL or null. If null, the Yext privacy policy link will be used.
+
+
+            If the **`v`** parameter is before `20200910`, please refer to **`privacyPolicyOverride`** as
+
+            the parameter name instead of **`privacyPolicy`**.
+
+            '
+        balancingOptimization:
+          type: string
+          enum:
+          - DISTRIBUTION
+          - MORE_REVIEWS
+          - MUST_BE_LOGGED_IN
+          description: 'Defaults to **`DISTRIBUTION`**. Optionally configure the algorithm to prioritize sites where you have fewer reviews to generate more reviews
+
+            (**`MORE_REVIEWS`**), or prioritize sites where a user is already logged in on their device (**`MUST_BE_LOGGED_IN`**).
+
+            '
+        algorithmConfiguration:
+          type: array
+          description: 'Optionally prioritize the following issues to determine where to send review invites: **`WEBSITE`**: generate more first-party reviews if one
+
+            of the last 5 reviews has 1 star, **`RATING`**: prioritize sites that have the lower rating, **`RECENCY`**: prioritize sites that haven’t
+
+            received a review in the last month.
+
+            '
+          items:
+            type: string
+            enum:
+            - WEBSITE
+            - RECENCY
+            - RATING
+            uniqueItems: true
+            maxItems: 3
+        siteDistribution:
+          type: object
+          description: 'Configure the target distribution of reviews for each site by specifying the ratio as an integer for each site to generate reviews for. E.g.
+
+            **`GOOGLEMYBUSINESS: 1`** and **`FIRSTPARTY: 1`**,  would send half of the review invites to Google and half to your First Party site.
+
+            '
+          additionalProperties:
+            type: integer
+            minimum: 1
+          minProperties: 0
+          example:
+            FACEBOOK: 3
+            GOOGLEMYBUSINESS: 5
+            FIRSTPARTY: 1
+    ReviewLabel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of this review label.
+          readOnly: true
+        name:
+          type: string
+          description: The name of this review label.
+          readOnly: true
+    ReviewCommentUpdate:
+      type: object
+      properties:
+        content:
+          type: string
+          description: Content of the comment.
+        visibility:
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+    GetReviewInvitation:
+      allOf:
+      - $ref: '#/components/schemas/ReviewInvitationOptional'
+      - type: object
+        properties:
+          partnerId:
+            type: string
+            description: 'The determined sender of the invitation.
+
+
+              For invitations directed towards App Directory Partners, the ID of partner, otherwise this
+
+              will be FIRSTPARTY.
+
+              '
+          type:
+            type: string
+            enum:
+            - EMAIL
+            - SMS
+          requested:
+            type: integer
+            format: int64
+            description: The timestamp the invitation was requested.
+      - $ref: '#/components/schemas/ReviewInvitationDates'
+      - type: object
+        properties:
+          reviewId:
+            type: string
+            description: ID of the review if this invitation resulted in a review
+    UpdateReviewInvitationRequest:
+      allOf:
+      - $ref: '#/components/schemas/ReviewInvitationDates'
+      - type: object
+        properties:
+          firstName:
+            type: string
+            description: 'The first name of the person from whom a review is being requested.
+
+
+              The **`firstName`** parameter will only be respected for **`v`** parameters of `20210728`
+
+              or later.
+
+              '
+          lastName:
+            type: string
+            description: 'The last name of the person from whom a review is being requested
+
+
+              The **`lastName`** parameter will only be respected for **`v`** parameters of `20210728`
+
+              or later.
+
+              '
+          title:
+            type: string
+            description: 'The title of the person from whom a review is being requested (e.g., Mr., Mrs., Miss, etc.)
+
+
+              The **`title`** parameter will only be respected for **`v`** parameters of `20210728`
+
+              or later.
+
+              '
+          contact:
+            type: string
+            description: 'The email address or phone number of the person from whom a review is being requested.
+
+
+              Phone numbers should be formatted in one of the following ways:
+
+              * E.164 standard international format, with a leading "+"
+
+              * National format, according to the country of the corresponding location
+
+
+              The **`contact`** parameter will only be respected for **`v`** parameters of `20210728`
+
+              or later.
+
+              '
+          transactionId:
+            type: string
+            description: 'The ID of the transaction being reviewed in response to this invitation.
+
+
+              The **`transactionId`** parameter will only be respected for **`v`** parameters of
+
+              `20210728` or later.
+
+              '
+          additionalURLParameters:
+            type: string
+            description: 'A JSON object containing the key, value pairs for any additional URL parameters. These URL
+
+              parameters will be appended to the First-Party Review Collection URL.
+
+
+              The **`additionalURLParameters`** parameter will only be respected for **`v`** parameters
+
+              of `20210728` or later.
+
+              '
+          status:
+            type: string
+            enum:
+            - CANCELED
+            description: 'Cancel an existing review invitation with `PENDING` status by updating status to `CANCELED`
+
+              Please note that if the invitation status is not `PENDING`, attempting to set the status
+
+              to `CANCELED` will fail.
+
+              '
+          errorCode:
+            type: string
+            description: 'The error code of the invitation if applicable. Required if `errorReason` is specified.
+
+
+              The **`errorCode`** parameter will only be respected for **`v`** parameters of `20210727`
+
+              or earlier.
+
+              '
+          errorReason:
+            type: string
+            description: 'The error reason text of the invitation if applicable. Required if `errorCode` is specified.
+
+
+              The **`errorReason`** parameter will only be respected for **`v`** parameters of
+
+              `20210727` or earlier.
+
+              '
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    UpdateReview:
+      type: object
+      properties:
+        locationId:
+          type: string
+          description: ID of the location associated with this review
+        rating:
+          type: number
+          format: double
+          description: 'Normalized rating out of 5. Can only be specified for External First Party Reviews.
+
+            '
+        content:
+          type: string
+          description: 'Content of the review. Can only be specified for External First Party Reviews.
+
+            '
+        authorName:
+          type: string
+          description: 'The name of the person who wrote the review. Can only be specified for External First Party
+
+            Reviews.
+
+            '
+        authorEmail:
+          type: string
+          description: 'The email address of the person who wrote the review. Can only be specified for External
+
+            First Party Reviews.
+
+            '
+        status:
+          type: string
+          enum:
+          - LIVE
+          - QUARANTINED
+          - REMOVED
+          description: 'The current status of the review.
+
+            '
+    UpdateReviewLabelsRequest:
+      type: object
+      properties:
+        labelIds:
+          type: array
+          items:
+            type: integer
+          description: The IDs of the review labels added to the review.
     Attestation:
       type: object
       description: 'Attestation certifying SEC compliance requirements for review responses.
@@ -2471,65 +2244,273 @@ components:
     NextPageToken:
       type: string
       description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
-    PartnerReviewResponseUpdate:
+    CreateWorkflowRule:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowRuleInput'
+      - type: object
+        required:
+        - displayName
+        - domainConfiguration
+        - ruleType
+    ReviewInvitationOptional:
       type: object
       properties:
-        reviewId:
+        invitationUid:
           type: string
-          description: 'The review''s ID on your site
+          readOnly: true
+          description: 'The UID of this Review Invitation. This UID can be included as part of Review Creation
+
+            requests for attribution.
+
+
+            If the **`v`** parameter is before `20210728`, please refer to **`id`** as the parameter
+
+            name instead of **`invitationUid`**.
 
             '
-        flagReason:
+        entity:
+          type: object
+          properties:
+            id:
+              type: string
+              description: 'ID of the entity associated with this review.
+
+
+                If the **`v`** parameter is before `20210728`, please refer to **`locationId`** as the
+
+                parameter name instead of **`entity`**.
+
+                '
+        firstName:
+          type: string
+          description: The first name of the person from whom a review is being requested.
+        lastName:
+          type: string
+          description: The last name of the person from whom a review is being requested.
+        title:
+          type: string
+          description: 'The title of the person from whom a review is being requested
+
+            (e.g., Mr., Mrs., Miss, etc.).
+
+            '
+        contact:
+          type: string
+          description: 'The email address or phone number of the person from whom a review is being requested.
+
+
+            Phone numbers should be formatted in one of the following ways:
+
+            * E.164 standard international format, with a leading "+"
+
+            * National format, according to the country of the corresponding location
+
+            '
+        includeImage:
+          type: boolean
+          description: 'Only valid for SMS invitations.
+
+
+            If set to true, include the image provided in the relevant template in the SMS invitation.
+
+            Please note that an image counts as an SMS message towards your SMS capacity.
+
+
+            Otherwise, the SMS message will not include an image.
+
+
+            If the **`v`** parameter is before `20210728`, please refer to **`image`** as the parameter
+
+            name instead of **`includeImage`**.
+
+            '
+        templateId:
+          type: string
+          description: 'If specified, the ID of the template used to format the email.
+
+
+            If not specified, the entity’s default email template is used. If the entity has no default
+
+            template, the account’s default template is used.
+
+            '
+        transactionId:
+          type: string
+          description: 'The ID of the transaction being reviewed in response to this invitation.
+
+            '
+        status:
           type: string
           enum:
-          - INAPPROPRIATE_CONTENT
-          - SPAM
-          - NOT_LOCATION_RELATED
-          description: 'If present, the business owner is flaggint the review for the specified reason.
-
-            '
-        commentId:
+          - ACCEPTED
+          - REJECTED
+          - PENDING
+          readOnly: true
+        details:
           type: string
-          description: 'The review comment''s Id on your site
-
-            '
-        comment:
+          description: If status is REJECTED, describes why the invitation could not be processed.
+          readOnly: true
+        language:
           type: string
-          description: 'If present, the business owner''s response to the review
-
-            '
-    ResponseErrorNew:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        message:
+          description: "The ISO 639-1 code of the review invitation's language. Only valid for invitations created\nfrom built-in templates. Defaults to `en`.\n\nSupported languages:\n  * `en`\n  * `de`\n  * `fr`\n  * `es`\n  * `it`\n  * `nl`\n  * `ja`\n"
+        additionalURLParameters:
           type: string
-          description: Message explaining the problem.
-    PartnerReviewList:
-      type: object
-      required:
-      - total
-      - rating
-      - maxRating
-      properties:
-        total:
-          type: integer
-          description: Total number of reviews on the listing
-        rating:
-          type: number
-          description: The average rating across all reviews for this listing
-        maxRating:
-          type: integer
-          description: The maximum possible rating (e.g., 5)
-        reviews:
+          description: 'A JSON object containing the key, value pairs for any additional URL parameters. These URL
+
+            parameters will be appended to the First-Party Review Collection URL.
+
+
+            The **`additionalURLParameters`** parameter will only be respected with the inclusion of
+
+            a **`v`** parameter of `20210728` or later.
+
+            '
+        sendInvitationFromYext:
+          type: boolean
+          description: 'Defaults to true. If set to false, Yext will not fulfill the invitation and will simply
+
+            return the created invitation object.
+
+
+            The **`sendInvitationFromYext`** parameter will only be respected with the inclusion of a
+
+            **`v`** parameter of `20210728` or later.
+
+            '
+        feedbackURL:
+          type: string
+          readOnly: true
+          description: 'The created Feedback URL unique to this invitation.
+
+
+            The **`feedbackURL`** parameter will only be respected with the inclusion of a **`v`**
+
+            parameter of `20210728` or later.
+
+            '
+        reviewLabels:
           type: array
-          description: A list of num Review objects, respecting the filter specified in before and sorted in reverse chronological order
+          readOnly: true
           items:
-            $ref: '#/components/schemas/PartnerReview'
+            type: object
+          description: 'Review Labels associated with the review.
+
+
+            The **`reviewLabels`** parameter will only be respected with the inclusion of a **`v`**
+
+            parameter of `20210728` or later.
+
+            '
+    WorkflowRule:
+      allOf:
+      - $ref: '#/components/schemas/WorkflowRuleInput'
+      - type: object
+        properties:
+          name:
+            type: string
+            description: 'Resource name of the workflow rule.
+
+
+              Format: `accounts/{accountId}/workflowRules/{workflowRuleId}`
+
+              '
+          createTime:
+            type: string
+            description: Timestamp when the workflow rule was created.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    ReviewComment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of this comment (assigned by Yext).
+          readOnly: true
+        parentId:
+          type: integer
+          description: If this comment is in response to another comment, this is the ID of the parent comment.
+        publisherDate:
+          type: integer
+          format: int64
+          description: The timestamp of the comment as reported by the publisher.  If edits impact the comment timestamp on the publisher, then this timestamp may change.  This timestamp always comes from the publisher and we respect whatever they have.
+          readOnly: true
+        authorName:
+          type: string
+          description: The name of the person who wrote the comment (if we have it).
+          readOnly: true
+        authorEmail:
+          type: string
+          description: The email address of the person who wrote the comment (if we have it).
+          readOnly: true
+        authorRole:
+          type: string
+          enum:
+          - BUSINESS_OWNER
+          - CONSUMER
+          readOnly: true
+        content:
+          type: string
+          description: Content of the comment.
+        visibility:
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+          description: Defaults to `PUBLIC` when creating a comment
+        date:
+          type: string
+          format: date
+          description: 'If the v parameter is before 20240515: (YYYY-MM-DD format) If provided, the date the
+
+            comment was posted. Date defaults to the date the comment was uploaded to Yext. Time
+
+            defaults to midnight ET.
+
+
+            If the v parameter is 20240515 or later: ISO-8601 format (YYYY-MM-DDThh:mm:ssTZD) if
+
+            provided, the date the comment was posted. Date defaults to the date the comment was
+
+            uploaded to Yext. Time defaults to midnight and timezone defaults to UTC.
+
+
+            Examples: 2024-05-15, 2024-05-15T04:44:50, 2024-05-15T04:44:50-05:00
+
+            '
+        suppressReviewerContact:
+          type: boolean
+          description: 'Indicates whether or not the reviewer receives an email notification when a comment is posted. Defaults to `false`.
+
+            '
+        attestation:
+          $ref: '#/components/schemas/Attestation'
+          description: 'SEC compliance attestation for the review response. This field is only relevant when the **Compliant Review Response**
+
+            setting is enabled for the account.
+
+
+            When the Compliant Review Response setting is enabled:
+
+            * The `attestation` field is **required**
+
+            * The `Yext-User-Id` header is **required** (must be the user ID of the person submitting the attestation)
+
+            * The response code for successful requests is **202 Accepted**
+
+
+            When the Compliant Review Response setting is disabled:
+
+            * The `attestation` field is ignored
+
+            '
     PartnerReviewResponse:
       type: object
       properties:
@@ -2552,6 +2533,67 @@ components:
           description: 'If present, the business owner''s response to the review
 
             '
+    PartnerReviewComments:
+      type: array
+      description: List of comments on the review
+      items:
+        required:
+        - commentId
+        - timestamp
+        - authorName
+        - content
+        properties:
+          commentId:
+            type: string
+            description: Id of the review comment
+            example: '832813382'
+          timestamp:
+            type: string
+            description: Date and time that the review comment was posted in ISO-9601 format
+            example: '2020-01-04T13:15:53Z'
+          authorName:
+            type: string
+            description: The name of the user who posted the review comment
+            example: Gomez Adams
+          content:
+            type: string
+            description: The full text of the review comment
+            example: The hummus is good too!
+          ownerResponse:
+            type: boolean
+            description: Indicates whether the comment was made by the business owner
+    PartnerReviewList:
+      type: object
+      required:
+      - total
+      - rating
+      - maxRating
+      properties:
+        total:
+          type: integer
+          description: Total number of reviews on the listing
+        rating:
+          type: number
+          description: The average rating across all reviews for this listing
+        maxRating:
+          type: integer
+          description: The maximum possible rating (e.g., 5)
+        reviews:
+          type: array
+          description: A list of num Review objects, respecting the filter specified in before and sorted in reverse chronological order
+          items:
+            $ref: '#/components/schemas/PartnerReview'
+    ResponseErrorNew:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        message:
+          type: string
+          description: Message explaining the problem.
     PartnerReview:
       type: object
       required:
@@ -2610,36 +2652,55 @@ components:
         generated:
           type: boolean
           description: Indicates whether the review was written in response to a request from a review_generation program
-    PartnerReviewComments:
-      type: array
-      description: List of comments on the review
-      items:
-        required:
-        - commentId
-        - timestamp
-        - authorName
-        - content
-        properties:
-          commentId:
-            type: string
-            description: Id of the review comment
-            example: '832813382'
-          timestamp:
-            type: string
-            description: Date and time that the review comment was posted in ISO-9601 format
-            example: '2020-01-04T13:15:53Z'
-          authorName:
-            type: string
-            description: The name of the user who posted the review comment
-            example: Gomez Adams
-          content:
-            type: string
-            description: The full text of the review comment
-            example: The hummus is good too!
-          ownerResponse:
-            type: boolean
-            description: Indicates whether the comment was made by the business owner
+    PartnerReviewResponseUpdate:
+      type: object
+      properties:
+        reviewId:
+          type: string
+          description: 'The review''s ID on your site
+
+            '
+        flagReason:
+          type: string
+          enum:
+          - INAPPROPRIATE_CONTENT
+          - SPAM
+          - NOT_LOCATION_RELATED
+          description: 'If present, the business owner is flaggint the review for the specified reason.
+
+            '
+        commentId:
+          type: string
+          description: 'The review comment''s Id on your site
+
+            '
+        comment:
+          type: string
+          description: 'If present, the business owner''s response to the review
+
+            '
   responses:
+    UpdateReviewLabelsResponse:
+      description: Review Labels Update Response
+      content:
+        application/json:
+          schema:
+            title: UpdateReviewLabelsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The review id.
+                  labelIds:
+                    type: array
+                    items:
+                      type: integer
+                    description: The label ids assigned to the review.
     workflowRuleResponse:
       description: Workflow Rule Response
       content:
@@ -2652,6 +2713,45 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/WorkflowRule'
+    ReviewResponse:
+      description: Review Response
+      content:
+        application/json:
+          schema:
+            title: ReviewResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/Review'
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    IdResponse:
+      description: ID Response.
+      content:
+        application/json:
+          schema:
+            title: IdResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
     workflowRulesResponse:
       description: Workflow Rules Response
       content:
@@ -2704,188 +2804,6 @@ components:
 
                       '
                     readOnly: true
-    ReviewInvitationResponse:
-      description: Review Invitation Response
-      content:
-        application/json:
-          schema:
-            title: ReviewInvitationResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/GetReviewInvitation'
-    ReviewGenerationSettingsResponse:
-      description: Review Generation Settings Response
-      content:
-        application/json:
-          schema:
-            title: ReviewGenerationSettingsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/ReviewGenerationSettings'
-    UpdateReviewGenerationSettingsResponse:
-      description: Update Review Generation Settings Response
-      content:
-        application/json:
-          schema:
-            title: UpdateReviewGenerationSettingsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/ReviewGenerationSettings'
-    IdResponse:
-      description: ID Response.
-      content:
-        application/json:
-          schema:
-            title: IdResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  id:
-                    type: string
-    UpdateReviewInvitationResponse:
-      description: Update Review Invitation Response
-      content:
-        application/json:
-          schema:
-            title: UpdateReviewInvitationResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/UpdatedReviewInvitation'
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    UpdateReviewLabelsResponse:
-      description: Review Labels Update Response
-      content:
-        application/json:
-          schema:
-            title: UpdateReviewLabelsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: The review id.
-                  labelIds:
-                    type: array
-                    items:
-                      type: integer
-                    description: The label ids assigned to the review.
-    ReviewResponse:
-      description: Review Response
-      content:
-        application/json:
-          schema:
-            title: ReviewResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/Review'
-    GenerateReviewCommentResponse:
-      description: Generate Review Comment Response
-      content:
-        application/json:
-          schema:
-            title: GenerateReviewCommentResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  content:
-                    type: string
-    EmptyResponse:
-      description: Empty Response.
-      content:
-        application/json:
-          schema:
-            title: EmptyResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-    ReviewCommentTimeoutResponse:
-      description: Review Comment Timeout Response
-      content:
-        application/json:
-          schema:
-            title: ReviewCommentTimeoutResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-    CreateReviewInvitationsResponse:
-      description: Create Review Invitations Response
-      content:
-        application/json:
-          schema:
-            title: CreateReviewInvitationsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: array
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/ReviewInvitationOptional'
-    CreateReviewCommentResponse:
-      description: Create Review Comment Response
-      content:
-        application/json:
-          schema:
-            title: CreateReviewCommentResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 'If the **`v`** parameter is before `20210616`, **`id`** will be returned as a
-
-                      type string instead of an integer.
-
-                      '
     ReviewInvitationsResponse:
       description: Review Invitations Response
       content:
@@ -2921,18 +2839,128 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/GetReviewInvitation'
-    NewCommentSuccess:
-      description: OK
+    ReviewGenerationSettingsResponse:
+      description: Review Generation Settings Response
       content:
         application/json:
           schema:
-            title: NewCommentSuccess
+            title: ReviewGenerationSettingsResponse
             type: object
             properties:
-              commentId:
-                type: string
-                description: The ID of the comment that was successfully created
-                example: f3j94g8h3
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/ReviewGenerationSettings'
+    UpdateReviewGenerationSettingsResponse:
+      description: Update Review Generation Settings Response
+      content:
+        application/json:
+          schema:
+            title: UpdateReviewGenerationSettingsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/ReviewGenerationSettings'
+    ReviewInvitationResponse:
+      description: Review Invitation Response
+      content:
+        application/json:
+          schema:
+            title: ReviewInvitationResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/GetReviewInvitation'
+    GenerateReviewCommentResponse:
+      description: Generate Review Comment Response
+      content:
+        application/json:
+          schema:
+            title: GenerateReviewCommentResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  content:
+                    type: string
+    CreateReviewCommentResponse:
+      description: Create Review Comment Response
+      content:
+        application/json:
+          schema:
+            title: CreateReviewCommentResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'If the **`v`** parameter is before `20210616`, **`id`** will be returned as a
+
+                      type string instead of an integer.
+
+                      '
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    ReviewCommentTimeoutResponse:
+      description: Review Comment Timeout Response
+      content:
+        application/json:
+          schema:
+            title: ReviewCommentTimeoutResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    UpdateReviewInvitationResponse:
+      description: Update Review Invitation Response
+      content:
+        application/json:
+          schema:
+            title: UpdateReviewInvitationResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/UpdatedReviewInvitation'
+    CreateReviewInvitationsResponse:
+      description: Create Review Invitations Response
+      content:
+        application/json:
+          schema:
+            title: CreateReviewInvitationsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/ReviewInvitationOptional'
     GetReviewsSuccess:
       description: OK
       content:
@@ -2964,16 +2992,6 @@ components:
                     type: string
                     description: Not Found
                     example: Not Found
-    ErrorResponseNew:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            title: ErrorResponseNew
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/ResponseErrorNew'
     GetSingleReviewSuccess:
       description: OK
       content:
@@ -2984,7 +3002,70 @@ components:
             $ref: '#/components/schemas/PartnerReview'
     EmptyResponseNew:
       description: OK
+    NewCommentSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: NewCommentSuccess
+            type: object
+            properties:
+              commentId:
+                type: string
+                description: The ID of the comment that was successfully created
+                example: f3j94g8h3
+    ErrorResponseNew:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: ErrorResponseNew
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+  requestBodies:
+    reviewGenerationSettingsRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReviewGenerationSettings'
+    commentUpdateRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReviewCommentUpdate'
+    updateReviewInvitationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateReviewInvitationRequest'
+    updateReviewLabelsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateReviewLabelsRequest'
+    commentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReviewComment'
   parameters:
+    invitationId:
+      name: invitationUid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The UID of this Review Invitation. This UID can be included as part of Review Creation
+
+        requests for attribution.
+
+        '
     listingsPublisherIds:
       name: publisherIds
       in: query
@@ -2999,23 +3080,13 @@ components:
 
         '
       style: simple
-    invitationId:
-      name: invitationUid
-      in: path
+    v:
+      name: v
+      in: query
       required: true
       schema:
         type: string
-      description: 'The UID of this Review Invitation. This UID can be included as part of Review Creation
-
-        requests for attribution.
-
-        '
-    commentId:
-      name: commentId
-      in: path
-      required: true
-      schema:
-        type: string
+      description: A date in `YYYYMMDD` format.
     reviewId:
       name: reviewId
       in: path
@@ -3036,13 +3107,30 @@ components:
       schema:
         type: string
       description: ID of this Workflow Rule.
-    v:
-      name: v
+    commentId:
+      name: commentId
+      in: path
+      required: true
+      schema:
+        type: string
+    num:
+      name: num
       in: query
       required: true
       schema:
         type: string
-      description: A date in `YYYYMMDD` format.
+      description: 'The number of reviews to return
+
+        '
+    commentId_2:
+      name: commentId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The review comment’s ID on your site
+
+        '
     listingId:
       name: listingId
       in: query
@@ -3063,54 +3151,6 @@ components:
         NOTE: This parameter is used to page through results. For example, Yext may fetch the newest 10 reviews and make a subsequent request with before set to the last review''s timestamp in order to fetch the second page.
 
         '
-    commentId_2:
-      name: commentId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: 'The review comment’s ID on your site
-
-        '
-    num:
-      name: num
-      in: query
-      required: true
-      schema:
-        type: string
-      description: 'The number of reviews to return
-
-        '
-  requestBodies:
-    commentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ReviewComment'
-    updateReviewLabelsRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateReviewLabelsRequest'
-    updateReviewInvitationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateReviewInvitationRequest'
-    reviewGenerationSettingsRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ReviewGenerationSettings'
-    commentUpdateRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ReviewCommentUpdate'
   securitySchemes:
     api_key:
       type: apiKey

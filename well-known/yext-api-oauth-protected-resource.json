@@ -1,0 +1,1 @@
+{"resource":"https://api.yext.com/mcp","resource_name":"Yext MCP","scopes_supported":["mcp.tools.read","mcp.tools.write"],"authorization_servers":["https://api.yext.com/oauth2/mcp"]}

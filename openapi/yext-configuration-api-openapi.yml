@@ -27,9 +27,7 @@ paths:
         `resourceGroup` and `resourceSubType` combine to describe the type of resource to query.
 
 
-        Examples: `km/entity`, `platform/account-features`.
-
-        '
+        Examples: `km/entity`, `platform/account-features`.'
       responses:
         '200':
           $ref: '#/components/responses/ResourceNamesList'
@@ -62,9 +60,7 @@ paths:
         To return the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.
 
 
-        Example: `platform/account-features/config`
-
-        '
+        Example: `platform/account-features/config`'
       responses:
         '200':
           $ref: '#/components/responses/Resource'
@@ -90,9 +86,7 @@ paths:
         To update the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.
 
 
-        Example: `platform/account-features/config`
-
-        '
+        Example: `platform/account-features/config`'
       requestBody:
         content:
           application/json:
@@ -123,9 +117,7 @@ paths:
         To patch the resource configuration of singleton resources (resources without `$id` fields like `km/settings` and `platform/account-features`), specify `config` as the `resourceId`.
 
 
-        Example: `platform/account-features/config`
-
-        '
+        Example: `platform/account-features/config`'
       requestBody:
         content:
           application/json:
@@ -153,9 +145,7 @@ paths:
         `resourceGroup` and `resourceSubType` combine to describe the type of resource to create.
 
 
-        Examples: `km/entity`, `platform/account-features`.
-
-        '
+        Examples: `km/entity`, `platform/account-features`.'
       requestBody:
         content:
           application/json:
@@ -168,16 +158,16 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   responses:
-    ErrorResponse:
-      description: Error Response
+    EmptyResponse:
+      description: Empty Response.
       content:
         application/json:
           schema:
-            title: ErrorResponse
+            title: EmptyResponse
             type: object
             properties:
               meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
+                $ref: '#/components/schemas/ResponseMeta'
               response:
                 type: object
     ResourceNamesList:
@@ -194,6 +184,18 @@ components:
                 type: array
                 items:
                   type: string
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
     Resource:
       description: A resource configuration
       content:
@@ -206,71 +208,7 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/Resource'
-    EmptyResponse:
-      description: Empty Response.
-      content:
-        application/json:
-          schema:
-            title: EmptyResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-  parameters:
-    resourceId:
-      name: resourceId
-      description: $id (name) of the resource
-      in: path
-      required: true
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    resourceGroup:
-      name: resourceGroup
-      description: 'Group of the resource
-
-
-        For example, for `km/entity`, the resourceGroup is `km`
-
-        '
-      in: path
-      required: true
-      schema:
-        type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    resourceSubType:
-      name: resourceSubType
-      description: 'Subtype of the resource
-
-
-        For example, for `km/entity`, the resourceSubType is `entity`
-
-        '
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
     ResponseError:
       type: object
       properties:
@@ -290,11 +228,13 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-    Resource:
+    ResponseMeta:
       type: object
-      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
-
-        '
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
     ResponseMetaWithError:
       allOf:
       - $ref: '#/components/schemas/ResponseMeta'
@@ -305,6 +245,56 @@ components:
             description: List of errors and warnings.
             items:
               $ref: '#/components/schemas/ResponseError'
+    Resource:
+      type: object
+      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
+
+        '
+  parameters:
+    resourceId:
+      name: resourceId
+      description: $id (name) of the resource
+      in: path
+      required: true
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    resourceGroup:
+      name: resourceGroup
+      description: 'Group of the resource
+
+
+        For example, for `km/entity`, the resourceGroup is `km`
+
+        '
+      in: path
+      required: true
+      schema:
+        type: string
+    resourceSubType:
+      name: resourceSubType
+      description: 'Subtype of the resource
+
+
+        For example, for `km/entity`, the resourceSubType is `entity`
+
+        '
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: apiKey

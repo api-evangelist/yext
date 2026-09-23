@@ -64,11 +64,9 @@ paths:
 
         For more information available in the Reports API, check our documentation below:
 
-        * [Metrics in Analytics](https://help.yext.com/hc/en-us/articles/360000001103-Metrics-in-Analytics)
+        * Metrics in Analytics
 
-        * [Dimensions in Analytics](https://help.yext.com/hc/en-us/articles/5901921968027-Dimensions-in-Analytics)
-
-        '
+        * Dimensions in Analytics'
       requestBody:
         description: JSON object containing any filters to be applied to the report
         content:
@@ -101,110 +99,43 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  responses:
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    CatalogResponse:
-      description: Completed dates of all metrics available
-      content:
-        application/json:
-          schema:
-            title: CatalogResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  metrics:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Metric'
-    MaxDatesResponse:
-      description: Maximum date through which reporting data is available
-      content:
-        application/json:
-          schema:
-            title: MaximumDatesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  standardMaxDate:
-                    type: string
-                    format: date
-                    description: The date through which reporting data is available from Listings publishers other than Bing.
-                  bingMaxDate:
-                    type: string
-                    format: date
-                    description: The date through which Bing data is available.
-    ReportStatusResponse:
-      description: Status of a report created with async=true
-      content:
-        application/json:
-          schema:
-            title: ReportStatusResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    enum:
-                    - PROCESSING
-                    - DONE
-                    - FAILED
-                  url:
-                    type: string
-                    description: When status=DONE, contains the URL to download the report data as a text file.
-    CreateReportsResponse:
-      description: Returns report data if synchronous or report id if asynchronous
-      content:
-        application/json:
-          schema:
-            title: CreateReportsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties:
-                        type: string
-                    description: Array with the contents of the report (encoded UTF-8), as specified in the request. This is returned for a synchronous request
-                  id:
-                    type: string
-                    description: the ID of the report. This is returned for an asynchronous request
   schemas:
-    ResponseMeta:
+    CreateReportRequestBody:
       type: object
+      required:
+      - metrics
+      - dimensions
       properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
+        metrics:
+          type: array
+          items:
+            type: string
+          description: 'The kinds of data the report should include. Specify up to 10 values.
+
+            '
+        dimensions:
+          type: array
+          items:
+            type: string
+          description: 'Determines how the data will be grouped. Specify up to 10 values.
+
+            <br><br>
+
+            **NOTES:**
+
+            <br>
+
+            You can only use one time-based dimension (e.g., `DAYS`, `WEEKS`) per report.
+
+            <br>
+
+            You can only use one location-based dimension (e.g., `FOLDER_IDS`, `LOCATION_NAMES`) per report.
+
+            <br><br>
+
+            '
+        filters:
+          $ref: '#/components/schemas/AnalyticsFilter'
     ResponseError:
       type: object
       properties:
@@ -915,52 +846,6 @@ components:
 
             '
           example: '2017-01-01'
-    CreateReportRequestBody:
-      type: object
-      required:
-      - metrics
-      - dimensions
-      properties:
-        metrics:
-          type: array
-          items:
-            type: string
-          description: 'The kinds of data the report should include. Specify up to 10 values.
-
-            '
-        dimensions:
-          type: array
-          items:
-            type: string
-          description: 'Determines how the data will be grouped. Specify up to 10 values.
-
-            <br><br>
-
-            **NOTES:**
-
-            <br>
-
-            You can only use one time-based dimension (e.g., `DAYS`, `WEEKS`) per report.
-
-            <br>
-
-            You can only use one location-based dimension (e.g., `FOLDER_IDS`, `LOCATION_NAMES`) per report.
-
-            <br><br>
-
-            '
-        filters:
-          $ref: '#/components/schemas/AnalyticsFilter'
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
     Metric:
       type: object
       properties:
@@ -971,7 +856,126 @@ components:
           format: date
           type: string
           description: The date until which complete data for the metric is available, in `YYYY-MM-DD` format.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  responses:
+    CatalogResponse:
+      description: Completed dates of all metrics available
+      content:
+        application/json:
+          schema:
+            title: CatalogResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  metrics:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Metric'
+    ReportStatusResponse:
+      description: Status of a report created with async=true
+      content:
+        application/json:
+          schema:
+            title: ReportStatusResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - PROCESSING
+                    - DONE
+                    - FAILED
+                  url:
+                    type: string
+                    description: When status=DONE, contains the URL to download the report data as a text file.
+    CreateReportsResponse:
+      description: Returns report data if synchronous or report id if asynchronous
+      content:
+        application/json:
+          schema:
+            title: CreateReportsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    description: Array with the contents of the report (encoded UTF-8), as specified in the request. This is returned for a synchronous request
+                  id:
+                    type: string
+                    description: the ID of the report. This is returned for an asynchronous request
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    MaxDatesResponse:
+      description: Maximum date through which reporting data is available
+      content:
+        application/json:
+          schema:
+            title: MaximumDatesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  standardMaxDate:
+                    type: string
+                    format: date
+                    description: The date through which reporting data is available from Listings publishers other than Bing.
+                  bingMaxDate:
+                    type: string
+                    format: date
+                    description: The date through which Bing data is available.
   parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     v:
       name: v
       in: query
@@ -979,12 +983,6 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     api_key:
       type: apiKey

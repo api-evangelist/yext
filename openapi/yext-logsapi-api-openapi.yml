@@ -92,92 +92,40 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  responses:
-    GetTableResponse:
-      description: Returns schema for table returned from the GET Tables endpoint in the Logs API.
-      content:
-        application/json:
-          schema:
-            title: GetTableResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Table Name associated with schema
-                  fields:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          description: Identifier for field
-                        dataType:
-                          type: string
-                          description: Datatype of field
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    GetTablesResponse:
-      description: Returns tables that can be queried from the POST Query endpoint in the Logs API.
-      content:
-        application/json:
-          schema:
-            title: GetTablesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  logTables:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          description: Table Identifier
-                    description: Array with tables that can be queried from the POST Query endpoint in the Logs API.
-    CreateQueryResponse:
-      description: Returns results of query.
-      content:
-        application/json:
-          schema:
-            title: createQueryResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  logRecords:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties:
-                        type: string
-                    description: Array with the query results.
-                  nextPageToken:
-                    type: string
-                    description: Token for paginating queries which return more records than the pageSize specified.
+  parameters:
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
     ResponseMeta:
       type: object
       properties:
@@ -185,6 +133,16 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
     CreateQueryRequestBody:
       type: object
       required: []
@@ -243,49 +201,91 @@ components:
         pageToken:
           type: string
           description: 'Token for paginating queries which return more records than the pageSize specified e.g. `"pageToken": "BeYwVgOhe_fEz9VhfSES4GPDt6jElk7AHN6plsP_TLXk27rlG0YyYc78AOI_oyILcw"`.<br><br> This is optional and should only be used when your query returns more records than your pageSize (indicated by the nextPageToken being returned in your response body.)'
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-  parameters:
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
+  responses:
+    CreateQueryResponse:
+      description: Returns results of query.
+      content:
+        application/json:
+          schema:
+            title: createQueryResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  logRecords:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    description: Array with the query results.
+                  nextPageToken:
+                    type: string
+                    description: Token for paginating queries which return more records than the pageSize specified.
+    GetTablesResponse:
+      description: Returns tables that can be queried from the POST Query endpoint in the Logs API.
+      content:
+        application/json:
+          schema:
+            title: GetTablesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  logTables:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Table Identifier
+                    description: Array with tables that can be queried from the POST Query endpoint in the Logs API.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    GetTableResponse:
+      description: Returns schema for table returned from the GET Tables endpoint in the Logs API.
+      content:
+        application/json:
+          schema:
+            title: GetTableResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Table Name associated with schema
+                  fields:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Identifier for field
+                        dataType:
+                          type: string
+                          description: Datatype of field
   securitySchemes:
     api_key:
       type: apiKey

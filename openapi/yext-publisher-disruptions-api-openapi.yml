@@ -18,9 +18,7 @@ paths:
       tags:
       - Publisher Disruptions
       summary: 'Publisher Disruptions: List'
-      description: 'Retrieve disruptions for a publisher.
-
-        '
+      description: Retrieve disruptions for a publisher.
       parameters:
       - $ref: '#/components/parameters/v'
       - name: filter.severities
@@ -109,9 +107,7 @@ paths:
       tags:
       - Publisher Disruptions
       summary: 'Publisher Disruptions: List Status Updates'
-      description: 'Retrieve status updates for a publisher disruption.
-
-        '
+      description: Retrieve status updates for a publisher disruption.
       parameters:
       - $ref: '#/components/parameters/v'
       - name: pageSize
@@ -142,89 +138,6 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  responses:
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    ListPublisherDisruptionsResponse:
-      description: List Publisher Disruptions Response
-      content:
-        application/json:
-          schema:
-            title: ListPublisherDisruptionsResponse
-            type: object
-            properties:
-              meta:
-                allOf:
-                - $ref: '#/components/schemas/ResponseMeta'
-                - type: object
-                  properties:
-                    pagination:
-                      description: 'If there are more disruptions than the specified page size, pagination data
-
-                        will be included to retrieve the next page of data.
-
-                        '
-                      type: object
-                      properties:
-                        pageToken:
-                          type: string
-                          description: 'Token that can be sent as `pageToken` to retrieve the next page. If this
-
-                            field is omitted, there are no subsequent pages.
-
-                            '
-              response:
-                type: object
-                properties:
-                  disruptions:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/PublisherDisruption'
-    ListPublisherDisruptionStatusUpdatesResponse:
-      description: List Publisher Disruption Status Updates Response
-      content:
-        application/json:
-          schema:
-            title: ListPublisherDisruptionStatusUpdatesResponse
-            type: object
-            properties:
-              meta:
-                allOf:
-                - $ref: '#/components/schemas/ResponseMeta'
-                - type: object
-                  properties:
-                    pagination:
-                      description: 'If there are more status updates than the specified page size, pagination data
-
-                        will be included to retrieve the next page of data.
-
-                        '
-                      type: object
-                      properties:
-                        pageToken:
-                          type: string
-                          description: 'Token that can be sent as `pageToken` to retrieve the next page. If this
-
-                            field is omitted, there are no subsequent pages.
-
-                            '
-              response:
-                type: object
-                properties:
-                  statusUpdates:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/PublisherDisruptionStatusUpdate'
   schemas:
     PublisherDisruptionStatusUpdate:
       type: object
@@ -249,6 +162,25 @@ components:
           type: string
           format: date-time
           description: Timestamp of the status update.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
     PublisherDisruption:
       type: object
       properties:
@@ -299,25 +231,6 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
     ResponseMetaWithError:
       allOf:
       - $ref: '#/components/schemas/ResponseMeta'
@@ -328,14 +241,90 @@ components:
             description: List of errors and warnings.
             items:
               $ref: '#/components/schemas/ResponseError'
+  responses:
+    ListPublisherDisruptionStatusUpdatesResponse:
+      description: List Publisher Disruption Status Updates Response
+      content:
+        application/json:
+          schema:
+            title: ListPublisherDisruptionStatusUpdatesResponse
+            type: object
+            properties:
+              meta:
+                allOf:
+                - $ref: '#/components/schemas/ResponseMeta'
+                - type: object
+                  properties:
+                    pagination:
+                      description: 'If there are more status updates than the specified page size, pagination data
+
+                        will be included to retrieve the next page of data.
+
+                        '
+                      type: object
+                      properties:
+                        pageToken:
+                          type: string
+                          description: 'Token that can be sent as `pageToken` to retrieve the next page. If this
+
+                            field is omitted, there are no subsequent pages.
+
+                            '
+              response:
+                type: object
+                properties:
+                  statusUpdates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublisherDisruptionStatusUpdate'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    ListPublisherDisruptionsResponse:
+      description: List Publisher Disruptions Response
+      content:
+        application/json:
+          schema:
+            title: ListPublisherDisruptionsResponse
+            type: object
+            properties:
+              meta:
+                allOf:
+                - $ref: '#/components/schemas/ResponseMeta'
+                - type: object
+                  properties:
+                    pagination:
+                      description: 'If there are more disruptions than the specified page size, pagination data
+
+                        will be included to retrieve the next page of data.
+
+                        '
+                      type: object
+                      properties:
+                        pageToken:
+                          type: string
+                          description: 'Token that can be sent as `pageToken` to retrieve the next page. If this
+
+                            field is omitted, there are no subsequent pages.
+
+                            '
+              response:
+                type: object
+                properties:
+                  disruptions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublisherDisruption'
   parameters:
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
     publisherSiteId:
       name: publisherSiteId
       in: path
@@ -343,6 +332,13 @@ components:
       schema:
         type: string
       description: Publisher site ID.
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   securitySchemes:
     api_key:
       type: apiKey

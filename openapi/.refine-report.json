@@ -69,7 +69,8 @@
     "yext-publisher-tracking-pixel-api-openapi.yml: declared missing tag: Plpixel",
     "tag 'Accounts' spans 3 source specs (yext-answers-api-openapi.yml, yext-chat-api-openapi.yml, yext-events-api-openapi.yml): per-path servers applied",
     "tag 'Listings' spans 2 source specs (yext-knowledge-api-openapi.yml, yext-publisher-listings-api-openapi.yml): per-path servers applied",
-    "tag 'Reviews' spans 2 source specs (yext-knowledge-api-openapi.yml, yext-publisher-listings-api-openapi.yml): per-path servers applied"
+    "tag 'Reviews' spans 2 source specs (yext-knowledge-api-openapi.yml, yext-publisher-listings-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "yext-account-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -91,7 +92,6 @@
     "yext-optimization-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "yext-plpixel-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "yext-publisher-disruptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "yext-publisher-notify-review-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "yext-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "yext-social-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "yext-suggestions-api-openapi.yml: previously refined output, superseded by openapi/_original/"

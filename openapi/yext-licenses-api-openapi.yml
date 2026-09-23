@@ -28,9 +28,7 @@ paths:
       operationId: createLicenseAssignment
       tags:
       - Licenses
-      summary: 'License Assignment: Create
-
-        '
+      summary: 'License Assignment: Create'
       description: This is used to assign a license to an entity.
       responses:
         '200':
@@ -41,9 +39,7 @@ paths:
       operationId: deleteLicenseAssignment
       tags:
       - Licenses
-      summary: 'License Assignment: Delete
-
-        '
+      summary: 'License Assignment: Delete'
       description: This is used to immediately remove a license from an entity.
       responses:
         '200':
@@ -54,9 +50,7 @@ paths:
       operationId: updateLicenseAssignment
       tags:
       - Licenses
-      summary: 'License Assignment: Update
-
-        '
+      summary: 'License Assignment: Update'
       description: This is used to schedule future removal of a license from an entity by specifying an expiration date. A user can also omit an expiration date or specify an expiration date of null, which would cancel that future removal.
       requestBody:
         content:
@@ -86,12 +80,8 @@ paths:
       operationId: listLicensePacks
       tags:
       - Licenses
-      summary: 'License Packs: List
-
-        '
-      description: 'This is used to list all active license packs on the account.
-
-        '
+      summary: 'License Packs: List'
+      description: This is used to list all active license packs on the account.
       responses:
         '200':
           $ref: '#/components/responses/LicensePacks'
@@ -117,43 +107,120 @@ paths:
       operationId: listLicenseAssignments
       tags:
       - Licenses
-      summary: 'License Assignments: List
-
-        '
-      description: 'This is used to list all licenses that have been assigned to an entity. Users can specify all license packs using a wildcard "-" as the licensePackId, which allows them to request all license assignments for that entity.
-
-        '
+      summary: 'License Assignments: List'
+      description: This is used to list all licenses that have been assigned to an entity. Users can specify all license packs using a wildcard "-" as the licensePackId, which allows them to request all license assignments for that entity.
       responses:
         '200':
           $ref: '#/components/responses/LicenseAssignments'
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  responses:
+  schemas:
     LicenseAssignment:
-      description: Success Response
-      content:
-        application/json:
-          schema:
-            title: License Assignment
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/LicenseAssignment'
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
+      type: object
+      properties:
+        licensePack:
+          $ref: '#/components/schemas/LicensePack'
+        assignedEntities:
+          type: array
+          description: A list of assigned entities.
+          items:
+            $ref: '#/components/schemas/AssignedEntity'
+    LicenseAssignments:
+      type: object
+      properties:
+        licenseAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseAssignment'
+        nextPageToken:
+          $ref: '#/components/schemas/NextPageToken'
+    LicensePacks:
+      type: object
+      properties:
+        licensePacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicensePack'
+        nextPageToken:
+          $ref: '#/components/schemas/NextPageToken'
+    LicensePack:
+      type: object
+      description: License pack details.
+      properties:
+        id:
+          type: string
+          description: The external ID of this license pack.
+        name:
+          type: string
+          description: The name of this license pack.
+        total:
+          type: integer
+          description: The total number of licenses on this license pack.
+        assigned:
+          type: integer
+          description: The number of assigned licenses on this license pack.
+        available:
+          type: integer
+          description: The number of available licenses on this license pack.
+        notes:
+          type: string
+          description: The notes on this license pack.
+    AssignedEntity:
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: The external entity ID of the entity.
+        expirationDate:
+          type: string
+          description: The expiration date of the license assignment.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    UpdateLicenseAssignmentRequestBody:
+      type: object
+      properties:
+        expirationDate:
+          type: string
+          description: The license will be unassigned at the beginning of the day on this date.
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+  responses:
     EmptyResponse:
       description: Empty Response.
       content:
@@ -178,6 +245,30 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/LicensePacks'
+    LicenseAssignment:
+      description: Success Response
+      content:
+        application/json:
+          schema:
+            title: License Assignment
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/LicenseAssignment'
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
     LicenseAssignments:
       description: Success Response
       content:
@@ -191,6 +282,19 @@ components:
               response:
                 $ref: '#/components/schemas/LicenseAssignments'
   parameters:
+    pageSize:
+      name: pageSize
+      description: Number of results to return.
+      in: query
+      schema:
+        type: integer
+    licensePackId:
+      name: licensePackId
+      description: License Pack ID found on the Account Settings / License Packs page.
+      in: path
+      required: true
+      schema:
+        type: string
     assignedEntity:
       name: assignedEntity
       description: 'If you want to list all of the license packs assigned to a specific entity, you can provide the entity''s external ID as a parameter.
@@ -199,13 +303,22 @@ components:
       in: query
       schema:
         type: string
-    licensePackId:
-      name: licensePackId
-      description: License Pack ID found on the Account Settings / License Packs page.
-      in: path
+    pageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
+
+        '
+    v:
+      name: v
+      in: query
       required: true
       schema:
         type: string
+      description: A date in `YYYYMMDD` format.
     entityId:
       name: entityId
       in: path
@@ -217,139 +330,12 @@ components:
         The external ID of the requested Entity.
 
         '
-    pageToken:
-      name: pageToken
-      in: query
-      schema:
-        type: string
-      required: false
-      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
-
-        '
-    pageSize:
-      name: pageSize
-      description: Number of results to return.
-      in: query
-      schema:
-        type: integer
     accountId:
       name: accountId
       in: path
       required: true
       schema:
         type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-  schemas:
-    LicenseAssignments:
-      type: object
-      properties:
-        licenseAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseAssignment'
-        nextPageToken:
-          $ref: '#/components/schemas/NextPageToken'
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    LicensePack:
-      type: object
-      description: License pack details.
-      properties:
-        id:
-          type: string
-          description: The external ID of this license pack.
-        name:
-          type: string
-          description: The name of this license pack.
-        total:
-          type: integer
-          description: The total number of licenses on this license pack.
-        assigned:
-          type: integer
-          description: The number of assigned licenses on this license pack.
-        available:
-          type: integer
-          description: The number of available licenses on this license pack.
-        notes:
-          type: string
-          description: The notes on this license pack.
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    AssignedEntity:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: The external entity ID of the entity.
-        expirationDate:
-          type: string
-          description: The expiration date of the license assignment.
-    UpdateLicenseAssignmentRequestBody:
-      type: object
-      properties:
-        expirationDate:
-          type: string
-          description: The license will be unassigned at the beginning of the day on this date.
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    LicensePacks:
-      type: object
-      properties:
-        licensePacks:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicensePack'
-        nextPageToken:
-          $ref: '#/components/schemas/NextPageToken'
-    LicenseAssignment:
-      type: object
-      properties:
-        licensePack:
-          $ref: '#/components/schemas/LicensePack'
-        assignedEntities:
-          type: array
-          description: A list of assigned entities.
-          items:
-            $ref: '#/components/schemas/AssignedEntity'
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
   securitySchemes:
     api_key:
       type: apiKey

@@ -51,9 +51,7 @@ paths:
       summary: 'Connectors: Push Data'
       description: 'Pushes data to be saved for and processed by a specified Connector.
 
-        A run will be initiated with the data provided.
-
-        '
+        A run will be initiated with the data provided.'
       responses:
         '200':
           $ref: '#/components/responses/PushDataEndpointResponse'
@@ -148,9 +146,7 @@ paths:
       summary: 'Connectors: Approve Run'
       description: 'Approves a dry run that is ready for review.
 
-        The changes from the dry run will be applied once the run is approved.
-
-        '
+        The changes from the dry run will be applied once the run is approved.'
       responses:
         '200':
           $ref: '#/components/responses/ApproveRunResponse'
@@ -184,19 +180,68 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  schemas:
+    ConnectorRunResults:
+      type: object
+      required:
+      - createdCount
+      - updatedCount
+      - deletedCount
+      - failedCount
+      - unchangedCount
+      properties:
+        createdCount:
+          type: integer
+          description: The number of successfully created entities.
+        updatedCount:
+          type: integer
+          description: The number of successfully updated entities.
+        deletedCount:
+          type: integer
+          description: The number of successfully deleted entities.
+        failedCount:
+          type: integer
+          description: The number of entities that failed to be created or updated.
+        unchangedCount:
+          type: integer
+          description: The number of entities that weren't updated.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
   responses:
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
     ApproveRunResponse:
       description: Approve Run Response
       content:
@@ -235,25 +280,6 @@ components:
                   runUid:
                     type: integer
                     description: UID of the Run.
-    CancelRunResponse:
-      description: Cancel Run Response
-      content:
-        application/json:
-          schema:
-            title: CancelRunResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  connectorId:
-                    type: string
-                    description: ID of the Connector.
-                  runUid:
-                    type: integer
-                    description: UID of the cancelled Run.
     GetConnectorRunResponse:
       description: Get Connector Run Response
       content:
@@ -375,68 +401,44 @@ components:
                   runUid:
                     type: integer
                     description: UID of the Run.
-  schemas:
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    ConnectorRunResults:
-      type: object
-      required:
-      - createdCount
-      - updatedCount
-      - deletedCount
-      - failedCount
-      - unchangedCount
-      properties:
-        createdCount:
-          type: integer
-          description: The number of successfully created entities.
-        updatedCount:
-          type: integer
-          description: The number of successfully updated entities.
-        deletedCount:
-          type: integer
-          description: The number of successfully deleted entities.
-        failedCount:
-          type: integer
-          description: The number of entities that failed to be created or updated.
-        unchangedCount:
-          type: integer
-          description: The number of entities that weren't updated.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    CancelRunResponse:
+      description: Cancel Run Response
+      content:
+        application/json:
+          schema:
+            title: CancelRunResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  connectorId:
+                    type: string
+                    description: ID of the Connector.
+                  runUid:
+                    type: integer
+                    description: UID of the cancelled Run.
   parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     v:
       name: v
       in: query
@@ -444,12 +446,6 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     api_key:
       type: apiKey
