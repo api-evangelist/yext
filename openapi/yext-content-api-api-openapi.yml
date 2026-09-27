@@ -81,6 +81,13 @@ components:
         default: 10
         maximum: 50
       description: Number of results to return.
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
     endpoint:
       name: endpoint
       in: path
@@ -94,53 +101,6 @@ components:
       required: true
       schema:
         type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-  schemas:
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
   responses:
     StreamsResponse:
       description: Content Response
@@ -183,6 +143,46 @@ components:
                 $ref: '#/components/schemas/ResponseMetaWithError'
               response:
                 type: object
+  schemas:
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
   securitySchemes:
     api_key:
       type: apiKey

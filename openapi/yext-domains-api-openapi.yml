@@ -2896,7 +2896,128 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  parameters:
+    domainAssociationId:
+      name: domainAssociationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    viewDefaultFull:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: FULL
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
+    index_pageToken:
+      name: page_token
+      in: query
+      schema:
+        type: string
+      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
+    hostnameSearchFilter:
+      name: hostname_search
+      in: query
+      schema:
+        type: string
+      description: Case-insensitive substring used to filter by hostname.
+      example: example
+    hostnameFilters:
+      name: hostname
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
+      example: www.example.com,test.example.com
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    showDeleted:
+      name: show_deleted
+      in: query
+      schema:
+        type: boolean
+        default: false
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    forceMove:
+      name: force_move
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
+    managedCsrId:
+      name: managedCsrId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    index_pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        default: 10
+        minimum: 0
+        maximum: 50
+      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
+    domainIdAllowAll:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Set to "-" to reference Domain Associations from all domains in this account.
+    domainId:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    viewDefaultBasic:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: BASIC
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
   schemas:
+    certificate_authority:
+      type: string
+      enum:
+      - GOOGLE_TRUST
+      - LETS_ENCRYPT
+      default: GOOGLE_TRUST
     site:
       description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
       type: object
@@ -2913,62 +3034,10 @@ components:
             '
           type: boolean
           default: false
-    managed_csr:
-      description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
-
-        Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
-
-        '
-      type: object
-      properties:
-        managed_csr_id:
-          description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
-
-            '
-          type: string
-          example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-        custom_public_certificate:
-          description: 'Public CA signed certificate.
-
-            '
-          type: string
-          format: pem
-          writeOnly: true
-          example: '-----BEGIN CERTIFICATE-----
-
-            MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
-
-            ...
-
-            -----END CERTIFICATE-----
-
-            '
-        hostname_validation:
-          description: 'Proof of ownership for the SSL provider.
-
-            '
-          type: object
-          readOnly: true
-          properties:
-            cname_target:
-              type: string
-              example: idzm5s34j5.yext.pgscdncf.com.
-            txt_domain:
-              type: string
-              example: _yext-domain.www.example.com
-            txt_value:
-              type: string
-              format: uuid
-            http_uri:
-              type: string
-              example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
-            http_body:
-              type: string
-              format: uuid
-    totalSize:
-      type: integer
-      description: The total number of items that match the filter criteria, ignoring pagination.
-      example: 100
+    nextPageToken:
+      type: string
+      description: The token to use to retrieve the next page of results. If empty, this is the last page.
+      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
     custom_ssl_certificate:
       description: 'The provided custom SSL certificate will be used for serving requests to the domain.
 
@@ -3028,10 +3097,83 @@ components:
             http_body:
               type: string
               format: uuid
+    totalSize:
+      type: integer
+      description: The total number of items that match the filter criteria, ignoring pagination.
+      example: 100
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
     previousPageToken:
       type: string
       description: The token to use to retrieve the previous page of results. If empty, this is the first page.
       example: eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    managed_csr:
+      description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
+
+        Exactly one of `managed_ssl`, `managed_csr`, or `custom_ssl_certificate` must be set for a domain.
+
+        '
+      type: object
+      properties:
+        managed_csr_id:
+          description: 'The name of the [Managed CSR](#tag/Domains/operation/createManagedCsr) resource.
+
+            '
+          type: string
+          example: accounts/123456/csrs/4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+        custom_public_certificate:
+          description: 'Public CA signed certificate.
+
+            '
+          type: string
+          format: pem
+          writeOnly: true
+          example: '-----BEGIN CERTIFICATE-----
+
+            MIIC2DCCAcCAQAwgY4xCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+
+            ...
+
+            -----END CERTIFICATE-----
+
+            '
+        hostname_validation:
+          description: 'Proof of ownership for the SSL provider.
+
+            '
+          type: object
+          readOnly: true
+          properties:
+            cname_target:
+              type: string
+              example: idzm5s34j5.yext.pgscdncf.com.
+            txt_domain:
+              type: string
+              example: _yext-domain.www.example.com
+            txt_value:
+              type: string
+              format: uuid
+            http_uri:
+              type: string
+              example: http://www.example.com/.well-known/yext-domain-challenge/35f00e6a-61c2-4857-b2cc-4c736f86b5ac
+            http_body:
+              type: string
+              format: uuid
     ResponseError:
       type: object
       properties:
@@ -3051,148 +3193,6 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-    certificate_authority:
-      type: string
-      enum:
-      - GOOGLE_TRUST
-      - LETS_ENCRYPT
-      default: GOOGLE_TRUST
-    nextPageToken:
-      type: string
-      description: The token to use to retrieve the next page of results. If empty, this is the last page.
-      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-  parameters:
-    domainIdAllowAll:
-      name: domainId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: Set to "-" to reference Domain Associations from all domains in this account.
-    domainId:
-      name: domainId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    forceMove:
-      name: force_move
-      in: query
-      schema:
-        type: boolean
-        default: false
-      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
-    hostnameSearchFilter:
-      name: hostname_search
-      in: query
-      schema:
-        type: string
-      description: Case-insensitive substring used to filter by hostname.
-      example: example
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    domainAssociationId:
-      name: domainAssociationId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-    hostnameFilters:
-      name: hostname
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
-      example: www.example.com,test.example.com
-    viewDefaultBasic:
-      name: view
-      in: query
-      schema:
-        type: string
-        enum:
-        - FULL
-        - BASIC
-        default: BASIC
-      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
-
-        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
-
-        '
-    viewDefaultFull:
-      name: view
-      in: query
-      schema:
-        type: string
-        enum:
-        - FULL
-        - BASIC
-        default: FULL
-      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
-
-        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
-
-        '
-    showDeleted:
-      name: show_deleted
-      in: query
-      schema:
-        type: boolean
-        default: false
-    index_pageToken:
-      name: page_token
-      in: query
-      schema:
-        type: string
-      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
-    index_pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        default: 10
-        minimum: 0
-        maximum: 50
-      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
-    managedCsrId:
-      name: managedCsrId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
   responses:
     ErrorResponse:
       description: Error Response

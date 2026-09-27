@@ -37,6 +37,62 @@ paths:
       - Plpixel
 components:
   parameters:
+    querylocation:
+      name: querylocation
+      in: query
+      schema:
+        type: string
+      description: 'Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in "Find X near Y", "X" should be provided as "query" and "Y" should be provided as **querylocation**.
+
+        * Required if **source** is **serp**
+
+        * The value of this field must be URL encoded
+
+        '
+    action:
+      name: action
+      in: query
+      schema:
+        type: string
+        enum:
+        - impression
+        - click
+      required: true
+      description: 'Type of event that took place
+
+        '
+    pageurl:
+      name: pageurl
+      in: query
+      schema:
+        type: string
+      description: 'The URL of the original web request
+
+        * Required  if and only if making a server-side call to report a web page view
+
+        '
+    useragent:
+      name: useragent
+      in: query
+      schema:
+        type: string
+      description: 'The user agent from the original web request.
+
+        * Required  if and only if making a server-side call to report a web page view
+
+        '
+    property:
+      name: property
+      in: query
+      schema:
+        type: string
+      description: 'Indicates the Internet property where the event took place.
+
+        You should always provide this value if your listings are available on multiple platforms or properties (e.g., website, iPhone app, and Android app or publisher.example.com and local.publisher.com).
+
+        * This value does not have to be a domain name, but please choose something that’s likely to be unique.
+
+        '
     pid:
       name: pid
       in: query
@@ -44,6 +100,60 @@ components:
         type: string
       required: true
       description: 'Publisher secure ID. This value will be provided to you.
+
+        '
+    additional:
+      name: additional
+      in: query
+      schema:
+        type: string
+      description: 'Any additional data you wish to include
+
+        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
+
+        '
+    userid:
+      name: userid
+      in: query
+      schema:
+        type: string
+      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
+    rank:
+      name: rank
+      in: query
+      schema:
+        type: string
+      description: 'The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).
+
+        * Comma-separated list of integers, 1-indexed, parallel to ids.
+
+        * A rank of ''5'' in the first index would indicate that the first listing in the list appeared fifth in the organic results
+
+        '
+    query:
+      name: query
+      in: query
+      schema:
+        type: string
+      description: 'The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.
+
+        * Required if **source** is **serp**
+
+        * The value of this field must be URL encoded
+
+        '
+    source:
+      name: source
+      in: query
+      schema:
+        type: string
+        enum:
+        - serp
+        - mapbubble
+        - detailspage
+        - drivingdirections
+      required: true
+      description: 'Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
 
         '
     target:
@@ -73,116 +183,6 @@ components:
         If no appropriate value is available, please contact us.
 
         * Required if **action** is **click**
-
-        '
-    rank:
-      name: rank
-      in: query
-      schema:
-        type: string
-      description: 'The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).
-
-        * Comma-separated list of integers, 1-indexed, parallel to ids.
-
-        * A rank of ''5'' in the first index would indicate that the first listing in the list appeared fifth in the organic results
-
-        '
-    property:
-      name: property
-      in: query
-      schema:
-        type: string
-      description: 'Indicates the Internet property where the event took place.
-
-        You should always provide this value if your listings are available on multiple platforms or properties (e.g., website, iPhone app, and Android app or publisher.example.com and local.publisher.com).
-
-        * This value does not have to be a domain name, but please choose something that’s likely to be unique.
-
-        '
-    querylocation:
-      name: querylocation
-      in: query
-      schema:
-        type: string
-      description: 'Search queries that allow the user to specify a target location should pass the entered location in this parameter.  If your site allows the user inputs to enter both fields in "Find X near Y", "X" should be provided as "query" and "Y" should be provided as **querylocation**.
-
-        * Required if **source** is **serp**
-
-        * The value of this field must be URL encoded
-
-        '
-    pageurl:
-      name: pageurl
-      in: query
-      schema:
-        type: string
-      description: 'The URL of the original web request
-
-        * Required  if and only if making a server-side call to report a web page view
-
-        '
-    useragent:
-      name: useragent
-      in: query
-      schema:
-        type: string
-      description: 'The user agent from the original web request.
-
-        * Required  if and only if making a server-side call to report a web page view
-
-        '
-    action:
-      name: action
-      in: query
-      schema:
-        type: string
-        enum:
-        - impression
-        - click
-      required: true
-      description: 'Type of event that took place
-
-        '
-    userid:
-      name: userid
-      in: query
-      schema:
-        type: string
-      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
-    source:
-      name: source
-      in: query
-      schema:
-        type: string
-        enum:
-        - serp
-        - mapbubble
-        - detailspage
-        - drivingdirections
-      required: true
-      description: 'Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
-
-        '
-    additional:
-      name: additional
-      in: query
-      schema:
-        type: string
-      description: 'Any additional data you wish to include
-
-        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
-
-        '
-    query:
-      name: query
-      in: query
-      schema:
-        type: string
-      description: 'The search query that caused the SERP to be displayed. If your site’s search is powered by a single input field, then just provide that field.
-
-        * Required if **source** is **serp**
-
-        * The value of this field must be URL encoded
 
         '
     ids:

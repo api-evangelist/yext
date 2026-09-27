@@ -99,6 +99,102 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  responses:
+    ReportStatusResponse:
+      description: Status of a report created with async=true
+      content:
+        application/json:
+          schema:
+            title: ReportStatusResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - PROCESSING
+                    - DONE
+                    - FAILED
+                  url:
+                    type: string
+                    description: When status=DONE, contains the URL to download the report data as a text file.
+    CatalogResponse:
+      description: Completed dates of all metrics available
+      content:
+        application/json:
+          schema:
+            title: CatalogResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  metrics:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Metric'
+    MaxDatesResponse:
+      description: Maximum date through which reporting data is available
+      content:
+        application/json:
+          schema:
+            title: MaximumDatesResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  standardMaxDate:
+                    type: string
+                    format: date
+                    description: The date through which reporting data is available from Listings publishers other than Bing.
+                  bingMaxDate:
+                    type: string
+                    format: date
+                    description: The date through which Bing data is available.
+    CreateReportsResponse:
+      description: Returns report data if synchronous or report id if asynchronous
+      content:
+        application/json:
+          schema:
+            title: CreateReportsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    description: Array with the contents of the report (encoded UTF-8), as specified in the request. This is returned for a synchronous request
+                  id:
+                    type: string
+                    description: the ID of the report. This is returned for an asynchronous request
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
   schemas:
     CreateReportRequestBody:
       type: object
@@ -136,25 +232,16 @@ components:
             '
         filters:
           $ref: '#/components/schemas/AnalyticsFilter'
-    ResponseError:
+    Metric:
       type: object
       properties:
-        name:
+        id:
           type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
+          description: The ID of an Analytics metric for which reporting data can be retrieved.
+        completedDate:
+          format: date
           type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
+          description: The date until which complete data for the metric is available, in `YYYY-MM-DD` format.
     AnalyticsFilter:
       type: object
       properties:
@@ -846,23 +933,6 @@ components:
 
             '
           example: '2017-01-01'
-    Metric:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of an Analytics metric for which reporting data can be retrieved.
-        completedDate:
-          format: date
-          type: string
-          description: The date until which complete data for the metric is available, in `YYYY-MM-DD` format.
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
     ResponseMetaWithError:
       allOf:
       - $ref: '#/components/schemas/ResponseMeta'
@@ -873,109 +943,33 @@ components:
             description: List of errors and warnings.
             items:
               $ref: '#/components/schemas/ResponseError'
-  responses:
-    CatalogResponse:
-      description: Completed dates of all metrics available
-      content:
-        application/json:
-          schema:
-            title: CatalogResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  metrics:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Metric'
-    ReportStatusResponse:
-      description: Status of a report created with async=true
-      content:
-        application/json:
-          schema:
-            title: ReportStatusResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    enum:
-                    - PROCESSING
-                    - DONE
-                    - FAILED
-                  url:
-                    type: string
-                    description: When status=DONE, contains the URL to download the report data as a text file.
-    CreateReportsResponse:
-      description: Returns report data if synchronous or report id if asynchronous
-      content:
-        application/json:
-          schema:
-            title: CreateReportsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties:
-                        type: string
-                    description: Array with the contents of the report (encoded UTF-8), as specified in the request. This is returned for a synchronous request
-                  id:
-                    type: string
-                    description: the ID of the report. This is returned for an asynchronous request
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    MaxDatesResponse:
-      description: Maximum date through which reporting data is available
-      content:
-        application/json:
-          schema:
-            title: MaximumDatesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  standardMaxDate:
-                    type: string
-                    format: date
-                    description: The date through which reporting data is available from Listings publishers other than Bing.
-                  bingMaxDate:
-                    type: string
-                    format: date
-                    description: The date through which Bing data is available.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
   parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
     v:
       name: v
       in: query
@@ -983,6 +977,12 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: apiKey

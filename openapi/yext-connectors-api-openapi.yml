@@ -180,67 +180,6 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  schemas:
-    ConnectorRunResults:
-      type: object
-      required:
-      - createdCount
-      - updatedCount
-      - deletedCount
-      - failedCount
-      - unchangedCount
-      properties:
-        createdCount:
-          type: integer
-          description: The number of successfully created entities.
-        updatedCount:
-          type: integer
-          description: The number of successfully updated entities.
-        deletedCount:
-          type: integer
-          description: The number of successfully deleted entities.
-        failedCount:
-          type: integer
-          description: The number of entities that failed to be created or updated.
-        unchangedCount:
-          type: integer
-          description: The number of entities that weren't updated.
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
   responses:
     ApproveRunResponse:
       description: Approve Run Response
@@ -261,12 +200,12 @@ components:
                   runUid:
                     type: integer
                     description: UID of the approved Run.
-    PushDataEndpointResponse:
-      description: Get Connector Push Data Response
+    TriggerConnectorResponse:
+      description: Trigger Connector Response
       content:
         application/json:
           schema:
-            title: GetConnectorPushDataResponse
+            title: TriggerConnectorResponse
             type: object
             properties:
               meta:
@@ -276,7 +215,20 @@ components:
                 properties:
                   id:
                     type: string
-                    description: ID of the Connector.
+                    description: 'ID of the Connector.
+
+
+                      If the v param is after `20230215`, the returned value will appear under the `connectorId` property.
+
+                      '
+                  connectorId:
+                    type: string
+                    description: 'ID of the Connector.
+
+
+                      If the v param is before `20230215`, the returned value will appear under the `id` property.
+
+                      '
                   runUid:
                     type: integer
                     description: UID of the Run.
@@ -369,12 +321,12 @@ components:
                     $ref: '#/components/schemas/ConnectorRunResults'
                   dryRunResults:
                     $ref: '#/components/schemas/ConnectorRunResults'
-    TriggerConnectorResponse:
-      description: Trigger Connector Response
+    PushDataEndpointResponse:
+      description: Get Connector Push Data Response
       content:
         application/json:
           schema:
-            title: TriggerConnectorResponse
+            title: GetConnectorPushDataResponse
             type: object
             properties:
               meta:
@@ -384,35 +336,10 @@ components:
                 properties:
                   id:
                     type: string
-                    description: 'ID of the Connector.
-
-
-                      If the v param is after `20230215`, the returned value will appear under the `connectorId` property.
-
-                      '
-                  connectorId:
-                    type: string
-                    description: 'ID of the Connector.
-
-
-                      If the v param is before `20230215`, the returned value will appear under the `id` property.
-
-                      '
+                    description: ID of the Connector.
                   runUid:
                     type: integer
                     description: UID of the Run.
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
     CancelRunResponse:
       description: Cancel Run Response
       content:
@@ -432,13 +359,80 @@ components:
                   runUid:
                     type: integer
                     description: UID of the cancelled Run.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+  schemas:
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    ConnectorRunResults:
+      type: object
+      required:
+      - createdCount
+      - updatedCount
+      - deletedCount
+      - failedCount
+      - unchangedCount
+      properties:
+        createdCount:
+          type: integer
+          description: The number of successfully created entities.
+        updatedCount:
+          type: integer
+          description: The number of successfully updated entities.
+        deletedCount:
+          type: integer
+          description: The number of successfully deleted entities.
+        failedCount:
+          type: integer
+          description: The number of entities that failed to be created or updated.
+        unchangedCount:
+          type: integer
+          description: The number of entities that weren't updated.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
   parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
     v:
       name: v
       in: query
@@ -446,6 +440,12 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: apiKey

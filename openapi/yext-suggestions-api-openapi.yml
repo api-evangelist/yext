@@ -67,90 +67,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    404NotFoundResponse:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            title: 404NotFoundResponse
-            type: object
-            properties:
-              error:
-                properties:
-                  message:
-                    type: string
-                    description: Not Found
-                    example: Not Found
-    ServerError:
-      description: Server Error
-      content:
-        application/json:
-          schema:
-            title: ServerError
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/ResponseErrorNew'
-    GetSingleSuggestionSuccess:
-      description: OK
-      content:
-        application/json:
-          schema:
-            title: GetSingleSuggestionSuccess
-            type: object
-            $ref: '#/components/schemas/PartnerSuggestion'
-    GetSuggestionsSuccess:
-      description: OK
-      content:
-        application/json:
-          schema:
-            title: GetSuggestionsSuccess
-            type: object
-            $ref: '#/components/schemas/PartnerSuggestionList'
-    EmptyResponseNew:
-      description: OK
-    ErrorResponseNew:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            title: ErrorResponseNew
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/ResponseErrorNew'
-  parameters:
-    listingId:
-      name: listingId
-      in: query
-      required: true
-      schema:
-        type: string
-      description: 'The unique identifier of a listing on your site is known as the listingId.
-
-        '
-    suggestionId:
-      name: suggestionId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: 'The unique identifier of a suggestion on your site is known as the suggestionId.
-
-        '
   schemas:
-    ResponseErrorNew:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        message:
-          type: string
-          description: Message explaining the problem.
     PartnerSuggestionList:
       type: object
       required:
@@ -165,6 +82,17 @@ components:
           description: A list of num Suggestion objects. Suggestions returned should only have status PENDING
           items:
             $ref: '#/components/schemas/PartnerSuggestion'
+    ResponseErrorNew:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        message:
+          type: string
+          description: Message explaining the problem.
     PartnerSuggestion:
       type: object
       required:
@@ -226,3 +154,75 @@ components:
           enum:
           - ACTIVE
           - SUPPRESSED
+  parameters:
+    suggestionId:
+      name: suggestionId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of a suggestion on your site is known as the suggestionId.
+
+        '
+    listingId:
+      name: listingId
+      in: query
+      required: true
+      schema:
+        type: string
+      description: 'The unique identifier of a listing on your site is known as the listingId.
+
+        '
+  responses:
+    EmptyResponseNew:
+      description: OK
+    GetSuggestionsSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSuggestionsSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestionList'
+    404NotFoundResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            title: 404NotFoundResponse
+            type: object
+            properties:
+              error:
+                properties:
+                  message:
+                    type: string
+                    description: Not Found
+                    example: Not Found
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            title: ServerError
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    ErrorResponseNew:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: ErrorResponseNew
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/ResponseErrorNew'
+    GetSingleSuggestionSuccess:
+      description: OK
+      content:
+        application/json:
+          schema:
+            title: GetSingleSuggestionSuccess
+            type: object
+            $ref: '#/components/schemas/PartnerSuggestion'
