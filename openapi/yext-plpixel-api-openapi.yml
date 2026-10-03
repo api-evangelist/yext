@@ -49,38 +49,6 @@ components:
         * The value of this field must be URL encoded
 
         '
-    action:
-      name: action
-      in: query
-      schema:
-        type: string
-        enum:
-        - impression
-        - click
-      required: true
-      description: 'Type of event that took place
-
-        '
-    pageurl:
-      name: pageurl
-      in: query
-      schema:
-        type: string
-      description: 'The URL of the original web request
-
-        * Required  if and only if making a server-side call to report a web page view
-
-        '
-    useragent:
-      name: useragent
-      in: query
-      schema:
-        type: string
-      description: 'The user agent from the original web request.
-
-        * Required  if and only if making a server-side call to report a web page view
-
-        '
     property:
       name: property
       in: query
@@ -93,41 +61,13 @@ components:
         * This value does not have to be a domain name, but please choose something that’s likely to be unique.
 
         '
-    pid:
-      name: pid
+    ids:
+      name: ids
       in: query
       schema:
         type: string
       required: true
-      description: 'Publisher secure ID. This value will be provided to you.
-
-        '
-    additional:
-      name: additional
-      in: query
-      schema:
-        type: string
-      description: 'Any additional data you wish to include
-
-        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
-
-        '
-    userid:
-      name: userid
-      in: query
-      schema:
-        type: string
-      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
-    rank:
-      name: rank
-      in: query
-      schema:
-        type: string
-      description: 'The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).
-
-        * Comma-separated list of integers, 1-indexed, parallel to ids.
-
-        * A rank of ''5'' in the first index would indicate that the first listing in the list appeared fifth in the organic results
+      description: 'Comma-separated list of Yext location Ids
 
         '
     query:
@@ -142,6 +82,35 @@ components:
         * The value of this field must be URL encoded
 
         '
+    pid:
+      name: pid
+      in: query
+      schema:
+        type: string
+      required: true
+      description: 'Publisher secure ID. This value will be provided to you.
+
+        '
+    useragent:
+      name: useragent
+      in: query
+      schema:
+        type: string
+      description: 'The user agent from the original web request.
+
+        * Required  if and only if making a server-side call to report a web page view
+
+        '
+    additional:
+      name: additional
+      in: query
+      schema:
+        type: string
+      description: 'Any additional data you wish to include
+
+        For example, you may want to include details to indicate that this event was the result of someone printing a map or requesting driving directions, or to disambiguate between two different kinds of detail page impressions
+
+        '
     source:
       name: source
       in: query
@@ -154,6 +123,18 @@ components:
         - drivingdirections
       required: true
       description: 'Type of page where the event took place. Most commonly, you will use **serp** on the search results page, **detailspage** on the business profile page, and not use the others.
+
+        '
+    rank:
+      name: rank
+      in: query
+      schema:
+        type: string
+      description: 'The search rank of the identified listing in the organic results. The rank should be absolute (e.g., the first result on page 2 should have rank 11, assuming 10 results per page).
+
+        * Comma-separated list of integers, 1-indexed, parallel to ids.
+
+        * A rank of ''5'' in the first index would indicate that the first listing in the list appeared fifth in the organic results
 
         '
     target:
@@ -185,12 +166,31 @@ components:
         * Required if **action** is **click**
 
         '
-    ids:
-      name: ids
+    userid:
+      name: userid
       in: query
       schema:
         type: string
+      description: "A unique identifier for the IP address of the original web request, to be used for filtering erroneous traffic. \nThe IP address itself is preferred, but any arbitrary string (e.g., a hash of the IP address) is acceptable.\n* Required if and only if making a server-side call\n"
+    action:
+      name: action
+      in: query
+      schema:
+        type: string
+        enum:
+        - impression
+        - click
       required: true
-      description: 'Comma-separated list of Yext location Ids
+      description: 'Type of event that took place
+
+        '
+    pageurl:
+      name: pageurl
+      in: query
+      schema:
+        type: string
+      description: 'The URL of the original web request
+
+        * Required  if and only if making a server-side call to report a web page view
 
         '

@@ -200,12 +200,12 @@ components:
                   runUid:
                     type: integer
                     description: UID of the approved Run.
-    TriggerConnectorResponse:
-      description: Trigger Connector Response
+    CancelRunResponse:
+      description: Cancel Run Response
       content:
         application/json:
           schema:
-            title: TriggerConnectorResponse
+            title: CancelRunResponse
             type: object
             properties:
               meta:
@@ -213,25 +213,12 @@ components:
               response:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    description: 'ID of the Connector.
-
-
-                      If the v param is after `20230215`, the returned value will appear under the `connectorId` property.
-
-                      '
                   connectorId:
                     type: string
-                    description: 'ID of the Connector.
-
-
-                      If the v param is before `20230215`, the returned value will appear under the `id` property.
-
-                      '
+                    description: ID of the Connector.
                   runUid:
                     type: integer
-                    description: UID of the Run.
+                    description: UID of the cancelled Run.
     GetConnectorRunResponse:
       description: Get Connector Run Response
       content:
@@ -321,6 +308,50 @@ components:
                     $ref: '#/components/schemas/ConnectorRunResults'
                   dryRunResults:
                     $ref: '#/components/schemas/ConnectorRunResults'
+    TriggerConnectorResponse:
+      description: Trigger Connector Response
+      content:
+        application/json:
+          schema:
+            title: TriggerConnectorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 'ID of the Connector.
+
+
+                      If the v param is after `20230215`, the returned value will appear under the `connectorId` property.
+
+                      '
+                  connectorId:
+                    type: string
+                    description: 'ID of the Connector.
+
+
+                      If the v param is before `20230215`, the returned value will appear under the `id` property.
+
+                      '
+                  runUid:
+                    type: integer
+                    description: UID of the Run.
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
     PushDataEndpointResponse:
       description: Get Connector Push Data Response
       content:
@@ -340,38 +371,33 @@ components:
                   runUid:
                     type: integer
                     description: UID of the Run.
-    CancelRunResponse:
-      description: Cancel Run Response
-      content:
-        application/json:
-          schema:
-            title: CancelRunResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  connectorId:
-                    type: string
-                    description: ID of the Connector.
-                  runUid:
-                    type: integer
-                    description: UID of the cancelled Run.
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
   schemas:
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
     ResponseMetaWithError:
       allOf:
       - $ref: '#/components/schemas/ResponseMeta'
@@ -406,33 +432,13 @@ components:
         unchangedCount:
           type: integer
           description: The number of entities that weren't updated.
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
   parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     v:
       name: v
       in: query
@@ -440,12 +446,6 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     api_key:
       type: apiKey

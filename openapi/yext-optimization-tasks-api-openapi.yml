@@ -48,7 +48,95 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  parameters:
+    mode:
+      name: mode
+      in: query
+      schema:
+        type: string
+        enum:
+        - PENDING_ONLY
+        - ALL_TASKS
+        - RESET
+        default: PENDING_ONLY
+      description: 'When mode is `PENDING_ONLY`, the resulting link will only ask the user to complete tasks that are pending or in progress (that have not been completed before).
+
+
+        When mode is `ALL_TASKS`, the resulting link will show the user all specified tasks for all specified locations, regardless of their status. If a task has been completed, the user is given the option to update the content they entered when completing the task.
+
+        '
+    taskLocationId:
+      name: locationId
+      in: query
+      schema:
+        type: string
+      description: 'Location ID to be used as a filter.
+
+
+        If no ID is provided, defaults to all Locations in the account.
+
+        '
+    taskIds:
+      name: taskIds
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated list of Optimization Task IDs corresponding to Optimization Tasks that should be included in the response.
+
+
+        If no IDs are provided, defaults to all available Optimization Tasks in the account.
+
+        '
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    taskLocationIds:
+      name: locationIds
+      in: query
+      schema:
+        type: string
+      description: 'Comma-separated list of Location IDs to be used as a filter.
+
+
+        If no IDs are provided, defaults to all Locations in the account.
+
+        '
   schemas:
+    OptimizationTask:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Optimization Task’s ID
+        name:
+          type: string
+          description: The name of the Optimization Task
+        description:
+          type: string
+          description: Description of the Optimization Task
+        locationsEligible:
+          type: number
+          description: The number of locations specified in the request that are eligible to have the task completed.
+        locationsCompleted:
+          type: number
+          description: The number of locations specified in the request for which the task has been completed.
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
     ResponseError:
       type: object
       properties:
@@ -68,24 +156,6 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-    OptimizationTask:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The Optimization Task’s ID
-        name:
-          type: string
-          description: The name of the Optimization Task
-        description:
-          type: string
-          description: Description of the Optimization Task
-        locationsEligible:
-          type: number
-          description: The number of locations specified in the request that are eligible to have the task completed.
-        locationsCompleted:
-          type: number
-          description: The number of locations specified in the request for which the task has been completed.
     ResponseMetaWithError:
       allOf:
       - $ref: '#/components/schemas/ResponseMeta'
@@ -96,77 +166,19 @@ components:
             description: List of errors and warnings.
             items:
               $ref: '#/components/schemas/ResponseError'
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-  parameters:
-    mode:
-      name: mode
-      in: query
-      schema:
-        type: string
-        enum:
-        - PENDING_ONLY
-        - ALL_TASKS
-        - RESET
-        default: PENDING_ONLY
-      description: 'When mode is `PENDING_ONLY`, the resulting link will only ask the user to complete tasks that are pending or in progress (that have not been completed before).
-
-
-        When mode is `ALL_TASKS`, the resulting link will show the user all specified tasks for all specified locations, regardless of their status. If a task has been completed, the user is given the option to update the content they entered when completing the task.
-
-        '
-    taskIds:
-      name: taskIds
-      in: query
-      schema:
-        type: string
-      description: 'Comma-separated list of Optimization Task IDs corresponding to Optimization Tasks that should be included in the response.
-
-
-        If no IDs are provided, defaults to all available Optimization Tasks in the account.
-
-        '
-    taskLocationIds:
-      name: locationIds
-      in: query
-      schema:
-        type: string
-      description: 'Comma-separated list of Location IDs to be used as a filter.
-
-
-        If no IDs are provided, defaults to all Locations in the account.
-
-        '
-    taskLocationId:
-      name: locationId
-      in: query
-      schema:
-        type: string
-      description: 'Location ID to be used as a filter.
-
-
-        If no ID is provided, defaults to all Locations in the account.
-
-        '
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
   responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
     OptimizationTasksResponse:
       description: Optimization Tasks Response
       content:
@@ -208,18 +220,6 @@ components:
                       **Redirecting after the task:** You can automatically redirect users to a specific URL after they''ve completed the task. To do so, append a `continueUrl` parameter, whose value is the URL users should be redirected to, to the returned URL.
 
                       '
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
   securitySchemes:
     api_key:
       type: apiKey

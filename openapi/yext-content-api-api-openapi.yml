@@ -52,6 +52,19 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   parameters:
+    endpoint:
+      name: endpoint
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the Content Endpoint to query.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     contentDocIds:
       name: ids
       in: path
@@ -62,15 +75,6 @@ components:
           type: string
       style: simple
       description: 'The Content records to get. Multiple record IDs can be provided separated by commas.
-
-        '
-    pageToken:
-      name: pageToken
-      in: query
-      schema:
-        type: string
-      required: false
-      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
 
         '
     limit:
@@ -88,20 +92,28 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
-    endpoint:
-      name: endpoint
-      in: path
-      required: true
+    pageToken:
+      name: pageToken
+      in: query
       schema:
         type: string
-      description: The ID of the Content Endpoint to query.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
+
+        '
   responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
     StreamsResponse:
       description: Content Response
       content:
@@ -131,32 +143,7 @@ components:
                       type: object
                   nextPageToken:
                     $ref: '#/components/schemas/NextPageToken'
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
   schemas:
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
     ResponseError:
       type: object
       properties:
@@ -176,6 +163,16 @@ components:
         message:
           type: string
           description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
     ResponseMeta:
       type: object
       properties:
@@ -183,6 +180,9 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
   securitySchemes:
     api_key:
       type: apiKey

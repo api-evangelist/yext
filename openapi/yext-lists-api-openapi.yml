@@ -49,17 +49,77 @@ paths:
       tags:
       - Lists
 components:
-  responses:
-    GetECLSuccess:
-      description: (JSON Format)
-      content:
-        application/json:
-          schema:
-            title: GetECLSuccess
-            type: object
-            properties:
-              response:
-                $ref: '#/components/schemas/ECL'
+  parameters:
+    listId:
+      name: listId
+      in: query
+      schema:
+        type: string
+      description: 'ECL ID (Yext-assigned)
+
+        '
+    type:
+      name: type
+      in: query
+      schema:
+        type: string
+        enum:
+        - MENU
+        - PRODUCTS
+        - BIOS
+        - EVENTS
+      description: 'Type of lists to return
+
+        '
+    pid:
+      name: pid
+      in: query
+      schema:
+        type: string
+      description: 'Publisher secure ID. This value will be provided to you.
+
+        '
+    format:
+      name: format
+      in: query
+      schema:
+        type: string
+        enum:
+        - html
+        - json
+      description: 'An alternative way to specify the desired content type of the response
+
+        '
+    yextId:
+      name: yextId
+      in: query
+      schema:
+        type: string
+      description: 'The Yext listing ID
+
+        '
+    listingId:
+      name: listingId
+      in: query
+      schema:
+        type: string
+      description: 'Publisher listing ID
+
+        '
+    template:
+      name: template
+      in: query
+      schema:
+        type: string
+      description: 'This parameter specifies the template to use when rendering the List content.
+
+        Yext will provide a list of your available templates. Yext configures each template with the type of data that it accepts -- for example, the template "mobile-menu" may be configured to render all Lists on a listing of type MENU.
+
+        * If no template is specified, all List data will be rendered using a default template
+
+        * Required if fetching HTML
+
+        '
   schemas:
     ECL:
       type: object
@@ -157,74 +217,14 @@ components:
             **See examples of each above**
 
             '
-  parameters:
-    format:
-      name: format
-      in: query
-      schema:
-        type: string
-        enum:
-        - html
-        - json
-      description: 'An alternative way to specify the desired content type of the response
-
-        '
-    pid:
-      name: pid
-      in: query
-      schema:
-        type: string
-      description: 'Publisher secure ID. This value will be provided to you.
-
-        '
-    listId:
-      name: listId
-      in: query
-      schema:
-        type: string
-      description: 'ECL ID (Yext-assigned)
-
-        '
-    type:
-      name: type
-      in: query
-      schema:
-        type: string
-        enum:
-        - MENU
-        - PRODUCTS
-        - BIOS
-        - EVENTS
-      description: 'Type of lists to return
-
-        '
-    yextId:
-      name: yextId
-      in: query
-      schema:
-        type: string
-      description: 'The Yext listing ID
-
-        '
-    template:
-      name: template
-      in: query
-      schema:
-        type: string
-      description: 'This parameter specifies the template to use when rendering the List content.
-
-        Yext will provide a list of your available templates. Yext configures each template with the type of data that it accepts -- for example, the template "mobile-menu" may be configured to render all Lists on a listing of type MENU.
-
-        * If no template is specified, all List data will be rendered using a default template
-
-        * Required if fetching HTML
-
-        '
-    listingId:
-      name: listingId
-      in: query
-      schema:
-        type: string
-      description: 'Publisher listing ID
-
-        '
+  responses:
+    GetECLSuccess:
+      description: (JSON Format)
+      content:
+        application/json:
+          schema:
+            title: GetECLSuccess
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/ECL'
