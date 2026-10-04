@@ -298,100 +298,27 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
-  parameters:
-    linkedAccountsPublisherIds:
-      name: publisherIds
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      required: false
-      description: When provided, only linked accounts for the specified sites will be returned.
-    linkedAccountsEntityIds:
-      name: entityIds
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      required: false
-      description: When provided, only linked accounts assigned to the specified entities will be returned.
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    pageToken:
-      name: pageToken
-      in: query
-      schema:
-        type: string
-      required: false
-      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
-
-        '
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    linkedAccountsStatuses:
-      name: statuses
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-          - VALID
-          - INVALID
-      required: false
-      description: Defaults to all statuses. When specified, only linked accounts with the provided statuses will be returned.
-    userId:
-      name: userId
-      in: path
-      required: true
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 10
-        maximum: 50
-      description: Number of results to return.
-    linkedAccountId:
-      name: linkedAccountId
-      in: path
-      required: true
-      schema:
-        type: string
-    offset:
-      name: offset
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 0
-      description: '
-
-        Number of results to skip. Used to page through results.
-
-        Cannot be used together with **`pageToken`**.
-
-        '
-    approvalGroupId:
-      name: approvalGroupId
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
+    CreateApprovalGroupRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Approval Group Name
+        users:
+          type: array
+          description: Array of user ids associated with the Approval Group
+          items:
+            type: integer
+            format: int32
+        isDefault:
+          type: boolean
+          description: True if Approval Group is default for assignment of new tasks. Defaults to false.
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
     ResponseError:
       type: object
       properties:
@@ -411,52 +338,6 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
-    UpdatePasswordRequest:
-      type: object
-      required:
-      - newPassword
-      properties:
-        newPassword:
-          type: string
-          description: User's new password
-    CreateApprovalGroupRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Approval Group Name
-        users:
-          type: array
-          description: Array of user ids associated with the Approval Group
-          items:
-            type: integer
-            format: int32
-        isDefault:
-          type: boolean
-          description: True if Approval Group is default for assignment of new tasks. Defaults to false.
-    CreateUserRequest:
-      required:
-      - id
-      - firstName
-      - lastName
-      - emailAddress
-      allOf:
-      - $ref: '#/components/schemas/CreateUser'
     UpdateUser:
       type: object
       properties:
@@ -559,6 +440,19 @@ components:
                 description: An array of strings. Multiple users can have the same (source, identity) pair(s).
                 items:
                   type: string
+    CreateUserRequest:
+      required:
+      - id
+      - firstName
+      - lastName
+      - emailAddress
+      allOf:
+      - $ref: '#/components/schemas/CreateUser'
+    UpdateUserRequest:
+      required:
+      - id
+      allOf:
+      - $ref: '#/components/schemas/UpdateUser'
     ApprovalGroup:
       type: object
       properties:
@@ -576,6 +470,116 @@ components:
         isDefault:
           type: boolean
           description: true if Approval Group is default for assignment of new tasks. Defaults to false.
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Yext Role ID
+        name:
+          type: string
+          description: The Role's Name
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+          example: CUST-439843
+        locationCount:
+          type: integer
+          readOnly: true
+          description: The number of locations in this account.
+        subAccountCount:
+          type: integer
+          readOnly: true
+          description: The number of sub-accounts directly under this account, if any.
+        parentAccountId:
+          type: string
+          description: Customer-provided ID of the account that this is a sub-account of, if any. Not provided if this is a top-level account.
+        accountName:
+          type: string
+          description: The name of this account.
+        contactFirstName:
+          type: string
+          description: First name of the contact user for this account.
+        contactLastName:
+          type: string
+          description: Last name of the contact user for this account.
+        contactPhone:
+          type: string
+          description: Phone number of the contact user for this account.
+        contactEmail:
+          type: string
+          description: Email address of the contact user for this account.
+    LinkedAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the linked account.
+        publisherId:
+          type: string
+          description: ID of the publisher associated with the linked account.
+        entityIds:
+          type: array
+          items:
+            type: string
+          description: The entityId values for the entities the linked account is assigned to.
+        firstName:
+          type: string
+          description: The first name of the linked account owner.
+        lastName:
+          type: string
+          description: The last name of the linked account owner.
+        email:
+          type: string
+          description: The email address associated with the linked account.
+        status:
+          type: string
+          description: 'The last known status of the account.
+
+
+            * `VALID`
+
+            * `INVALID`
+
+
+            `VALID`
+
+            The account''s token is valid.
+
+
+            `INVALID`
+
+            The account’s token has expired and will not be successful when syncing to/from publishers.
+
+            '
+        canAssign:
+          type: boolean
+          description: 'Indicates whether a linked account can be assigned to subaccounts and/or entities within subaccounts.
+
+
+            This field is only available for certain Yext accounts.
+
+            '
+    UpdatePasswordRequest:
+      type: object
+      required:
+      - newPassword
+      properties:
+        newPassword:
+          type: string
+          description: User's new password
     CreateUser:
       type: object
       properties:
@@ -684,103 +688,6 @@ components:
                 description: An array of strings. Multiple users can have the same (source, identity) pair(s).
                 items:
                   type: string
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The Yext Role ID
-        name:
-          type: string
-          description: The Role's Name
-    LinkedAccount:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the linked account.
-        publisherId:
-          type: string
-          description: ID of the publisher associated with the linked account.
-        entityIds:
-          type: array
-          items:
-            type: string
-          description: The entityId values for the entities the linked account is assigned to.
-        firstName:
-          type: string
-          description: The first name of the linked account owner.
-        lastName:
-          type: string
-          description: The last name of the linked account owner.
-        email:
-          type: string
-          description: The email address associated with the linked account.
-        status:
-          type: string
-          description: 'The last known status of the account.
-
-
-            * `VALID`
-
-            * `INVALID`
-
-
-            `VALID`
-
-            The account''s token is valid.
-
-
-            `INVALID`
-
-            The account’s token has expired and will not be successful when syncing to/from publishers.
-
-            '
-        canAssign:
-          type: boolean
-          description: 'Indicates whether a linked account can be assigned to subaccounts and/or entities within subaccounts.
-
-
-            This field is only available for certain Yext accounts.
-
-            '
-    UpdateUserRequest:
-      required:
-      - id
-      allOf:
-      - $ref: '#/components/schemas/UpdateUser'
-    Account:
-      type: object
-      properties:
-        accountId:
-          type: string
-          example: CUST-439843
-        locationCount:
-          type: integer
-          readOnly: true
-          description: The number of locations in this account.
-        subAccountCount:
-          type: integer
-          readOnly: true
-          description: The number of sub-accounts directly under this account, if any.
-        parentAccountId:
-          type: string
-          description: Customer-provided ID of the account that this is a sub-account of, if any. Not provided if this is a top-level account.
-        accountName:
-          type: string
-          description: The name of this account.
-        contactFirstName:
-          type: string
-          description: First name of the contact user for this account.
-        contactLastName:
-          type: string
-          description: Last name of the contact user for this account.
-        contactPhone:
-          type: string
-          description: Phone number of the contact user for this account.
-        contactEmail:
-          type: string
-          description: Email address of the contact user for this account.
     ResponseMeta:
       type: object
       properties:
@@ -874,38 +781,6 @@ components:
                 items:
                   type: string
   responses:
-    RolesResponse:
-      description: Roles Response
-      content:
-        application/json:
-          schema:
-            title: RolesResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: Total number of Roles that meet filter criteria (ignores limit / offset)
-                  roles:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Role'
-    EmptyResponse:
-      description: Empty Response.
-      content:
-        application/json:
-          schema:
-            title: EmptyResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
     LinkedAccountsResponse:
       description: Linked Accounts Response
       content:
@@ -933,30 +808,32 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/LinkedAccount'
-    ErrorResponse:
-      description: Error Response
+    LinkedAccountResponse:
+      description: Linked Account Response
       content:
         application/json:
           schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
-    UserResponse:
-      description: User Response
-      content:
-        application/json:
-          schema:
-            title: UserResponse
+            title: LinkedAccountResponse
             type: object
             properties:
               meta:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/LinkedAccount'
+          example:
+            meta:
+              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+              errors: []
+            response:
+              id: 3955191
+              publisherId: GOOGLEMYBUSINESS
+              entityIds:
+              - '3492378'
+              firstName: John
+              lastName: Doe
+              email: johndoe@email.com
+              status: VALID
+              canAssign: true
     ApprovalGroupResponse:
       description: Approval Group Response
       content:
@@ -969,28 +846,6 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/ApprovalGroup'
-    ApprovalGroupsResponse:
-      description: Approval Groups Response
-      content:
-        application/json:
-          schema:
-            title: ApprovalGroupsResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: Total number of Approval Groups (ignores limit / offset)
-                  nextPageToken:
-                    $ref: '#/components/schemas/NextPageToken'
-                  approvalGroups:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ApprovalGroup'
     AccountResponse:
       description: Account Response
       content:
@@ -1016,41 +871,6 @@ components:
               contactLastName: Doe
               contactPhone: '1234567890'
               contactEmail: johndoe@email.com
-    IdResponse:
-      description: ID Response.
-      content:
-        application/json:
-          schema:
-            title: IdResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  id:
-                    type: string
-    UsersResponse:
-      description: Users Response
-      content:
-        application/json:
-          schema:
-            title: UsersResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: Total number of Users that meet the filter criteria (ignores limit / offset)
-                  users:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/User'
     AccountsResponse:
       description: Accounts Response
       content:
@@ -1085,32 +905,212 @@ components:
                 contactLastName: Doe
                 contactPhone: '1234567890'
                 contactEmail: johndoe@email.com
-    LinkedAccountResponse:
-      description: Linked Account Response
+    RolesResponse:
+      description: Roles Response
       content:
         application/json:
           schema:
-            title: LinkedAccountResponse
+            title: RolesResponse
             type: object
             properties:
               meta:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
-                $ref: '#/components/schemas/LinkedAccount'
-          example:
-            meta:
-              uuid: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-              errors: []
-            response:
-              id: 3955191
-              publisherId: GOOGLEMYBUSINESS
-              entityIds:
-              - '3492378'
-              firstName: John
-              lastName: Doe
-              email: johndoe@email.com
-              status: VALID
-              canAssign: true
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Roles that meet filter criteria (ignores limit / offset)
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
+    IdResponse:
+      description: ID Response.
+      content:
+        application/json:
+          schema:
+            title: IdResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  id:
+                    type: string
+    UserResponse:
+      description: User Response
+      content:
+        application/json:
+          schema:
+            title: UserResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/User'
+    ApprovalGroupsResponse:
+      description: Approval Groups Response
+      content:
+        application/json:
+          schema:
+            title: ApprovalGroupsResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Approval Groups (ignores limit / offset)
+                  nextPageToken:
+                    $ref: '#/components/schemas/NextPageToken'
+                  approvalGroups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ApprovalGroup'
+    UsersResponse:
+      description: Users Response
+      content:
+        application/json:
+          schema:
+            title: UsersResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of Users that meet the filter criteria (ignores limit / offset)
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+  parameters:
+    pageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+      required: false
+      description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
+
+        '
+    linkedAccountId:
+      name: linkedAccountId
+      in: path
+      required: true
+      schema:
+        type: string
+    offset:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 0
+      description: '
+
+        Number of results to skip. Used to page through results.
+
+        Cannot be used together with **`pageToken`**.
+
+        '
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    linkedAccountsPublisherIds:
+      name: publisherIds
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      required: false
+      description: When provided, only linked accounts for the specified sites will be returned.
+    approvalGroupId:
+      name: approvalGroupId
+      in: path
+      required: true
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+        maximum: 50
+      description: Number of results to return.
+    linkedAccountsStatuses:
+      name: statuses
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - VALID
+          - INVALID
+      required: false
+      description: Defaults to all statuses. When specified, only linked accounts with the provided statuses will be returned.
+    linkedAccountsEntityIds:
+      name: entityIds
+      in: query
+      schema:
+        type: array
+        items:
+          type: string
+      required: false
+      description: When provided, only linked accounts assigned to the specified entities will be returned.
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   securitySchemes:
     api_key:
       type: apiKey

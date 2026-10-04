@@ -116,6 +116,18 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
 components:
   schemas:
+    NextPageToken:
+      type: string
+      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
+    LicenseAssignments:
+      type: object
+      properties:
+        licenseAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseAssignment'
+        nextPageToken:
+          $ref: '#/components/schemas/NextPageToken'
     ResponseError:
       type: object
       properties:
@@ -154,6 +166,16 @@ components:
         expirationDate:
           type: string
           description: The expiration date of the license assignment.
+    LicenseAssignment:
+      type: object
+      properties:
+        licensePack:
+          $ref: '#/components/schemas/LicensePack'
+        assignedEntities:
+          type: array
+          description: A list of assigned entities.
+          items:
+            $ref: '#/components/schemas/AssignedEntity'
     LicensePack:
       type: object
       description: License pack details.
@@ -176,37 +198,6 @@ components:
         notes:
           type: string
           description: The notes on this license pack.
-    NextPageToken:
-      type: string
-      description: "This field is only included if there is an additional page of data to display. To retrieve the next page of data, pass this field's value as the **``pageToken``** parameter in a subsequent request. \n"
-    LicenseAssignment:
-      type: object
-      properties:
-        licensePack:
-          $ref: '#/components/schemas/LicensePack'
-        assignedEntities:
-          type: array
-          description: A list of assigned entities.
-          items:
-            $ref: '#/components/schemas/AssignedEntity'
-    LicensePacks:
-      type: object
-      properties:
-        licensePacks:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicensePack'
-        nextPageToken:
-          $ref: '#/components/schemas/NextPageToken'
-    LicenseAssignments:
-      type: object
-      properties:
-        licenseAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseAssignment'
-        nextPageToken:
-          $ref: '#/components/schemas/NextPageToken'
     UpdateLicenseAssignmentRequestBody:
       type: object
       properties:
@@ -220,14 +211,16 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
+    LicensePacks:
+      type: object
+      properties:
+        licensePacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicensePack'
+        nextPageToken:
+          $ref: '#/components/schemas/NextPageToken'
   parameters:
-    licensePackId:
-      name: licensePackId
-      description: License Pack ID found on the Account Settings / License Packs page.
-      in: path
-      required: true
-      schema:
-        type: string
     assignedEntity:
       name: assignedEntity
       description: 'If you want to list all of the license packs assigned to a specific entity, you can provide the entity''s external ID as a parameter.
@@ -236,13 +229,6 @@ components:
       in: query
       schema:
         type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
     pageToken:
       name: pageToken
       in: query
@@ -252,6 +238,13 @@ components:
       description: 'If a response to a previous request contained the **`nextPageToken`** field, pass that field''s value as the **`pageToken`** parameter to retrieve the next page of data.
 
         '
+    licensePackId:
+      name: licensePackId
+      description: License Pack ID found on the Account Settings / License Packs page.
+      in: path
+      required: true
+      schema:
+        type: string
     accountId:
       name: accountId
       in: path
@@ -275,7 +268,26 @@ components:
         The external ID of the requested Entity.
 
         '
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   responses:
+    LicenseAssignments:
+      description: Success Response
+      content:
+        application/json:
+          schema:
+            title: License Assignments
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/LicenseAssignments'
     EmptyResponse:
       description: Empty Response.
       content:
@@ -300,30 +312,6 @@ components:
                 $ref: '#/components/schemas/ResponseMetaWithError'
               response:
                 type: object
-    LicensePacks:
-      description: Success Response
-      content:
-        application/json:
-          schema:
-            title: License Packs
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/LicensePacks'
-    LicenseAssignments:
-      description: Success Response
-      content:
-        application/json:
-          schema:
-            title: License Assignments
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                $ref: '#/components/schemas/LicenseAssignments'
     LicenseAssignment:
       description: Success Response
       content:
@@ -336,6 +324,18 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/LicenseAssignment'
+    LicensePacks:
+      description: Success Response
+      content:
+        application/json:
+          schema:
+            title: License Packs
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                $ref: '#/components/schemas/LicensePacks'
   securitySchemes:
     api_key:
       type: apiKey

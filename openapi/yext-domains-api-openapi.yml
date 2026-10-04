@@ -2949,12 +2949,6 @@ components:
             http_body:
               type: string
               format: uuid
-    certificate_authority:
-      type: string
-      enum:
-      - GOOGLE_TRUST
-      - LETS_ENCRYPT
-      default: GOOGLE_TRUST
     ResponseError:
       type: object
       properties:
@@ -2974,47 +2968,16 @@ components:
         message:
           type: string
           description: Message explaining the problem.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    totalSize:
-      type: integer
-      description: The total number of items that match the filter criteria, ignoring pagination.
-      example: 100
     previousPageToken:
       type: string
       description: The token to use to retrieve the previous page of results. If empty, this is the first page.
       example: eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    site:
-      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
-      type: object
-      properties:
-        name:
-          description: Pages site resource name.
-          type: string
-          example: accounts/123456/sites/6789
-        primary:
-          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
-
-            A Pages site can have at most one primary Domain.
-
-            '
-          type: boolean
-          default: false
+    certificate_authority:
+      type: string
+      enum:
+      - GOOGLE_TRUST
+      - LETS_ENCRYPT
+      default: GOOGLE_TRUST
     custom_ssl_certificate:
       description: 'The provided custom SSL certificate will be used for serving requests to the domain.
 
@@ -3078,44 +3041,44 @@ components:
       type: string
       description: The token to use to retrieve the next page of results. If empty, this is the last page.
       example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
+    site:
+      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+      type: object
+      properties:
+        name:
+          description: Pages site resource name.
+          type: string
+          example: accounts/123456/sites/6789
+        primary:
+          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+            A Pages site can have at most one primary Domain.
+
+            '
+          type: boolean
+          default: false
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    totalSize:
+      type: integer
+      description: The total number of items that match the filter criteria, ignoring pagination.
+      example: 100
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
   parameters:
-    hostnameSearchFilter:
-      name: hostname_search
-      in: query
-      schema:
-        type: string
-      description: Case-insensitive substring used to filter by hostname.
-      example: example
-    forceMove:
-      name: force_move
-      in: query
-      schema:
-        type: boolean
-        default: false
-      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
-    viewDefaultBasic:
-      name: view
-      in: query
-      schema:
-        type: string
-        enum:
-        - FULL
-        - BASIC
-        default: BASIC
-      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
-
-        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
-
-        '
-    index_pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        default: 10
-        minimum: 0
-        maximum: 50
-      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
     hostnameFilters:
       name: hostname
       in: query
@@ -3125,6 +3088,26 @@ components:
           type: string
       description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
       example: www.example.com,test.example.com
+    showDeleted:
+      name: show_deleted
+      in: query
+      schema:
+        type: boolean
+        default: false
+    managedCsrId:
+      name: managedCsrId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    hostnameSearchFilter:
+      name: hostname_search
+      in: query
+      schema:
+        type: string
+      description: Case-insensitive substring used to filter by hostname.
+      example: example
     viewDefaultFull:
       name: view
       in: query
@@ -3139,26 +3122,6 @@ components:
         Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
 
         '
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    showDeleted:
-      name: show_deleted
-      in: query
-      schema:
-        type: boolean
-        default: false
-    domainId:
-      name: domainId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
     domainIdAllowAll:
       name: domainId
       in: path
@@ -3167,12 +3130,48 @@ components:
         type: string
         format: uuid
       description: Set to "-" to reference Domain Associations from all domains in this account.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
     index_pageToken:
       name: page_token
       in: query
       schema:
         type: string
       description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
+    forceMove:
+      name: force_move
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
+    index_pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        default: 10
+        minimum: 0
+        maximum: 50
+      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
+    viewDefaultBasic:
+      name: view
+      in: query
+      schema:
+        type: string
+        enum:
+        - FULL
+        - BASIC
+        default: BASIC
+      description: '`FULL` returns all details, while `BASIC` omits certain SSL information.
+
+        Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
+
+        '
     domainAssociationId:
       name: domainAssociationId
       in: path
@@ -3180,19 +3179,20 @@ components:
       schema:
         type: string
         format: uuid
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    managedCsrId:
-      name: managedCsrId
+    domainId:
+      name: domainId
       in: path
       required: true
       schema:
         type: string
         format: uuid
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
   responses:
     ErrorResponse:
       description: Error Response

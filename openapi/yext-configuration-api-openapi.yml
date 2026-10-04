@@ -208,6 +208,48 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/Resource'
+  schemas:
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    Resource:
+      type: object
+      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
+
+        '
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
   parameters:
     resourceId:
       name: resourceId
@@ -234,6 +276,13 @@ components:
       required: true
       schema:
         type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
     resourceGroup:
       name: resourceGroup
       description: 'Group of the resource
@@ -246,55 +295,6 @@ components:
       required: true
       schema:
         type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-  schemas:
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    Resource:
-      type: object
-      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
-
-        '
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
   securitySchemes:
     api_key:
       type: apiKey

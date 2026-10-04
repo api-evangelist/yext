@@ -123,18 +123,6 @@ components:
                   id:
                     type: string
                     description: the ID of the report. This is returned for an asynchronous request
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
     MaxDatesResponse:
       description: Maximum date through which reporting data is available
       content:
@@ -156,23 +144,18 @@ components:
                     type: string
                     format: date
                     description: The date through which Bing data is available.
-    CatalogResponse:
-      description: Completed dates of all metrics available
+    ErrorResponse:
+      description: Error Response
       content:
         application/json:
           schema:
-            title: CatalogResponse
+            title: ErrorResponse
             type: object
             properties:
               meta:
-                $ref: '#/components/schemas/ResponseMeta'
+                $ref: '#/components/schemas/ResponseMetaWithError'
               response:
                 type: object
-                properties:
-                  metrics:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Metric'
     ReportStatusResponse:
       description: Status of a report created with async=true
       content:
@@ -195,6 +178,23 @@ components:
                   url:
                     type: string
                     description: When status=DONE, contains the URL to download the report data as a text file.
+    CatalogResponse:
+      description: Completed dates of all metrics available
+      content:
+        application/json:
+          schema:
+            title: CatalogResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
+                properties:
+                  metrics:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Metric'
   schemas:
     ResponseMeta:
       type: object
@@ -203,45 +203,6 @@ components:
           type: string
           example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
           description: Unique ID for this request / response.
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    Metric:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of an Analytics metric for which reporting data can be retrieved.
-        completedDate:
-          format: date
-          type: string
-          description: The date until which complete data for the metric is available, in `YYYY-MM-DD` format.
     CreateReportRequestBody:
       type: object
       required:
@@ -278,6 +239,16 @@ components:
             '
         filters:
           $ref: '#/components/schemas/AnalyticsFilter'
+    Metric:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of an Analytics metric for which reporting data can be retrieved.
+        completedDate:
+          format: date
+          type: string
+          description: The date until which complete data for the metric is available, in `YYYY-MM-DD` format.
     AnalyticsFilter:
       type: object
       properties:
@@ -969,6 +940,35 @@ components:
 
             '
           example: '2017-01-01'
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
   parameters:
     accountId:
       name: accountId
