@@ -1,0 +1,57 @@
+slug: yext
+provider: Yext
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Account Settings
+  spec_file: yext-account-settings-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: 'GET /accounts/{accountId}/roles  getRoles  Roles: Get; POST /accounts/{accountId}/users  createUser  Users:
+    Create; PUT /accounts/{accountId}/users/{userId}/password  updateUserPassword'
+  reason: The operations administer users, roles, passwords and approval groups within accounts — user
+    account and access administration, i.e. Identity & Access Management. Some ambiguity versus tenant-level
+    identity capabilities, hence 0.8.
+- tag: Social
+  spec_file: yext-social-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: 'POST /accounts/{accountId}/posts  createPosts  Post: Create; POST /accounts/{accountId}/posts/generatePostText;
+    POST /accounts/{accountId}/social/video  uploadVideo'
+  reason: Creating, scheduling and managing social posts, media uploads and comment moderation is social/digital
+    marketing publishing, squarely Digital Marketing Management.
+- tag: Reviews
+  spec_file: yext-reviews-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.78
+  evidence: 'GET /accounts/{accountId}/reviews  listReviews; POST /accounts/{accountId}/reviewinvites  createReviewInvites  Review
+    Invitations: Create; schemas Review, ReviewComment, ReviewGenerationSettings'
+  reason: Soliciting, collecting and responding to customer reviews is voice-of-customer / customer feedback
+    management; response comments also touch customer service, but feedback capture is the dominant motion.
+- tag: Knowledge Manager
+  spec_file: yext-knowledge-manager-api-openapi.yml
+  capability_id: BC-610.20
+  capability_id_l1: BC-610
+  capability_name: Master Data Management
+  confidence: 0.7
+  evidence: '''Entities: Create'', ''Entities: Update'', ''Entity Language Profiles: Upsert'', ''Locations
+    (Legacy): List''; schemas ''EntityWrite'', ''Location'', ''Menu'''
+  reason: CRUD over the Knowledge Graph's canonical business entities (locations, products, menus, FAQs)
+    and their language profiles — maintenance of an authoritative master record set, i.e. Master Data
+    Management. Some ambiguity vs content management hence 0.7.

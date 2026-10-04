@@ -536,6 +536,9 @@ apis:
   - type: Documentation
     url: https://hitchhikers.yext.com/docs/managementapis/webhooks/
 common:
+- type: CapabilityMap
+  url: capabilities/yext-capability-edges.yml
+  name: Yext Business Capability Map
 - type: AgenticAccess
   url: agentic-access/yext-agentic-access.yml
 - type: DomainSecurity
