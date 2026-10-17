@@ -157,19 +157,94 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  schemas:
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    Resource:
+      type: object
+      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
+
+        '
+  parameters:
+    resourceId:
+      name: resourceId
+      description: $id (name) of the resource
+      in: path
+      required: true
+      schema:
+        type: string
+    resourceGroup:
+      name: resourceGroup
+      description: 'Group of the resource
+
+
+        For example, for `km/entity`, the resourceGroup is `km`
+
+        '
+      in: path
+      required: true
+      schema:
+        type: string
+    resourceSubType:
+      name: resourceSubType
+      description: 'Subtype of the resource
+
+
+        For example, for `km/entity`, the resourceSubType is `entity`
+
+        '
+      in: path
+      required: true
+      schema:
+        type: string
+    v:
+      name: v
+      in: query
+      required: true
+      schema:
+        type: string
+      description: A date in `YYYYMMDD` format.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
   responses:
-    EmptyResponse:
-      description: Empty Response.
-      content:
-        application/json:
-          schema:
-            title: EmptyResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMeta'
-              response:
-                type: object
     ErrorResponse:
       description: Error Response
       content:
@@ -208,93 +283,18 @@ components:
                 $ref: '#/components/schemas/ResponseMeta'
               response:
                 $ref: '#/components/schemas/Resource'
-  schemas:
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
-    Resource:
-      type: object
-      description: 'A JSON representation of the resource. Please refer to the [Hitchhiker''s guide](https://hitchhikers.yext.com/docs/resources/) for the exact resource schema.
-
-        '
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-  parameters:
-    resourceId:
-      name: resourceId
-      description: $id (name) of the resource
-      in: path
-      required: true
-      schema:
-        type: string
-    resourceSubType:
-      name: resourceSubType
-      description: 'Subtype of the resource
-
-
-        For example, for `km/entity`, the resourceSubType is `entity`
-
-        '
-      in: path
-      required: true
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    v:
-      name: v
-      in: query
-      required: true
-      schema:
-        type: string
-      description: A date in `YYYYMMDD` format.
-    resourceGroup:
-      name: resourceGroup
-      description: 'Group of the resource
-
-
-        For example, for `km/entity`, the resourceGroup is `km`
-
-        '
-      in: path
-      required: true
-      schema:
-        type: string
+    EmptyResponse:
+      description: Empty Response.
+      content:
+        application/json:
+          schema:
+            title: EmptyResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+              response:
+                type: object
   securitySchemes:
     api_key:
       type: apiKey

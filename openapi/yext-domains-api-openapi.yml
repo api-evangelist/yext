@@ -2896,7 +2896,86 @@ paths:
         default:
           $ref: '#/components/responses/ErrorResponse'
 components:
+  responses:
+    ErrorResponse:
+      description: Error Response
+      content:
+        application/json:
+          schema:
+            title: ErrorResponse
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/ResponseMetaWithError'
+              response:
+                type: object
   schemas:
+    ResponseMetaWithError:
+      allOf:
+      - $ref: '#/components/schemas/ResponseMeta'
+      - type: object
+        properties:
+          errors:
+            type: array
+            description: List of errors and warnings.
+            items:
+              $ref: '#/components/schemas/ResponseError'
+    nextPageToken:
+      type: string
+      description: The token to use to retrieve the next page of results. If empty, this is the last page.
+      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
+    previousPageToken:
+      type: string
+      description: The token to use to retrieve the previous page of results. If empty, this is the first page.
+      example: eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==
+    ResponseMeta:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
+          description: Unique ID for this request / response.
+    site:
+      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
+      type: object
+      properties:
+        name:
+          description: Pages site resource name.
+          type: string
+          example: accounts/123456/sites/6789
+        primary:
+          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
+
+            A Pages site can have at most one primary Domain.
+
+            '
+          type: boolean
+          default: false
+    ResponseError:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: integer
+          description: 'Code that uniquely identifies the error or warning.
+
+            '
+        type:
+          type: string
+          enum:
+          - FATAL_ERROR
+          - NON_FATAL_ERROR
+          - WARNING
+        message:
+          type: string
+          description: Message explaining the problem.
+    certificate_authority:
+      type: string
+      enum:
+      - GOOGLE_TRUST
+      - LETS_ENCRYPT
+      default: GOOGLE_TRUST
     managed_csr:
       description: 'SSL certificate will be issued using the given [Managed CSR](#tag/Domains/operation/createManagedCsr).
 
@@ -2949,35 +3028,6 @@ components:
             http_body:
               type: string
               format: uuid
-    ResponseError:
-      type: object
-      properties:
-        name:
-          type: string
-        code:
-          type: integer
-          description: 'Code that uniquely identifies the error or warning.
-
-            '
-        type:
-          type: string
-          enum:
-          - FATAL_ERROR
-          - NON_FATAL_ERROR
-          - WARNING
-        message:
-          type: string
-          description: Message explaining the problem.
-    previousPageToken:
-      type: string
-      description: The token to use to retrieve the previous page of results. If empty, this is the first page.
-      example: eyJ0b2tlbiI6InB4Zl9wcmV2X3BhZ2VfdG9rZW4ifQ==
-    certificate_authority:
-      type: string
-      enum:
-      - GOOGLE_TRUST
-      - LETS_ENCRYPT
-      default: GOOGLE_TRUST
     custom_ssl_certificate:
       description: 'The provided custom SSL certificate will be used for serving requests to the domain.
 
@@ -3037,47 +3087,10 @@ components:
             http_body:
               type: string
               format: uuid
-    nextPageToken:
-      type: string
-      description: The token to use to retrieve the next page of results. If empty, this is the last page.
-      example: eyJ0b2tlbiI6InB4Zl9wYWdlX3Rva2VuIn0=
-    site:
-      description: The Pages site to associate with the parent [Domain](#tag/Domains/operation/createDomain) resource.
-      type: object
-      properties:
-        name:
-          description: Pages site resource name.
-          type: string
-          example: accounts/123456/sites/6789
-        primary:
-          description: 'If true, this will be the primary Domain for the Pages site, otherwise it will be an alias Domain.
-
-            A Pages site can have at most one primary Domain.
-
-            '
-          type: boolean
-          default: false
-    ResponseMetaWithError:
-      allOf:
-      - $ref: '#/components/schemas/ResponseMeta'
-      - type: object
-        properties:
-          errors:
-            type: array
-            description: List of errors and warnings.
-            items:
-              $ref: '#/components/schemas/ResponseError'
     totalSize:
       type: integer
       description: The total number of items that match the filter criteria, ignoring pagination.
       example: 100
-    ResponseMeta:
-      type: object
-      properties:
-        uuid:
-          type: string
-          example: 4f72b877-e2d0-4de4-9324-b9cf2c03e1a0
-          description: Unique ID for this request / response.
   parameters:
     hostnameFilters:
       name: hostname
@@ -3088,26 +3101,6 @@ components:
           type: string
       description: Exact hostname(s) to filter results by. If not provided, results for all hostnames will be returned.
       example: www.example.com,test.example.com
-    showDeleted:
-      name: show_deleted
-      in: query
-      schema:
-        type: boolean
-        default: false
-    managedCsrId:
-      name: managedCsrId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-    hostnameSearchFilter:
-      name: hostname_search
-      in: query
-      schema:
-        type: string
-      description: Case-insensitive substring used to filter by hostname.
-      example: example
     viewDefaultFull:
       name: view
       in: query
@@ -3122,42 +3115,13 @@ components:
         Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
 
         '
-    domainIdAllowAll:
+    domainId:
       name: domainId
       in: path
       required: true
       schema:
         type: string
         format: uuid
-      description: Set to "-" to reference Domain Associations from all domains in this account.
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      schema:
-        type: string
-    index_pageToken:
-      name: page_token
-      in: query
-      schema:
-        type: string
-      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
-    forceMove:
-      name: force_move
-      in: query
-      schema:
-        type: boolean
-        default: false
-      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
-    index_pageSize:
-      name: page_size
-      in: query
-      schema:
-        type: integer
-        default: 10
-        minimum: 0
-        maximum: 50
-      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
     viewDefaultBasic:
       name: view
       in: query
@@ -3172,6 +3136,33 @@ components:
         Using `BASIC` will also usually result in a lower response latency relative to using `FULL`.
 
         '
+    managedCsrId:
+      name: managedCsrId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    forceMove:
+      name: force_move
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: If true, and the domain is in a MOVE_REQUIRED state, will move ownership of the domain to this account.
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+    hostnameSearchFilter:
+      name: hostname_search
+      in: query
+      schema:
+        type: string
+      description: Case-insensitive substring used to filter by hostname.
+      example: example
     domainAssociationId:
       name: domainAssociationId
       in: path
@@ -3179,13 +3170,18 @@ components:
       schema:
         type: string
         format: uuid
-    domainId:
-      name: domainId
-      in: path
-      required: true
+    showDeleted:
+      name: show_deleted
+      in: query
+      schema:
+        type: boolean
+        default: false
+    index_pageToken:
+      name: page_token
+      in: query
       schema:
         type: string
-        format: uuid
+      description: Token to retrieve the next page of results. If not provided, the first page of results will be returned.
     v:
       name: v
       in: query
@@ -3193,19 +3189,23 @@ components:
       schema:
         type: string
       description: A date in `YYYYMMDD` format.
-  responses:
-    ErrorResponse:
-      description: Error Response
-      content:
-        application/json:
-          schema:
-            title: ErrorResponse
-            type: object
-            properties:
-              meta:
-                $ref: '#/components/schemas/ResponseMetaWithError'
-              response:
-                type: object
+    index_pageSize:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+        default: 10
+        minimum: 0
+        maximum: 50
+      description: Number of results to return per page. Sizes above the maximum will be clamped at the maximum value.
+    domainIdAllowAll:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Set to "-" to reference Domain Associations from all domains in this account.
   securitySchemes:
     api_key:
       type: apiKey
