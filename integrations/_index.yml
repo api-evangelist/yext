@@ -65,5 +65,5 @@
     - connectors/applications/yext
     vendor_link: https://www.yext.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
