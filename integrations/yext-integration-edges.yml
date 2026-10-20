@@ -6,6 +6,7 @@ checked:
 - https://zapier.com/api/v4/apps/
 - olo/integrations/olo-integration-edges.yml
 - zendesk/integrations/zendesk-integration-edges.yml
+- https://app.snowflake.com/marketplace/providers
 source:
 - olo/integrations/olo-integration-edges.yml
 edges:
@@ -94,3 +95,30 @@ edges:
   detected: '2026-10-20'
   detected_by: mirror-platform-listings.py
   category: AI and Bots
+- partner_name: Snowflake Marketplace
+  partner: snowflake
+  partner_match: aggregator
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://app.snowflake.com/marketplace/providers/GZSOZ84BSP
+  category: data product listing
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Yext
+    matched_domain: yext.com
+    matched_by: domain
+    listings: 1
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 yext.com for 'Yext' (labelled identity step)
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
