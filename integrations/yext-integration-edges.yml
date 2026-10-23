@@ -7,6 +7,7 @@ checked:
 - olo/integrations/olo-integration-edges.yml
 - zendesk/integrations/zendesk-integration-edges.yml
 - https://app.snowflake.com/marketplace/providers
+- drupal/integrations/drupal-integration-edges.yml
 source:
 - olo/integrations/olo-integration-edges.yml
 edges:
@@ -61,6 +62,33 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Snowflake Marketplace
+  partner: snowflake
+  partner_match: aggregator
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://app.snowflake.com/marketplace/providers/GZSOZ84BSP
+  category: data product listing
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Yext
+    matched_domain: yext.com
+    matched_by: domain
+    listings: 1
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 yext.com for 'Yext' (labelled identity step)
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
 - partner_name: Olo (own)
   partner: olo
   partner_match: mirror
@@ -95,30 +123,20 @@ edges:
   detected: '2026-10-20'
   detected_by: mirror-platform-listings.py
   category: AI and Bots
-- partner_name: Snowflake Marketplace
-  partner: snowflake
-  partner_match: aggregator
+- partner_name: Drupal (own)
+  partner: drupal
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
-  marketplace: snowflake-marketplace
-  channel: distribution
-  relationship: distribution-channel
+  relationship: platform-app
   direction: third-party
-  evidence: https://app.snowflake.com/marketplace/providers/GZSOZ84BSP
-  category: data product listing
-  contract_reference:
-    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
-      P856 identity step)
-    spec_file: null
-    role: data-marketplace-seller
-    registered_name: Yext
-    matched_domain: yext.com
-    matched_by: domain
-    listings: 1
-    sample_listings: []
-    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
-    detected_by: sweep-data-marketplaces.py
-    detected: '2026-10-20'
-    identity_source: wikidata
-    identity_note: wikidata P856 yext.com for 'Yext' (labelled identity step)
-  detected_by: sweep-data-marketplaces.py
-  detected: '2026-10-20'
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.drupal.org/project/yext
+  mirror_of: drupal/integrations/drupal-integration-edges.yml
+  apps:
+  - Yext Search Module
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Drupal contributed module

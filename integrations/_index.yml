@@ -54,32 +54,6 @@
     builder: Fivetran
   status: not-a-workflow
   arazzo: null
-- slug: yext-olo-own
-  label: Olo (own)
-  partner: olo
-  partner_name: Olo (own)
-  category: Data Syndication
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.olo.com/partners/yext
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: yext-zendesk-own
-  label: Zendesk (own)
-  partner: zendesk
-  partner_name: Zendesk (own)
-  category: AI and Bots
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.zendesk.com/marketplace/apps/support/457680/yext-search/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: yext-snowflake-marketplace
   label: Snowflake Marketplace
   partner: snowflake
@@ -106,5 +80,44 @@
     detected: '2026-10-20'
     identity_source: wikidata
     identity_note: wikidata P856 yext.com for 'Yext' (labelled identity step)
+  status: not-a-workflow
+  arazzo: null
+- slug: yext-olo-own
+  label: Olo (own)
+  partner: olo
+  partner_name: Olo (own)
+  category: Data Syndication
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.olo.com/partners/yext
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: yext-zendesk-own
+  label: Zendesk (own)
+  partner: zendesk
+  partner_name: Zendesk (own)
+  category: AI and Bots
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.zendesk.com/marketplace/apps/support/457680/yext-search/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: yext-drupal-own
+  label: Drupal (own)
+  partner: drupal
+  partner_name: Drupal (own)
+  category: Drupal contributed module
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.drupal.org/project/yext
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
