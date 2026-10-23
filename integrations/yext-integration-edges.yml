@@ -8,6 +8,8 @@ checked:
 - zendesk/integrations/zendesk-integration-edges.yml
 - https://app.snowflake.com/marketplace/providers
 - drupal/integrations/drupal-integration-edges.yml
+- adobe-experience-cloud/integrations/adobe-experience-cloud-integration-edges.yml
+- adobe-experience-manager/integrations/adobe-experience-manager-integration-edges.yml
 source:
 - olo/integrations/olo-integration-edges.yml
 edges:
@@ -140,3 +142,37 @@ edges:
   detected: '2026-10-22'
   detected_by: mirror-platform-listings.py
   category: Drupal contributed module
+- partner_name: Adobe Experience Cloud (own)
+  partner: adobe-experience-cloud
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://exchange.adobe.com/apps/ec/103174
+  mirror_of: adobe-experience-cloud/integrations/adobe-experience-cloud-integration-edges.yml
+  apps:
+  - Yext Conversion Tracking
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Adobe Exchange Experience Cloud listing (Experience Platform)
+- partner_name: Adobe Experience Manager (own)
+  partner: adobe-experience-manager
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://exchange.adobe.com/apps/ec/101571
+  mirror_of: adobe-experience-manager/integrations/adobe-experience-manager-integration-edges.yml
+  apps:
+  - Yext for Adobe Experience Manager
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Adobe Exchange Experience Cloud listing (Experience Manager)

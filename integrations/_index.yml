@@ -121,3 +121,29 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: yext-adobe-experience-cloud-own
+  label: Adobe Experience Cloud (own)
+  partner: adobe-experience-cloud
+  partner_name: Adobe Experience Cloud (own)
+  category: Adobe Exchange Experience Cloud listing (Experience Platform)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://exchange.adobe.com/apps/ec/103174
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: yext-adobe-experience-manager-own
+  label: Adobe Experience Manager (own)
+  partner: adobe-experience-manager
+  partner_name: Adobe Experience Manager (own)
+  category: Adobe Exchange Experience Cloud listing (Experience Manager)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://exchange.adobe.com/apps/ec/101571
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
